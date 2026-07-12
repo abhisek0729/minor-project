@@ -46,6 +46,7 @@ export const restaurantsTable = pgTable("restaurants", {
   phone_number: varchar({ length: 255 }).notNull(),
   cuisine: varchar({ length: 255 }).notNull(),
 });
+
 export const menusTable = pgTable("menus", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   restaurant_id: integer()
