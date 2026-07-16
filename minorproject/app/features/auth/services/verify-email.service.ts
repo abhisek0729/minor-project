@@ -25,9 +25,9 @@ export async function emailVerification(body: {
     }
 
     const isCodeValid = code === user.verify_code;
-    const isCodNotExpired = user.verify_code_expiry! > new Date();
+    const isCodeNotExpired = user.verify_code_expiry !== null && user.verify_code_expiry > new Date();
 
-    if (isCodeValid && isCodNotExpired) {
+    if (isCodeValid && isCodeNotExpired) {
       await db
         .update(usersTable)
         .set({
@@ -42,24 +42,24 @@ export async function emailVerification(body: {
           message: "Your account verified successfully",
         },
       };
-    } else if (!isCodNotExpired) {
+    } else if (!isCodeValid) {
       return {
         status: 400,
         body: {
           success: false,
-          message:
-            "Verificaition code is expired. Please sign-up again to get new verification code.",
-        },
-      };
-    } else {
-      return {
-        status: 400,
-        body: {
-          success: false,
-          message: "Invalid Verification Code",
+          message: "Invalid verification code",
         },
       };
     }
+
+    return {
+      status: 410,
+      body: {
+        success: false,
+        message:
+          "Verification code has expired. Please register again to receive a new verification code.",
+      },
+    };
   } catch (error) {
     console.log("Error in email verification ", error);
     return {

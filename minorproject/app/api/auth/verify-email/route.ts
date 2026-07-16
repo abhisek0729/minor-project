@@ -29,6 +29,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json<ApiResponse>({
       success: false,
       message: "Internal Server error",
-    });
+    },{status : 500});
   }
 }
