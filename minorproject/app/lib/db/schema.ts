@@ -1,20 +1,46 @@
-import { integer, pgTable, varchar, pgEnum,timestamp } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgTable,
+  varchar,
+  pgEnum,
+  timestamp,
+  boolean,
+} from "drizzle-orm/pg-core";
 
-export const roleEnum = pgEnum("role", ["user", "admin", "owner"]);
+export const roleEnum = pgEnum("role", [
+  "tourist",
+  "hotelOwner",
+  "restaurantOwner",
+  "guide",
+  "admin",
+]);
+
+export const providerEnum = pgEnum("provider", ["credentials", "google"]);
+
+export const approvalStatusEnum = pgEnum("approval_status", [
+  "pending",
+  "approved",
+  "rejected",
+  "suspended",
+]);
 
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
-  password_hash:varchar({length:255}),
+  password_hash: varchar({ length: 255 }),
   email: varchar({ length: 255 }).notNull().unique(),
-  role: roleEnum().default("user"),
+  is_verified: boolean().default(false),
+  approval_status: approvalStatusEnum().default("pending"),
+  role: roleEnum().default("tourist"),
+  verify_code: varchar({ length: 10 }),
+  verify_code_expiry: timestamp(),
+  provider: providerEnum().default("google"),
   created_at: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const hotelsTable = pgTable("hotels", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  user_id: integer()
-    .references(() => usersTable.id, { onDelete: "cascade" }),
+  user_id: integer().references(() => usersTable.id, { onDelete: "cascade" }),
   name: varchar({ length: 255 }).notNull(),
   description: varchar({ length: 255 }).notNull(),
   hotel_image_url: varchar({ length: 255 }).notNull(),
@@ -22,6 +48,7 @@ export const hotelsTable = pgTable("hotels", {
   phone_number: varchar({ length: 255 }).notNull(),
   created_at: timestamp("created_at").defaultNow().notNull(),
 });
+
 export const roomsTable = pgTable("rooms", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   hotel_id: integer()
@@ -38,14 +65,14 @@ export const roomsTable = pgTable("rooms", {
 export const restaurantsTable = pgTable("restaurants", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
-    user_id: integer()
-    .references(() => usersTable.id, { onDelete: "cascade" }),
+  user_id: integer().references(() => usersTable.id, { onDelete: "cascade" }),
   description: varchar({ length: 255 }).notNull(),
   restaurant_image_url: varchar({ length: 255 }).notNull(),
   location: varchar({ length: 255 }).notNull(),
   phone_number: varchar({ length: 255 }).notNull(),
   cuisine: varchar({ length: 255 }).notNull(),
 });
+
 export const menusTable = pgTable("menus", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   restaurant_id: integer()
@@ -61,8 +88,7 @@ export const menusTable = pgTable("menus", {
 export const guidesTable = pgTable("guides", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
-    user_id: integer()
-    .references(() => usersTable.id, { onDelete: "cascade" }),
+  user_id: integer().references(() => usersTable.id, { onDelete: "cascade" }),
   description: varchar({ length: 255 }).notNull(),
   location: varchar({ length: 255 }).notNull(),
   phone_number: varchar({ length: 255 }).notNull(),
@@ -82,8 +108,7 @@ export const placesTable = pgTable("places", {
 
 export const expensesTable = pgTable("expenses", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    user_id: integer()
-    .references(() => usersTable.id, { onDelete: "cascade" }),
+  user_id: integer().references(() => usersTable.id, { onDelete: "cascade" }),
   name: varchar({ length: 255 }).notNull(),
   amount: integer().notNull(),
   location: varchar({ length: 255 }).notNull(),
