@@ -235,3 +235,7 @@ Approved and Merged into Main
 # Need Help?
 
 If you encounter merge conflicts, setup issues, or are unsure where a change belongs, contact the project maintainer before proceeding.
+
+<!-- 
+later expansion
+attractions,transportation,events,activities,shopping,nightlife,spas,wellness,adventure,sports,culture,history,nature,parks,gardens,museums,galleries,theaters,cinemas,concerts,festivals,fairs,markets,food&wine,tours&excursions -->
