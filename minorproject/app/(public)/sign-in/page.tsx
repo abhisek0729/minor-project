@@ -1,11 +1,25 @@
-import React from 'react'
+// import SignInPage from "@/app/features/auth/components/SignInForm";
 
-const page = () => {
+// import React from 'react'
+
+// const page = () => {
+//   return (
+//     <div>
+//       <SignInPage />
+//     </div>
+//   )
+// }
+
+// export default page
+
+
+import { AuthLayout } from "@/app/features/auth/components";
+import SignInForm from "@/app/features/auth/components/SignInForm";
+
+export default function Page() {
   return (
-    <div>
-      This is sign-in page
-    </div>
-  )
+    <AuthLayout>
+      <SignInForm />
+    </AuthLayout>
+  );
 }
-
-export default page
