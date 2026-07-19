@@ -1,14 +1,16 @@
-"use client"
+"use client";
 
-import React from 'react'
-import RegisterForm from '@/app/features/auth/components/RegisterForm'
+import React from "react";
+import RegisterForm from "@/app/features/auth/components/RegisterForm";
+import AuthLayout from "@/app/features/auth/components/AuthLayout";
 const page = () => {
   return (
     <div>
-      <RegisterForm />
+      <AuthLayout>
+        <RegisterForm />
+      </AuthLayout>
     </div>
-  )
-}
+  );
+};
 
-export default page
-
+export default page;
