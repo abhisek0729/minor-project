@@ -1,13 +1,12 @@
-"use client";
-
-import React from "react";
 import RegisterForm from "@/app/features/auth/components/RegisterForm";
 import AuthLayout from "@/app/features/auth/components/AuthLayout";
-const page = () => {
+
+const page = async () => {
+ 
   return (
     <div>
       <AuthLayout>
-        <RegisterForm />
+        <RegisterForm role={"tourist"} mode={"tourist-signup"} />
       </AuthLayout>
     </div>
   );

@@ -54,6 +54,7 @@ export default function SignInForm() {
       });
 
       if (res?.error) {
+        console.log(res.error)
         toast.error(res.error);
         return;
       }
@@ -61,7 +62,7 @@ export default function SignInForm() {
       toast.success("Welcome back!");
 
       router.replace("/dashboard");
-    } catch {
+    } catch(error) {
       toast.error("Something went wrong.");
     } finally {
       setIsSubmitting(false);
@@ -83,7 +84,7 @@ export default function SignInForm() {
 
       <AuthDivider />
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <FieldGroup className="gap-3">
           <Field data-invalid={!!form.formState.errors.identifier}>
             <FieldLabel>Email</FieldLabel>
@@ -126,7 +127,7 @@ export default function SignInForm() {
       <AuthFooter
         text="Don't have an account?"
         linkText="Create Account"
-        href="/sign-up"
+        href="/sign-up/role-choice"
       />
     </>
   );
