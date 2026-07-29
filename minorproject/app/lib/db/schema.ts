@@ -5,6 +5,7 @@ import {
   pgEnum,
   timestamp,
   boolean,
+  primaryKey
 } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", [
@@ -30,13 +31,41 @@ export const usersTable = pgTable("users", {
   password_hash: varchar({ length: 255 }),
   email: varchar({ length: 255 }).notNull().unique(),
   is_verified: boolean().default(false),
-  approval_status: approvalStatusEnum().default("pending"),
-  role: roleEnum().default("tourist"),
   verify_code: varchar({ length: 10 }),
   verify_code_expiry: timestamp(),
   provider: providerEnum().default("google"),
   created_at: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const rolesTable = pgTable("roles", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  name: roleEnum().notNull().unique(),
+});
+
+
+
+export const userRolesTable = pgTable(
+  "user_roles",
+  {
+    userId: integer("user_id")
+      .notNull()
+      .references(() => usersTable.id, { onDelete: "cascade" }),
+
+    roleId: integer("role_id")
+      .notNull()
+      .references(() => rolesTable.id, { onDelete: "cascade" }),
+
+    approvalStatus: approvalStatusEnum()
+      .default("pending")
+      .notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({
+      columns: [table.userId, table.roleId],
+    }),
+  })
+);
+
 
 export const hotelsTable = pgTable("hotels", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),

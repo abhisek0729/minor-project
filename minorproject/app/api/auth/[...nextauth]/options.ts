@@ -1,12 +1,27 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { usersTable } from "@/app/lib/db/schema";
+import {
+  usersTable,
+  rolesTable,
+  userRolesTable,
+  approvalStatusEnum,
+} from "@/app/lib/db/schema";
 import bcrypt from "bcryptjs";
 import { db } from "@/app/lib/db";
 import { eq } from "drizzle-orm";
 import { LoginCredentials } from "@/app/features/auth/types/register";
 import { User } from "next-auth";
+import { cookies } from "next/headers";
+import { UserRole } from "@/app/features/auth/types/register";
+import { ApprovalStatus } from "@/app/types/next-auth";
+import {
+  getRoleByName,
+  getUserRoles,
+  assignRoleIfMissing,
+} from "@/app/features/auth/services/roles.service";
+
+const allowedRoles = ["tourist", "hotelOwner", "restaurantOwner", "guide"];
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -25,16 +40,24 @@ export const authOptions: NextAuthOptions = {
       async authorize(
         credentials: LoginCredentials | undefined,
       ): Promise<User | null> {
-
         if (!credentials) {
           throw new Error("Missing credentials");
         }
 
         try {
-          const [user] = await db
+          const userWithRoles = await db
             .select()
             .from(usersTable)
+            .innerJoin(userRolesTable, eq(usersTable.id, userRolesTable.userId))
+            .innerJoin(rolesTable, eq(userRolesTable.roleId, rolesTable.id))
             .where(eq(usersTable.email, credentials.identifier.toLowerCase()));
+
+          const user = userWithRoles[0]?.users;
+
+          const roles = userWithRoles.map((row) => ({
+            name: row.roles.name,
+            approvalStatus: row.user_roles.approvalStatus,
+          }));
 
           if (!user) {
             throw new Error("Invalid email or password");
@@ -46,10 +69,6 @@ export const authOptions: NextAuthOptions = {
 
           if (!user.is_verified) {
             throw new Error("Please verify your email first");
-          }
-
-          if (user.approval_status !== "approved") {
-            throw new Error("Your account is awaiting approval");
           }
 
           const isPasswordValid = await bcrypt.compare(
@@ -65,8 +84,7 @@ export const authOptions: NextAuthOptions = {
               name: user.name,
               email: user.email,
               is_verified: user.is_verified,
-              role: user.role!,
-              approval_status: user.approval_status,
+              roles,
             };
           }
         } catch (error: any) {
@@ -100,26 +118,34 @@ export const authOptions: NextAuthOptions = {
           .from(usersTable)
           .where(eq(usersTable.email, token.email!));
 
+        const role =
+          ((await cookies()).get("partner_role")?.value as
+            | UserRole
+            | undefined) ?? "tourist";
+
+        if (!allowedRoles.includes(role)) {
+          throw new Error("Invalid role");
+        }
+
         if (!dbUser) {
-          let [newUser] = await db
+          [dbUser] = await db
             .insert(usersTable)
             .values({
               email: token.email!,
               name: user.name ?? token.email!.split("@")[0],
               is_verified: true,
               provider: "google",
-              approval_status: "approved",
             })
             .returning();
-
-          dbUser = newUser;
         }
+
+        const userRoles = await assignRoleIfMissing(dbUser.id, role);
+
         token.id = dbUser.id.toString();
         token.name = dbUser.name;
         token.email = dbUser.email;
         token.is_verified = dbUser.is_verified!;
-        token.role = dbUser.role!;
-        token.approval_status = dbUser.approval_status!;
+        token.roles = userRoles;
       }
 
       // CREDENTIALS LOGIN
@@ -128,8 +154,7 @@ export const authOptions: NextAuthOptions = {
         token.name = user.name;
         token.email = user.email;
         token.is_verified = user.is_verified;
-        token.role = user.role;
-        token.approval_status = user.approval_status;
+        token.roles = user.roles;
       }
       return token;
     },
@@ -139,8 +164,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.is_verified = token.is_verified;
-        session.user.role = token.role!;
-        session.user.approval_status = token.approval_status;
+        session.user.roles = token.roles;
       }
 
       return session;

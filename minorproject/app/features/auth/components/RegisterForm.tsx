@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import axios from "axios";
 
 import { signUpSchema } from "@/app/features/auth/schemas/sign-up-schema";
+import { clearPartnerRole } from "@/app/features/auth/actions/partner-role";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,8 +31,7 @@ import {
   AuthFooter,
 } from "@/app/features/auth/components";
 
-
-export default function SignUpForm() {
+export default function SignUpForm({ role,mode }: { role: string | undefined, mode : "partner-signup" | "signin" | "tourist-signup" }) {
   const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -47,25 +47,22 @@ export default function SignUpForm() {
 
   async function onSubmit(data: z.infer<typeof signUpSchema>) {
     try {
+      await clearPartnerRole();
       setIsSubmitting(true);
-
-      const res = await axios.post("/api/sign-up", data);
-
+      const res = await axios.post("/api/auth/register", {
+        ...data,
+        role: role,
+      });
       toast.success(res.data.message);
 
-      // Automatically sign in after successful registration
-      await signIn("credentials", {
-        redirect: false,
-        identifier: data.email,
-        password: data.password,
-      });
-
-      router.replace("/dashboard");
+      if (res.data.success) {
+        toast.success(res.data.message);
+        router.replace(`/verify-email/${data.email}`);
+      } else {
+        toast.error(res.data.message);
+      }
     } catch (error: any) {
-      toast.error(
-        error?.response?.data?.message ??
-          "Something went wrong."
-      );
+      toast.error(error?.response?.data?.message ?? "Something went wrong.");
     } finally {
       setIsSubmitting(false);
     }
@@ -82,14 +79,11 @@ export default function SignUpForm() {
         description="Join TravelAgent and start exploring Nepal with AI-powered trip planning."
       />
 
-      <GoogleButton mode="signup" />
+      <GoogleButton mode={mode} />
 
       <AuthDivider />
 
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-3"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <FieldGroup className="gap-2">
           {/* Name */}
 
@@ -102,9 +96,7 @@ export default function SignUpForm() {
             />
 
             <div className="min-h-5">
-              <FieldError
-                errors={[form.formState.errors.name]}
-              />
+              <FieldError errors={[form.formState.errors.name]} />
             </div>
           </Field>
 
@@ -120,9 +112,7 @@ export default function SignUpForm() {
             />
 
             <div className="min-h-5">
-              <FieldError
-                errors={[form.formState.errors.email]}
-              />
+              <FieldError errors={[form.formState.errors.email]} />
             </div>
           </Field>
 
@@ -135,11 +125,7 @@ export default function SignUpForm() {
           />
         </FieldGroup>
 
-        <Button
-          type="submit"
-          className="h-11 w-full"
-          disabled={isSubmitting}
-        >
+        <Button type="submit" className="h-11 w-full" disabled={isSubmitting}>
           {isSubmitting ? (
             <>
               <Loader2 className="mr-2 size-4 animate-spin" />

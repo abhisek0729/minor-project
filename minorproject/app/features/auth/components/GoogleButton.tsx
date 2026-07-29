@@ -6,9 +6,10 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { clearPartnerRole } from "@/app/features/auth/actions/partner-role";
 
 interface GoogleSignInButtonProps {
-  mode?: "signin" | "signup";
+  mode?: "signin" | "partner-signup" | "tourist-signup";
   callbackUrl?: string;
 }
 
@@ -20,6 +21,9 @@ export default function GoogleSignInButton({
 
   const handleGoogleSignIn = async () => {
     try {
+      if(mode === "tourist-signup"){
+        await clearPartnerRole();
+      }
       setIsLoading(true);
 
       await signIn("google", {
@@ -47,9 +51,7 @@ export default function GoogleSignInButton({
         <>
           <FcGoogle className="mr-2 h-5 w-5" />
 
-          {mode === "signin"
-            ? "Continue with Google"
-            : "Sign up with Google"}
+          {mode === "signin" ? "Continue with Google" : "Sign up with Google"}
         </>
       )}
     </Button>

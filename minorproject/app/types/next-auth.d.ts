@@ -10,28 +10,33 @@ declare module "next-auth" {
     name?: string;
     email?: string;
     is_verified?: boolean;
-    role?: UserRole | "admin";
-    approval_status?: ApprovalStatus;
+    roles?: {
+      name: UserRole | "admin";
+      approvalStatus: ApprovalStatus;
+    }[];
   }
 
   interface Session {
     user: {
       id?: string;
       is_verified?: boolean;
-      role : UserRole | 'admin';
-      approval_status?: ApprovalStatus;
+      roles?: {
+        name: UserRole | "admin";
+        approvalStatus: ApprovalStatus;
+      }[];
     } & DefaultSession["user"];
   }
 }
 
-declare module "next-auth/jwt"{
-    interface JWT {
-      id?: string;
-      name?: string;
-      email?: string;
-      is_verified?: boolean;
-      role?:UserRole | 'admin';
-      approval_status?: ApprovalStatus;
-    }
-    
+declare module "next-auth/jwt" {
+  interface JWT {
+    id?: string;
+    name?: string;
+    email?: string;
+    is_verified?: boolean;
+    roles?: {
+      name: UserRole | "admin";
+      approvalStatus: ApprovalStatus;
+    }[];
+  }
 }
