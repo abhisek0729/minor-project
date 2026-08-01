@@ -5,7 +5,9 @@ import {
   pgEnum,
   timestamp,
   boolean,
-  primaryKey
+  primaryKey,
+  text,
+  doublePrecision
 } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", [
@@ -43,7 +45,6 @@ export const rolesTable = pgTable("roles", {
 });
 
 
-
 export const userRolesTable = pgTable(
   "user_roles",
   {
@@ -71,12 +72,60 @@ export const hotelsTable = pgTable("hotels", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   user_id: integer().references(() => usersTable.id, { onDelete: "cascade" }),
   name: varchar({ length: 255 }).notNull(),
-  description: varchar({ length: 255 }).notNull(),
-  hotel_image_url: varchar({ length: 255 }).notNull(),
-  location: varchar({ length: 255 }).notNull(),
+  description: text().notNull(),
+  establishedYear: integer(),
   phone_number: varchar({ length: 255 }).notNull(),
+  website: varchar({ length: 255 }),
+  province: varchar({ length: 100 }).notNull(),
+  district: varchar({ length: 100 }).notNull(),
+  municipality: varchar({ length: 100 }).notNull(),
+  ward: varchar({ length: 20 }).notNull(),
+  street: varchar({ length: 255 }).notNull(),
+  latitude: doublePrecision(),
+  longitude: doublePrecision(),
+  coverImageUrl: text(),
+  coverImagePublicId: text(),
   created_at: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
 });
+
+export const hotelImagesTable = pgTable("hotel_images", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  hotelId: integer()
+    .references(() => hotelsTable.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+
+  imageUrl: text().notNull(),
+  publicId: text().notNull(),
+  createdAt: timestamp("created_at")
+    .defaultNow()
+    .notNull(),
+});
+
+export const facilitiesTable = pgTable("facilities", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  name: varchar({ length: 100 }).notNull().unique(),
+  icon: varchar({ length: 50 }).notNull(),
+});
+
+
+export const hotelFacilitiesTable = pgTable("hotel_facilities", {
+  hotelId: integer()
+    .references(() => hotelsTable.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+
+  facilityId: integer()
+    .references(() => facilitiesTable.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+});
+
+
 
 export const roomsTable = pgTable("rooms", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),

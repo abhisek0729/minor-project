@@ -53,8 +53,7 @@ export default function SignUpForm({ role,mode }: { role: string | undefined, mo
         ...data,
         role: role,
       });
-      toast.success(res.data.message);
-
+      
       if (res.data.success) {
         toast.success(res.data.message);
         router.replace(`/verify-email/${data.email}`);
