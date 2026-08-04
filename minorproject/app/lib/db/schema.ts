@@ -7,7 +7,9 @@ import {
   boolean,
   primaryKey,
   text,
-  doublePrecision
+  doublePrecision,
+  unique,
+  numeric
 } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", [
@@ -125,20 +127,115 @@ export const hotelFacilitiesTable = pgTable("hotel_facilities", {
     .notNull(),
 });
 
+export const roomTypeEnum = pgEnum("room_type", [
+  "single",
+  "double",
+  "twin",
+  "family",
+  "suite",
+]);
+
+export const roomStatusEnum = pgEnum("room_status", [
+  "available",
+  "maintenance",
+  "inactive",
+]);
 
 
-export const roomsTable = pgTable("rooms", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  hotel_id: integer()
-    .references(() => hotelsTable.id, { onDelete: "cascade" })
+export const roomsTable = pgTable(
+  "rooms",
+  {
+    id: integer()
+      .primaryKey()
+      .generatedAlwaysAsIdentity(),
+
+    hotel_id: integer()
+      .references(() => hotelsTable.id, {
+        onDelete: "cascade",
+      })
+      .notNull(),
+
+    room_number: varchar({
+      length: 20,
+    }).notNull(),
+
+    room_type: roomTypeEnum().notNull(),
+
+    description: text().notNull(),
+
+    price_per_night: numeric({
+      precision: 10,
+      scale: 2,
+    }).notNull(),
+
+    capacity: integer().notNull(),
+
+    status: roomStatusEnum()
+      .default("available")
+      .notNull(),
+
+    created_at: timestamp()
+      .defaultNow()
+      .notNull(),
+
+    updated_at: timestamp()
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    unique("rooms_hotel_room_number_unique").on(
+      table.hotel_id,
+      table.room_number
+    ),
+  ]
+);
+
+export const roomImagesTable = pgTable("room_images", {
+  id: integer()
+    .primaryKey()
+    .generatedAlwaysAsIdentity(),
+
+  room_id: integer()
+    .references(() => roomsTable.id, {
+      onDelete: "cascade",
+    })
     .notNull(),
-  room_number: varchar({ length: 255 }).notNull(),
-  room_type: varchar({ length: 255 }).notNull(),
-  description: varchar({ length: 255 }).notNull(),
-  room_image_url: varchar({ length: 255 }).notNull(),
-  price: integer().notNull(),
-  created_at: timestamp("created_at").defaultNow().notNull(),
+
+  image_url: varchar({
+    length: 500,
+  }).notNull(),
+
+  public_id: varchar({
+    length: 255,
+  }).notNull(),
+
+  created_at: timestamp()
+    .defaultNow()
+    .notNull(),
 });
+
+export const roomFacilitiesTable = pgTable(
+  "room_facilities",
+  {
+    room_id: integer()
+      .references(() => roomsTable.id, {
+        onDelete: "cascade",
+      })
+      .notNull(),
+
+    facility_id: integer()
+      .references(() => facilitiesTable.id, {
+        onDelete: "cascade",
+      })
+      .notNull(),
+  },
+  (table) => [
+    primaryKey({
+      columns: [table.room_id, table.facility_id],
+    }),
+  ]
+);
+
 
 export const restaurantsTable = pgTable("restaurants", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),

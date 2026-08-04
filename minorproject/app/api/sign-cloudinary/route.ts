@@ -10,6 +10,7 @@ const allowedFolders = [
   "tourism/guides",
   "tourism/users",
   "tourism/destinations",
+  "tourism/rooms"
 ];
 
 export async function POST(req: NextRequest) {

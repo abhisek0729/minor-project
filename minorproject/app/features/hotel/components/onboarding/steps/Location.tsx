@@ -4,8 +4,8 @@ import { MapPin, MapPinned, Navigation } from "lucide-react";
 import { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { HotelSchema } from "../../schemas/hotel.schema";
-import { provinces } from "../../data/nepal-location";
+import { HotelSchema } from "../../../schemas/hotel.schema";
+import { provinces } from "../../../data/nepal-location";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

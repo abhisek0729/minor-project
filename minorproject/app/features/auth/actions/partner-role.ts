@@ -13,6 +13,10 @@ export async function setPartnerRole(role: UserRole) {
   });
 }
 
+export async function getPartnerRole(){
+  
+}
+
 
 export async function clearPartnerRole() {
   (await cookies()).delete("partner_role");

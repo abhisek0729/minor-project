@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { clearPartnerRole } from "@/app/features/auth/actions/partner-role";
 
+
 interface GoogleSignInButtonProps {
   mode?: "signin" | "partner-signup" | "tourist-signup";
   callbackUrl?: string;
@@ -15,7 +16,7 @@ interface GoogleSignInButtonProps {
 
 export default function GoogleSignInButton({
   mode = "signin",
-  callbackUrl = "/dashboard",
+  callbackUrl = "/workspace",
 }: GoogleSignInButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
 

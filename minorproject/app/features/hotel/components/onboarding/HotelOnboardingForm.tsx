@@ -14,10 +14,11 @@ import MediaUploadStep from "./steps/MediaUpload";
 import VerificationStep from "./steps/Verification";
 import ReviewStep from "./steps/Review";
 import { FacilityIconKey } from "./steps/Facilities";
-import { createHotel } from "../actions/createHotel";
+import { createHotel } from "../../actions/createHotel";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-import { hotelSchema, HotelSchema } from "../schemas/hotel.schema";
+import { hotelSchema, HotelSchema } from "../../schemas/hotel.schema";
 import { toast } from "sonner";
 
 type HotelInput = z.input<typeof hotelSchema>;
@@ -30,6 +31,7 @@ interface HotelOnboardingFormProps {
 
 export default function HotelOnboardingForm(props: HotelOnboardingFormProps) {
   const [step, setStep] = useState(1);
+  const {data : session } = useSession();
   const router = useRouter();
 
   const methods = useForm<HotelInput, unknown, HotelOutput>({
@@ -43,7 +45,7 @@ export default function HotelOnboardingForm(props: HotelOnboardingFormProps) {
 
       // Step 2
       phone: "",
-      email: "onboarding12@gmail.com",
+      email: session?.user?.email || "",
       website: "",
 
       // Step 3

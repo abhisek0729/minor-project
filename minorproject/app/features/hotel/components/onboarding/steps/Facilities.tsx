@@ -2,24 +2,9 @@
 
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import {
-  Wifi,
-  Car,
-  UtensilsCrossed,
-  Dumbbell,
-  Waves,
-  ShieldCheck,
-  Coffee,
-  Snowflake,
-  Tv,
-  WashingMachine,
-  PawPrint,
-  Accessibility,
-  Plus,
-  X,
-} from "lucide-react";
 
-import { HotelSchema } from "../../schemas/hotel.schema";
+import { HotelSchema } from "../../../schemas/hotel.schema";
+import { FACILITIES_ICONS } from "../../../constants/icon-mapper";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,20 +15,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 
-export const facilityIcons = {
-  wifi: Wifi,
-  car: Car,
-  "utensils-crossed": UtensilsCrossed,
-  dumbbell: Dumbbell,
-  waves: Waves,
-  "shield-check": ShieldCheck,
-  coffee: Coffee,
-  snowflake: Snowflake,
-  tv: Tv,
-  "washing-machine": WashingMachine,
-  "paw-print": PawPrint,
-  accessibility: Accessibility,
-};
+export const facilityIcons = FACILITIES_ICONS;
 export type FacilityIconKey = keyof typeof facilityIcons;
 
 interface FacilitiesStepProps {
@@ -51,21 +23,6 @@ interface FacilitiesStepProps {
   next: () => void;
   previous: () => void;
 }
-
-// const predefinedFacilities = [
-//   { value: "Free WiFi", icon: Wifi },
-//   { value: "Parking", icon: Car },
-//   { value: "Restaurant", icon: UtensilsCrossed },
-//   { value: "Gym", icon: Dumbbell },
-//   { value: "Swimming Pool", icon: Waves },
-//   { value: "24/7 Security", icon: ShieldCheck },
-//   { value: "Breakfast Included", icon: Coffee },
-//   { value: "Air Conditioning", icon: Snowflake },
-//   { value: "Television", icon: Tv },
-//   { value: "Laundry Service", icon: WashingMachine },
-//   { value: "Pet Friendly", icon: PawPrint },
-//   { value: "Wheelchair Accessible", icon: Accessibility },
-// ];
 
 export default function FacilitiesStep({
   predefinedFacilities,
@@ -88,7 +45,7 @@ export default function FacilitiesStep({
     if (exists) {
       setValue(
         "facilities",
-        selectedFacilities.filter((item) => item !== facilityId),
+        selectedFacilities.filter((item:number) => item !== facilityId),
         {
           shouldValidate: true,
         }
