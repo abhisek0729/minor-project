@@ -2,9 +2,9 @@ import { redirect } from "next/navigation";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-import HotelOnboardingForm from "@/app/features/hotel/components/HotelOnboardingForm";
+import HotelOnboardingForm from "@/app/features/hotel/components/onboarding/HotelOnboardingForm";
 import { getFacilities } from "@/app/features/hotel/actions/getFacilities";
-import { getHotelByOwnerId } from "@/app/features/hotel/actions/getHotelByOwnerId";
+import { getHotelByOwnerId, hasHotel } from "@/app/features/hotel/actions/getHotelByOwnerId";
 
 export default async function HotelOnboardingPage() {
   const session = await getServerSession(authOptions);
@@ -17,7 +17,7 @@ export default async function HotelOnboardingPage() {
     redirect("/unauthorized")
   }
 
-  const hotel = await getHotelByOwnerId(Number(session.user.id));
+  const hotel = await hasHotel(Number(session.user.id));
 
   if (hotel) {
     redirect("/dashboard/hotels");

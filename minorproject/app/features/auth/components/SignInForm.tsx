@@ -61,7 +61,7 @@ export default function SignInForm() {
 
       toast.success("Welcome back!");
 
-      router.replace("/dashboard");
+      router.replace("/workspace");
     } catch(error) {
       toast.error("Something went wrong.");
     } finally {

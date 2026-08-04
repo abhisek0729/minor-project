@@ -4,7 +4,7 @@ import { asc } from "drizzle-orm";
 
 import { db } from "@/app/lib/db";
 import { facilitiesTable } from "@/app/lib/db/schema";
-import { FacilityIconKey } from "../components/steps/Facilities";
+import { FacilityIconKey } from "../components/onboarding/steps/Facilities";
 
 export async function getFacilities() {
   try {
