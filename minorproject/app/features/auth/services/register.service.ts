@@ -50,7 +50,7 @@ export async function registerUser(
       const userRoles = await getUserRoles(existingUser.id);
       const hasRole = userRoles.some((r) => r.name === role);
 
-      if (existingUser.is_verified && hasRole) {
+      if (existingUser.isVerified && hasRole) {
         return {
           status: 409,
           body: {
@@ -58,7 +58,7 @@ export async function registerUser(
             message: "Email is already registered with selected role",
           },
         };
-      } else if (existingUser.is_verified && !hasRole) {
+      } else if (existingUser.isVerified && !hasRole) {
         return {
           status: 200,
           body: {
@@ -72,9 +72,9 @@ export async function registerUser(
           .update(usersTable)
           .set({
             name: normalizedName,
-            password_hash: hashedPassword,
-            verify_code: verifyCode,
-            verify_code_expiry: verifyCodeExpiry,
+            passwordHash: hashedPassword,
+            verifyCode: verifyCode,
+            verifyCodeExpiry: verifyCodeExpiry,
             provider: "credentials",
           })
           .where(eq(usersTable.id, existingUser.id));
@@ -87,9 +87,9 @@ export async function registerUser(
         .values({
           name: normalizedName,
           email: normalizedEmail,
-          password_hash: hashedPassword,
-          verify_code: verifyCode,
-          verify_code_expiry: verifyCodeExpiry,
+          passwordHash: hashedPassword,
+          verifyCode: verifyCode,
+          verifyCodeExpiry: verifyCodeExpiry,
           provider: "credentials",
         })
         .returning();
@@ -139,7 +139,7 @@ export async function registerUser(
         status: 500,
         body: {
           success: false,
-          message: "Unable to send verification email.",
+          message: emailResult.message || "Unable to send verification email.",
         },
       };
     }
@@ -151,13 +151,13 @@ export async function registerUser(
         message: "Registration successful. Please verify your email.",
       },
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Registration Error:", error);
     return {
       status: 500,
       body: {
         success: false,
-        message: "Error in registration",
+        message: error?.message || "Error in registration",
       },
     };
   }

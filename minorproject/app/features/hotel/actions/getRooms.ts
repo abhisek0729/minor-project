@@ -53,7 +53,7 @@ export async function getRooms({
       id: hotelsTable.id,
     })
     .from(hotelsTable)
-    .where(eq(hotelsTable.user_id, Number(session.user.id)));
+    .where(eq(hotelsTable.userId, Number(session.user.id)));
 
   if (!hotel) {
     return {
@@ -64,12 +64,12 @@ export async function getRooms({
   }
 
   const conditions: SQL[] = [
-    eq(roomsTable.hotel_id, hotel.id),
+    eq(roomsTable.hotelId, hotel.id),
   ];
 
   if (search.trim()) {
     conditions.push(
-      ilike(roomsTable.room_number, `%${search.trim()}%`),
+      ilike(roomsTable.roomNumber, `%${search.trim()}%`),
     );
   }
 
@@ -78,22 +78,22 @@ export async function getRooms({
   }
 
   if (roomType !== "all") {
-    conditions.push(eq(roomsTable.room_type, roomType));
+    conditions.push(eq(roomsTable.roomType, roomType));
   }
 
   let orderBy;
 
   switch (sortBy) {
     case "oldest":
-      orderBy = asc(roomsTable.created_at);
+      orderBy = asc(roomsTable.createdAt);
       break;
 
     case "priceAsc":
-      orderBy = asc(roomsTable.price_per_night);
+      orderBy = asc(roomsTable.pricePerNight);
       break;
 
     case "priceDesc":
-      orderBy = desc(roomsTable.price_per_night);
+      orderBy = desc(roomsTable.pricePerNight);
       break;
 
     case "capacityAsc":
@@ -105,7 +105,7 @@ export async function getRooms({
       break;
 
     default:
-      orderBy = desc(roomsTable.created_at);
+      orderBy = desc(roomsTable.createdAt);
   }
 
   const rooms = await db

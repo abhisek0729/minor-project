@@ -27,7 +27,7 @@ export async function deleteRoom(roomId: number) {
     const [room] = await db
       .select({
         id: roomsTable.id,
-        hotelId: roomsTable.hotel_id,
+        hotelId: roomsTable.hotelId,
       })
       .from(roomsTable)
       .where(eq(roomsTable.id, roomId));
@@ -43,7 +43,7 @@ export async function deleteRoom(roomId: number) {
     const [hotel] = await db
       .select({
         id: hotelsTable.id,
-        ownerId: hotelsTable.user_id,
+        ownerId: hotelsTable.userId,
       })
       .from(hotelsTable)
       .where(eq(hotelsTable.id, room.hotelId));
@@ -65,10 +65,10 @@ export async function deleteRoom(roomId: number) {
     // Get all room images
     const images = await db
       .select({
-        publicId: roomImagesTable.public_id,
+        publicId: roomImagesTable.publicId,
       })
       .from(roomImagesTable)
-      .where(eq(roomImagesTable.room_id, roomId));
+      .where(eq(roomImagesTable.roomId, roomId));
 
     // Delete images from Cloudinary
     await Promise.all(

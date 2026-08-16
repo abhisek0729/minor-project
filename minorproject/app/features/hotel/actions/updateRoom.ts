@@ -36,7 +36,7 @@ export async function updateRoom({
     const [room] = await db
       .select({
         id: roomsTable.id,
-        hotelId: roomsTable.hotel_id,
+        hotelId: roomsTable.hotelId,
       })
       .from(roomsTable)
       .where(eq(roomsTable.id, roomId));
@@ -50,7 +50,7 @@ export async function updateRoom({
 
     const [hotel] = await db
       .select({
-        ownerId: hotelsTable.user_id,
+        ownerId: hotelsTable.userId,
       })
       .from(hotelsTable)
       .where(eq(hotelsTable.id, room.hotelId));
@@ -74,26 +74,26 @@ export async function updateRoom({
       await tx
         .update(roomsTable)
         .set({
-          room_number: data.roomNumber,
-          room_type: data.roomType,
+          roomNumber: data.roomNumber,
+          roomType: data.roomType,
           description: data.description,
-          price_per_night: data.pricePerNight.toString(),
+          pricePerNight: data.pricePerNight.toString(),
           capacity: data.capacity,
           status: data.status,
-          updated_at: new Date(),
+          updatedAt: new Date(),
         })
         .where(eq(roomsTable.id, roomId));
 
       // Replace facilities
       await tx
         .delete(roomFacilitiesTable)
-        .where(eq(roomFacilitiesTable.room_id, roomId));
+        .where(eq(roomFacilitiesTable.roomId, roomId));
 
       if (data.facilityIds.length > 0) {
         await tx.insert(roomFacilitiesTable).values(
           data.facilityIds.map((facilityId : number) => ({
-            room_id: roomId,
-            facility_id: facilityId,
+            roomId: roomId,
+            facilityId: facilityId,
           }))
         );
       }
@@ -101,14 +101,14 @@ export async function updateRoom({
       // Replace images
       await tx
         .delete(roomImagesTable)
-        .where(eq(roomImagesTable.room_id, roomId));
+        .where(eq(roomImagesTable.roomId, roomId));
 
       if (data.imageUrls.length > 0) {
         await tx.insert(roomImagesTable).values(
           data.imageUrls.map((image:{imageUrl : string, publicId : string}) => ({
-            room_id: roomId,
-            image_url: image.imageUrl,
-            public_id: image.publicId,
+            roomId: roomId,
+            imageUrl: image.imageUrl,
+            publicId: image.publicId,
           }))
         );
       }

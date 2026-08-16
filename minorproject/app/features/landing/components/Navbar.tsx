@@ -118,9 +118,55 @@ export default function Navbar() {
           <ThemeToggle />
           {session ? (
             <>
+              {/* If user is Restaurant Owner, show Restaurant Panel */}
+              {session.user?.roles?.some((r) => r.name === "restaurantOwner") && (
+                <Link href="/dashboard/restaurant">
+                  <Button
+                    variant={isScrolled ? "default" : "default"}
+                    className="rounded-xl shadow-xs"
+                  >
+                    Restaurant Panel
+                  </Button>
+                </Link>
+              )}
+
+              {/* If user is Hotel Owner only */}
+              {session.user?.roles?.some((r) => r.name === "hotelOwner") &&
+                !session.user?.roles?.some((r) => r.name === "restaurantOwner") && (
+                  <Link href="/dashboard/hotels">
+                    <Button
+                      variant={isScrolled ? "default" : "default"}
+                      className="rounded-xl shadow-xs"
+                    >
+                      Hotel Dashboard
+                    </Button>
+                  </Link>
+                )}
+
+              {/* If user is Admin */}
+              {session.user?.roles?.some((r) => r.name === "admin") && (
+                <Link href="/dashboard/admin">
+                  <Button variant="default" className="rounded-xl shadow-xs">
+                    Admin Panel
+                  </Button>
+                </Link>
+              )}
+
+              {/* Profile Link */}
+              <Link href="/profile">
+                <Button
+                  variant={isScrolled ? "outline" : "secondary"}
+                  className="rounded-xl transition hover:-translate-y-0.5 hover:shadow-xs"
+                >
+                  My Profile
+                </Button>
+              </Link>
+
               <Button
-                variant={isScrolled ? "outline" : "secondary"}
-                className="rounded-xl transition hover:-translate-y-0.5 hover:shadow-sm"
+                variant="ghost"
+                className={`rounded-xl transition hover:-translate-y-0.5 ${
+                  isScrolled ? "text-destructive hover:bg-destructive/10" : "text-white hover:bg-white/10"
+                }`}
                 onClick={() => signOut({ callbackUrl: "/" })}
               >
                 Sign out
@@ -183,11 +229,35 @@ export default function Navbar() {
               </div>
               {session ? (
                 <>
-                  <Button variant="outline">
-                    <Link href="/dashboard" onClick={() => setIsOpen(false)}>
-                      Dashboard
+                  {session.user?.roles?.some((r) => r.name === "restaurantOwner") && (
+                    <Link
+                      href="/dashboard/restaurant"
+                      onClick={() => setIsOpen(false)}
+                      className="w-full"
+                    >
+                      <Button className="w-full">Restaurant Panel</Button>
                     </Link>
-                  </Button>
+                  )}
+
+                  {session.user?.roles?.some((r) => r.name === "hotelOwner") && (
+                    <Link
+                      href="/dashboard/hotels"
+                      onClick={() => setIsOpen(false)}
+                      className="w-full"
+                    >
+                      <Button className="w-full">Hotel Dashboard</Button>
+                    </Link>
+                  )}
+
+                  <Link
+                    href="/profile"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full"
+                  >
+                    <Button variant="outline" className="w-full">
+                      My Profile
+                    </Button>
+                  </Link>
 
                   <Button
                     variant="destructive"
@@ -201,26 +271,33 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <Button variant="outline">
-                    <Link
-                      href="/partner/business-type"
-                      onClick={() => setIsOpen(false)}
-                    >
+                  <Link
+                    href="/partner/business-type"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full"
+                  >
+                    <Button variant="outline" className="w-full">
                       Become a Partner
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
 
-                  <Button variant="outline">
-                    <Link href="/sign-in" onClick={() => setIsOpen(false)}>
+                  <Link
+                    href="/sign-in"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full"
+                  >
+                    <Button variant="outline" className="w-full">
                       Sign In
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
 
-                  <Button>
-                    <Link href="/sign-up" onClick={() => setIsOpen(false)}>
-                      Get Started
-                    </Link>
-                  </Button>
+                  <Link
+                    href="/sign-up"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full"
+                  >
+                    <Button className="w-full">Get Started</Button>
+                  </Link>
                 </>
               )}
             </div>

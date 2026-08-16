@@ -25,11 +25,11 @@ export async function createHotel(data: HotelSchema) {
     const [hotel] = await tx
       .insert(hotelsTable)
       .values({
-        user_id: Number(session.user.id),
+        userId: Number(session.user.id),
         name: data.hotelName,
         description: data.description,
         establishedYear: data.establishedYear,
-        phone_number: data.phone,
+        phoneNumber: data.phone,
         website: data.website,
         province: data.province,
         district: data.district,

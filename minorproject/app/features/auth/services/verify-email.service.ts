@@ -24,14 +24,14 @@ export async function emailVerification(body: {
       };
     }
 
-    const isCodeValid = code === user.verify_code;
-    const isCodeNotExpired = user.verify_code_expiry !== null && user.verify_code_expiry > new Date();
+    const isCodeValid = code === user.verifyCode;
+    const isCodeNotExpired = user.verifyCodeExpiry !== null && user.verifyCodeExpiry > new Date();
 
     if (isCodeValid && isCodeNotExpired) {
       await db
         .update(usersTable)
         .set({
-          is_verified: true,
+          isVerified: true,
         })
         .where(eq(usersTable.id, user.id));
 

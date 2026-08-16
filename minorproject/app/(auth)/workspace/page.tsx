@@ -35,22 +35,11 @@ export default async function WorkspacePage() {
 
   const roles = session.user.roles ?? [];
 
-  if (roles.length === 0) {
-    redirect("/");
-  }
-
-  if (roles.length === 1) {
-    redirect(getDashboardPath(roles[0].name));
-  }
-
-  const user_roles = roles.map((role) => role.name);
-  console.log("User Roles:", user_roles);
-
   return (
     <main className="container mx-auto flex min-h-screen items-center justify-center px-6 py-12">
       <WorkspaceSelector
         userName={session.user.name ?? ""}
-        roles={user_roles}
+        roles={roles}
       />
     </main>
   );
