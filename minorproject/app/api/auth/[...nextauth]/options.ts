@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
 
           const user = userWithRoles[0]?.users;
 
-          const roles = userWithRoles.map((row) => ({
+          const roles = userWithRoles.map((row: any) => ({
             name: row.roles.name,
             approvalStatus: row.user_roles.approvalStatus,
           }));
