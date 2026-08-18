@@ -8,6 +8,7 @@ from app.api.guides import router as guides_router
 from app.api.places import router as places_router
 from app.api.expenses import router as expenses_router
 from app.api.itineraries import router as itineraries_router
+from app.api.bookings import router as bookings_router
 from app.api.ai import router as ai_router
 from app.api.admin import router as admin_router
 
@@ -33,5 +34,6 @@ app.include_router(guides_router, prefix=api)
 app.include_router(places_router, prefix=api)
 app.include_router(expenses_router, prefix=api)
 app.include_router(itineraries_router, prefix=api)
+app.include_router(bookings_router, prefix=api)
 app.include_router(ai_router, prefix=api)
 app.include_router(admin_router, prefix=api)

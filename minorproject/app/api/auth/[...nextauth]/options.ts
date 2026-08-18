@@ -51,7 +51,12 @@ export const authOptions: NextAuthOptions = {
             .from(usersTable)
             .where(eq(usersTable.email, credentials.identifier.toLowerCase()));
 
-          const user = users[0];
+          const user = userWithRoles[0]?.users;
+
+          const roles = userWithRoles.map((row: any) => ({
+            name: row.roles.name,
+            approvalStatus: row.user_roles.approvalStatus,
+          }));
 
           if (!user) {
             throw new Error("Invalid email or password");

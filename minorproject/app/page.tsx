@@ -1,23 +1,19 @@
 import Navbar from "./features/landing/components/Navbar";
 import Hero from "./features/landing/components/Hero";
-import BecomePartnerPage from "./features/auth/components/BecomePartner";
+import ModuleExplorer from "./features/landing/components/ModuleExplorer";
 import Footer from "./features/landing/components/Footer";
-import DestinationSection from "./features/landing/components/Destination";
-import FeaturedHotels from "./features/landing/components/FeaturedHotels";
-import AIPlanner from "./features/landing/components/AIPlanner";
 import CTA from "./features/landing/components/CTA";
+import AIRobotChat from "./features/landing/components/AIRobotChat";
 
 export default function Home() {
   return (
-    <div>
+    <div className="bg-background text-foreground">
       <Navbar />
       <Hero />
-      <DestinationSection />
-      <FeaturedHotels />
-      <AIPlanner />
-      <BecomePartnerPage />
+      <ModuleExplorer />
       <CTA />
       <Footer />
+      <AIRobotChat />
     </div>
   );
 }

@@ -1,0 +1,26 @@
+{
+  "version": "8",
+  "dialect": "postgres",
+  "id": "48903203-3g9e-50g5-bg7b-cd1f31609197",
+  "prevIds": ["37802102-2f8d-49f4-af6a-bc0e30608096"],
+  "ddl": [
+    {
+      "values": ["pending", "confirmed", "cancelled", "completed"],
+      "name": "booking_status",
+      "entityType": "enums",
+      "schema": "public"
+    },
+    {
+      "values": ["hotel", "room", "restaurant", "guide", "place", "travel"],
+      "name": "booking_entity_type",
+      "entityType": "enums",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "bookings",
+      "entityType": "tables",
+      "schema": "public"
+    }
+  ]
+}
