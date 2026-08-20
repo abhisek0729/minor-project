@@ -38,6 +38,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
 import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
+import NotificationBell from "@/app/components/dashboard/NotificationBell";
 
 interface UnifiedDashboardViewProps {
   user: {
@@ -104,24 +105,20 @@ export default function UnifiedDashboardView({
         <div className="flex items-center gap-3">
           <GlobalWorkspaceSwitcher />
 
-          <Link href="/">
-            <Button variant="ghost" size="sm" className="text-xs text-muted-foreground hover:text-foreground hidden sm:flex">
-              Explore Site
-            </Button>
-          </Link>
+          <NotificationBell />
 
           <Button
             variant="ghost"
             size="sm"
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="text-xs text-destructive hover:bg-destructive/10"
+            className="text-xs text-destructive hover:bg-destructive/10 cursor-pointer"
           >
             <LogOut className="size-3.5 mr-1" /> Sign Out
           </Button>
         </div>
       </header>
 
-      {/* Main Dashboard Layout with Sidebar */}
+      {/* Main Dashboard Layout with Enhanced Sidebar */}
       <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 flex flex-col md:flex-row gap-8">
         {/* Left Sidebar Navigation */}
         <aside className="w-full md:w-64 shrink-0 space-y-6">
@@ -134,10 +131,15 @@ export default function UnifiedDashboardView({
               <div className="min-w-0 flex-1">
                 <h3 className="font-bold text-sm truncate">{user.name}</h3>
                 <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-                <div className="flex items-center gap-1.5 mt-1">
-                  <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-emerald-500/30 text-emerald-600 bg-emerald-500/10">
-                    <CheckCircle2 className="size-2.5 mr-1" /> Active Member
+                <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                  <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-emerald-500/30 text-emerald-600 bg-emerald-500/10 font-semibold">
+                    <CheckCircle2 className="size-2.5 mr-1" /> Verified
                   </Badge>
+                  {roles.some((r) => r.name === "admin") && (
+                    <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-rose-500/30 text-rose-600 bg-rose-500/10 font-semibold">
+                      Admin
+                    </Badge>
+                  )}
                 </div>
               </div>
             </div>
@@ -148,7 +150,7 @@ export default function UnifiedDashboardView({
             <button
               type="button"
               onClick={() => setActiveTab("overview")}
-              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
                 activeTab === "overview"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -161,7 +163,7 @@ export default function UnifiedDashboardView({
             <button
               type="button"
               onClick={() => setActiveTab("workspaces")}
-              className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+              className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
                 activeTab === "workspaces"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -181,7 +183,7 @@ export default function UnifiedDashboardView({
             <button
               type="button"
               onClick={() => setActiveTab("bookings")}
-              className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+              className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
                 activeTab === "bookings"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -201,7 +203,7 @@ export default function UnifiedDashboardView({
             <button
               type="button"
               onClick={() => setActiveTab("itinerary")}
-              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
                 activeTab === "itinerary"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -214,7 +216,7 @@ export default function UnifiedDashboardView({
             <button
               type="button"
               onClick={() => setActiveTab("settings")}
-              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
                 activeTab === "settings"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"

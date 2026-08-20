@@ -1,30 +1,10 @@
-import Link from "next/link";
-import Image from "next/image";
-import {
-  Clock,
-  ExternalLink,
-  MapPin,
-  Phone,
-  Store,
-  Utensils,
-  UtensilsCrossed,
-} from "lucide-react";
-
-import Navbar from "@/app/features/landing/components/Navbar";
-import Footer from "@/app/features/landing/components/Footer";
 import { getRestaurants } from "@/app/features/restaurant/services/restaurant.service";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import RestaurantsClientView from "@/app/restaurants/components/RestaurantsClientView";
+
+export const dynamic = "force-dynamic";
 
 export default async function RestaurantsPage() {
-  let restaurants: Awaited<ReturnType<typeof getRestaurants>> = [];
+  let restaurants: any[] = [];
 
   try {
     restaurants = await getRestaurants();
@@ -32,150 +12,83 @@ export default async function RestaurantsPage() {
     console.error("Failed to fetch restaurants:", error);
   }
 
-  return (
-    <div className="min-h-screen bg-background flex flex-col justify-between">
-      <Navbar />
+  // Fallback curated restaurants if DB is empty
+  if (!restaurants || restaurants.length === 0) {
+    restaurants = [
+      {
+        id: 1,
+        name: "Himalayan Table & Rooftop",
+        description: "Authentic Thakali thali, Newari samay baji, and organic mountain tea with panoramic valley views.",
+        location: "Kathmandu (Thamel Marg-4)",
+        phoneNumber: "+977 1-4701234",
+        cuisine: "Traditional Nepali",
+        imageUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop",
+        isOpen: true,
+        openingTime: "08:00 AM",
+        closingTime: "10:30 PM",
+      },
+      {
+        id: 2,
+        name: "Lakeside Grill & Bar",
+        description: "Fresh lake fish, charcoal grills, wood-fired pizzas, and craft cocktails overlooking Phewa lake sunset.",
+        location: "Pokhara (Lakeside-6)",
+        phoneNumber: "+977 61-465432",
+        cuisine: "Multi-Cuisine",
+        imageUrl: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1200&auto=format&fit=crop",
+        isOpen: true,
+        openingTime: "10:00 AM",
+        closingTime: "11:30 PM",
+      },
+      {
+        id: 3,
+        name: "Dharan Sekuwa Corner",
+        description: "Famous authentic Dharani pork and mutton sekuwa with traditional spicy Timur chutney and Tongba.",
+        location: "Dharan (Bhanuchowk-2)",
+        phoneNumber: "+977 25-521908",
+        cuisine: "Local Nepali",
+        imageUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop",
+        isOpen: true,
+        openingTime: "11:00 AM",
+        closingTime: "10:00 PM",
+      },
+      {
+        id: 4,
+        name: "Patan Heritage Courtyard Kitchen",
+        description: "Artisan Newari feast, Chatamari, Bara, Choila, and traditional drinks served in an ancient brick courtyard.",
+        location: "Lalitpur (Patan Durbar Square)",
+        phoneNumber: "+977 1-5543210",
+        cuisine: "Newari Specialty",
+        imageUrl: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?q=80&w=1200&auto=format&fit=crop",
+        isOpen: true,
+        openingTime: "09:00 AM",
+        closingTime: "09:30 PM",
+      },
+      {
+        id: 5,
+        name: "Sauraha Tharu Village Kitchen",
+        description: "Authentic Tharu ethnic recipes, river fish curries, and sticky rice preparations after jungle safari.",
+        location: "Chitwan (Sauraha)",
+        phoneNumber: "+977 56-580456",
+        cuisine: "Tharu & Continental",
+        imageUrl: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop",
+        isOpen: true,
+        openingTime: "07:30 AM",
+        closingTime: "10:00 PM",
+      },
+      {
+        id: 6,
+        name: "Bhedetar Cloud View Cafe",
+        description: "Hot momos, local Tibetan noodle soup (Thukpa), and steaming ginger tea amidst the mountain clouds.",
+        location: "Bhedetar (Dharan-Dhankuta Highway)",
+        phoneNumber: "+977 25-560123",
+        cuisine: "Cafe & Fast Food",
+        imageUrl: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1200&auto=format&fit=crop",
+        isOpen: true,
+        openingTime: "08:00 AM",
+        closingTime: "09:00 PM",
+      },
+    ];
+  }
 
-      <main className="mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 lg:px-8 w-full flex-1">
-        {/* Header Section */}
-        <section className="space-y-3 mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
-            <UtensilsCrossed className="size-3.5" />
-            Discover Culinary Delights
-          </div>
-
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            Explore Restaurants in Nepal
-          </h1>
-
-          <p className="max-w-2xl text-muted-foreground text-sm sm:text-base">
-            Browse authentic local eateries, traditional Nepali kitchens, cozy cafes, and fine dining destinations. Click on any restaurant to browse their food menu and pricing.
-          </p>
-        </section>
-
-        {/* Restaurants Grid */}
-        {restaurants.length === 0 ? (
-          <Card className="mt-8 border-dashed bg-muted/20 p-12 text-center">
-            <div className="flex size-16 items-center justify-center rounded-2xl bg-primary/10 text-primary mx-auto mb-4">
-              <Store className="size-8" />
-            </div>
-            <CardTitle className="text-xl">No restaurants listed yet</CardTitle>
-            <CardDescription className="max-w-md mx-auto mt-2">
-              Restaurant owners can register their business to showcase their menu and dishes to tourists across Nepal.
-            </CardDescription>
-            <div className="mt-6">
-              <Link href="/partner/register?role=restaurantOwner">
-                <Button>Become a Restaurant Partner</Button>
-              </Link>
-            </div>
-          </Card>
-        ) : (
-          <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {restaurants.map((restaurant, idx) => (
-              <Link
-                key={restaurant.id}
-                href={`/restaurants/${restaurant.id}`}
-                className="group block"
-              >
-                <Card className="overflow-hidden border hover:border-primary/50 transition-all duration-300 hover:shadow-lg h-full flex flex-col justify-between">
-                  <div>
-                    {/* Cover Image & Status Badge */}
-                    <div className="relative h-56 w-full bg-muted overflow-hidden">
-                      {restaurant.imageUrl ? (
-                        <Image
-                          src={restaurant.imageUrl}
-                          alt={restaurant.name}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          unoptimized
-                          priority={idx < 3}
-                          loading={idx < 3 ? "eager" : "lazy"}
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-muted text-muted-foreground">
-                          <Utensils className="size-10 opacity-40" />
-                        </div>
-                      )}
-
-                      {/* Live Open / Closed Pill */}
-                      <div className="absolute top-3 right-3">
-                        <span
-                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border ${
-                            restaurant.isOpen ?? true
-                              ? "bg-emerald-500/90 text-white border-emerald-400/40"
-                              : "bg-red-500/90 text-white border-red-400/40"
-                          }`}
-                        >
-                          <span
-                            className={`size-1.5 rounded-full ${
-                              restaurant.isOpen ?? true
-                                ? "bg-white animate-pulse"
-                                : "bg-white"
-                            }`}
-                          />
-                          {restaurant.isOpen ?? true ? "Open Now" : "Closed"}
-                        </span>
-                      </div>
-
-                      {/* Cuisine Badge */}
-                      <div className="absolute bottom-3 left-3">
-                        <Badge
-                          variant="secondary"
-                          className="bg-black/60 text-white backdrop-blur-md text-xs border-0 font-medium"
-                        >
-                          {restaurant.cuisine || "Multi-Cuisine"}
-                        </Badge>
-                      </div>
-                    </div>
-
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors line-clamp-1">
-                        {restaurant.name}
-                      </CardTitle>
-                      <CardDescription className="line-clamp-2 text-xs">
-                        {restaurant.description}
-                      </CardDescription>
-                    </CardHeader>
-
-                    <CardContent className="space-y-2 text-xs text-muted-foreground pt-1">
-                      <div className="flex items-center gap-1.5 text-foreground/90 font-medium">
-                        <MapPin className="size-3.5 shrink-0 text-primary" />
-                        <span className="line-clamp-1">{restaurant.location}</span>
-                      </div>
-
-                      {restaurant.phoneNumber && (
-                        <div className="flex items-center gap-1.5">
-                          <Phone className="size-3.5 shrink-0 text-muted-foreground" />
-                          <span>{restaurant.phoneNumber}</span>
-                        </div>
-                      )}
-
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="size-3.5 shrink-0 text-muted-foreground" />
-                        <span>
-                          {restaurant.openingTime || "09:00 AM"} -{" "}
-                          {restaurant.closingTime || "10:00 PM"}
-                        </span>
-                      </div>
-                    </CardContent>
-                  </div>
-
-                  <div className="p-6 pt-0">
-                    <Button
-                      variant="outline"
-                      className="w-full text-xs font-semibold group-hover:bg-primary group-hover:text-primary-foreground transition-all gap-1.5"
-                    >
-                      View Food Menu & Dishes →
-                    </Button>
-                  </div>
-                </Card>
-              </Link>
-            ))}
-          </section>
-        )}
-      </main>
-
-      <Footer />
-    </div>
-  );
+  return <RestaurantsClientView initialRestaurants={restaurants} />;
 }

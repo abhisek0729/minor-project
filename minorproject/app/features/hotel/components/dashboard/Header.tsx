@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { UserNav } from "../../../shared/components/UserNav";
 import { MobileSidebar } from "./MobileSidebar";
 import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
+import NotificationBell from "@/app/components/dashboard/NotificationBell";
 
 interface HeaderProps {
   hotelName: string;
@@ -45,16 +46,7 @@ export function Header({ hotelName, userName, userEmail,approvalStatus }: Header
         <div className="flex items-center gap-3">
           <GlobalWorkspaceSwitcher />
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="relative rounded-full hover:bg-muted"
-            aria-label="Notifications"
-          >
-            <Bell className="h-5 w-5" />
-
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500" />
-          </Button>
+          <NotificationBell />
 
           <div className="flex items-center gap-3 rounded-full border border-border/70 bg-card/80 px-2 py-1.5 shadow-sm">
             <UserNav name={userName} email={userEmail} />

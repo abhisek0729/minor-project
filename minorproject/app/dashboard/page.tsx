@@ -22,18 +22,14 @@ export default async function MainDashboardPage() {
 
   const userId = Number(session.user.id);
 
-  const [dbUser] = await db
-    .select()
-    .from(usersTable)
-    .where(eq(usersTable.id, userId));
-
   const roles = session.user.roles ?? [];
   const hasRestaurant = roles.some((r) => r.name === "restaurantOwner");
   const hasHotel = roles.some((r) => r.name === "hotelOwner");
   const hasGuide = roles.some((r) => r.name === "guide");
 
-  // Fetch partner listings & user bookings concurrently
-  const [restaurant, hotel, guide, bookings] = await Promise.all([
+  // Fetch user data, partner listings & user bookings all concurrently in single round-trip
+  const [[dbUser], restaurant, hotel, guide, bookings] = await Promise.all([
+    db.select().from(usersTable).where(eq(usersTable.id, userId)),
     hasRestaurant ? getRestaurantByOwnerId(userId) : Promise.resolve(null),
     hasHotel ? getHotelByOwnerId(userId) : Promise.resolve(null),
     hasGuide ? getGuideByUserId(userId) : Promise.resolve(null),

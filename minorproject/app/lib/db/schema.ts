@@ -456,3 +456,28 @@ export const paymentsRelations = relations(paymentsTable, ({ one }) => ({
     references: [usersTable.id],
   }),
 }));
+
+export const expensesRelations = relations(expensesTable, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [expensesTable.userId],
+    references: [usersTable.id],
+  }),
+}));
+
+export const aiUserMemoriesTable = pgTable("ai_user_memories", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  userId: integer("user_id")
+    .references(() => usersTable.id, { onDelete: "cascade" })
+    .notNull(),
+  memoryKey: varchar("memory_key", { length: 100 }).notNull(),
+  memoryValue: text("memory_value").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const aiUserMemoriesRelations = relations(aiUserMemoriesTable, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [aiUserMemoriesTable.userId],
+    references: [usersTable.id],
+  }),
+}));

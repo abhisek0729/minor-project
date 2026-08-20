@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { toggleRestaurantOpenStatus } from "../../actions/availability.action";
 import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
+import NotificationBell from "@/app/components/dashboard/NotificationBell";
 
 interface RestaurantHeaderProps {
   restaurantName: string;
@@ -62,6 +63,8 @@ export default function RestaurantHeader({
 
       <div className="flex items-center gap-3">
         <GlobalWorkspaceSwitcher />
+
+        <NotificationBell />
 
         {/* Open / Closed Quick Toggle Switch */}
         <Button

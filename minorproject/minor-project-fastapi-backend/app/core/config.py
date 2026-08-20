@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     app_name: str = "TourSphere API"
     environment: str = "development"
     database_url: str
-    jwt_secret: str
+    jwt_secret: str = "tourism_platform_secret_key123"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 60
     cors_origins: str = "http://localhost:3000"

@@ -1,8 +1,9 @@
 "use client";
 
-import { Bell, Compass, MapPin, Search } from "lucide-react";
+import { Compass, MapPin, Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
+import NotificationBell from "@/app/components/dashboard/NotificationBell";
 
 interface GuideHeaderProps {
   guideName: string;
@@ -28,6 +29,8 @@ export default function GuideHeader({
 
       <div className="flex items-center gap-3">
         <GlobalWorkspaceSwitcher />
+
+        <NotificationBell />
 
         <Badge
           variant="secondary"

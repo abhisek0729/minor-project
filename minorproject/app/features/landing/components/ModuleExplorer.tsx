@@ -1,31 +1,43 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 import {
   ArrowRight,
   BedDouble,
   Camera,
+  CheckCircle2,
   Compass,
+  CreditCard,
+  Loader2,
+  Lock,
+  LogIn,
   MapPin,
+  Plus,
   ReceiptText,
   Salad,
   Sparkles,
   Star,
   Ticket,
-  Utensils,
   Users,
+  Utensils,
 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  addExpenseAction,
+  getUserExpensesAction,
+} from "@/app/features/expenses/actions/expense.action";
 
 type ModuleId =
   | "accommodation"
   | "food"
   | "destination"
   | "guides"
-  | "travel"
   | "expenses";
 
 type ModuleCard = {
@@ -93,7 +105,7 @@ const modules: ModuleConfig[] = [
   },
   {
     id: "food",
-    label: "Food",
+    label: "Food & Dining",
     icon: Utensils,
     description: "Local flavors and memorable dining",
     summary: "Foodie spots, rooftop dinners, and authentic local cuisine",
@@ -122,71 +134,70 @@ const modules: ModuleConfig[] = [
       },
       {
         id: "food-3",
-        title: "Hidden Curry House",
-        subtitle: "Slow-cooked curries and Nepali classics",
-        price: "NPR 1,250 / person",
+        title: "Boutique Tea Garden",
+        subtitle: "Organic breakfast bowls and fresh pastries",
+        price: "NPR 1,200 / set",
         rating: 4.7,
         image:
-          "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop",
-        tag: "Chef special",
-        location: "Lumbini",
+          "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?q=80&w=1200&auto=format&fit=crop",
+        tag: "Morning spot",
+        location: "Patan",
       },
     ],
   },
   {
     id: "destination",
-    label: "Destination",
+    label: "Destinations",
     icon: Compass,
-    description: "Discover iconic places and hidden gems",
-    summary:
-      "Unforgettable travel moments, nature escapes, and cultural landmarks",
+    description: "Iconic places and hidden viewpoints",
+    summary: "Heritage alleys, lakeside strolls, and alpine viewpoints",
     cards: [
       {
         id: "dest-1",
-        title: "Pokhara",
-        subtitle: "Lakes, valley views, and adventure-filled afternoons",
-        price: "3-day trip from NPR 12,500",
-        rating: 5.0,
+        title: "Phewa Lake Trail",
+        subtitle: "Gentle morning walks with temple island stops",
+        price: "Free access",
+        rating: 4.9,
         image:
-          "https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?q=80&w=1200&auto=format&fit=crop",
-        tag: "Popular",
-        location: "Gandaki Province",
+          "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
+        tag: "Nature",
+        location: "Pokhara",
       },
       {
         id: "dest-2",
-        title: "Everest Base Camp",
-        subtitle: "Epic trekking trail with breathtaking ridge views",
-        price: "7-day trek from NPR 28,000",
-        rating: 4.9,
+        title: "Patan Durbar Square",
+        subtitle: "Historic courtyards, stone carvings, and artisan shops",
+        price: "NPR 1,000 entry",
+        rating: 4.8,
         image:
-          "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?q=80&w=1200&auto=format&fit=crop",
-        tag: "Adventure",
-        location: "Solukhumbu",
+          "https://images.unsplash.com/photo-1582650625119-3a31f8418b7d?q=80&w=1200&auto=format&fit=crop",
+        tag: "Culture",
+        location: "Lalitpur",
       },
       {
         id: "dest-3",
-        title: "Mustang",
-        subtitle: "Dry cliffs, monasteries, and high-altitude landscapes",
-        price: "4-day escapade from NPR 16,800",
-        rating: 4.8,
+        title: "Nagarkot Ridge",
+        subtitle: "Panoramic views from Annapurna to Everest range",
+        price: "Day trip",
+        rating: 4.9,
         image:
-          "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop",
-        tag: "Scenic",
-        location: "Gandaki Province",
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
+        tag: "Sunrise view",
+        location: "Nagarkot",
       },
     ],
   },
   {
     id: "guides",
-    label: "Guides",
+    label: "Tour Guides",
     icon: Users,
-    description: "Context-rich local expertise from trusted guides",
-    summary: "Local storytellers, cultural specialists, and trekking mentors",
+    description: "Certified locals who bring stories to life",
+    summary: "Heritage specialists, trekking leaders, and culture storytellers",
     cards: [
       {
         id: "guide-1",
-        title: "Aarati Gurung",
-        subtitle: "Cultural guide for heritage walks and temple tours",
+        title: "Aarav Sharma",
+        subtitle: "Heritage walking tours and hidden courtyards",
         price: "NPR 3,200 / day",
         rating: 5.0,
         image:
@@ -219,103 +230,59 @@ const modules: ModuleConfig[] = [
     ],
   },
   {
-    id: "travel",
-    label: "Travel",
-    icon: Ticket,
-    description: "Smooth transfers, itineraries, and planning",
-    summary: "Transport, checkpoints, and route planning built for comfort",
-    cards: [
-      {
-        id: "travel-1",
-        title: "Scenic Route Pass",
-        subtitle: "Private transfer from airport to stay",
-        price: "NPR 2,800",
-        rating: 4.9,
-        image:
-          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop",
-        tag: "Transfer",
-        location: "Airport to Pokhara",
-      },
-      {
-        id: "travel-2",
-        title: "Heritage Train Day",
-        subtitle: "Train and bus combo for flexible sightseeing",
-        price: "NPR 4,100",
-        rating: 4.8,
-        image:
-          "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200&auto=format&fit=crop",
-        tag: "Travel plan",
-        location: "Kathmandu",
-      },
-      {
-        id: "travel-3",
-        title: "Adventure Connector",
-        subtitle: "Route planning for jeep, flights, and local stops",
-        price: "NPR 5,400",
-        rating: 4.7,
-        image:
-          "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?q=80&w=1200&auto=format&fit=crop",
-        tag: "Route",
-        location: "Himalaya",
-      },
-    ],
-  },
-  {
     id: "expenses",
     label: "Expense Tracking",
     icon: ReceiptText,
     description: "Stay on budget with smarter trip tracking",
     summary:
       "Track stays, food, local transport, and daily spending in one place",
-    cards: [
-      {
-        id: "expense-1",
-        title: "Daily Budget Snapshot",
-        subtitle: "Spend summary by accommodation, food, and travel",
-        price: "NPR 18,400 / trip",
-        rating: 4.9,
-        image:
-          "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop",
-        tag: "Budget smart",
-        location: "Trip total",
-      },
-      {
-        id: "expense-2",
-        title: "Food & Stay Split",
-        subtitle: "Breakdown of major trip costs and remaining budget",
-        price: "NPR 9,800 / 3 days",
-        rating: 4.8,
-        image:
-          "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop",
-        tag: "Details",
-        location: "Pokhara",
-      },
-      {
-        id: "expense-3",
-        title: "Cash Flow Planner",
-        subtitle: "Smart forecasts for transport, meals, and experiences",
-        price: "NPR 6,300 reserved",
-        rating: 4.7,
-        image:
-          "https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=1200&auto=format&fit=crop",
-        tag: "Forecast",
-        location: "Trip planner",
-      },
-    ],
+    cards: [],
   },
 ];
 
+function getModuleExploreTarget(id: ModuleId): { href: string; label: string } {
+  switch (id) {
+    case "accommodation":
+      return { href: "/hotels", label: "Explore More Hotels" };
+    case "food":
+      return { href: "/restaurants", label: "Explore More Restaurants" };
+    case "destination":
+      return { href: "/destinations", label: "Explore More Destinations" };
+    case "guides":
+      return { href: "/guides", label: "Explore More Tour Guides" };
+    case "expenses":
+      return { href: "/dashboard", label: "Explore Expense Tracker" };
+  }
+}
+
 export default function ModuleExplorer() {
+  const { data: session, status } = useSession();
+  const isAuthenticated = status === "authenticated";
+
   const [activeModuleId, setActiveModuleId] =
     useState<ModuleId>("accommodation");
   const [isSubmittingExpense, setIsSubmittingExpense] = useState(false);
   const [isBooking, setIsBooking] = useState<string | null>(null);
+
+  const [userExpenses, setUserExpenses] = useState<any[]>([]);
+
   const [expenseForm, setExpenseForm] = useState({
     name: "",
     amount: "",
     location: "",
     type: "food",
   });
+
+  // Load existing expenses when signed in
+  useEffect(() => {
+    if (isAuthenticated) {
+      getUserExpensesAction().then((res) => {
+        if (res.success && res.data) {
+          setUserExpenses(res.data);
+        }
+      });
+    }
+  }, [isAuthenticated]);
 
   const activeModule =
     modules.find((module) => module.id === activeModuleId) ?? modules[0];
@@ -330,6 +297,11 @@ export default function ModuleExplorer() {
   const handleExpenseSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!isAuthenticated) {
+      toast.error("Please sign in to save expenses.");
+      return;
+    }
+
     const name = expenseForm.name.trim();
     const location = expenseForm.location.trim();
     const amount = Number(expenseForm.amount);
@@ -342,19 +314,33 @@ export default function ModuleExplorer() {
     setIsSubmittingExpense(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const res = await addExpenseAction({
+        name,
+        amount,
+        location,
+        type: expenseForm.type,
+      });
 
-      console.log("Expense submitted:", expenseForm);
-      toast.success(
-        `${name} saved successfully for ${location} (${expenseForm.type}).`,
-      );
-      setExpenseForm({ name: "", amount: "", location: "", type: "food" });
+      if (res.success) {
+        toast.success(res.message);
+        if (res.data) {
+          setUserExpenses((prev) => [res.data, ...prev]);
+        }
+        setExpenseForm({ name: "", amount: "", location: "", type: "food" });
+      } else {
+        toast.error(res.message);
+      }
     } catch {
       toast.error("Unable to save the expense right now. Please try again.");
     } finally {
       setIsSubmittingExpense(false);
     }
   };
+
+  const totalUserExpenses = userExpenses.reduce(
+    (sum, e) => sum + (e.amount || 0),
+    0
+  );
 
   const handleBooking = async (card: ModuleCard) => {
     setIsBooking(card.id);
@@ -364,10 +350,10 @@ export default function ModuleExplorer() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           entity_type: activeModuleId,
-          entity_id: parseInt(card.id.split("-")[1]),
+          entity_id: parseInt(card.id.split("-")[1]) || 1,
           entity_name: card.title,
           location: card.location,
-          total_cost: parseFloat(card.price.replace(/[^0-9.]/g, "")),
+          total_cost: parseFloat(card.price.replace(/[^0-9.]/g, "")) || 1000,
           booking_notes: card.subtitle,
         }),
       });
@@ -396,15 +382,18 @@ export default function ModuleExplorer() {
               Find what fits your next stay
             </h2>
           </div>
-          <Button
-            variant="outline"
-            className="w-fit rounded-full px-5 py-2.5 text-sm font-medium"
-          >
-            View all experiences
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <Link href={getModuleExploreTarget(activeModule.id).href}>
+            <Button
+              variant="outline"
+              className="w-fit rounded-full px-5 py-2.5 text-sm font-semibold border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-xs"
+            >
+              {getModuleExploreTarget(activeModule.id).label}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
 
+        {/* Module Tab Selector */}
         <div className="mb-8 flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {modules.map((module) => {
             const Icon = module.icon;
@@ -415,7 +404,7 @@ export default function ModuleExplorer() {
                 key={module.id}
                 type="button"
                 onClick={() => setActiveModuleId(module.id)}
-                className={`group relative flex min-w-[180px] items-center gap-3 rounded-full border px-4 py-3 text-left transition-all duration-200 ${
+                className={`group relative flex min-w-[180px] items-center gap-3 rounded-full border px-4 py-3 text-left transition-all duration-200 cursor-pointer ${
                   isActive
                     ? "border-primary bg-primary text-primary-foreground shadow-sm"
                     : "border-border bg-card text-foreground hover:border-primary/30"
@@ -445,6 +434,7 @@ export default function ModuleExplorer() {
           })}
         </div>
 
+        {/* Active Module Content Container */}
         <div className="rounded-[32px] border border-border bg-card p-4 shadow-sm md:p-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-4 rounded-2xl bg-muted/60 px-4 py-3">
@@ -461,165 +451,256 @@ export default function ModuleExplorer() {
                   </h3>
                 </div>
               </div>
-              <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">
-                {activeModule.summary}
-              </span>
+              <Link href={getModuleExploreTarget(activeModule.id).href}>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="rounded-full border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground font-semibold text-xs shadow-2xs gap-1.5 cursor-pointer"
+                >
+                  {getModuleExploreTarget(activeModule.id).label} →
+                </Button>
+              </Link>
             </div>
 
+            {/* EXPENSES MODULE */}
             {activeModule.id === "expenses" ? (
-              <form
-                onSubmit={handleExpenseSubmit}
-                className="rounded-[28px] border border-border bg-muted/30 p-5 md:p-6"
-              >
-                <div className="mb-5 flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                      Add expense
+              !isAuthenticated ? (
+                /* Unauthenticated Guard */
+                <div className="rounded-[28px] border border-dashed bg-muted/20 p-8 md:p-12 text-center space-y-4">
+                  <div className="size-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
+                    <Lock className="size-8" />
+                  </div>
+                  <div className="space-y-1.5 max-w-md mx-auto">
+                    <h3 className="text-xl font-bold">Sign In to Track Travel Expenses</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Keep your travel budget organized. Log daily meals, hotel stays, transport, and tour activities linked directly to your personal account.
                     </p>
-                    <h4 className="mt-1 text-2xl font-bold text-foreground">
-                      Record trip spending
-                    </h4>
                   </div>
-                  <div className="rounded-full bg-primary/10 p-2 text-primary">
-                    <ReceiptText className="h-5 w-5" />
+                  <div className="pt-2">
+                    <Link href="/sign-in">
+                      <Button className="font-semibold gap-2 px-6">
+                        <LogIn className="size-4" /> Sign In to Add Expenses
+                      </Button>
+                    </Link>
                   </div>
                 </div>
-
-                <div className="grid gap-4 md:grid-cols-2">
-                  <label className="space-y-2 text-sm text-foreground">
-                    <span className="font-medium">Expense name</span>
-                    <input
-                      value={expenseForm.name}
-                      onChange={(event) =>
-                        handleExpenseChange("name", event.target.value)
-                      }
-                      placeholder="Hotel stay"
-                      className="h-11 w-full rounded-xl border border-border bg-background px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-                      required
-                    />
-                  </label>
-
-                  <label className="space-y-2 text-sm text-foreground">
-                    <span className="font-medium">Amount</span>
-                    <input
-                      type="number"
-                      min="1"
-                      value={expenseForm.amount}
-                      onChange={(event) =>
-                        handleExpenseChange("amount", event.target.value)
-                      }
-                      placeholder="2500"
-                      className="h-11 w-full rounded-xl border border-border bg-background px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-                      required
-                    />
-                  </label>
-
-                  <label className="space-y-2 text-sm text-foreground md:col-span-1">
-                    <span className="font-medium">Location</span>
-                    <input
-                      value={expenseForm.location}
-                      onChange={(event) =>
-                        handleExpenseChange("location", event.target.value)
-                      }
-                      placeholder="Pokhara"
-                      className="h-11 w-full rounded-xl border border-border bg-background px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-                      required
-                    />
-                  </label>
-
-                  <label className="space-y-2 text-sm text-foreground md:col-span-1">
-                    <span className="font-medium">Type</span>
-                    <select
-                      value={expenseForm.type}
-                      onChange={(event) =>
-                        handleExpenseChange("type", event.target.value)
-                      }
-                      className="h-11 w-full rounded-xl border border-border bg-background px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-                    >
-                      <option value="food">food</option>
-                      <option value="accommodation">accommodation</option>
-                      <option value="transport">transport</option>
-                      <option value="activity">activity</option>
-                      <option value="other">other</option>
-                    </select>
-                  </label>
-                </div>
-
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
-                  <p className="text-sm text-muted-foreground">
-                    Matches the existing expense schema: name, amount, location,
-                    and type.
-                  </p>
-                  <Button
-                    type="submit"
-                    className="rounded-full"
-                    disabled={isSubmittingExpense}
+              ) : (
+                /* Authenticated Expense Tracker Form & Live List */
+                <div className="grid gap-6 lg:grid-cols-12">
+                  <form
+                    onSubmit={handleExpenseSubmit}
+                    className="lg:col-span-7 rounded-[28px] border border-border bg-muted/30 p-5 md:p-6"
                   >
-                    {isSubmittingExpense ? "Saving..." : "Save expense"}
-                  </Button>
-                </div>
-              </form>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-3">
-                {activeModule.cards.map((card) => (
-                  <article
-                    key={card.id}
-                    className="group overflow-hidden rounded-[26px] border border-border bg-muted/30 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5"
-                  >
-                    <div className="relative h-56 overflow-hidden">
-                      <Image
-                        src={card.image}
-                        alt={card.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                      <div className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-background/90 px-2 py-1 text-xs font-medium text-foreground shadow-sm backdrop-blur-sm">
-                        <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-                        {card.rating.toFixed(1)}
+                    <div className="mb-5 flex items-center justify-between gap-3">
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                          Add expense
+                        </p>
+                        <h4 className="mt-1 text-xl font-bold text-foreground">
+                          Record Trip Spending
+                        </h4>
                       </div>
-                      <div className="absolute right-3 top-3 rounded-full bg-foreground/80 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-background backdrop-blur-sm">
-                        {card.tag}
+                      <div className="rounded-full bg-primary/10 p-2 text-primary">
+                        <ReceiptText className="h-5 w-5" />
                       </div>
                     </div>
 
-                    <div className="space-y-3 p-4">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <h4 className="text-lg font-semibold text-foreground">
-                            {card.title}
-                          </h4>
-                          <p className="mt-1 text-sm text-muted-foreground">
-                            {card.subtitle}
-                          </p>
-                        </div>
-                      </div>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <label className="space-y-1.5 text-xs font-medium text-foreground sm:col-span-2">
+                        <span>Expense Name / Note *</span>
+                        <input
+                          value={expenseForm.name}
+                          onChange={(e) => handleExpenseChange("name", e.target.value)}
+                          placeholder="e.g. Lakeside Dinner / Pokhara Taxi"
+                          className="h-10 w-full rounded-xl border border-border bg-background px-3 text-xs text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-2 focus:ring-primary/30"
+                          required
+                        />
+                      </label>
 
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <MapPin className="h-4 w-4" />
-                        {card.location}
-                      </div>
+                      <label className="space-y-1.5 text-xs font-medium text-foreground">
+                        <span>Amount (NPR) *</span>
+                        <input
+                          type="number"
+                          min="1"
+                          value={expenseForm.amount}
+                          onChange={(e) => handleExpenseChange("amount", e.target.value)}
+                          placeholder="2500"
+                          className="h-10 w-full rounded-xl border border-border bg-background px-3 text-xs text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-2 focus:ring-primary/30"
+                          required
+                        />
+                      </label>
 
-                      <div className="flex items-center justify-between border-t border-border pt-3">
-                        <div>
-                          <span className="block text-xl font-bold text-foreground">
-                            {card.price}
-                          </span>
-                        </div>
-                        <Button
-                          size="sm"
-                          className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
-                          onClick={() => handleBooking(card)}
-                          disabled={isBooking === card.id}
+                      <label className="space-y-1.5 text-xs font-medium text-foreground">
+                        <span>Location / City *</span>
+                        <input
+                          value={expenseForm.location}
+                          onChange={(e) => handleExpenseChange("location", e.target.value)}
+                          placeholder="Pokhara"
+                          className="h-10 w-full rounded-xl border border-border bg-background px-3 text-xs text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-2 focus:ring-primary/30"
+                          required
+                        />
+                      </label>
+
+                      <label className="space-y-1.5 text-xs font-medium text-foreground sm:col-span-2">
+                        <span>Category Type</span>
+                        <select
+                          value={expenseForm.type}
+                          onChange={(e) => handleExpenseChange("type", e.target.value)}
+                          className="h-10 w-full rounded-xl border border-border bg-background px-3 text-xs text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary/30"
                         >
-                          {isBooking === card.id ? "Booking..." : "Book now"}
-                        </Button>
-                      </div>
+                          <option value="food">🍽️ Food & Dining</option>
+                          <option value="accommodation">🏨 Stay & Hotel</option>
+                          <option value="transport">🚕 Transport & Taxi</option>
+                          <option value="activity">🧗 Tour & Activity</option>
+                          <option value="other">📦 Other</option>
+                        </select>
+                      </label>
                     </div>
-                  </article>
-                ))}
-              </div>
+
+                    <div className="mt-6 flex items-center justify-between gap-3 border-t border-border pt-4">
+                      <p className="text-xs text-muted-foreground">
+                        Saved to your private travel budget
+                      </p>
+                      <Button
+                        type="submit"
+                        className="rounded-full font-semibold"
+                        disabled={isSubmittingExpense}
+                      >
+                        {isSubmittingExpense ? (
+                          <>
+                            <Loader2 className="mr-1.5 size-3.5 animate-spin" /> Saving...
+                          </>
+                        ) : (
+                          "Save Expense →"
+                        )}
+                      </Button>
+                    </div>
+                  </form>
+
+                  {/* Right Column: Live Recorded Expenses */}
+                  <div className="lg:col-span-5 rounded-[28px] border border-border bg-card p-5 space-y-4">
+                    <div className="flex items-center justify-between border-b pb-3">
+                      <div>
+                        <h4 className="font-bold text-sm">Your Logged Expenses</h4>
+                        <p className="text-xs text-muted-foreground">
+                          {userExpenses.length} recorded entry{userExpenses.length === 1 ? "" : "ies"}
+                        </p>
+                      </div>
+                      <Badge className="bg-primary/10 text-primary border border-primary/20 text-xs font-bold">
+                        NPR {totalUserExpenses.toLocaleString()} Total
+                      </Badge>
+                    </div>
+
+                    {userExpenses.length === 0 ? (
+                      <div className="h-44 flex flex-col items-center justify-center text-center p-4 rounded-xl border border-dashed">
+                        <ReceiptText className="size-8 text-muted-foreground mb-1.5" />
+                        <p className="text-xs font-medium">No expenses logged yet</p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5">
+                          Use the form to record your first stay, meal, or transport cost.
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="space-y-2.5 max-h-[280px] overflow-y-auto pr-1">
+                        {userExpenses.slice(0, 5).map((exp) => (
+                          <div
+                            key={exp.id}
+                            className="flex items-center justify-between rounded-xl border bg-muted/20 p-2.5 text-xs shadow-2xs"
+                          >
+                            <div className="space-y-0.5">
+                              <p className="font-semibold text-foreground">{exp.name}</p>
+                              <p className="text-[11px] text-muted-foreground flex items-center gap-1 capitalize">
+                                📍 {exp.location} • {exp.type}
+                              </p>
+                            </div>
+                            <span className="font-bold text-sm text-foreground">
+                              NPR {exp.amount?.toLocaleString()}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+            ) : (
+              /* OTHER MODULES (Accommodation, Food, Destinations, Guides) */
+              <>
+                <div className="grid gap-4 md:grid-cols-3">
+                  {activeModule.cards.map((card) => (
+                    <article
+                      key={card.id}
+                      className="group overflow-hidden rounded-[26px] border border-border bg-muted/30 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5"
+                    >
+                      <div className="relative h-56 overflow-hidden">
+                        <Image
+                          src={card.image}
+                          alt={card.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                        <div className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-background/90 px-2 py-1 text-xs font-medium text-foreground shadow-sm backdrop-blur-sm">
+                          <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
+                          {card.rating.toFixed(1)}
+                        </div>
+                        <div className="absolute right-3 top-3 rounded-full bg-foreground/80 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-background backdrop-blur-sm">
+                          {card.tag}
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 p-4">
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <h4 className="text-lg font-semibold text-foreground">
+                              {card.title}
+                            </h4>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                              {card.subtitle}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <MapPin className="h-4 w-4" />
+                          {card.location}
+                        </div>
+
+                        <div className="flex items-center justify-between border-t border-border pt-3">
+                          <div>
+                            <span className="block text-xl font-bold text-foreground">
+                              {card.price}
+                            </span>
+                          </div>
+                          <Button
+                            size="sm"
+                            className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
+                            onClick={() => handleBooking(card)}
+                            disabled={isBooking === card.id}
+                          >
+                            {isBooking === card.id ? "Booking..." : "Book now"}
+                          </Button>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                {/* Bottom Explore More Action Bar */}
+                <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 rounded-2xl border bg-muted/30 p-4">
+                  <p className="text-xs text-muted-foreground text-center sm:text-left">
+                    Showing top 3 featured recommendations. Discover full collections and verified listings across Nepal.
+                  </p>
+                  <Link href={getModuleExploreTarget(activeModule.id).href} className="shrink-0">
+                    <Button
+                      size="sm"
+                      className="rounded-full px-5 py-2 font-semibold text-xs gap-1.5 shadow-xs cursor-pointer"
+                    >
+                      {getModuleExploreTarget(activeModule.id).label} →
+                    </Button>
+                  </Link>
+                </div>
+              </>
             )}
           </div>
         </div>

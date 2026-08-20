@@ -1,4 +1,5 @@
 from decimal import Decimal
+from typing import Any
 from pydantic import BaseModel, Field
 
 class RecommendationRequest(BaseModel):
@@ -19,6 +20,12 @@ class Recommendation(BaseModel):
     map_url: str | None = None
     booking_note: str | None = None
 
+class MapCard(BaseModel):
+    title: str
+    location: str
+    map_url: str
+    place_type: str = "destination"
+
 class RecommendationResponse(BaseModel):
     recommendations: list[Recommendation]
 
@@ -32,14 +39,28 @@ class ExpenseInsightResponse(BaseModel):
     budget_warning: str | None
     insights: list[str]
 
+class ActionProposal(BaseModel):
+    action_type: str  # "LOG_EXPENSE" | "ADD_HOTEL_ROOM" | "ADD_RESTAURANT_DISH" | "PLAN_ITINERARY" | "CREATE_BOOKING"
+    title: str
+    description: str
+    payload: dict[str, Any]
+    status: str = "requires_approval"  # "requires_approval" | "executed" | "cancelled"
+
 class ChatRequest(BaseModel):
     message: str
     destination: str | None = None
     budget: Decimal | None = None
+    user_id: int | None = None
+    user_name: str | None = None
+    user_roles: list[str] = []
+    history: list[dict] = []
 
 class ChatResponse(BaseModel):
     answer: str
     recommendations: list[Recommendation] = []
+    action_proposal: ActionProposal | None = None
     map_url: str | None = None
+    map_cards: list[MapCard] = []
+    steps_taken: list[str] = []
     itinerary_summary: str | None = None
     tools_used: list[str] = []

@@ -119,7 +119,22 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, trigger, session: updateData }) {
+      // HANDLE SESSION UPDATE TRIGGER
+      if (trigger === "update") {
+        if (updateData?.roles) token.roles = updateData.roles;
+        if (updateData?.name) token.name = updateData.name;
+        if (token.id) {
+          try {
+            const freshRoles = await getUserRoles(Number(token.id));
+            token.roles = freshRoles;
+          } catch {
+            // Keep existing roles if fetch fails
+          }
+        }
+        return token;
+      }
+
       // GOOGLE LOGIN
       if (account?.provider === "google") {
         let [dbUser] = await db
@@ -173,18 +188,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.is_verified = token.is_verified;
-
-        // Fetch fresh roles from DB so approvals and role assignments take effect immediately
-        if (token.id) {
-          try {
-            const freshRoles = await getUserRoles(Number(token.id));
-            session.user.roles = freshRoles;
-          } catch (e) {
-            session.user.roles = token.roles || [];
-          }
-        } else {
-          session.user.roles = token.roles || [];
-        }
+        session.user.roles = token.roles || [];
       }
 
       return session;

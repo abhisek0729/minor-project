@@ -69,16 +69,17 @@ export default function GuideSidebar({
           const Icon = item.icon;
           const isActive =
             pathname === item.href ||
-            (item.href !== "/dashboard/guide" && pathname.startsWith(item.href));
+            (item.href !== "/dashboard/guide" &&
+              pathname.startsWith(`${item.href}/`));
 
           return (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
+                "flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all",
                 isActive
-                  ? "bg-emerald-600 text-white shadow-sm"
+                  ? "bg-emerald-600 text-white shadow-sm font-semibold"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >

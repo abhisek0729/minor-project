@@ -112,16 +112,16 @@ export default function RestaurantSidebar({
           const isActive =
             pathname === item.href ||
             (item.href !== "/dashboard/restaurant" &&
-              pathname.startsWith(`${item.href}`));
+              pathname.startsWith(`${item.href}/`));
 
           return (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
+                "flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all",
                 isActive
-                  ? "bg-primary text-primary-foreground shadow-sm"
+                  ? "bg-primary text-primary-foreground shadow-sm font-semibold"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
