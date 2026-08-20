@@ -118,47 +118,12 @@ export default function Navbar() {
           <ThemeToggle />
           {session ? (
             <>
-              {/* If user is Restaurant Owner, show Restaurant Panel */}
-              {session.user?.roles?.some((r) => r.name === "restaurantOwner") && (
-                <Link href="/dashboard/restaurant">
-                  <Button
-                    variant={isScrolled ? "default" : "default"}
-                    className="rounded-xl shadow-xs"
-                  >
-                    Restaurant Panel
-                  </Button>
-                </Link>
-              )}
-
-              {/* If user is Hotel Owner only */}
-              {session.user?.roles?.some((r) => r.name === "hotelOwner") &&
-                !session.user?.roles?.some((r) => r.name === "restaurantOwner") && (
-                  <Link href="/dashboard/hotels">
-                    <Button
-                      variant={isScrolled ? "default" : "default"}
-                      className="rounded-xl shadow-xs"
-                    >
-                      Hotel Dashboard
-                    </Button>
-                  </Link>
-                )}
-
-              {/* If user is Admin */}
-              {session.user?.roles?.some((r) => r.name === "admin") && (
-                <Link href="/dashboard/admin">
-                  <Button variant="default" className="rounded-xl shadow-xs">
-                    Admin Panel
-                  </Button>
-                </Link>
-              )}
-
-              {/* Profile Link */}
-              <Link href="/profile">
+              <Link href="/dashboard">
                 <Button
-                  variant={isScrolled ? "outline" : "secondary"}
-                  className="rounded-xl transition hover:-translate-y-0.5 hover:shadow-xs"
+                  variant="default"
+                  className="rounded-xl shadow-xs font-semibold px-5"
                 >
-                  My Profile
+                  Dashboard
                 </Button>
               </Link>
 
@@ -229,34 +194,12 @@ export default function Navbar() {
               </div>
               {session ? (
                 <>
-                  {session.user?.roles?.some((r) => r.name === "restaurantOwner") && (
-                    <Link
-                      href="/dashboard/restaurant"
-                      onClick={() => setIsOpen(false)}
-                      className="w-full"
-                    >
-                      <Button className="w-full">Restaurant Panel</Button>
-                    </Link>
-                  )}
-
-                  {session.user?.roles?.some((r) => r.name === "hotelOwner") && (
-                    <Link
-                      href="/dashboard/hotels"
-                      onClick={() => setIsOpen(false)}
-                      className="w-full"
-                    >
-                      <Button className="w-full">Hotel Dashboard</Button>
-                    </Link>
-                  )}
-
                   <Link
-                    href="/profile"
+                    href="/dashboard"
                     onClick={() => setIsOpen(false)}
                     className="w-full"
                   >
-                    <Button variant="outline" className="w-full">
-                      My Profile
-                    </Button>
+                    <Button className="w-full font-semibold">Dashboard</Button>
                   </Link>
 
                   <Button

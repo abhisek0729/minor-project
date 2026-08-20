@@ -128,22 +128,6 @@ export function Sidebar({
             </Link>
           );
         })}
-
-        {/* Profile is always accessible */}
-
-        <Link
-          href="/dashboard/profile"
-          className={cn(
-            "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-            pathname.startsWith("/dashboard/profile")
-              ? "bg-primary text-primary-foreground"
-              : "text-muted-foreground hover:bg-muted hover:text-foreground",
-          )}
-        >
-          <User className="size-5" />
-
-          <span>Profile</span>
-        </Link>
       </nav>
 
       {/* Footer */}

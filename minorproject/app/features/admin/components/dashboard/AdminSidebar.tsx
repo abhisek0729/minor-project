@@ -6,10 +6,13 @@ import {
   ArrowLeft,
   CheckCircle2,
   Clock3,
+  Compass,
+  DollarSign,
   Hotel,
   LayoutDashboard,
   Shield,
   ShieldCheck,
+  Truck,
   User,
   Users,
   UtensilsCrossed,
@@ -33,6 +36,7 @@ const sidebarLinks = [
   },
   { name: "Restaurants", href: "/dashboard/admin/restaurants", icon: UtensilsCrossed },
   { name: "Hotels & Stays", href: "/dashboard/admin/hotels", icon: Hotel },
+  { name: "Tour Guides", href: "/dashboard/admin/guides", icon: Compass },
   { name: "Registered Users", href: "/dashboard/admin/users", icon: Users },
 ];
 
@@ -105,23 +109,6 @@ export default function AdminSidebar({
             </Link>
           );
         })}
-
-        <div className="pt-4 mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          Account
-        </div>
-
-        <Link
-          href="/profile"
-          className={cn(
-            "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
-            pathname.startsWith("/profile")
-              ? "bg-primary text-primary-foreground shadow-sm"
-              : "text-muted-foreground hover:bg-muted hover:text-foreground"
-          )}
-        >
-          <User className="size-4.5" />
-          <span>My Profile</span>
-        </Link>
       </nav>
 
       {/* Footer */}

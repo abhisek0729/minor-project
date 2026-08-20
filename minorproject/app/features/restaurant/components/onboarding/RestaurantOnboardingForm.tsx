@@ -13,12 +13,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import ImageUpload from "../../../../../components/ui/image-upload";
 
 import { submitRestaurantOnboarding } from "../../actions/onboarding.action";
-import { 
-  RestaurantOnboardingData, 
-  basicInfoSchema, 
-  contactInfoSchema, 
-  locationSchema, 
-  imagesSchema 
+import {
+  RestaurantOnboardingData,
+  basicInfoSchema,
+  contactInfoSchema,
+  locationSchema,
+  imagesSchema
 } from "../../schemas/restaurant.schema";
 
 const STEPS = ["Basic Info", "Contact", "Location", "Images", "Review"];
@@ -28,11 +28,12 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  
+
   const [formData, setFormData] = useState<Partial<RestaurantOnboardingData>>({
     name: "",
     description: "",
-    cuisine: "",
+    establishedDate: "",
+    cuisine: "Multi-Cuisine",
     phoneNumber: "",
     province: "",
     district: "",
@@ -89,7 +90,7 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
   const handleSubmit = async () => {
     setIsLoading(true);
     const res = await submitRestaurantOnboarding(formData as RestaurantOnboardingData);
-    
+
     if (res.success) {
       toast.success(res.message);
       router.push("/dashboard/restaurant");
@@ -120,8 +121,8 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
           </p>
           <div className="flex gap-1">
             {STEPS.map((_, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className={`h-2 w-8 rounded-full transition-colors ${idx <= currentStep ? 'bg-primary' : 'bg-muted'}`}
               />
             ))}
@@ -138,31 +139,31 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
             <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Restaurant Name</label>
-                <Input 
-                  placeholder="e.g. The Kathmandu Kitchen" 
-                  value={formData.name} 
-                  onChange={(e) => handleChange("name", e.target.value)} 
+                <Input
+                  placeholder="e.g. The Kathmandu Kitchen"
+                  value={formData.name}
+                  onChange={(e) => handleChange("name", e.target.value)}
                 />
                 {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Cuisine Type</label>
-                <Input 
-                  placeholder="e.g. Authentic Nepali, Continental" 
-                  value={formData.cuisine} 
-                  onChange={(e) => handleChange("cuisine", e.target.value)} 
-                />
-                {errors.cuisine && <p className="text-sm text-destructive">{errors.cuisine}</p>}
-              </div>
-              <div className="space-y-2">
                 <label className="text-sm font-medium">Description</label>
-                <Textarea 
-                  placeholder="Tell customers about your restaurant..." 
+                <Textarea
+                  placeholder="Tell customers about your restaurant..."
                   className="min-h-[100px]"
-                  value={formData.description} 
-                  onChange={(e) => handleChange("description", e.target.value)} 
+                  value={formData.description}
+                  onChange={(e) => handleChange("description", e.target.value)}
                 />
                 {errors.description && <p className="text-sm text-destructive">{errors.description}</p>}
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Established Date / Year (Optional)</label>
+                <Input
+                  placeholder="e.g. 2015"
+                  value={formData.establishedDate}
+                  onChange={(e) => handleChange("establishedDate", e.target.value)}
+                />
+                {errors.establishedDate && <p className="text-sm text-destructive">{errors.establishedDate}</p>}
               </div>
             </div>
           )}
@@ -177,10 +178,10 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Restaurant Phone Number</label>
-                <Input 
-                  placeholder="e.g. 9800000000" 
-                  value={formData.phoneNumber} 
-                  onChange={(e) => handleChange("phoneNumber", e.target.value)} 
+                <Input
+                  placeholder="e.g. 9800000000"
+                  value={formData.phoneNumber}
+                  onChange={(e) => handleChange("phoneNumber", e.target.value)}
                 />
                 {errors.phoneNumber && <p className="text-sm text-destructive">{errors.phoneNumber}</p>}
               </div>
@@ -192,46 +193,46 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
             <div className="grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-right-4">
               <div className="space-y-2 col-span-2 md:col-span-1">
                 <label className="text-sm font-medium">Province</label>
-                <Input 
-                  placeholder="e.g. Bagmati" 
-                  value={formData.province} 
-                  onChange={(e) => handleChange("province", e.target.value)} 
+                <Input
+                  placeholder="e.g. Bagmati"
+                  value={formData.province}
+                  onChange={(e) => handleChange("province", e.target.value)}
                 />
                 {errors.province && <p className="text-sm text-destructive">{errors.province}</p>}
               </div>
               <div className="space-y-2 col-span-2 md:col-span-1">
                 <label className="text-sm font-medium">District</label>
-                <Input 
-                  placeholder="e.g. Kathmandu" 
-                  value={formData.district} 
-                  onChange={(e) => handleChange("district", e.target.value)} 
+                <Input
+                  placeholder="e.g. Kathmandu"
+                  value={formData.district}
+                  onChange={(e) => handleChange("district", e.target.value)}
                 />
                 {errors.district && <p className="text-sm text-destructive">{errors.district}</p>}
               </div>
               <div className="space-y-2 col-span-2 md:col-span-1">
                 <label className="text-sm font-medium">Municipality/City</label>
-                <Input 
-                  placeholder="e.g. KMC" 
-                  value={formData.municipality} 
-                  onChange={(e) => handleChange("municipality", e.target.value)} 
+                <Input
+                  placeholder="e.g. KMC"
+                  value={formData.municipality}
+                  onChange={(e) => handleChange("municipality", e.target.value)}
                 />
                 {errors.municipality && <p className="text-sm text-destructive">{errors.municipality}</p>}
               </div>
               <div className="space-y-2 col-span-2 md:col-span-1">
                 <label className="text-sm font-medium">Ward No.</label>
-                <Input 
-                  placeholder="e.g. 1" 
-                  value={formData.ward} 
-                  onChange={(e) => handleChange("ward", e.target.value)} 
+                <Input
+                  placeholder="e.g. 1"
+                  value={formData.ward}
+                  onChange={(e) => handleChange("ward", e.target.value)}
                 />
                 {errors.ward && <p className="text-sm text-destructive">{errors.ward}</p>}
               </div>
               <div className="space-y-2 col-span-2">
                 <label className="text-sm font-medium">Street Name / Exact Location</label>
-                <Input 
-                  placeholder="e.g. Thamel Marg" 
-                  value={formData.street} 
-                  onChange={(e) => handleChange("street", e.target.value)} 
+                <Input
+                  placeholder="e.g. Thamel Marg"
+                  value={formData.street}
+                  onChange={(e) => handleChange("street", e.target.value)}
                 />
                 {errors.street && <p className="text-sm text-destructive">{errors.street}</p>}
               </div>
@@ -243,7 +244,7 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
             <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Cover Image</label>
-                <ImageUpload 
+                <ImageUpload
                   folder="tourism/restaurants"
                   value={formData.restaurantImageUrl ? [formData.restaurantImageUrl] : []}
                   onChange={(urls: string[]) => handleChange("restaurantImageUrl", urls[0] || "")}
@@ -257,59 +258,61 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
           {/* STEP 5: REVIEW */}
           {currentStep === 4 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
-               <div className="rounded-xl border bg-muted/20 p-4 space-y-4">
-                 
-                 <div>
-                   <h3 className="font-semibold text-lg flex items-center gap-2">
-                     <CheckCircle2 className="w-4 h-4 text-primary"/> Basic Info
-                   </h3>
-                   <p className="text-sm text-muted-foreground mt-1"><strong>Name:</strong> {formData.name}</p>
-                   <p className="text-sm text-muted-foreground"><strong>Cuisine:</strong> {formData.cuisine}</p>
-                   <p className="text-sm text-muted-foreground mt-2">{formData.description}</p>
-                 </div>
-                 
-                 <hr className="border-border"/>
-                 
-                 <div>
-                   <h3 className="font-semibold text-lg flex items-center gap-2">
-                     <CheckCircle2 className="w-4 h-4 text-primary"/> Contact & Location
-                   </h3>
-                   <p className="text-sm text-muted-foreground mt-1"><strong>Phone:</strong> {formData.phoneNumber}</p>
-                   <p className="text-sm text-muted-foreground"><strong>Address:</strong> {formData.street}, Ward {formData.ward}, {formData.municipality}, {formData.district}, {formData.province}</p>
-                 </div>
+              <div className="rounded-xl border bg-muted/20 p-4 space-y-4">
 
-                 <hr className="border-border"/>
-                 
-                 <div>
-                   <h3 className="font-semibold text-lg flex items-center gap-2">
-                     <CheckCircle2 className="w-4 h-4 text-primary"/> Cover Image
-                   </h3>
-                   {formData.restaurantImageUrl && (
-                     <Image
-                       src={formData.restaurantImageUrl} 
-                       alt="Preview" 
-                       width={192}
-                       height={128}
-                       className="mt-2 h-32 w-48 object-cover rounded-md shadow-sm border"
-                     />
-                   )}
-                 </div>
+                <div>
+                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" /> Basic Info
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1"><strong>Name:</strong> {formData.name}</p>
+                  {formData.establishedDate && (
+                    <p className="text-sm text-muted-foreground"><strong>Established:</strong> {formData.establishedDate}</p>
+                  )}
+                  <p className="text-sm text-muted-foreground mt-2">{formData.description}</p>
+                </div>
 
-               </div>
+                <hr className="border-border" />
+
+                <div>
+                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" /> Contact & Location
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1"><strong>Phone:</strong> {formData.phoneNumber}</p>
+                  <p className="text-sm text-muted-foreground"><strong>Address:</strong> {formData.street}, Ward {formData.ward}, {formData.municipality}, {formData.district}, {formData.province}</p>
+                </div>
+
+                <hr className="border-border" />
+
+                <div>
+                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" /> Cover Image
+                  </h3>
+                  {formData.restaurantImageUrl && (
+                    <Image
+                      src={formData.restaurantImageUrl}
+                      alt="Preview"
+                      width={192}
+                      height={128}
+                      className="mt-2 h-32 w-48 object-cover rounded-md shadow-sm border"
+                    />
+                  )}
+                </div>
+
+              </div>
             </div>
           )}
         </div>
 
         {/* BOTTOM NAVIGATION ACTIONS */}
         <div className="mt-8 flex justify-between border-t pt-4">
-          <Button 
-            variant="outline" 
-            onClick={prevStep} 
+          <Button
+            variant="outline"
+            onClick={prevStep}
             disabled={currentStep === 0 || isLoading}
           >
             <ArrowLeft className="mr-2 h-4 w-4" /> Back
           </Button>
-          
+
           {currentStep < STEPS.length - 1 ? (
             <Button onClick={nextStep}>
               Next Step <ArrowRight className="ml-2 h-4 w-4" />

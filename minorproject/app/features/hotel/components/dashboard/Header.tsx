@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { UserNav } from "../../../shared/components/UserNav";
 import { MobileSidebar } from "./MobileSidebar";
+import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
 
 interface HeaderProps {
   hotelName: string;
@@ -42,6 +43,8 @@ export function Header({ hotelName, userName, userEmail,approvalStatus }: Header
         </div>
 
         <div className="flex items-center gap-3">
+          <GlobalWorkspaceSwitcher />
+
           <Button
             variant="ghost"
             size="icon"

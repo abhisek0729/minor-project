@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import PendingApprovalsTable from "@/app/features/admin/components/approvals/PendingApprovalsTable";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboardPage() {
   const [statsRes, pendingRes] = await Promise.all([
     getAdminPlatformStats(),

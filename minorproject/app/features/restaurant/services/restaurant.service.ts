@@ -5,7 +5,8 @@ import { eq } from "drizzle-orm";
 type RestaurantOnboardingData = {
   name: string;
   description: string;
-  cuisine: string;
+  establishedDate?: string;
+  cuisine?: string;
   phoneNumber: string;
   province: string;
   district: string;
@@ -34,7 +35,8 @@ export const createRestaurant = async (
       userId: userId,
       name: data.name,
       description: data.description,
-      cuisine: data.cuisine,
+      establishedDate: data.establishedDate || null,
+      cuisine: data.cuisine || "Multi-Cuisine",
       phoneNumber: data.phoneNumber,
       location: `${data.street}, ${data.ward}, ${data.municipality}, ${data.district}, ${data.province}`,
       restaurantImageUrl: data.restaurantImageUrl,

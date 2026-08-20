@@ -17,6 +17,11 @@ import {
   getRestaurantById,
   getRestaurantMenu,
 } from "@/app/features/restaurant/services/restaurant.service";
+import {
+  getRatingSummary,
+  getReviewsForTarget,
+} from "@/app/features/reviews/services/reviews.service";
+import ReviewsSection from "@/app/features/reviews/components/ReviewsSection";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import PublicRestaurantMenu from "@/app/features/restaurant/components/public/PublicRestaurantMenu";
@@ -37,9 +42,11 @@ export default async function RestaurantDetailPage({
     notFound();
   }
 
-  const [restaurant, menuItems] = await Promise.all([
+  const [restaurant, menuItems, reviews, ratingSummary] = await Promise.all([
     getRestaurantById(restaurantId),
     getRestaurantMenu(restaurantId),
+    getReviewsForTarget("restaurant", restaurantId),
+    getRatingSummary("restaurant", restaurantId),
   ]);
 
   if (!restaurant) {
@@ -74,6 +81,7 @@ export default async function RestaurantDetailPage({
                 className="object-cover"
                 unoptimized
                 priority
+                loading="eager"
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-muted text-muted-foreground">
@@ -106,6 +114,11 @@ export default async function RestaurantDetailPage({
                 <Badge className="bg-primary text-primary-foreground text-xs font-semibold">
                   {restaurant.cuisine || "Multi-Cuisine"} Cuisine
                 </Badge>
+                {restaurant.establishedDate && (
+                  <Badge variant="secondary" className="text-xs font-semibold backdrop-blur-md bg-white/20 text-white border-white/30">
+                    Est. {restaurant.establishedDate}
+                  </Badge>
+                )}
               </div>
 
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight drop-shadow-sm">
@@ -164,6 +177,16 @@ export default async function RestaurantDetailPage({
           {/* Public Menu Items Component */}
           <PublicRestaurantMenu items={menuItems} />
         </section>
+
+        {/* Guest Reviews & Rating Section */}
+        <ReviewsSection
+          targetType="restaurant"
+          targetId={restaurantId}
+          targetName={restaurant.name}
+          reviews={reviews}
+          avgRating={ratingSummary.avgRating}
+          totalReviews={ratingSummary.totalReviews}
+        />
       </main>
 
       <Footer />

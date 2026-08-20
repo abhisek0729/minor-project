@@ -18,7 +18,6 @@ import { getRestaurantByOwnerId } from "@/app/features/restaurant/services/resta
 import { getMenuItems } from "@/app/features/restaurant/actions/menu.action";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import StatusToggleCard from "@/app/features/restaurant/components/availability/StatusToggleCard";
 import MenuCategoryBadge from "@/app/features/restaurant/components/menu/MenuCategoryBadge";
 import Image from "next/image";
 
@@ -81,12 +80,6 @@ export default async function RestaurantDashboardPage() {
           </Link>
         </div>
       </div>
-
-      {/* Live Status Card */}
-      <StatusToggleCard
-        initialIsOpen={restaurant.isOpen ?? true}
-        restaurantName={restaurant.name}
-      />
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

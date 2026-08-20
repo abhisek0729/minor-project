@@ -3,7 +3,8 @@ import { z } from "zod";
 export const basicInfoSchema = z.object({
   name: z.string().min(2, "Restaurant name is required").max(255),
   description: z.string().min(10, "Description must be at least 10 characters").max(255),
-  cuisine: z.string().min(2, "Cuisine type is required").max(255),
+  establishedDate: z.string().optional().default(""),
+  cuisine: z.string().optional().default("Multi-Cuisine"),
 });
 
 export const contactInfoSchema = z.object({

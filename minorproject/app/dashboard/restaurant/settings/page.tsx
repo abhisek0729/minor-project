@@ -43,6 +43,7 @@ export default async function RestaurantSettingsPage() {
         initialData={{
           name: restaurant.name,
           description: restaurant.description,
+          establishedDate: restaurant.establishedDate,
           cuisine: restaurant.cuisine,
           phoneNumber: restaurant.phoneNumber,
           location: restaurant.location,

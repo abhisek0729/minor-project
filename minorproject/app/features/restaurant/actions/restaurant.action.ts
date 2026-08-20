@@ -12,7 +12,8 @@ import { ApiResponse } from "@/app/types/api";
 export async function updateRestaurantProfile(data: {
   name: string;
   description: string;
-  cuisine: string;
+  establishedDate?: string;
+  cuisine?: string;
   phoneNumber: string;
   location: string;
   restaurantImageUrl: string;
@@ -32,7 +33,8 @@ export async function updateRestaurantProfile(data: {
       .set({
         name: data.name.trim(),
         description: data.description.trim(),
-        cuisine: data.cuisine.trim(),
+        establishedDate: data.establishedDate ? data.establishedDate.trim() : null,
+        cuisine: (data.cuisine || "Multi-Cuisine").trim(),
         phoneNumber: data.phoneNumber.trim(),
         location: data.location.trim(),
         restaurantImageUrl: data.restaurantImageUrl.trim(),

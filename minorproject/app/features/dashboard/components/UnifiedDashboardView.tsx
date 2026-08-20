@@ -1,0 +1,835 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  Calendar,
+  CheckCircle2,
+  Clock3,
+  Compass,
+  CreditCard,
+  ExternalLink,
+  Hotel,
+  LayoutDashboard,
+  LogOut,
+  MapPin,
+  MapPinned,
+  Package,
+  Plus,
+  Receipt,
+  Settings,
+  Shield,
+  ShieldCheck,
+  Sparkles,
+  User,
+  Users,
+  UtensilsCrossed,
+} from "lucide-react";
+import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Field, FieldLabel } from "@/components/ui/field";
+import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
+
+interface UnifiedDashboardViewProps {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    isVerified: boolean;
+    provider: string;
+    createdAt: string;
+    initials: string;
+  };
+  roles: Array<{ name: string; approvalStatus?: string }>;
+  restaurant: any;
+  hotel: any;
+  guide: any;
+  bookings: any[];
+}
+
+export default function UnifiedDashboardView({
+  user,
+  roles,
+  restaurant,
+  hotel,
+  guide,
+  bookings,
+}: UnifiedDashboardViewProps) {
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState<"overview" | "workspaces" | "bookings" | "itinerary" | "settings">("overview");
+
+  // Filter roles
+  const hasRestaurant = roles.some((r) => r.name === "restaurantOwner");
+  const hasHotel = roles.some((r) => r.name === "hotelOwner");
+  const hasGuide = roles.some((r) => r.name === "guide");
+  const adminRole = roles.find((r) => r.name === "admin");
+  const hasAdmin = !!adminRole;
+  const isAdminApproved = adminRole?.approvalStatus === "approved";
+
+  // Booking stats
+  const totalBookings = bookings.length;
+  const activeBookings = bookings.filter((b) => b.status === "confirmed" || b.status === "pending").length;
+  const totalSpent = bookings
+    .filter((b) => b.status !== "cancelled")
+    .reduce((sum, b) => sum + (b.totalAmount || 0), 0);
+
+  const [bookingFilter, setBookingFilter] = useState<string>("all");
+  const filteredBookings = bookings.filter((b) => {
+    if (bookingFilter === "all") return true;
+    return b.status === bookingFilter || b.bookingType === bookingFilter;
+  });
+
+  return (
+    <div className="min-h-screen bg-muted/20 flex flex-col">
+      {/* Top Main Dashboard Header */}
+      <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b bg-background/95 px-4 sm:px-8 backdrop-blur-md">
+        <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg text-foreground hover:opacity-90 transition-opacity">
+            <div className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+              <Building2 className="size-5" />
+            </div>
+            <span>TravelNepal</span>
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <GlobalWorkspaceSwitcher />
+
+          <Link href="/">
+            <Button variant="ghost" size="sm" className="text-xs text-muted-foreground hover:text-foreground hidden sm:flex">
+              Explore Site
+            </Button>
+          </Link>
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="text-xs text-destructive hover:bg-destructive/10"
+          >
+            <LogOut className="size-3.5 mr-1" /> Sign Out
+          </Button>
+        </div>
+      </header>
+
+      {/* Main Dashboard Layout with Sidebar */}
+      <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 flex flex-col md:flex-row gap-8">
+        {/* Left Sidebar Navigation */}
+        <aside className="w-full md:w-64 shrink-0 space-y-6">
+          {/* User Quick Mini Profile */}
+          <Card className="p-4 border shadow-xs bg-card">
+            <div className="flex items-center gap-3">
+              <div className="size-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold text-lg border border-primary/20 shrink-0">
+                {user.initials}
+              </div>
+              <div className="min-w-0 flex-1">
+                <h3 className="font-bold text-sm truncate">{user.name}</h3>
+                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-emerald-500/30 text-emerald-600 bg-emerald-500/10">
+                    <CheckCircle2 className="size-2.5 mr-1" /> Active Member
+                  </Badge>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Navigation Items */}
+          <nav className="space-y-1 bg-card border rounded-2xl p-2 shadow-xs">
+            <button
+              type="button"
+              onClick={() => setActiveTab("overview")}
+              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+                activeTab === "overview"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              }`}
+            >
+              <LayoutDashboard className="size-4" />
+              <span>Overview & Summary</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("workspaces")}
+              className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+                activeTab === "workspaces"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Building2 className="size-4" />
+                <span>My Workspaces</span>
+              </div>
+              {roles.filter((r) => r.name !== "tourist").length > 0 && (
+                <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "workspaces" ? "border-white text-white" : ""}`}>
+                  {roles.filter((r) => r.name !== "tourist").length}
+                </Badge>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("bookings")}
+              className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+                activeTab === "bookings"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Package className="size-4" />
+                <span>My Trips & Bookings</span>
+              </div>
+              {totalBookings > 0 && (
+                <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "bookings" ? "border-white text-white" : ""}`}>
+                  {totalBookings}
+                </Badge>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("itinerary")}
+              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+                activeTab === "itinerary"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              }`}
+            >
+              <MapPinned className="size-4" />
+              <span>AI Trip Planner</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("settings")}
+              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+                activeTab === "settings"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              }`}
+            >
+              <Settings className="size-4" />
+              <span>Profile & Settings</span>
+            </button>
+          </nav>
+
+          {/* Quick Partner CTA */}
+          <Card className="p-4 border border-dashed bg-primary/5 text-center space-y-2">
+            <p className="font-semibold text-xs text-foreground">Want to list your business?</p>
+            <p className="text-[11px] text-muted-foreground leading-tight">
+              Register as a Hotel Owner, Restaurant Partner, or Tour Guide.
+            </p>
+            <Link href="/partner/business-type" className="block pt-1">
+              <Button size="sm" variant="outline" className="w-full text-xs gap-1.5 border-primary/30 text-primary hover:bg-primary/10">
+                <Plus className="size-3.5" /> Become a Partner
+              </Button>
+            </Link>
+          </Card>
+        </aside>
+
+        {/* Right Main Content Area */}
+        <main className="flex-1 min-w-0 space-y-6">
+          {/* TAB 1: OVERVIEW & SUMMARY */}
+          {activeTab === "overview" && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight">Traveler & Partner Dashboard</h1>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Welcome back, {user.name}. Manage all your travel bookings, trip itineraries, and partner workspaces in one place.
+                </p>
+              </div>
+
+              {/* Stats Summary Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Card className="p-5 border shadow-xs">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium">Total Bookings</p>
+                      <p className="text-2xl font-extrabold mt-1">{totalBookings}</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-blue-500/10 text-blue-600">
+                      <Package className="size-6" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    {activeBookings} active trip / stay reservations
+                  </p>
+                </Card>
+
+                <Card className="p-5 border shadow-xs">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium">Partner Workspaces</p>
+                      <p className="text-2xl font-extrabold mt-1">{roles.filter((r) => r.name !== "tourist").length}</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-600">
+                      <Building2 className="size-6" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    Active hotel, dining & guide listings
+                  </p>
+                </Card>
+
+                <Card className="p-5 border shadow-xs">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium">Total Travel Spend</p>
+                      <p className="text-2xl font-extrabold mt-1">NPR {totalSpent.toLocaleString()}</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-violet-500/10 text-violet-600">
+                      <CreditCard className="size-6" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    Verified digital transactions
+                  </p>
+                </Card>
+              </div>
+
+              {/* Workspaces Quick Cards */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-bold tracking-tight">Active Partner Workspaces</h2>
+                  <Button variant="link" size="sm" onClick={() => setActiveTab("workspaces")} className="text-xs text-primary p-0">
+                    View all workspaces →
+                  </Button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Hotel Workspace Card */}
+                  {hasHotel ? (
+                    <Card className="border p-5 hover:border-primary/50 transition-all shadow-xs group">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 group-hover:scale-105 transition-transform">
+                            <Hotel className="size-6" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-sm">{hotel?.name || "Hotel Management"}</h3>
+                            <p className="text-xs text-muted-foreground">Manage rooms, rates & guest check-ins</p>
+                          </div>
+                        </div>
+                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px]">
+                          Approved
+                        </Badge>
+                      </div>
+                      <div className="mt-4 pt-3 border-t flex items-center justify-between">
+                        <span className="text-[11px] text-muted-foreground">Hotel Partner</span>
+                        <Link href="/dashboard/hotels">
+                          <Button size="sm" className="text-xs gap-1.5 h-8">
+                            Open Hotel Dashboard <ArrowRight className="size-3" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </Card>
+                  ) : null}
+
+                  {/* Restaurant Workspace Card */}
+                  {hasRestaurant ? (
+                    <Card className="border p-5 hover:border-primary/50 transition-all shadow-xs group">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600 group-hover:scale-105 transition-transform">
+                            <UtensilsCrossed className="size-6" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-sm">{restaurant?.name || "Restaurant Management"}</h3>
+                            <p className="text-xs text-muted-foreground">Food menus, live orders & table bookings</p>
+                          </div>
+                        </div>
+                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px]">
+                          Approved
+                        </Badge>
+                      </div>
+                      <div className="mt-4 pt-3 border-t flex items-center justify-between">
+                        <span className="text-[11px] text-muted-foreground">Dining Partner</span>
+                        <Link href="/dashboard/restaurant">
+                          <Button size="sm" className="text-xs gap-1.5 h-8">
+                            Open Restaurant Panel <ArrowRight className="size-3" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </Card>
+                  ) : null}
+
+                  {/* Guide Workspace Card */}
+                  {hasGuide ? (
+                    <Card className="border p-5 hover:border-primary/50 transition-all shadow-xs group">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="p-2.5 rounded-xl bg-violet-500/10 text-violet-600 group-hover:scale-105 transition-transform">
+                            <Compass className="size-6" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-sm">{guide?.name || "Tour Guide Portal"}</h3>
+                            <p className="text-xs text-muted-foreground">Tour packages, guiding calendar & requests</p>
+                          </div>
+                        </div>
+                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px]">
+                          Active Guide
+                        </Badge>
+                      </div>
+                      <div className="mt-4 pt-3 border-t flex items-center justify-between">
+                        <span className="text-[11px] text-muted-foreground">Tour Guide Partner</span>
+                        <Link href="/dashboard/guide">
+                          <Button size="sm" className="text-xs gap-1.5 h-8">
+                            Open Guide Portal <ArrowRight className="size-3" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </Card>
+                  ) : null}
+
+                  {/* Admin Workspace Card */}
+                  {hasAdmin && isAdminApproved ? (
+                    <Card className="border p-5 hover:border-primary/50 transition-all shadow-xs group border-primary/30">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="p-2.5 rounded-xl bg-primary text-primary-foreground group-hover:scale-105 transition-transform">
+                            <ShieldCheck className="size-6" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-sm">System Administration</h3>
+                            <p className="text-xs text-muted-foreground">Platform oversight, approvals & analytics</p>
+                          </div>
+                        </div>
+                        <Badge className="bg-rose-500/15 text-rose-600 border-rose-500/30 text-[10px]">
+                          Admin Control
+                        </Badge>
+                      </div>
+                      <div className="mt-4 pt-3 border-t flex items-center justify-between">
+                        <span className="text-[11px] text-muted-foreground">Site Administrator</span>
+                        <Link href="/dashboard/admin">
+                          <Button size="sm" className="text-xs gap-1.5 h-8">
+                            Open Admin Center <ArrowRight className="size-3" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </Card>
+                  ) : null}
+
+                  {/* If user has no partner workspaces */}
+                  {!hasHotel && !hasRestaurant && !hasGuide && !hasAdmin && (
+                    <Card className="border-dashed bg-muted/15 p-6 text-center sm:col-span-2 space-y-2">
+                      <p className="font-semibold text-sm">No business partner workspaces active</p>
+                      <p className="text-xs text-muted-foreground">
+                        You currently have a standard tourist account. You can register your hotel, restaurant, or guide service anytime.
+                      </p>
+                      <Link href="/partner/business-type" className="inline-block pt-2">
+                        <Button size="sm" className="text-xs gap-1.5">
+                          <Plus className="size-3.5" /> Register a Business
+                        </Button>
+                      </Link>
+                    </Card>
+                  )}
+                </div>
+              </div>
+
+              {/* Recent Bookings Preview */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-bold tracking-tight">Recent Trip Bookings</h2>
+                  <Button variant="link" size="sm" onClick={() => setActiveTab("bookings")} className="text-xs text-primary p-0">
+                    View all bookings ({totalBookings}) →
+                  </Button>
+                </div>
+
+                {bookings.length === 0 ? (
+                  <Card className="border-dashed p-8 text-center bg-muted/10">
+                    <p className="text-sm font-semibold">No bookings recorded yet</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Explore hotels, restaurants, and guided tours across Nepal to book your first adventure.
+                    </p>
+                    <div className="mt-4 flex items-center justify-center gap-3">
+                      <Link href="/hotels">
+                        <Button size="sm" variant="outline" className="text-xs">Browse Hotels</Button>
+                      </Link>
+                      <Link href="/restaurants">
+                        <Button size="sm" variant="outline" className="text-xs">Browse Restaurants</Button>
+                      </Link>
+                      <Link href="/guides">
+                        <Button size="sm" variant="outline" className="text-xs">Find Guides</Button>
+                      </Link>
+                    </div>
+                  </Card>
+                ) : (
+                  <div className="grid gap-3">
+                    {bookings.slice(0, 3).map((b) => (
+                      <Card key={b.id} className="p-4 border shadow-xs flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
+                            <Package className="size-4" />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-sm">{b.itemName || "Travel Reservation"}</h4>
+                            <p className="text-xs text-muted-foreground capitalize">
+                              {b.bookingType} • {b.checkInDate ? `Dates: ${b.checkInDate}` : "Confirmed"}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 text-right">
+                          <div>
+                            <p className="font-bold text-sm">NPR {b.totalAmount?.toLocaleString()}</p>
+                            <Badge className="text-[10px] capitalize bg-emerald-500/15 text-emerald-600 border-emerald-500/30">
+                              {b.status}
+                            </Badge>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: MY WORKSPACES */}
+          {activeTab === "workspaces" && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight">My Partner Workspaces</h1>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Access and manage your registered tourism businesses and service provider portals.
+                </p>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {/* Hotel Workspace */}
+                {hasHotel && (
+                  <Card className="border shadow-xs p-6 space-y-4">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="p-3 rounded-2xl bg-emerald-500/10 text-emerald-600">
+                          <Hotel className="size-7" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-base">{hotel?.name || "Hotel Owner Portal"}</h3>
+                          <p className="text-xs text-muted-foreground">Hotel Accommodation & Rooms</p>
+                        </div>
+                      </div>
+                      <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs">
+                        Active
+                      </Badge>
+                    </div>
+
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Manage room listings, gallery photos, pricing per night, availability calendar, and guest check-ins.
+                    </p>
+
+                    <div className="pt-2 border-t flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground font-medium">Hotel Workspace</span>
+                      <Link href="/dashboard/hotels">
+                        <Button size="sm" className="text-xs gap-1.5">
+                          Open Hotel Dashboard <ArrowRight className="size-3.5" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </Card>
+                )}
+
+                {/* Restaurant Workspace */}
+                {hasRestaurant && (
+                  <Card className="border shadow-xs p-6 space-y-4">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="p-3 rounded-2xl bg-amber-500/10 text-amber-600">
+                          <UtensilsCrossed className="size-7" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-base">{restaurant?.name || "Restaurant Panel"}</h3>
+                          <p className="text-xs text-muted-foreground">Dining & Kitchen Management</p>
+                        </div>
+                      </div>
+                      <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs">
+                        Active
+                      </Badge>
+                    </div>
+
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Update menu items, set open/closed status, receive live orders, and handle table reservations.
+                    </p>
+
+                    <div className="pt-2 border-t flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground font-medium">Restaurant Workspace</span>
+                      <Link href="/dashboard/restaurant">
+                        <Button size="sm" className="text-xs gap-1.5">
+                          Open Restaurant Panel <ArrowRight className="size-3.5" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </Card>
+                )}
+
+                {/* Tour Guide Workspace */}
+                {hasGuide && (
+                  <Card className="border shadow-xs p-6 space-y-4">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="p-3 rounded-2xl bg-violet-500/10 text-violet-600">
+                          <Compass className="size-7" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-base">{guide?.name || "Tour Guide Portal"}</h3>
+                          <p className="text-xs text-muted-foreground">Trekking & Guiding Services</p>
+                        </div>
+                      </div>
+                      <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs">
+                        Active Guide
+                      </Badge>
+                    </div>
+
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Publish tour packages, manage your working calendar, and coordinate directly with traveler requests.
+                    </p>
+
+                    <div className="pt-2 border-t flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground font-medium">Guide Workspace</span>
+                      <Link href="/dashboard/guide">
+                        <Button size="sm" className="text-xs gap-1.5">
+                          Open Guide Portal <ArrowRight className="size-3.5" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </Card>
+                )}
+
+                {/* Admin Workspace */}
+                {hasAdmin && isAdminApproved && (
+                  <Card className="border shadow-xs p-6 space-y-4 border-primary/30 bg-primary/5">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-sm">
+                          <ShieldCheck className="size-7" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-base">System Administration</h3>
+                          <p className="text-xs text-muted-foreground">Full Platform Governance</p>
+                        </div>
+                      </div>
+                      <Badge className="bg-rose-500/15 text-rose-600 border-rose-500/30 text-xs">
+                        Administrator
+                      </Badge>
+                    </div>
+
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Approve business partner applications, oversee all users and listings, and view GMV revenue analytics.
+                    </p>
+
+                    <div className="pt-2 border-t flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground font-medium">Admin Workspace</span>
+                      <Link href="/dashboard/admin">
+                        <Button size="sm" className="text-xs gap-1.5">
+                          Open Admin Center <ArrowRight className="size-3.5" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </Card>
+                )}
+              </div>
+
+              {/* Register Additional Business CTA */}
+              <Card className="border-dashed p-6 bg-muted/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="space-y-1 text-center sm:text-left">
+                  <h3 className="font-bold text-sm">Have another service to offer?</h3>
+                  <p className="text-xs text-muted-foreground">
+                    You can operate multiple businesses on TravelNepal under a single account.
+                  </p>
+                </div>
+                <Link href="/partner/business-type">
+                  <Button className="text-xs font-semibold gap-1.5">
+                    <Plus className="size-3.5" /> Register Another Business
+                  </Button>
+                </Link>
+              </Card>
+            </div>
+          )}
+
+          {/* TAB 3: MY TRIPS & BOOKINGS */}
+          {activeTab === "bookings" && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h1 className="text-2xl font-bold tracking-tight">My Trips & Bookings</h1>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    View all your accommodation stays, dining table orders, and guided treks.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {["all", "hotel", "restaurant", "guide"].map((filter) => (
+                    <Button
+                      key={filter}
+                      size="sm"
+                      variant={bookingFilter === filter ? "default" : "outline"}
+                      onClick={() => setBookingFilter(filter)}
+                      className="text-xs capitalize h-8"
+                    >
+                      {filter}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              {filteredBookings.length === 0 ? (
+                <Card className="border-dashed p-12 text-center bg-muted/15">
+                  <Package className="size-10 text-muted-foreground mx-auto mb-3" />
+                  <h3 className="font-bold text-base">No bookings found</h3>
+                  <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto">
+                    You haven't made any bookings under this filter yet. Explore destinations to plan your next journey!
+                  </p>
+                  <div className="mt-4 flex justify-center gap-3">
+                    <Link href="/hotels">
+                      <Button size="sm" className="text-xs">Find Stays</Button>
+                    </Link>
+                    <Link href="/restaurants">
+                      <Button size="sm" variant="outline" className="text-xs">Find Food</Button>
+                    </Link>
+                  </div>
+                </Card>
+              ) : (
+                <div className="space-y-3">
+                  {filteredBookings.map((b) => (
+                    <Card key={b.id} className="p-5 border shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-bold text-base">{b.itemName || "Travel Reservation"}</h3>
+                          <Badge variant="outline" className="text-[10px] capitalize">
+                            {b.bookingType}
+                          </Badge>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                          {b.checkInDate && (
+                            <span className="flex items-center gap-1">
+                              <Calendar className="size-3.5" /> Check-in: {b.checkInDate}
+                            </span>
+                          )}
+                          {b.guests && <span>Guests: {b.guests}</span>}
+                          {b.paymentStatus && (
+                            <span className="capitalize">Payment: {b.paymentStatus}</span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between sm:justify-end gap-4">
+                        <div className="text-right">
+                          <p className="text-xs text-muted-foreground">Total Cost</p>
+                          <p className="font-extrabold text-base">NPR {b.totalAmount?.toLocaleString()}</p>
+                        </div>
+
+                        <Badge
+                          className={`text-xs capitalize ${
+                            b.status === "confirmed" || b.status === "completed"
+                              ? "bg-emerald-500/15 text-emerald-600 border-emerald-500/30"
+                              : b.status === "pending"
+                              ? "bg-amber-500/15 text-amber-600 border-amber-500/30"
+                              : "bg-red-500/15 text-red-600 border-red-500/30"
+                          }`}
+                        >
+                          {b.status}
+                        </Badge>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 4: AI ITINERARY */}
+          {activeTab === "itinerary" && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight">AI Trip Planner & Itineraries</h1>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Generate customized day-by-day travel schedules across Nepal powered by AI.
+                </p>
+              </div>
+
+              <Card className="p-8 border bg-card text-center space-y-4">
+                <div className="size-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
+                  <Sparkles className="size-8" />
+                </div>
+                <h2 className="text-xl font-bold">Plan Your Next Nepal Adventure</h2>
+                <p className="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
+                  Tell our AI your budget, travel dates, preferred trekking or leisure destinations, and get a complete customized itinerary in seconds.
+                </p>
+                <div className="pt-2">
+                  <Link href="/ai-planner">
+                    <Button className="gap-2 font-semibold">
+                      <Sparkles className="size-4" /> Launch AI Trip Planner →
+                    </Button>
+                  </Link>
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* TAB 5: PROFILE & SETTINGS */}
+          {activeTab === "settings" && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight">Profile & Account Settings</h1>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Update your personal traveler credentials and profile details.
+                </p>
+              </div>
+
+              <Card className="p-6 border shadow-xs space-y-5">
+                <h3 className="font-bold text-base">Personal Details</h3>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Field>
+                    <FieldLabel>Full Name</FieldLabel>
+                    <Input defaultValue={user.name} />
+                  </Field>
+
+                  <Field>
+                    <FieldLabel>Email Address</FieldLabel>
+                    <Input defaultValue={user.email} disabled className="bg-muted" />
+                    <p className="text-[11px] text-muted-foreground mt-1">Verified account email</p>
+                  </Field>
+                </div>
+
+                <div className="pt-2 flex justify-end">
+                  <Button onClick={() => toast.success("Profile preferences saved!")}>
+                    Save Changes
+                  </Button>
+                </div>
+              </Card>
+
+              <Card className="p-6 border shadow-xs space-y-3">
+                <h3 className="font-bold text-base">Account Security & Role Overview</h3>
+                <p className="text-xs text-muted-foreground">
+                  Member since: {user.createdAt} • Authentication provider: {user.provider}
+                </p>
+
+                <div className="pt-2 flex flex-wrap gap-2">
+                  {roles.map((r) => (
+                    <Badge key={r.name} variant="outline" className="text-xs capitalize py-1 px-3">
+                      {r.name} ({r.approvalStatus || "active"})
+                    </Badge>
+                  ))}
+                </div>
+              </Card>
+            </div>
+          )}
+        </main>
+      </div>
+    </div>
+  );
+}

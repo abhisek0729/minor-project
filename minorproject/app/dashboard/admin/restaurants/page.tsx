@@ -1,6 +1,8 @@
 import { getAllRestaurantsAdmin } from "@/app/features/admin/actions/admin.action";
 import AdminRestaurantsTable from "@/app/features/admin/components/restaurants/AdminRestaurantsTable";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminRestaurantsPage() {
   const result = await getAllRestaurantsAdmin();
   const restaurants = result.data || [];

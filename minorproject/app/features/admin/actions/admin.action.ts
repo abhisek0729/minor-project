@@ -7,9 +7,16 @@ import { and, desc, eq, sql } from "drizzle-orm";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { db } from "@/app/lib/db";
 import {
+  bookingsTable,
+  guidesTable,
   hotelsTable,
+  packagesTable,
+  paymentsTable,
+  restaurantOrdersTable,
   restaurantsTable,
+  reviewsTable,
   rolesTable,
+  travelProvidersTable,
   userRolesTable,
   usersTable,
 } from "@/app/lib/db/schema";
@@ -359,3 +366,177 @@ export async function getAllUsersAdmin() {
     };
   }
 }
+
+// 7. Get All Guides for Admin
+export async function getAllGuidesAdmin() {
+  try {
+    await requireAdmin();
+
+    const guides = await db
+      .select({
+        id: guidesTable.id,
+        userId: guidesTable.userId,
+        name: guidesTable.name,
+        description: guidesTable.description,
+        location: guidesTable.location,
+        phoneNumber: guidesTable.phoneNumber,
+        guideImageUrl: guidesTable.guideImageUrl,
+        experienceYears: guidesTable.experienceYears,
+        languages: guidesTable.languages,
+        dailyRate: guidesTable.dailyRate,
+        isAvailable: guidesTable.isAvailable,
+        licenseNumber: guidesTable.licenseNumber,
+        createdAt: guidesTable.createdAt,
+        ownerEmail: usersTable.email,
+        approvalStatus: userRolesTable.approvalStatus,
+      })
+      .from(guidesTable)
+      .innerJoin(usersTable, eq(guidesTable.userId, usersTable.id))
+      .innerJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
+      .innerJoin(
+        rolesTable,
+        and(
+          eq(userRolesTable.roleId, rolesTable.id),
+          eq(rolesTable.name, "guide")
+        )
+      )
+      .orderBy(desc(guidesTable.id));
+
+    return { success: true, data: guides };
+  } catch (error: any) {
+    console.error("Error fetching admin guides:", error);
+    return { success: false, message: error?.message || "Failed to fetch guides", data: [] };
+  }
+}
+
+// 8. Get All Travel Providers for Admin
+export async function getAllTravelProvidersAdmin() {
+  try {
+    await requireAdmin();
+
+    const providers = await db
+      .select({
+        id: travelProvidersTable.id,
+        userId: travelProvidersTable.userId,
+        companyName: travelProvidersTable.companyName,
+        businessType: travelProvidersTable.businessType,
+        licenseNumber: travelProvidersTable.licenseNumber,
+        contactEmail: travelProvidersTable.contactEmail,
+        contactPhone: travelProvidersTable.contactPhone,
+        address: travelProvidersTable.address,
+        description: travelProvidersTable.description,
+        logoUrl: travelProvidersTable.logoUrl,
+        approvalStatus: travelProvidersTable.approvalStatus,
+        createdAt: travelProvidersTable.createdAt,
+      })
+      .from(travelProvidersTable)
+      .orderBy(desc(travelProvidersTable.id));
+
+    return { success: true, data: providers };
+  } catch (error: any) {
+    console.error("Error fetching admin travel providers:", error);
+    return { success: false, message: error?.message || "Failed to fetch travel providers", data: [] };
+  }
+}
+
+// 9. Update Travel Provider Approval
+export async function updateTravelProviderApproval(
+  providerId: number,
+  status: "approved" | "rejected" | "suspended"
+): Promise<ApiResponse<null>> {
+  try {
+    await requireAdmin();
+
+    await db
+      .update(travelProvidersTable)
+      .set({ approvalStatus: status })
+      .where(eq(travelProvidersTable.id, providerId));
+
+    revalidatePath("/dashboard/admin/providers");
+    return { success: true, message: `Travel provider marked as ${status.toUpperCase()}` };
+  } catch (error: any) {
+    return { success: false, message: error?.message || "Failed to update provider" };
+  }
+}
+
+// 10. Platform Revenue & Booking Analytics
+export async function getAdminRevenueAnalytics() {
+  try {
+    await requireAdmin();
+
+    // 1. All Bookings
+    const bookings = await db
+      .select({
+        id: bookingsTable.id,
+        bookingType: bookingsTable.bookingType,
+        itemName: bookingsTable.itemName,
+        totalAmount: bookingsTable.totalAmount,
+        status: bookingsTable.status,
+        paymentStatus: bookingsTable.paymentStatus,
+        createdAt: bookingsTable.createdAt,
+        customerName: usersTable.name,
+      })
+      .from(bookingsTable)
+      .innerJoin(usersTable, eq(bookingsTable.userId, usersTable.id))
+      .orderBy(desc(bookingsTable.createdAt));
+
+    // 2. All Restaurant Orders
+    const restaurantOrders = await db
+      .select({
+        id: restaurantOrdersTable.id,
+        totalAmount: restaurantOrdersTable.totalAmount,
+        status: restaurantOrdersTable.status,
+        paymentStatus: restaurantOrdersTable.paymentStatus,
+        createdAt: restaurantOrdersTable.createdAt,
+      })
+      .from(restaurantOrdersTable);
+
+    // Sum calculations
+    const totalBookingVolume = bookings.reduce((sum, b) => sum + (b.totalAmount || 0), 0);
+    const confirmedBookingVolume = bookings
+      .filter((b) => b.paymentStatus === "completed" || b.status === "confirmed")
+      .reduce((sum, b) => sum + (b.totalAmount || 0), 0);
+
+    const totalRestaurantVolume = restaurantOrders
+      .filter((o) => o.status === "completed" || o.paymentStatus === "completed")
+      .reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+
+    const grossPlatformVolume = confirmedBookingVolume + totalRestaurantVolume;
+    const platformCommission = Math.round(grossPlatformVolume * 0.10); // 10% Platform fee
+
+    const bookingStatusCounts = {
+      confirmed: bookings.filter((b) => b.status === "confirmed" || b.status === "completed").length,
+      pending: bookings.filter((b) => b.status === "pending").length,
+      cancelled: bookings.filter((b) => b.status === "cancelled").length,
+    };
+
+    return {
+      success: true,
+      data: {
+        grossPlatformVolume,
+        platformCommission,
+        confirmedBookingVolume,
+        totalRestaurantVolume,
+        totalBookings: bookings.length,
+        bookingStatusCounts,
+        recentBookings: bookings.slice(0, 8),
+      },
+    };
+  } catch (error: any) {
+    console.error("Error fetching admin revenue analytics:", error);
+    return {
+      success: false,
+      message: error?.message || "Failed to fetch analytics",
+      data: {
+        grossPlatformVolume: 0,
+        platformCommission: 0,
+        confirmedBookingVolume: 0,
+        totalRestaurantVolume: 0,
+        totalBookings: 0,
+        bookingStatusCounts: { confirmed: 0, pending: 0, cancelled: 0 },
+        recentBookings: [],
+      },
+    };
+  }
+}
+

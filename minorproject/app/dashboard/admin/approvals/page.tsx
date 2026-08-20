@@ -1,6 +1,8 @@
 import { getPendingApprovals } from "@/app/features/admin/actions/admin.action";
 import PendingApprovalsTable from "@/app/features/admin/components/approvals/PendingApprovalsTable";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminApprovalsPage() {
   const pendingRes = await getPendingApprovals();
 

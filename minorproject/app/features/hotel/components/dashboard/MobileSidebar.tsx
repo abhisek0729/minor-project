@@ -103,20 +103,6 @@ export function MobileSidebar({
               </Link>
             );
           })}
-
-          <Link
-            href="/dashboard/profile"
-            className={cn(
-              "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
-              pathname.startsWith("/dashboard/profile")
-                ? "bg-primary text-primary-foreground shadow-sm"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground",
-            )}
-          >
-            <User className="size-5" />
-
-            <span>Profile</span>
-          </Link>
         </nav>
 
         {/* Footer */}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { LogOut, ShieldCheck, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
 
 interface AdminHeaderProps {
   adminName: string;
@@ -34,6 +35,8 @@ export default function AdminHeader({
       </div>
 
       <div className="flex items-center gap-3">
+        <GlobalWorkspaceSwitcher />
+
         {pendingCount > 0 && (
           <Link href="/dashboard/admin/approvals">
             <Badge className="bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-xs px-2.5 py-1 hover:bg-amber-500/25 transition-colors cursor-pointer">

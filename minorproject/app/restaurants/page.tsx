@@ -71,7 +71,7 @@ export default async function RestaurantsPage() {
           </Card>
         ) : (
           <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {restaurants.map((restaurant) => (
+            {restaurants.map((restaurant, idx) => (
               <Link
                 key={restaurant.id}
                 href={`/restaurants/${restaurant.id}`}
@@ -88,6 +88,8 @@ export default async function RestaurantsPage() {
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                           unoptimized
+                          priority={idx < 3}
+                          loading={idx < 3 ? "eager" : "lazy"}
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center bg-muted text-muted-foreground">

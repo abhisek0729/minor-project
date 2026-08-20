@@ -1,6 +1,8 @@
 import { getAllHotelsAdmin } from "@/app/features/admin/actions/admin.action";
 import AdminHotelsTable from "@/app/features/admin/components/hotels/AdminHotelsTable";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminHotelsPage() {
   const result = await getAllHotelsAdmin();
   const hotels = result.data || [];

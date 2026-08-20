@@ -9,43 +9,32 @@ export async function proxy(request: NextRequest) {
   });
 
   const { pathname } = request.nextUrl;
-
   const isLoggedIn = !!token;
 
-  // Protected routes
+  // Protected routes (Require authentication)
   const protectedRoutes = [
     "/dashboard",
     "/profile",
+    "/workspace",
+    "/onboarding",
   ];
 
-  //public routes
-  const publicRoutes = [
+  // Auth-only guest routes (Logged in users should not access sign-in/sign-up/guest-registration)
+  const guestOnlyRoutes = [
     "/sign-in",
     "/sign-up",
-    "/verify-email",
-    "/partner"
-  ]
+    "/partner/register",
+  ];
 
-  if (
-    publicRoutes.some((route) =>
-      pathname.startsWith(route)
-    ) &&
-    isLoggedIn
-  ) {
-    return NextResponse.redirect(new URL("/", request.url));
+  // If logged in and accessing guest-only auth pages, redirect to workspace
+  if (guestOnlyRoutes.some((route) => pathname.startsWith(route)) && isLoggedIn) {
+    return NextResponse.redirect(new URL("/workspace", request.url));
   }
 
-
-  if (
-    protectedRoutes.some((route) =>
-      pathname.startsWith(route)
-    ) &&
-    !isLoggedIn
-  ) {
+  // If not logged in and accessing protected pages, redirect to sign-in
+  if (protectedRoutes.some((route) => pathname.startsWith(route)) && !isLoggedIn) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
-
-
 
   return NextResponse.next();
 }
@@ -54,9 +43,11 @@ export const config = {
   matcher: [
     "/dashboard/:path*",
     "/profile/:path*",
+    "/workspace/:path*",
+    "/onboarding/:path*",
     "/sign-in",
     "/sign-up/:path*",
     "/verify-email/:path*",
-    "/partner/:path*"
+    "/partner/:path*",
   ],
 };

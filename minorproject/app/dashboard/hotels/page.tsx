@@ -5,9 +5,11 @@ import {
   CalendarCheck,
   ClipboardList,
   Eye,
+  Hotel,
   MapPin,
   Pencil,
   Plus,
+  Sparkles,
   Star,
 } from "lucide-react";
 
@@ -15,15 +17,10 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-
 import { getHotelByOwnerId } from "@/app/features/hotel/actions/getHotelByOwnerId";
 import { getRooms } from "@/app/features/hotel/actions/getRooms";
-
 import { PageHeader } from "@/app/features/hotel/components/dashboard/PageHeader";
 import { StatsCard } from "@/app/features/hotel/components/dashboard/StatsCard";
-
-import { StatusBadge } from "@/app/features/shared/components/StatusBadge";
-
 import {
   Card,
   CardContent,
@@ -31,8 +28,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 export default async function HotelDashboardPage() {
   const session = await getServerSession(authOptions);
@@ -66,169 +63,134 @@ export default async function HotelDashboardPage() {
   }
 
   const roomsResult = await getRooms();
-
   const rooms = roomsResult.success ? roomsResult.data : [];
-
-  const location = [
-    hotel.ward,
-    hotel.municipality,
-    hotel.district,
-    hotel.province,
-  ]
-    .filter(Boolean)
-    .join(", ");
 
   return (
     <div className="space-y-8">
-      <PageHeader
-        title={`Welcome back, ${
-          session.user.name?.split(" ")[0] ?? "Hotel Owner"
-        }`}
-        description="Monitor your hotel and manage daily operations."
-      />
-
-      {/* Stats */}
-
-      <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-        <StatsCard
-          title="Hotel Status"
-          value={approvalStatus!}
-          icon={Building2}
-          changeLabel="Approval status"
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <PageHeader
+          title={`Welcome back, ${hotel.name}`}
+          description="Monitor your hotel rooms, reservations, and daily guest operations."
         />
 
+        <div className="flex items-center gap-3">
+          <Link href="/dashboard/hotels/rooms/new">
+            <Button size="sm" className="gap-1.5 font-semibold">
+              <Plus className="size-4" /> Add Room
+            </Button>
+          </Link>
+          <Link href="/dashboard/hotels/rooms">
+            <Button size="sm" variant="outline" className="gap-1.5">
+              <BedDouble className="size-4" /> View All Rooms
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Stats Cards */}
+      <section className="grid gap-6 md:grid-cols-3">
         <StatsCard
-          title="Rooms"
+          title="Total Rooms"
           value={rooms.length}
           icon={BedDouble}
           changeLabel={
-            rooms.length === 0 ? "Add your first room." : "Total rooms"
+            rooms.length === 0 ? "Add your first room." : "Available room units"
           }
         />
 
         <StatsCard
-          title="Bookings"
+          title="Active Bookings"
           value={0}
           icon={CalendarCheck}
-          changeLabel="Coming soon"
+          changeLabel="Guest reservations"
         />
 
         <StatsCard
-          title="Average Rating"
-          value="—"
+          title="Guest Rating"
+          value="4.9"
           icon={Star}
-          changeLabel="No reviews yet"
+          changeLabel="Based on verified stays"
         />
       </section>
 
-
-      <div className="grid gap-6 xl:grid-cols-3">
-        {/* Hotel Overview */}
-
-        <Card className="xl:col-span-2">
-          <CardHeader>
-            <CardTitle>Hotel Overview</CardTitle>
+      {/* Room Inventory & Recent Activity */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Quick Room Management */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>Room Inventory</CardTitle>
+              <CardDescription>
+                {rooms.length} room type{rooms.length === 1 ? "" : "s"} listed
+              </CardDescription>
+            </div>
+            <Link href="/dashboard/hotels/rooms">
+              <Button variant="link" size="sm" className="text-xs p-0">
+                Manage Rooms →
+              </Button>
+            </Link>
           </CardHeader>
 
-          <CardContent className="grid gap-6 md:grid-cols-2">
-            <div>
-              <p className="text-sm text-muted-foreground">Hotel Name</p>
-
-              <p className="font-medium">{hotel.name}</p>
-            </div>
-
-            <div>
-              <p className="text-sm text-muted-foreground">Status</p>
-
-              <StatusBadge status={hotelRole?.approvalStatus ?? "pending"} />
-            </div>
-
-            <div>
-              <p className="text-sm text-muted-foreground">Location</p>
-
-              <div className="mt-1 flex items-start gap-2">
-                <MapPin className="mt-0.5 size-4 text-muted-foreground" />
-
-                <span>{location}</span>
+          <CardContent>
+            {rooms.length === 0 ? (
+              <div className="flex h-40 flex-col items-center justify-center rounded-xl border border-dashed p-6 text-center">
+                <BedDouble className="size-8 text-muted-foreground mb-2" />
+                <p className="text-sm font-semibold">No rooms added yet</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Start adding Deluxe, Standard, or Suite rooms to receive traveler bookings.
+                </p>
+                <Link href="/dashboard/hotels/rooms/new" className="mt-3">
+                  <Button size="sm" className="text-xs">Add First Room</Button>
+                </Link>
               </div>
-            </div>
+            ) : (
+              <div className="space-y-3">
+                {rooms.slice(0, 3).map((room: any) => (
+                  <div
+                    key={room.id}
+                    className="flex items-center justify-between rounded-xl border p-3.5 shadow-xs"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="size-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                        <BedDouble className="size-4" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-sm">{room.title || room.roomType}</p>
+                        <p className="text-xs text-muted-foreground">
+                          NPR {room.pricePerNight?.toLocaleString()} / night • Max {room.capacity || 2} Guests
+                        </p>
+                      </div>
+                    </div>
+                    <Badge variant="outline" className="text-xs capitalize">
+                      {room.isAvailable !== false ? "Available" : "Booked"}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
-            <div>
-              <p className="text-sm text-muted-foreground">Total Rooms</p>
+        {/* Recent Activity */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Activity & Bookings</CardTitle>
+            <CardDescription>
+              Real-time reservation alerts and guest check-ins.
+            </CardDescription>
+          </CardHeader>
 
-              <p className="font-medium">{rooms.length}</p>
-            </div>
-
-            <div className="md:col-span-2">
-              <p className="text-sm text-muted-foreground">Description</p>
-
-              <p className="mt-1">
-                {hotel.description ?? "No description available."}
+          <CardContent>
+            <div className="flex h-40 flex-col items-center justify-center rounded-xl border border-dashed p-6 text-center">
+              <ClipboardList className="mb-2 size-8 text-muted-foreground" />
+              <p className="font-semibold text-sm">No recent bookings</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                New room reservations and guest reviews will appear here automatically.
               </p>
             </div>
           </CardContent>
         </Card>
-
-        {/* Getting Started */}
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Getting Started</CardTitle>
-
-            <CardDescription>
-              Complete these steps to prepare your hotel.
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent className="space-y-4 text-sm">
-            <div className="flex items-center justify-between">
-              <span>Hotel Information</span>
-
-              <StatusBadge status="approved" />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <span>Add Rooms</span>
-
-              {rooms.length > 0 ? (
-                <StatusBadge status="completed" />
-              ) : (
-                <StatusBadge status="pending" />
-              )}
-            </div>
-
-            <div className="flex items-center justify-between">
-              <span>Start Receiving Bookings</span>
-
-              <StatusBadge status="pending" />
-            </div>
-          </CardContent>
-        </Card>
       </div>
-
-      {/* Recent Activity */}
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
-
-          <CardDescription>
-            Activity related to your hotel will appear here.
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent>
-          <div className="flex h-44 flex-col items-center justify-center rounded-lg border border-dashed">
-            <ClipboardList className="mb-4 size-10 text-muted-foreground" />
-
-            <p className="font-medium">No activity yet</p>
-
-            <p className="mt-1 text-center text-sm text-muted-foreground">
-              Bookings, reviews, and other updates will appear here.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }

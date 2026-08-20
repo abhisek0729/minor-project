@@ -17,7 +17,8 @@ interface RestaurantSettingsFormProps {
   initialData: {
     name: string;
     description: string;
-    cuisine: string;
+    establishedDate?: string | null;
+    cuisine?: string | null;
     phoneNumber: string;
     location: string;
     restaurantImageUrl: string;
@@ -29,7 +30,8 @@ export default function RestaurantSettingsForm({
 }: RestaurantSettingsFormProps) {
   const [name, setName] = useState(initialData.name || "");
   const [description, setDescription] = useState(initialData.description || "");
-  const [cuisine, setCuisine] = useState(initialData.cuisine || "Nepali");
+  const [establishedDate, setEstablishedDate] = useState(initialData.establishedDate || "");
+  const [cuisine, setCuisine] = useState(initialData.cuisine || "Multi-Cuisine");
   const [phoneNumber, setPhoneNumber] = useState(initialData.phoneNumber || "");
   const [location, setLocation] = useState(initialData.location || "");
   const [restaurantImageUrl, setRestaurantImageUrl] = useState(
@@ -45,6 +47,7 @@ export default function RestaurantSettingsForm({
       const res = await updateRestaurantProfile({
         name,
         description,
+        establishedDate,
         cuisine,
         phoneNumber,
         location,
@@ -84,12 +87,11 @@ export default function RestaurantSettingsForm({
             </Field>
 
             <Field>
-              <FieldLabel>Cuisine Type *</FieldLabel>
+              <FieldLabel>Established Date / Year</FieldLabel>
               <Input
-                placeholder="e.g. Nepali, Thakali, Continental, Fast Food"
-                value={cuisine}
-                onChange={(e) => setCuisine(e.target.value)}
-                required
+                placeholder="e.g. 2015"
+                value={establishedDate}
+                onChange={(e) => setEstablishedDate(e.target.value)}
               />
             </Field>
           </div>
