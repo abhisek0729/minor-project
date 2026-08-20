@@ -3,13 +3,12 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { db } from "@/app/lib/db";
 import {
-  bookingsTable,
   guidesTable,
   hotelsTable,
   placesTable,
   restaurantsTable,
 } from "@/app/lib/db/schema";
-import { desc, eq, ilike, or } from "drizzle-orm";
+import { ilike, or } from "drizzle-orm";
 import {
   getUserMemoryProfile,
   updateUserMemory,
@@ -32,7 +31,7 @@ export async function POST(request: NextRequest) {
     body.history || body.messages || [];
   const userId = session?.user?.id ? Number(session.user.id) : 1;
   const userName = session?.user?.name || "Traveler";
-  const userRoles = session?.user?.roles ? (session.user.roles || []).map((r: any) => r.name) : ["tourist"];
+  const userRoles = session?.user?.roles ? (session.user.roles || []).map((r: { name: string }) => r.name) : ["tourist"];
 
   const payload = {
     ...body,
@@ -75,7 +74,7 @@ export async function POST(request: NextRequest) {
       history
     );
     return NextResponse.json(responseData);
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("AI Query processing error:", err);
     return NextResponse.json({
       answer:
@@ -101,7 +100,6 @@ async function processSmartAIQuery(
   const userMemory = await getUserMemoryProfile(userId, userName, userRoles);
 
   // A. Extract Conversational Context & Match Across All 150 Destinations
-  let matchedDestinationObj: any = null;
   let destination = "";
 
   // 1. Scan current message across all 150 destinations
@@ -110,7 +108,6 @@ async function processSmartAIQuery(
     const primaryName = nameLower.split("&")[0].trim();
     if (msgLower.includes(nameLower) || (primaryName.length > 3 && msgLower.includes(primaryName))) {
       destination = dest.name;
-      matchedDestinationObj = dest;
       break;
     }
   }
@@ -124,7 +121,6 @@ async function processSmartAIQuery(
         const primaryName = nameLower.split("&")[0].trim();
         if (hText.includes(nameLower) || (primaryName.length > 3 && hText.includes(primaryName))) {
           destination = dest.name;
-          matchedDestinationObj = dest;
           stepsTaken.push(`🧠 Recalled active destination from conversation history: ${dest.name}`);
           break;
         }
@@ -136,7 +132,6 @@ async function processSmartAIQuery(
   // 3. Fallback to user memory or default to Pokhara
   if (!destination) {
     destination = userMemory.recentDestinations[0] || "Pokhara Valley & Phewa Lake";
-    matchedDestinationObj = destinationsData.find((d) => d.name.toLowerCase().includes("pokhara")) || destinationsData[1];
   }
 
   const destinationTitle = destination;
@@ -178,7 +173,143 @@ async function processSmartAIQuery(
     stepsTaken.push(`⏱️ Identified trip duration inquiry: ${durationDays} Days`);
   }
 
-  // B. Check for Form Action Intents (Human In The Loop)
+  // B. Check for Form Action Intents (Human In The Loop with RBAC Guards)
+  const isSuperAdmin = userRoles.includes("admin");
+
+  // 1. Super Admin: Partner Approval Intent
+  if (
+    (msgLower.includes("approve") || msgLower.includes("accept partner") || msgLower.includes("grant partner")) &&
+    (msgLower.includes("partner") || msgLower.includes("hotel") || msgLower.includes("restaurant") || msgLower.includes("guide") || msgLower.includes("owner") || msgLower.includes("user"))
+  ) {
+    if (!isSuperAdmin) {
+      return {
+        answer: "⚠️ **Access Restricted**: Reviewing and approving partner workspaces requires **Super Admin** privileges. You are currently logged in as a Traveler.",
+        steps_taken: ["🔒 RBAC Policy Check: Denied non-admin partner approval mutation"],
+        tools_used: ["rbac_guard"],
+      };
+    }
+
+    const numMatch = message.match(/\b\d+\b/);
+    const targetUserId = numMatch ? parseInt(numMatch[0]) : null;
+    let roleType: "hotelOwner" | "restaurantOwner" | "guide" = "hotelOwner";
+
+    if (msgLower.includes("restaurant")) roleType = "restaurantOwner";
+    else if (msgLower.includes("guide")) roleType = "guide";
+    else if (msgLower.includes("hotel")) roleType = "hotelOwner";
+
+    if (!targetUserId) {
+      return {
+        answer: "Please provide the User ID or Partner ID to approve (e.g., *'Approve hotel partner for user ID 5'*). You can also view all pending approvals at [/dashboard/admin/approvals](/dashboard/admin/approvals).",
+        steps_taken: ["❓ Prompted for missing partner user ID"],
+        tools_used: ["action_slot_analyzer"],
+      };
+    }
+
+    return {
+      answer: `🛡️ **Super Admin Action Prepared**: Review the partner approval details below and click **Confirm & Execute** to activate their workspace.`,
+      action_proposal: {
+        action_type: "APPROVE_PARTNER",
+        title: "Approve Partner Workspace",
+        description: `Approve pending ${roleType} workspace application for User ID #${targetUserId}.`,
+        payload: {
+          user_id: targetUserId,
+          role_name: roleType,
+        },
+        status: "requires_approval",
+      },
+      steps_taken: ["🛡️ Super Admin RBAC Verified", "📋 Generated Partner Approval Action Card"],
+      tools_used: ["hitl_proposal_generator", "rbac_guard"],
+    };
+  }
+
+  // 2. Super Admin: Partner Rejection Intent
+  if (
+    (msgLower.includes("reject") || msgLower.includes("deny partner") || msgLower.includes("suspend partner")) &&
+    (msgLower.includes("partner") || msgLower.includes("hotel") || msgLower.includes("restaurant") || msgLower.includes("guide") || msgLower.includes("user"))
+  ) {
+    if (!isSuperAdmin) {
+      return {
+        answer: "⚠️ **Access Restricted**: Rejecting or suspending partner workspaces requires **Super Admin** privileges.",
+        steps_taken: ["🔒 RBAC Policy Check: Denied non-admin mutation"],
+        tools_used: ["rbac_guard"],
+      };
+    }
+
+    const numMatch = message.match(/\b\d+\b/);
+    const targetUserId = numMatch ? parseInt(numMatch[0]) : null;
+    let roleType: "hotelOwner" | "restaurantOwner" | "guide" = "hotelOwner";
+
+    if (msgLower.includes("restaurant")) roleType = "restaurantOwner";
+    else if (msgLower.includes("guide")) roleType = "guide";
+
+    if (!targetUserId) {
+      return {
+        answer: "Please specify the Partner User ID to reject (e.g., *'Reject partner 12'*).",
+        steps_taken: ["❓ Prompted for partner ID"],
+        tools_used: ["action_slot_analyzer"],
+      };
+    }
+
+    return {
+      answer: `🛡️ **Super Admin Action Prepared**: Review the rejection action below and click **Confirm & Execute**.`,
+      action_proposal: {
+        action_type: "REJECT_PARTNER",
+        title: "Reject Partner Application",
+        description: `Reject ${roleType} application for User ID #${targetUserId}.`,
+        payload: {
+          user_id: targetUserId,
+          role_name: roleType,
+        },
+        status: "requires_approval",
+      },
+      steps_taken: ["🛡️ Super Admin RBAC Verified", "📋 Generated Partner Rejection Card"],
+      tools_used: ["hitl_proposal_generator", "rbac_guard"],
+    };
+  }
+
+  // 3. Super Admin: Create Destination Intent
+  if (
+    msgLower.includes("add destination") ||
+    msgLower.includes("create destination") ||
+    msgLower.includes("new destination")
+  ) {
+    if (!isSuperAdmin) {
+      return {
+        answer: "⚠️ **Access Restricted**: Adding official destinations to the platform requires **Super Admin** privileges. You can browse all 150 verified destinations at [/destinations](/destinations).",
+        steps_taken: ["🔒 RBAC Policy Check: Denied non-admin destination creation"],
+        tools_used: ["rbac_guard"],
+      };
+    }
+
+    const cleanDestName =
+      message
+        .replace(/add|create|new|destination|in|at|province|altitude|elevation/gi, "")
+        .trim() || "New Nepal Destination";
+
+    return {
+      answer: `🗺️ **Super Admin Action Prepared**: I have drafted the new destination record for **${cleanDestName}**. Review the details and click **Confirm & Execute** to publish it to PostgreSQL.`,
+      action_proposal: {
+        action_type: "CREATE_DESTINATION",
+        title: "Publish New Nepal Destination",
+        description: `Create official destination "${cleanDestName}" in the platform catalog.`,
+        payload: {
+          name: cleanDestName,
+          region: "Gandaki Province",
+          category: "Lakes & Mountains",
+          altitude: "2,200m",
+          best_season: "Autumn & Spring (Oct–May)",
+          starting_cost: "NPR 3,500/day",
+          cover_image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+          short_description: `Breathtaking mountain vistas, lush alpine valleys, and authentic Himalayan hospitality in ${cleanDestName}.`,
+        },
+        status: "requires_approval",
+      },
+      steps_taken: ["🛡️ Super Admin RBAC Verified", "📋 Compiled New Destination Action Card"],
+      tools_used: ["hitl_proposal_generator", "rbac_guard"],
+    };
+  }
+
+  // 4. Traveler & User: Log Expense Intent
   if (
     msgLower.includes("expense") ||
     msgLower.includes("spent") ||
@@ -189,7 +320,7 @@ async function processSmartAIQuery(
     const numMatch = message.match(/\b\d+\b/);
     const amount = numMatch ? parseInt(numMatch[0]) : null;
 
-    let location = destinationTitle || "Kathmandu";
+    const location = destinationTitle || "Kathmandu";
     let expType = "other";
     if (
       ["food", "sekuwa", "dinner", "lunch", "breakfast", "momo", "thali", "restaurant"].some((k) =>
@@ -240,15 +371,14 @@ async function processSmartAIQuery(
 
   // C. Search Platform Database using active destination context
   stepsTaken.push(`🔍 Searching verified platform database for '${destinationTitle}'`);
-  let hotels: any[] = [];
-  let restaurants: any[] = [];
-  let places: any[] = [];
-  let guides: any[] = [];
-  let userBookings: any[] = [];
+  let hotels: (typeof hotelsTable.$inferSelect)[] = [];
+  let restaurants: (typeof restaurantsTable.$inferSelect)[] = [];
+  let places: (typeof placesTable.$inferSelect)[] = [];
+  let guides: (typeof guidesTable.$inferSelect)[] = [];
 
   try {
     if (db) {
-      const [dbHotels, dbRestaurants, dbPlaces, dbGuides, dbBookings] = await Promise.all([
+      const [dbHotels, dbRestaurants, dbPlaces, dbGuides] = await Promise.all([
         db
           .select()
           .from(hotelsTable)
@@ -290,20 +420,11 @@ async function processSmartAIQuery(
             )
           )
           .limit(2),
-        msgLower.includes("booking")
-          ? db
-              .select()
-              .from(bookingsTable)
-              .where(eq(bookingsTable.userId, userId))
-              .orderBy(desc(bookingsTable.createdAt))
-              .limit(3)
-          : Promise.resolve([]),
       ]);
       hotels = dbHotels || [];
       restaurants = dbRestaurants || [];
       places = dbPlaces || [];
       guides = dbGuides || [];
-      userBookings = dbBookings || [];
     }
   } catch (dbErr) {
     console.warn("DB Query fallback note in AI route:", dbErr);
@@ -382,7 +503,15 @@ async function processSmartAIQuery(
   }
 
   // Format recommendations
-  const recommendations: any[] = [];
+  const recommendations: Array<{
+    entity_type: string;
+    entity_id: number;
+    name: string;
+    reason: string;
+    location: string;
+    booking_note: string;
+  }> = [];
+
   for (const h of hotels) {
     recommendations.push({
       entity_type: "hotel",
@@ -518,33 +647,32 @@ Provide clean map links: [📍 Location Name](https://www.google.com/maps/search
 3–4 destination-specific tips.
 End with one useful next-step question (e.g., "Want me to calculate the exact budget for 5 days?").
 
----
+## 6. PLATFORM CAPABILITIES & WORKSPACE KNOWLEDGE
+You are deeply integrated with the entire TravelNepal ecosystem. When users ask about platform features, workspaces, administration, or tools, provide clear direct links and guidance:
 
-## 6. BUDGET CALCULATION RULE
-When the user asks for costs, totals, or duration budgets (e.g. "How much for 5 days?"):
-Always calculate for ${destinationTitle} using:
+### 🏛️ Super Admin Platform Owner Console
+- **Super Admin Overview**: Access at '/dashboard/admin' for platform health, active workspaces, and pending requests.
+- **Destinations Manager**: Access at '/dashboard/admin/destinations' to create, view, search, and manage all 150 real Nepal destinations in PostgreSQL.
+- **Partner Approvals**: Access at '/dashboard/admin/approvals' to review and approve/reject pending Hotels, Guides, and Restaurants.
+- **Companies & Workspaces**: Access at '/dashboard/admin/companies' to oversee registered businesses and platform partners.
+- **User Management**: Access at '/dashboard/admin/users' to manage roles, permissions, and accounts.
 
-## 💰 {X}-Day Trip Budget for ${destinationTitle}
+### 🗺️ 150 Nepal Destinations Catalog ('/destinations')
+- Browse all 150 verified destinations across all 7 Provinces (Koshi, Madhesh, Bagmati, Gandaki, Lumbini, Karnali, Sudurpashchim).
+- Categories: Lakes & Mountains, Culture & Heritage, High Altitude Treks, Wildlife & Safari, Viewpoints, and Spiritual Sites.
+- Dynamic detail pages at '/destinations/[id]' with elevations, best visiting months, facts, and nearby day excursions.
 
-### 🏨 Accommodation
-{number of nights} × {nightly price range} = NPR X,XXX – Y,YYY
+### 💼 Partner Business Workspaces
+- **Hotel Workspace**: '/dashboard/hotels' for managing rooms, pricing, facilities, and cover photo branding ('/dashboard/hotels/settings').
+- **Guide Workspace**: '/dashboard/guide' for managing multi-day tour packages ('/dashboard/guide/packages'), availability calendar, and guide profile ('/dashboard/guide/settings').
+- **Restaurant Workspace**: '/dashboard/restaurant' for live menu items ('/dashboard/restaurant/menu'), table bookings, and restaurant branding.
 
-### 🍽️ Food & Dining
-{number of days} × {daily food range} = NPR X,XXX – Y,YYY
+### 💳 Khalti Web Checkout & Payments
+- Official Khalti Sandbox Web Checkout integrated for seamless booking of hotel stays and tour packages.
+- Instant server-side verification at '/api/payment/verify' returning digital e-receipts at '/payment/success'.
 
-### 🚗 Transportation
-- Intercity travel (e.g. Kathmandu ↔ ${destinationTitle})
-- Local travel (taxis, auto-rickshaws, boats) = NPR X,XXX
-
-### 🎟️ Activities & Sightseeing
-Include realistic costs for entry fees, boat rentals, viewpoints = NPR X,XXX
-
-### 💰 TOTAL
-- **Minimum estimated cost**: NPR X,XXX
-- **Maximum estimated cost**: NPR Y,YYY
-- **Approximate USD equivalent**: $XX – $YY
-
-State clearly what is **Included** (✓ Hotel, ✓ Food, ✓ Local transport, ✓ Sightseeing) and **Excluded** (✗ Personal shopping, ✗ Alcohol/luxury extras).
+### 🚨 Emergency SOS & Safety ('/emergency')
+- 24/7 Tourist Police Hotline (1144), Himalayan Rescue Association, Ambulance (102), and Emergency SOS alert logging.
 `;
 
   if (GEMINI_API_KEY) {

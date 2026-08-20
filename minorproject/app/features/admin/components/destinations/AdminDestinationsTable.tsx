@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import LocationMapPicker from "@/components/maps/LocationMapPicker";
 import {
   Table,
   TableBody,
@@ -465,14 +466,18 @@ export default function AdminDestinationsTable({
                   />
                 </div>
 
-                {/* Map Query */}
-                <div className="space-y-1">
-                  <label className="font-semibold text-foreground">Google Maps Query</label>
-                  <Input
-                    placeholder="e.g. Khumai Danda, Kaski, Nepal"
-                    value={formData.mapQuery}
-                    onChange={(e) => setFormData({ ...formData, mapQuery: e.target.value })}
-                    className="h-10 rounded-xl"
+                {/* Map Query & Live Interactive Map Picker */}
+                <div className="space-y-1 sm:col-span-2">
+                  <LocationMapPicker
+                    address={formData.mapQuery || `${formData.name || ""}, ${formData.region || "Nepal"}`}
+                    label="Pin Destination on Map"
+                    description="Use GPS, search, or presets to pin this destination for the interactive travel map."
+                    onChange={({ mapQuery, address: pickedAddr }) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        mapQuery: mapQuery || pickedAddr,
+                      }));
+                    }}
                   />
                 </div>
 

@@ -6,9 +6,10 @@ import {
   Clock,
   MapPin,
   Phone,
-  Store,
   Utensils,
   UtensilsCrossed,
+  Navigation,
+  ExternalLink,
 } from "lucide-react";
 
 import Navbar from "@/app/features/landing/components/Navbar";
@@ -23,7 +24,6 @@ import {
 } from "@/app/features/reviews/services/reviews.service";
 import ReviewsSection from "@/app/features/reviews/components/ReviewsSection";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import PublicRestaurantMenu from "@/app/features/restaurant/components/public/PublicRestaurantMenu";
 
 interface RestaurantDetailPageProps {
@@ -176,6 +176,41 @@ export default async function RestaurantDetailPage({
 
           {/* Public Menu Items Component */}
           <PublicRestaurantMenu items={menuItems} />
+        </section>
+
+        {/* Interactive Location & Navigation Map */}
+        <section className="rounded-3xl border bg-card p-6 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4">
+            <div>
+              <h3 className="text-lg font-bold flex items-center gap-2">
+                <MapPin className="size-5 text-primary" />
+                Find Restaurant on Google Maps
+              </h3>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {restaurant.location}
+              </p>
+            </div>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${restaurant.name}, ${restaurant.location}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold shadow-xs hover:opacity-90 transition-all shrink-0"
+            >
+              <Navigation className="size-3.5" />
+              <span>Get Driving Directions</span>
+              <ExternalLink className="size-3 ml-0.5" />
+            </a>
+          </div>
+
+          <div className="relative w-full h-72 rounded-2xl overflow-hidden border shadow-inner bg-muted/40">
+            <iframe
+              title={`Map for ${restaurant.name}`}
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(`${restaurant.name}, ${restaurant.location}`)}&z=15&output=embed`}
+              className="w-full h-full border-0"
+              loading="lazy"
+              allowFullScreen
+            />
+          </div>
         </section>
 
         {/* Guest Reviews & Rating Section */}

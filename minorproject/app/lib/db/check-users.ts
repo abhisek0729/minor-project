@@ -1,6 +1,6 @@
 import { db } from "./index";
-import { usersTable, userRolesTable, rolesTable } from "./schema";
-import { eq, desc } from "drizzle-orm";
+import { usersTable } from "./schema";
+import { desc } from "drizzle-orm";
 
 async function main() {
   const users = await db

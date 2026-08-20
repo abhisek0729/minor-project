@@ -162,6 +162,17 @@ export default function UnifiedDashboardView({
 
           {/* Navigation Items */}
           <nav className="space-y-1.5">
+            {isAdminApproved && (
+              <Link
+                href="/dashboard/admin"
+                className="flex items-center gap-3 px-3.5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md hover:opacity-95 transition-all mb-3 cursor-pointer"
+              >
+                <ShieldCheck className="size-4 shrink-0" />
+                <span>Super Admin Console</span>
+                <ArrowRight className="size-3.5 ml-auto" />
+              </Link>
+            )}
+
             <div className="px-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
               Portal Navigation
             </div>

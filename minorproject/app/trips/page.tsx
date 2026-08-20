@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -9,7 +9,6 @@ import {
   DollarSign,
   MapPin,
   Plane,
-  TrendingUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -45,11 +44,7 @@ export default function TripSummaryPage() {
   const [summary, setSummary] = useState<SummaryData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchSummary();
-  }, []);
-
-  const fetchSummary = async () => {
+  const fetchSummary = useCallback(async () => {
     try {
       setLoading(true);
       const [bookingsRes, expensesRes] = await Promise.all([
@@ -57,8 +52,8 @@ export default function TripSummaryPage() {
         fetch("/api/expenses"),
       ]);
 
-      let bookings = [];
-      let expenses = [];
+      let bookings: SummaryData["bookings"] = [];
+      let expenses: SummaryData["expenses"] = [];
 
       if (bookingsRes.ok) {
         const data = await bookingsRes.json();
@@ -71,17 +66,17 @@ export default function TripSummaryPage() {
       }
 
       const totalExpenses = expenses.reduce(
-        (sum: number, e: any) => sum + (e.amount || 0),
+        (sum, e) => sum + (Number(e.amount) || 0),
         0,
       );
 
       setSummary({
         upcomingBookings: bookings.filter(
-          (b: any) => b.booking_status === "confirmed",
+          (b) => b.booking_status === "confirmed",
         ).length,
         totalExpenses,
         activeTrips: bookings.length,
-        savedItineraries: 3, // Mock value
+        savedItineraries: 3,
         bookings,
         expenses,
       });
@@ -90,7 +85,11 @@ export default function TripSummaryPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchSummary();
+  }, [fetchSummary]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background">

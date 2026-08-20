@@ -36,6 +36,8 @@ export default async function HotelSettingsPage() {
           province: hotel.province,
           street: hotel.street,
           coverImageUrl: hotel.coverImageUrl || "",
+          latitude: hotel.latitude,
+          longitude: hotel.longitude,
         }}
       />
     </div>

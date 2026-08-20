@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Image from "next/image";
-import { Camera, Clock, Hotel, Loader2, MapPin, Save } from "lucide-react";
+import { Camera, Hotel, Loader2, MapPin, Save } from "lucide-react";
 import { toast } from "sonner";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
 import ImageUpload from "@/components/ui/image-upload";
+import LocationMapPicker from "@/components/maps/LocationMapPicker";
 import { updateHotelProfile } from "../../actions/updateHotelProfile";
 
 interface HotelSettingsFormProps {
@@ -21,6 +22,8 @@ interface HotelSettingsFormProps {
     province: string;
     street: string;
     coverImageUrl: string;
+    latitude?: number | null;
+    longitude?: number | null;
   };
 }
 
@@ -37,11 +40,18 @@ export default function HotelSettingsForm({ initialData }: HotelSettingsFormProp
   });
 
   const [coverImageUrl, setCoverImageUrl] = useState(initialData.coverImageUrl || "");
+  const [latitude, setLatitude] = useState<number | null>(initialData.latitude ?? null);
+  const [longitude, setLongitude] = useState<number | null>(initialData.longitude ?? null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     startTransition(async () => {
-      const res = await updateHotelProfile({ ...formData, coverImageUrl });
+      const res = await updateHotelProfile({
+        ...formData,
+        coverImageUrl,
+        latitude,
+        longitude,
+      });
       if (res.success) {
         toast.success(res.message);
       } else {
@@ -59,7 +69,7 @@ export default function HotelSettingsForm({ initialData }: HotelSettingsFormProp
             <Camera className="size-4 text-primary" /> Hotel Cover Photo
           </CardTitle>
           <CardDescription className="text-xs">
-            Upload a high-quality cover photo for your hotel's public listing. This is the first image travelers see.
+            Upload a high-quality cover photo for your hotel&apos;s public listing. This is the first image travelers see.
           </CardDescription>
         </CardHeader>
 
@@ -140,14 +150,14 @@ export default function HotelSettingsForm({ initialData }: HotelSettingsFormProp
         </Field>
       </Card>
 
-      {/* Location Info */}
+      {/* Location Info & Map Picker */}
       <Card className="p-6 border shadow-xs space-y-4">
         <CardHeader className="p-0">
           <CardTitle className="text-base font-bold flex items-center gap-2">
-            <MapPin className="size-4 text-primary" /> Address & Location
+            <MapPin className="size-4 text-primary" /> Address & Interactive Map Location
           </CardTitle>
           <CardDescription className="text-xs">
-            Provide exact street details to help guests locate your hotel.
+            Set your exact GPS coordinates and street address to enable seamless guest navigation.
           </CardDescription>
         </CardHeader>
 
@@ -178,6 +188,24 @@ export default function HotelSettingsForm({ initialData }: HotelSettingsFormProp
               required
             />
           </Field>
+        </div>
+
+        {/* Live Interactive Map Location Picker */}
+        <div className="pt-2">
+          <LocationMapPicker
+            latitude={latitude}
+            longitude={longitude}
+            address={`${formData.street}, ${formData.district}, ${formData.province}`}
+            label="Pin Hotel on Live Map"
+            description="Use GPS or select a tourism hub to pin your hotel's exact GPS location for guests."
+            onChange={({ latitude: newLat, longitude: newLng, address: newAddress }) => {
+              setLatitude(newLat);
+              setLongitude(newLng);
+              if (newAddress && !formData.street) {
+                setFormData((prev) => ({ ...prev, street: newAddress }));
+              }
+            }}
+          />
         </div>
       </Card>
 

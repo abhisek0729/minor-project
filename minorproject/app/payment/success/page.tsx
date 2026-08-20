@@ -1,15 +1,13 @@
 "use client";
 
 import { useEffect, useState, useRef, Suspense } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
   CheckCircle2,
   Receipt,
   ArrowRight,
   ShieldCheck,
-  Building2,
-  Calendar,
   Loader2,
   AlertCircle,
 } from "lucide-react";
@@ -19,7 +17,6 @@ import { Badge } from "@/components/ui/badge";
 
 function PaymentSuccessContent() {
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const pidx = searchParams.get("pidx");
   const purchaseOrderId = searchParams.get("purchase_order_id");

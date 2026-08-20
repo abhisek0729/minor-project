@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import ImageUpload from "../../../../../components/ui/image-upload";
+import LocationMapPicker from "@/components/maps/LocationMapPicker";
 
 import { submitRestaurantOnboarding } from "../../actions/onboarding.action";
 import {
@@ -235,6 +236,20 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
                   onChange={(e) => handleChange("street", e.target.value)}
                 />
                 {errors.street && <p className="text-sm text-destructive">{errors.street}</p>}
+              </div>
+
+              {/* Interactive Location Map Picker */}
+              <div className="col-span-2 pt-2">
+                <LocationMapPicker
+                  address={`${formData.street || ""}, ${formData.district || ""}, ${formData.province || ""}`}
+                  label="Pin Restaurant Exact Map Location"
+                  description="Use GPS or select a tourism hub to pin your restaurant on Google Maps for diners."
+                  onChange={({ latitude, longitude, address: newAddr }) => {
+                    if (newAddr && !formData.street) {
+                      handleChange("street", newAddr);
+                    }
+                  }}
+                />
               </div>
             </div>
           )}

@@ -16,6 +16,8 @@ export async function updateHotelProfile(data: {
   province: string;
   street: string;
   coverImageUrl?: string;
+  latitude?: number | null;
+  longitude?: number | null;
 }) {
   try {
     const session = await getServerSession(authOptions);
@@ -42,15 +44,19 @@ export async function updateHotelProfile(data: {
         province: data.province,
         street: data.street,
         coverImageUrl: data.coverImageUrl || null,
+        latitude: data.latitude !== undefined ? data.latitude : undefined,
+        longitude: data.longitude !== undefined ? data.longitude : undefined,
       })
       .where(eq(hotelsTable.id, hotel.id));
 
     revalidatePath("/dashboard/hotels");
     revalidatePath("/dashboard/hotels/settings");
+    revalidatePath("/hotels");
 
-    return { success: true, message: "Hotel profile updated successfully!" };
-  } catch (error: any) {
+    return { success: true, message: "Hotel profile & map location updated successfully!" };
+  } catch (error: unknown) {
+    const errorMsg = error instanceof Error ? error.message : "Failed to update hotel profile";
     console.error("Error updating hotel profile:", error);
-    return { success: false, message: error?.message || "Failed to update hotel profile" };
+    return { success: false, message: errorMsg };
   }
 }

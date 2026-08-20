@@ -5,18 +5,14 @@ import {
   usersTable,
   rolesTable,
   userRolesTable,
-  approvalStatusEnum,
 } from "@/app/lib/db/schema";
 import bcrypt from "bcryptjs";
 import { db } from "@/app/lib/db";
 import { eq } from "drizzle-orm";
-import { LoginCredentials } from "@/app/features/auth/types/register";
+import { LoginCredentials, UserRole } from "@/app/features/auth/types/register";
 import { User } from "next-auth";
 import { cookies } from "next/headers";
-import { UserRole } from "@/app/features/auth/types/register";
-import { ApprovalStatus } from "@/app/types/next-auth";
 import {
-  getRoleByName,
   getUserRoles,
   assignRoleIfMissing,
 } from "@/app/features/auth/services/roles.service";
