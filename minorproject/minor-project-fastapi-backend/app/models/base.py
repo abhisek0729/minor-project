@@ -168,3 +168,19 @@ class ItineraryItem(Base):
     entity_id: Mapped[int | None] = mapped_column(Integer)
     location: Mapped[str | None] = mapped_column(String(255))
     day: Mapped[ItineraryDay] = relationship(back_populates="items")
+
+class Booking(Base):
+    __tablename__ = "bookings"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    entity_type: Mapped[str] = mapped_column(ENUM("hotel", "room", "restaurant", "guide", "place", "travel", name="booking_entity_type", create_type=False))
+    entity_id: Mapped[int] = mapped_column(Integer, index=True)
+    check_in_date: Mapped[datetime | None] = mapped_column(DateTime)
+    check_out_date: Mapped[datetime | None] = mapped_column(DateTime)
+    booking_status: Mapped[str] = mapped_column(ENUM("pending", "confirmed", "cancelled", "completed", name="booking_status", create_type=False), default="pending")
+    total_cost: Mapped[Decimal] = mapped_column(Numeric(12, 2), default=0)
+    entity_name: Mapped[str] = mapped_column(String(255))
+    location: Mapped[str] = mapped_column(String(255))
+    booking_notes: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())

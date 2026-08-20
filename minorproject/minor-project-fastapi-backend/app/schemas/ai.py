@@ -15,6 +15,9 @@ class Recommendation(BaseModel):
     name: str
     reason: str
     estimated_cost: Decimal | None = None
+    location: str | None = None
+    map_url: str | None = None
+    booking_note: str | None = None
 
 class RecommendationResponse(BaseModel):
     recommendations: list[Recommendation]
@@ -37,3 +40,6 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     answer: str
     recommendations: list[Recommendation] = []
+    map_url: str | None = None
+    itinerary_summary: str | None = None
+    tools_used: list[str] = []
