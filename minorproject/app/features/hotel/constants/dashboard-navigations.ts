@@ -1,6 +1,5 @@
 import {
   BedDouble,
-  Building2,
   LayoutDashboard,
   Settings,
   Sparkles,
@@ -23,7 +22,7 @@ export const HOTEL_DASHBOARD_NAVIGATION = [
     icon: Sparkles,
   },
   {
-    title: "Hotel Settings",
+    title: "Profile & Settings",
     href: "/dashboard/hotels/settings",
     icon: Settings,
   },

@@ -54,13 +54,17 @@ export default function SignInForm() {
       });
 
       if (res?.error) {
-        console.log(res.error)
-        toast.error(res.error);
+        console.log("Sign-in error:", res.error);
+        if (res.error.toLowerCase().includes("verify your email") || res.error.toLowerCase().includes("verify")) {
+          toast.error("Please verify your email first. Redirecting to verification page...");
+          router.push(`/verify-email/${encodeURIComponent(data.identifier)}`);
+          return;
+        }
+        toast.error(res.error === "CredentialsSignin" ? "Invalid email or password" : res.error);
         return;
       }
 
       toast.success("Welcome back!");
-
       router.replace("/dashboard");
     } catch(error) {
       toast.error("Something went wrong.");

@@ -45,6 +45,8 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
+          console.log("[AUTH] Attempting login for:", credentials.identifier);
+
           // Query user first (without requiring roles to exist)
           const users = await db
             .select()
@@ -54,18 +56,23 @@ export const authOptions: NextAuthOptions = {
           const user = users[0];
 
           if (!user) {
+            console.log("[AUTH] No user found for:", credentials.identifier);
             throw new Error("Invalid email or password");
           }
+
+          console.log("[AUTH] User found:", { id: user.id, email: user.email, isVerified: user.isVerified, provider: user.provider, hasPassword: !!user.passwordHash });
 
           if (!user.passwordHash && user.provider === "google") {
             throw new Error("This account was created with Google. Please add GOOGLE_CLIENT_ID to .env or sign in with password.");
           }
 
           if (!user.isVerified) {
+            console.log("[AUTH] User NOT verified:", user.email);
             throw new Error("Please verify your email first");
           }
 
           if (!user.passwordHash) {
+            console.log("[AUTH] No password hash for:", user.email);
             throw new Error("Password not set for this account.");
           }
 
@@ -75,8 +82,11 @@ export const authOptions: NextAuthOptions = {
           );
 
           if (!isPasswordValid) {
+            console.log("[AUTH] Invalid password for:", user.email);
             throw new Error("Invalid email or password");
           }
+
+          console.log("[AUTH] Password valid for:", user.email);
 
           // Query roles separately (user may not have roles yet)
           const userWithRoles = await db
@@ -93,6 +103,8 @@ export const authOptions: NextAuthOptions = {
               approvalStatus: row.user_roles!.approvalStatus,
             }));
 
+          console.log("[AUTH] Login success for:", user.email, "roles:", roles);
+
           return {
             id: user.id.toString(),
             name: user.name,
@@ -101,6 +113,7 @@ export const authOptions: NextAuthOptions = {
             roles,
           };
         } catch (error: any) {
+          console.error("[AUTH] Login error:", error.message);
           throw new Error(error.message);
         }
       },
