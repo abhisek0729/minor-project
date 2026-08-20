@@ -81,7 +81,7 @@ export default function BecomePartnerPage() {
         const res = await addPartnerRoleAction(roleId);
         if (res.success) {
           toast.success(res.message || `Registered as ${roleId}`);
-          router.push("/workspace");
+          router.push("/dashboard");
           return;
         } else {
           toast.error(res.message || "Failed to register workspace");

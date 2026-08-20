@@ -42,9 +42,9 @@ export default async function AdminPendingPage() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <Link href="/workspace">
+            <Link href="/dashboard">
               <Button variant="default" className="gap-2 text-xs">
-                <ArrowLeft className="size-3.5" /> Back to Workspaces
+                <ArrowLeft className="size-3.5" /> Back to Dashboard
               </Button>
             </Link>
 

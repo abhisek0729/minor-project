@@ -16,7 +16,7 @@ interface GoogleSignInButtonProps {
 
 export default function GoogleSignInButton({
   mode = "signin",
-  callbackUrl = "/workspace",
+  callbackUrl = "/dashboard",
 }: GoogleSignInButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
 

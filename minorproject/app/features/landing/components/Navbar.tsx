@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, Mountain, X } from "lucide-react";
+import { Menu, Mountain, Siren, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "next-auth/react";
@@ -25,6 +25,11 @@ const navItems = [
   {
     label: "Guides",
     href: "/guides",
+  },
+  {
+    label: "Emergency",
+    href: "/emergency",
+    isEmergency: true,
   },
   {
     label: "About",
@@ -78,19 +83,38 @@ export default function Navbar() {
 
             <p
               className={`-mt-1 text-xs transition-colors ${
-                isScrolled ? "text-muted-foreground" : "text-white/80"
+                isScrolled ? "text-muted-foreground" : "text-white/70"
               }`}
             >
-              AI Tourism Platform
+              Discover the Himalayas
             </p>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {navItems.map((item) => {
             const active = pathname === item.href;
+
+            if (item.isEmergency) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs ${
+                    active
+                      ? "bg-rose-600 text-white shadow-md ring-2 ring-rose-500/50"
+                      : isScrolled
+                      ? "bg-rose-500/10 text-rose-600 hover:bg-rose-600 hover:text-white border border-rose-500/30"
+                      : "bg-rose-600/90 text-white hover:bg-rose-600 border border-white/20 backdrop-blur-md"
+                  }`}
+                >
+                  <Siren className="size-3.5 animate-pulse text-current" />
+                  <span>Emergency SOS</span>
+                </Link>
+              );
+            }
 
             return (
               <Link
@@ -99,8 +123,8 @@ export default function Navbar() {
                 className={`text-sm font-medium transition-colors ${
                   active
                     ? isScrolled
-                      ? "text-primary"
-                      : "text-white"
+                      ? "text-primary font-bold"
+                      : "text-white font-bold"
                     : isScrolled
                       ? "text-muted-foreground hover:text-foreground"
                       : "text-white/85 hover:text-white"
@@ -179,12 +203,15 @@ export default function Navbar() {
                 href={item.href}
                 onClick={() => setIsOpen(false)}
                 className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  pathname === item.href
-                    ? "bg-primary/10 text-primary"
+                  item.isEmergency
+                    ? "bg-rose-500/15 text-rose-600 font-bold border border-rose-500/30 flex items-center gap-2"
+                    : pathname === item.href
+                    ? "bg-primary/10 text-primary font-bold"
                     : "hover:bg-muted"
                 }`}
               >
-                {item.label}
+                {item.isEmergency && <Siren className="size-4 animate-pulse" />}
+                {item.label} {item.isEmergency && "SOS (Police / Flood Rescue)"}
               </Link>
             ))}
 

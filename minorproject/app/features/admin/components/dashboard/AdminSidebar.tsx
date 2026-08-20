@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   ArrowLeft,
+  Building2,
   CheckCircle2,
   Clock3,
   Compass,
@@ -34,6 +35,7 @@ const sidebarLinks = [
     icon: Clock3,
     badgeKey: "pending",
   },
+  { name: "Companies & Workspaces", href: "/dashboard/admin/companies", icon: Building2 },
   { name: "Restaurants", href: "/dashboard/admin/restaurants", icon: UtensilsCrossed },
   { name: "Hotels & Stays", href: "/dashboard/admin/hotels", icon: Hotel },
   { name: "Tour Guides", href: "/dashboard/admin/guides", icon: Compass },

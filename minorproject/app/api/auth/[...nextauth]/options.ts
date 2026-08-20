@@ -57,17 +57,21 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Invalid email or password");
           }
 
-          if (user.provider === "google" || user.provider === null) {
-            throw new Error("Please sign in with Google");
+          if (!user.passwordHash && user.provider === "google") {
+            throw new Error("This account was created with Google. Please add GOOGLE_CLIENT_ID to .env or sign in with password.");
           }
 
           if (!user.isVerified) {
             throw new Error("Please verify your email first");
           }
 
+          if (!user.passwordHash) {
+            throw new Error("Password not set for this account.");
+          }
+
           const isPasswordValid = await bcrypt.compare(
             credentials.password,
-            user.passwordHash!,
+            user.passwordHash,
           );
 
           if (!isPasswordValid) {
@@ -101,10 +105,14 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
   ],
   pages: {
     signIn: "/sign-in",

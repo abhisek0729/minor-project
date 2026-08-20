@@ -148,7 +148,14 @@ export default function AIRobotChat() {
       const res = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: query }),
+        body: JSON.stringify({
+          message: query,
+          history: messages.slice(-12).map((m) => ({
+            role: m.role,
+            content: m.text,
+            text: m.text,
+          })),
+        }),
       });
 
       const data = await res.json();

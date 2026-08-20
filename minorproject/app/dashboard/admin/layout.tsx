@@ -38,7 +38,9 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
     const pendingRes = await getPendingApprovals();
     if (pendingRes.success && pendingRes.data) {
       pendingCount =
-        pendingRes.data.restaurants.length + pendingRes.data.hotels.length;
+        (pendingRes.data.restaurants?.length || 0) +
+        (pendingRes.data.hotels?.length || 0) +
+        (pendingRes.data.guides?.length || 0);
     }
   } catch (error) {
     console.error("Failed to count pending requests:", error);

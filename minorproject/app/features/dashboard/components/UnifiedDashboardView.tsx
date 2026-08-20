@@ -16,6 +16,7 @@ import {
   ExternalLink,
   Hotel,
   LayoutDashboard,
+  Loader2,
   LogOut,
   MapPin,
   MapPinned,
@@ -25,10 +26,12 @@ import {
   Settings,
   Shield,
   ShieldCheck,
+  Siren,
   Sparkles,
   User,
   Users,
   UtensilsCrossed,
+  Wallet,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -84,59 +87,71 @@ export default function UnifiedDashboardView({
     .reduce((sum, b) => sum + (b.totalAmount || 0), 0);
 
   const [bookingFilter, setBookingFilter] = useState<string>("all");
+  const [payingBookingId, setPayingBookingId] = useState<number | null>(null);
+
+  const handlePayKhalti = async (booking: any) => {
+    try {
+      setPayingBookingId(booking.id);
+      toast.info("Connecting to Khalti secure checkout...");
+      const res = await fetch("/api/payment/initiate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          bookingId: booking.id,
+          amount: booking.totalAmount,
+          itemName: booking.itemName || "Trip Reservation",
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success && data.payment_url) {
+        window.location.href = data.payment_url;
+      } else {
+        toast.error(data.error || "Failed to start Khalti payment");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Payment initiation error");
+    } finally {
+      setPayingBookingId(null);
+    }
+  };
+
   const filteredBookings = bookings.filter((b) => {
     if (bookingFilter === "all") return true;
     return b.status === bookingFilter || b.bookingType === bookingFilter;
   });
 
   return (
-    <div className="min-h-screen bg-muted/20 flex flex-col">
-      {/* Top Main Dashboard Header */}
-      <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b bg-background/95 px-4 sm:px-8 backdrop-blur-md">
-        <div className="flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg text-foreground hover:opacity-90 transition-opacity">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+    <div className="flex h-screen overflow-hidden bg-muted/20 w-full">
+      {/* Left Sidebar Navigation (Pinned Full-Height Left Panel) */}
+      <aside className="w-72 shrink-0 border-r bg-card flex flex-col justify-between overflow-y-auto p-5 space-y-6 shadow-2xs">
+        <div className="space-y-6">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 font-bold text-lg text-foreground hover:opacity-90 transition-opacity">
+            <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
               <Building2 className="size-5" />
             </div>
-            <span>TravelNepal</span>
+            <div>
+              <span className="block leading-tight font-bold">TravelNepal</span>
+              <span className="block text-[10px] text-muted-foreground font-normal">Unified Workspace</span>
+            </div>
           </Link>
-        </div>
 
-        <div className="flex items-center gap-3">
-          <GlobalWorkspaceSwitcher />
-
-          <NotificationBell />
-
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => signOut({ callbackUrl: "/" })}
-            className="text-xs text-destructive hover:bg-destructive/10 cursor-pointer"
-          >
-            <LogOut className="size-3.5 mr-1" /> Sign Out
-          </Button>
-        </div>
-      </header>
-
-      {/* Main Dashboard Layout with Enhanced Sidebar */}
-      <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 flex flex-col md:flex-row gap-8">
-        {/* Left Sidebar Navigation */}
-        <aside className="w-full md:w-64 shrink-0 space-y-6">
           {/* User Quick Mini Profile */}
-          <Card className="p-4 border shadow-xs bg-card">
+          <Card className="p-3.5 border shadow-2xs bg-muted/30">
             <div className="flex items-center gap-3">
-              <div className="size-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold text-lg border border-primary/20 shrink-0">
+              <div className="size-11 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold text-base border border-primary/20 shrink-0">
                 {user.initials}
               </div>
               <div className="min-w-0 flex-1">
-                <h3 className="font-bold text-sm truncate">{user.name}</h3>
-                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-                <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                  <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-emerald-500/30 text-emerald-600 bg-emerald-500/10 font-semibold">
-                    <CheckCircle2 className="size-2.5 mr-1" /> Verified
+                <h3 className="font-bold text-xs truncate">{user.name}</h3>
+                <p className="text-[11px] text-muted-foreground truncate">{user.email}</p>
+                <div className="flex items-center gap-1 mt-1 flex-wrap">
+                  <Badge variant="outline" className="text-[9px] py-0 px-1.5 border-emerald-500/30 text-emerald-600 bg-emerald-500/10 font-semibold">
+                    <CheckCircle2 className="size-2.5 mr-0.5" /> Verified
                   </Badge>
                   {roles.some((r) => r.name === "admin") && (
-                    <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-rose-500/30 text-rose-600 bg-rose-500/10 font-semibold">
+                    <Badge variant="outline" className="text-[9px] py-0 px-1.5 border-rose-500/30 text-rose-600 bg-rose-500/10 font-semibold">
                       Admin
                     </Badge>
                   )}
@@ -146,7 +161,11 @@ export default function UnifiedDashboardView({
           </Card>
 
           {/* Navigation Items */}
-          <nav className="space-y-1 bg-card border rounded-2xl p-2 shadow-xs">
+          <nav className="space-y-1.5">
+            <div className="px-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+              Portal Navigation
+            </div>
+
             <button
               type="button"
               onClick={() => setActiveTab("overview")}
@@ -225,24 +244,65 @@ export default function UnifiedDashboardView({
               <Settings className="size-4" />
               <span>Profile & Settings</span>
             </button>
-          </nav>
 
-          {/* Quick Partner CTA */}
-          <Card className="p-4 border border-dashed bg-primary/5 text-center space-y-2">
-            <p className="font-semibold text-xs text-foreground">Want to list your business?</p>
-            <p className="text-[11px] text-muted-foreground leading-tight">
-              Register as a Hotel Owner, Restaurant Partner, or Tour Guide.
-            </p>
-            <Link href="/partner/business-type" className="block pt-1">
-              <Button size="sm" variant="outline" className="w-full text-xs gap-1.5 border-primary/30 text-primary hover:bg-primary/10">
-                <Plus className="size-3.5" /> Become a Partner
-              </Button>
+            <Link
+              href="/emergency"
+              className="flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer bg-rose-500/10 text-rose-600 hover:bg-rose-500/20 border border-rose-500/30"
+            >
+              <div className="flex items-center gap-3">
+                <Siren className="size-4 animate-pulse text-rose-600" />
+                <span>Emergency SOS Hub</span>
+              </div>
+              <Badge variant="destructive" className="text-[9px] px-1.5 py-0 bg-rose-600">
+                24/7
+              </Badge>
             </Link>
-          </Card>
-        </aside>
+          </nav>
+        </div>
 
-        {/* Right Main Content Area */}
-        <main className="flex-1 min-w-0 space-y-6">
+        {/* Quick Partner CTA in sidebar footer */}
+        <Card className="p-3.5 border border-dashed bg-primary/5 text-center space-y-1.5">
+          <p className="font-semibold text-xs text-foreground">Want to list a business?</p>
+          <p className="text-[10px] text-muted-foreground leading-tight">
+            Register as a Hotel Owner, Restaurant Partner, or Tour Guide.
+          </p>
+          <Link href="/partner/business-type" className="block pt-1">
+            <Button size="sm" variant="outline" className="w-full text-xs h-8 gap-1.5 border-primary/30 text-primary hover:bg-primary/10 cursor-pointer">
+              <Plus className="size-3.5" /> Become a Partner
+            </Button>
+          </Link>
+        </Card>
+      </aside>
+
+      {/* Main Full-Width Right Workspace Panel */}
+      <div className="flex-1 flex flex-col h-full overflow-hidden min-w-0">
+        {/* Top Header Bar */}
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-6 sm:px-8 backdrop-blur-md shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-muted-foreground">Workspace View:</span>
+            <Badge variant="secondary" className="text-xs font-semibold capitalize">
+              {activeTab}
+            </Badge>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <GlobalWorkspaceSwitcher />
+
+            <NotificationBell />
+
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="text-xs text-destructive hover:bg-destructive/10 cursor-pointer"
+            >
+              <LogOut className="size-3.5 mr-1" /> Sign Out
+            </Button>
+          </div>
+        </header>
+
+        {/* Scrollable Main Content Container Occupying Entire Width */}
+        <main className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
           {/* TAB 1: OVERVIEW & SUMMARY */}
           {activeTab === "overview" && (
             <div className="space-y-6 animate-in fade-in duration-200">
@@ -727,23 +787,41 @@ export default function UnifiedDashboardView({
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between sm:justify-end gap-4">
+                      <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3">
                         <div className="text-right">
                           <p className="text-xs text-muted-foreground">Total Cost</p>
                           <p className="font-extrabold text-base">NPR {b.totalAmount?.toLocaleString()}</p>
                         </div>
 
-                        <Badge
-                          className={`text-xs capitalize ${
-                            b.status === "confirmed" || b.status === "completed"
-                              ? "bg-emerald-500/15 text-emerald-600 border-emerald-500/30"
-                              : b.status === "pending"
-                              ? "bg-amber-500/15 text-amber-600 border-amber-500/30"
-                              : "bg-red-500/15 text-red-600 border-red-500/30"
-                          }`}
-                        >
-                          {b.status}
-                        </Badge>
+                        <div className="flex items-center gap-2">
+                          <Badge
+                            className={`text-xs capitalize ${
+                              b.status === "confirmed" || b.status === "completed"
+                                ? "bg-emerald-500/15 text-emerald-600 border-emerald-500/30"
+                                : b.status === "pending"
+                                ? "bg-amber-500/15 text-amber-600 border-amber-500/30"
+                                : "bg-red-500/15 text-red-600 border-red-500/30"
+                            }`}
+                          >
+                            {b.status}
+                          </Badge>
+
+                          {b.paymentStatus === "pending" && (
+                            <Button
+                              size="sm"
+                              onClick={() => handlePayKhalti(b)}
+                              disabled={payingBookingId === b.id}
+                              className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs h-8 gap-1.5 rounded-xl cursor-pointer shadow-xs"
+                            >
+                              {payingBookingId === b.id ? (
+                                <Loader2 className="size-3.5 animate-spin" />
+                              ) : (
+                                <Wallet className="size-3.5" />
+                              )}
+                              Pay with Khalti
+                            </Button>
+                          )}
+                        </div>
                       </div>
                     </Card>
                   ))}
