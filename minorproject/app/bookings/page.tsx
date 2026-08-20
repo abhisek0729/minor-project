@@ -178,7 +178,37 @@ export default function BookingHistoryPage() {
                         </p>
                       </div>
 
-                      <div className="flex gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        {booking.booking_status === "pending" && (
+                          <Button
+                            size="sm"
+                            className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs rounded-xl cursor-pointer"
+                            onClick={async () => {
+                              try {
+                                toast.info("Connecting to Khalti secure checkout...");
+                                const res = await fetch("/api/payment/initiate", {
+                                  method: "POST",
+                                  headers: { "Content-Type": "application/json" },
+                                  body: JSON.stringify({
+                                    bookingId: booking.id,
+                                    amount: booking.total_cost,
+                                    itemName: booking.entity_name,
+                                  }),
+                                });
+                                const data = await res.json();
+                                if (data.success && data.payment_url) {
+                                  window.location.href = data.payment_url;
+                                } else {
+                                  toast.error(data.error || "Failed to initiate payment");
+                                }
+                              } catch (err: any) {
+                                toast.error(err.message || "Payment initiation error");
+                              }
+                            }}
+                          >
+                            Pay with Khalti
+                          </Button>
+                        )}
                         {booking.booking_status !== "cancelled" && (
                           <Button
                             size="sm"
@@ -188,7 +218,7 @@ export default function BookingHistoryPage() {
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         )}
-                        <Link href={`/booking/${booking.id}`}>
+                        <Link href="/dashboard">
                           <Button size="sm" variant="outline">
                             View Details
                           </Button>

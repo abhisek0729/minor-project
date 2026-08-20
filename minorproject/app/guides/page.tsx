@@ -220,7 +220,7 @@ export default function GuidesPage() {
                 key={guide.id}
                 className="group overflow-hidden border hover:border-primary/50 transition-all duration-300 hover:shadow-lg h-full flex flex-col justify-between"
               >
-                <div>
+                <Link href={`/guides/${guide.id}`} className="block flex-1">
                   {/* Guide Photo & License Tag */}
                   <div className="relative h-60 w-full bg-muted overflow-hidden">
                     <Image
@@ -299,7 +299,7 @@ export default function GuidesPage() {
                       <span>{guide.packagesCount} Curated Tour Packages Available</span>
                     </div>
                   </CardContent>
-                </div>
+                </Link>
 
                 <div className="p-6 pt-0 space-y-3">
                   <div className="flex items-baseline justify-between border-t pt-3">
@@ -315,12 +315,12 @@ export default function GuidesPage() {
                     </Badge>
                   </div>
 
-                  <Link href="/dashboard" className="block">
+                  <Link href={`/guides/${guide.id}`} className="block">
                     <Button
                       size="sm"
                       className="w-full text-xs font-semibold rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-all gap-1.5 cursor-pointer"
                     >
-                      Book Guided Tour →
+                      View Profile & Packages →
                     </Button>
                   </Link>
                 </div>

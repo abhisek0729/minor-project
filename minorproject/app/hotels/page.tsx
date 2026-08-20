@@ -219,7 +219,7 @@ export default function HotelsPage() {
                 key={hotel.id}
                 className="group overflow-hidden border hover:border-primary/50 transition-all duration-300 hover:shadow-lg h-full flex flex-col justify-between"
               >
-                <div>
+                <Link href={`/hotels/${hotel.id}`} className="block flex-1">
                   {/* Cover Image & Rating Badge */}
                   <div className="relative h-56 w-full bg-muted overflow-hidden">
                     <Image
@@ -284,7 +284,7 @@ export default function HotelsPage() {
                       <span>Instant Booking Confirmation</span>
                     </div>
                   </CardContent>
-                </div>
+                </Link>
 
                 <div className="p-6 pt-0 space-y-3">
                   <div className="flex items-baseline justify-between border-t pt-3">
@@ -300,12 +300,12 @@ export default function HotelsPage() {
                     </Badge>
                   </div>
 
-                  <Link href="/dashboard" className="block">
+                  <Link href={`/hotels/${hotel.id}`} className="block">
                     <Button
                       size="sm"
-                      className="w-full text-xs font-semibold rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-all gap-1.5"
+                      className="w-full text-xs font-semibold rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-all gap-1.5 cursor-pointer"
                     >
-                      Reserve / View Stay →
+                      Reserve / View Rooms →
                     </Button>
                   </Link>
                 </div>

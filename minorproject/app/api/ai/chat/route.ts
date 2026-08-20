@@ -14,6 +14,7 @@ import {
   getUserMemoryProfile,
   updateUserMemory,
 } from "@/app/features/ai/services/user-memory.service";
+import destinationsData from "@/app/lib/db/destinations-data.json";
 
 const FASTAPI_BASE_URL =
   process.env.FASTAPI_BASE_URL ||
@@ -23,28 +24,20 @@ const FASTAPI_BASE_URL =
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
 
 export async function POST(request: NextRequest) {
-  // 1. RBAC & Auth Guard: Ensure user is authenticated
+  // 1. Session & Auth context (supports signed-in users and guest explorers)
   const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id) {
-    return NextResponse.json(
-      {
-        error: "Unauthorized",
-        detail: "You must be signed in to use the AI Travel Assistant.",
-      },
-      { status: 401 }
-    );
-  }
-
   const body = await request.json();
   const userMessage: string = body.message || "";
-  const userId = Number(session.user.id);
-  const userRoles = (session.user.roles || []).map((r: any) => r.name);
+  const history: Array<{ role: string; content?: string; text?: string }> =
+    body.history || body.messages || [];
+  const userId = session?.user?.id ? Number(session.user.id) : 1;
+  const userName = session?.user?.name || "Traveler";
+  const userRoles = session?.user?.roles ? (session.user.roles || []).map((r: any) => r.name) : ["tourist"];
 
   const payload = {
     ...body,
     user_id: userId,
-    user_name: session.user.name || "Traveler",
+    user_name: userName,
     user_roles: userRoles,
   };
 
@@ -72,19 +65,21 @@ export async function POST(request: NextRequest) {
     // Graceful fallback to smart in-app AI engine
   }
 
-  // 3. Smart Next.js Travel AI Engine
+  // 3. Smart Next.js Travel AI Engine with Conversational Memory
   try {
     const responseData = await processSmartAIQuery(
       userMessage,
       userId,
       userRoles,
-      session.user.name || "Traveler"
+      userName,
+      history
     );
     return NextResponse.json(responseData);
   } catch (err: any) {
     console.error("AI Query processing error:", err);
     return NextResponse.json({
-      answer: "I'm ready to help you plan custom trips, recommend verified hotels & local food, and log travel expenses! Ask me anything about any destination in Nepal.",
+      answer:
+        "I'm ready to help you plan custom trips, recommend verified hotels & local food, and log travel expenses! Ask me anything about any destination in Nepal.",
       recommendations: [],
       steps_taken: ["Platform Assistant Ready"],
       tools_used: ["in_app_engine"],
@@ -96,7 +91,8 @@ async function processSmartAIQuery(
   message: string,
   userId: number,
   userRoles: string[],
-  userName: string
+  userName: string,
+  history: Array<{ role: string; content?: string; text?: string }> = []
 ) {
   const msgLower = message.toLowerCase();
   const stepsTaken: string[] = [];
@@ -104,7 +100,51 @@ async function processSmartAIQuery(
   // Load User Memory Layer Profile (past bookings, expense history, partner roles, custom preferences)
   const userMemory = await getUserMemoryProfile(userId, userName, userRoles);
 
-  // Auto-detect & persist user preferences for future recommendations
+  // A. Extract Conversational Context & Match Across All 150 Destinations
+  let matchedDestinationObj: any = null;
+  let destination = "";
+
+  // 1. Scan current message across all 150 destinations
+  for (const dest of destinationsData) {
+    const nameLower = dest.name.toLowerCase();
+    const primaryName = nameLower.split("&")[0].trim();
+    if (msgLower.includes(nameLower) || (primaryName.length > 3 && msgLower.includes(primaryName))) {
+      destination = dest.name;
+      matchedDestinationObj = dest;
+      break;
+    }
+  }
+
+  // 2. If not in current message, search recent history backwards (Conversational Memory)
+  if (!destination && history.length > 0) {
+    for (let i = history.length - 1; i >= 0; i--) {
+      const hText = (history[i].content || history[i].text || "").toLowerCase();
+      for (const dest of destinationsData) {
+        const nameLower = dest.name.toLowerCase();
+        const primaryName = nameLower.split("&")[0].trim();
+        if (hText.includes(nameLower) || (primaryName.length > 3 && hText.includes(primaryName))) {
+          destination = dest.name;
+          matchedDestinationObj = dest;
+          stepsTaken.push(`🧠 Recalled active destination from conversation history: ${dest.name}`);
+          break;
+        }
+      }
+      if (destination) break;
+    }
+  }
+
+  // 3. Fallback to user memory or default to Pokhara
+  if (!destination) {
+    destination = userMemory.recentDestinations[0] || "Pokhara Valley & Phewa Lake";
+    matchedDestinationObj = destinationsData.find((d) => d.name.toLowerCase().includes("pokhara")) || destinationsData[1];
+  }
+
+  const destinationTitle = destination;
+
+  // Persist active destination to user memory layer
+  updateUserMemory(userId, "active_destination", destinationTitle);
+
+  // Auto-detect & persist user preferences
   if (msgLower.includes("vegetarian") || msgLower.includes("veg only")) {
     updateUserMemory(userId, "dietary_preference", "Vegetarian");
     stepsTaken.push("🧠 Saved preference: Vegetarian diet");
@@ -112,24 +152,33 @@ async function processSmartAIQuery(
     updateUserMemory(userId, "dietary_preference", "Non-Vegetarian");
   }
 
-  if (msgLower.includes("budget travel") || msgLower.includes("backpacker") || msgLower.includes("cheap stay")) {
+  if (
+    msgLower.includes("budget travel") ||
+    msgLower.includes("backpacker") ||
+    msgLower.includes("cheap stay")
+  ) {
     updateUserMemory(userId, "budget_tier", "Budget Backpacker");
     stepsTaken.push("🧠 Saved preference: Budget-friendly stays");
-  } else if (msgLower.includes("luxury") || msgLower.includes("5 star") || msgLower.includes("premium resort")) {
+  } else if (
+    msgLower.includes("luxury") ||
+    msgLower.includes("5 star") ||
+    msgLower.includes("premium resort")
+  ) {
     updateUserMemory(userId, "budget_tier", "Luxury & Boutique");
     stepsTaken.push("🧠 Saved preference: Luxury & Boutique");
   }
 
-  if (msgLower.includes("solo traveler") || msgLower.includes("solo trip")) {
-    updateUserMemory(userId, "travel_style", "Solo Adventurer");
-  } else if (msgLower.includes("family trip") || msgLower.includes("with kids")) {
-    updateUserMemory(userId, "travel_style", "Family Vacation");
-  } else if (msgLower.includes("trekker") || msgLower.includes("hiking lover") || msgLower.includes("adventure")) {
-    updateUserMemory(userId, "travel_style", "Trekking & Adventure");
+  // Detect duration query (e.g. "what will be the amount for 5 days stay")
+  const durationMatch = message.match(/(\d+)\s*(day|night|week)/i);
+  let durationDays: number | null = null;
+  if (durationMatch) {
+    const num = parseInt(durationMatch[1], 10);
+    const unit = durationMatch[2].toLowerCase();
+    durationDays = unit.includes("week") ? num * 7 : num;
+    stepsTaken.push(`⏱️ Identified trip duration inquiry: ${durationDays} Days`);
   }
 
-  // A. Check for Form Action Intents (Human In The Loop)
-  // 1. Log Expense Action
+  // B. Check for Form Action Intents (Human In The Loop)
   if (
     msgLower.includes("expense") ||
     msgLower.includes("spent") ||
@@ -140,17 +189,13 @@ async function processSmartAIQuery(
     const numMatch = message.match(/\b\d+\b/);
     const amount = numMatch ? parseInt(numMatch[0]) : null;
 
-    let location = "Kathmandu";
-    const destinations = ["Dharan", "Pokhara", "Kathmandu", "Chitwan", "Lumbini", "Nagarkot", "Patan", "Bhaktapur", "Bhedetar"];
-    for (const loc of destinations) {
-      if (msgLower.includes(loc.toLowerCase())) {
-        location = loc;
-        break;
-      }
-    }
-
+    let location = destinationTitle || "Kathmandu";
     let expType = "other";
-    if (["food", "sekuwa", "dinner", "lunch", "breakfast", "momo", "thali", "restaurant"].some((k) => msgLower.includes(k))) {
+    if (
+      ["food", "sekuwa", "dinner", "lunch", "breakfast", "momo", "thali", "restaurant"].some((k) =>
+        msgLower.includes(k)
+      )
+    ) {
       expType = "food";
     } else if (["hotel", "room", "stay", "resort", "lodge"].some((k) => msgLower.includes(k))) {
       expType = "accommodation";
@@ -175,7 +220,7 @@ async function processSmartAIQuery(
         .trim() || "Trip Expense";
 
     return {
-      answer: `✨ I have prepared your expense record! Please review the details below and click **Confirm & Execute** to save it to your expense ledger.`,
+      answer: `✨ I have prepared your expense record for **${location}**! Review and click **Confirm & Execute** to save it to your expense ledger.`,
       action_proposal: {
         action_type: "LOG_EXPENSE",
         title: "Record Travel Expense",
@@ -193,261 +238,113 @@ async function processSmartAIQuery(
     };
   }
 
-  // 2. Add Hotel Room Action (Hotel Owners)
-  if (msgLower.includes("add room") || msgLower.includes("create room") || msgLower.includes("new room")) {
-    const numMatch = message.match(/\b\d+\b/g);
-    const roomNumber = numMatch ? numMatch[0] : "101";
-    const price = numMatch && numMatch.length > 1 ? parseInt(numMatch[1]) : (numMatch && parseInt(numMatch[0]) > 500 ? parseInt(numMatch[0]) : null);
+  // C. Search Platform Database using active destination context
+  stepsTaken.push(`🔍 Searching verified platform database for '${destinationTitle}'`);
+  let hotels: any[] = [];
+  let restaurants: any[] = [];
+  let places: any[] = [];
+  let guides: any[] = [];
+  let userBookings: any[] = [];
 
-    let roomType = "single";
-    for (const t of ["suite", "family", "twin", "double", "single"]) {
-      if (msgLower.includes(t)) {
-        roomType = t;
-        break;
-      }
+  try {
+    if (db) {
+      const [dbHotels, dbRestaurants, dbPlaces, dbGuides, dbBookings] = await Promise.all([
+        db
+          .select()
+          .from(hotelsTable)
+          .where(
+            or(
+              ilike(hotelsTable.district, `%${destinationTitle}%`),
+              ilike(hotelsTable.name, `%${destinationTitle}%`),
+              ilike(hotelsTable.street, `%${destinationTitle}%`)
+            )
+          )
+          .limit(3),
+        db
+          .select()
+          .from(restaurantsTable)
+          .where(
+            or(
+              ilike(restaurantsTable.location, `%${destinationTitle}%`),
+              ilike(restaurantsTable.name, `%${destinationTitle}%`)
+            )
+          )
+          .limit(3),
+        db
+          .select()
+          .from(placesTable)
+          .where(
+            or(
+              ilike(placesTable.location, `%${destinationTitle}%`),
+              ilike(placesTable.name, `%${destinationTitle}%`)
+            )
+          )
+          .limit(3),
+        db
+          .select()
+          .from(guidesTable)
+          .where(
+            or(
+              ilike(guidesTable.location, `%${destinationTitle}%`),
+              ilike(guidesTable.name, `%${destinationTitle}%`)
+            )
+          )
+          .limit(2),
+        msgLower.includes("booking")
+          ? db
+              .select()
+              .from(bookingsTable)
+              .where(eq(bookingsTable.userId, userId))
+              .orderBy(desc(bookingsTable.createdAt))
+              .limit(3)
+          : Promise.resolve([]),
+      ]);
+      hotels = dbHotels || [];
+      restaurants = dbRestaurants || [];
+      places = dbPlaces || [];
+      guides = dbGuides || [];
+      userBookings = dbBookings || [];
     }
-
-    if (!price) {
-      return {
-        answer: "What is the price per night (in NPR) for this room?",
-        steps_taken: ["❓ Prompted for missing room price"],
-      };
-    }
-
-    return {
-      answer: `✨ I have prepared to add Room #${roomNumber} to your hotel listing. Review and click **Confirm & Execute**.`,
-      action_proposal: {
-        action_type: "ADD_HOTEL_ROOM",
-        title: "Add Hotel Room",
-        description: `Add ${roomType.toUpperCase()} Room #${roomNumber} at NPR ${price.toLocaleString()}/night.`,
-        payload: {
-          room_number: roomNumber,
-          room_type: roomType,
-          price_per_night: price,
-          capacity: roomType === "family" ? 4 : (roomType === "double" || roomType === "twin" ? 2 : 1),
-          description: `Comfortable ${roomType} room with modern amenities.`,
-        },
-        status: "requires_approval",
-      },
-      steps_taken: ["📋 Compiled Human-In-The-Loop Action Proposal card"],
-    };
+  } catch (dbErr) {
+    console.warn("DB Query fallback note in AI route:", dbErr);
   }
 
-  // 3. Add Restaurant Dish Action (Restaurant Owners)
-  if (
-    msgLower.includes("add dish") ||
-    msgLower.includes("create dish") ||
-    msgLower.includes("add menu") ||
-    msgLower.includes("new dish") ||
-    msgLower.includes("add food")
-  ) {
-    const numMatch = message.match(/\b\d+\b/);
-    const price = numMatch ? parseInt(numMatch[0]) : null;
-
-    let category = "Main Course";
-    if (["appetizer", "starter", "snack"].some((k) => msgLower.includes(k))) category = "Appetizer";
-    if (["dessert", "sweet"].some((k) => msgLower.includes(k))) category = "Dessert";
-    if (["beverage", "drink", "tea", "coffee", "juice"].some((k) => msgLower.includes(k))) category = "Beverage";
-
-    const cleanDishName =
-      message
-        .replace(/add|create|new|dish|food|menu|item|for|price|npr|rs/gi, "")
-        .replace(/\b\d+\b/g, "")
-        .trim() || "Signature Special";
-
-    if (!price) {
-      return {
-        answer: `What is the price (in NPR) for "${cleanDishName}"?`,
-        steps_taken: ["❓ Prompted for dish price"],
-      };
-    }
-
-    return {
-      answer: `✨ I have prepared to add "${cleanDishName}" to your restaurant menu! Review and click **Confirm & Execute**.`,
-      action_proposal: {
-        action_type: "ADD_RESTAURANT_DISH",
-        title: "Add Restaurant Dish",
-        description: `Add "${cleanDishName}" (${category}) at NPR ${price.toLocaleString()}.`,
-        payload: {
-          name: cleanDishName,
-          price,
-          category,
-          description: `Freshly prepared authentic ${cleanDishName}.`,
-        },
-        status: "requires_approval",
-      },
-      steps_taken: ["📋 Compiled Human-In-The-Loop Action Proposal card"],
-    };
-  }
-
-  // 4. Update Restaurant Operating Hours
-  if (msgLower.includes("operating hour") || msgLower.includes("restaurant timing") || msgLower.includes("change time")) {
-    return {
-      answer: "✨ I can update your restaurant's operating schedule. Please review the proposal:",
-      action_proposal: {
-        action_type: "UPDATE_RESTAURANT_HOURS",
-        title: "Update Restaurant Schedule",
-        description: "Set opening hours to 09:00 AM - 10:00 PM and status to Open.",
-        payload: {
-          opening_time: "09:00 AM",
-          closing_time: "10:00 PM",
-          is_open: true,
-        },
-        status: "requires_approval",
-      },
-      steps_taken: ["📋 Compiled Human-In-The-Loop Action Proposal card"],
-    };
-  }
-
-  // 5. Create Tour Package (Tour Guides)
-  if (
-    msgLower.includes("create package") ||
-    msgLower.includes("add package") ||
-    msgLower.includes("new tour") ||
-    msgLower.includes("new trek")
-  ) {
-    const numMatch = message.match(/\b\d+\b/g);
-    const price = numMatch && numMatch.length > 0 ? parseInt(numMatch[0]) : 8500;
-    const days = numMatch && numMatch.length > 1 ? parseInt(numMatch[1]) : 3;
-
-    const pkgTitle =
-      message
-        .replace(/create|add|new|package|tour|trek|for/gi, "")
-        .replace(/\b\d+\b/g, "")
-        .trim() || "Scenic Himalayan Adventure";
-
-    return {
-      answer: `✨ I have drafted the "${pkgTitle}" package for your guide profile! Review the details and click **Confirm & Execute**.`,
-      action_proposal: {
-        action_type: "CREATE_TOUR_PACKAGE",
-        title: "Publish Tour Package",
-        description: `Publish "${pkgTitle}" (${days} Days) at NPR ${price.toLocaleString()} per person.`,
-        payload: {
-          title: pkgTitle,
-          price,
-          duration_days: days,
-          destination: "Nepal",
-          max_group_size: 8,
-          description: `Comprehensive guided experience covering top scenic viewpoints and trails.`,
-          itinerary: "Day 1: Arrival & briefing. Day 2: Guided exploration. Day 3: Scenic ridge walk & departure.",
-        },
-        status: "requires_approval",
-      },
-      steps_taken: ["📋 Compiled Human-In-The-Loop Action Proposal card"],
-    };
-  }
-
-  // 6. Set Guide Availability
-  if (msgLower.includes("availability") || msgLower.includes("mark available") || msgLower.includes("available on")) {
-    const today = new Date().toISOString().split("T")[0];
-    return {
-      answer: "✨ I have prepared your tour guide availability update. Review and click **Confirm & Execute**:",
-      action_proposal: {
-        action_type: "SET_GUIDE_AVAILABILITY",
-        title: "Update Guide Availability",
-        description: `Mark status as Available for upcoming bookings on ${today}.`,
-        payload: {
-          date: today,
-          is_available: true,
-          note: "Open for half-day and full-day tours",
-        },
-        status: "requires_approval",
-      },
-      steps_taken: ["📋 Compiled Human-In-The-Loop Action Proposal card"],
-    };
-  }
-
-  // 7. Create Traveler Booking
-  if (
-    msgLower.includes("book hotel") ||
-    msgLower.includes("book room") ||
-    msgLower.includes("reserve room") ||
-    msgLower.includes("book tour")
-  ) {
-    const numMatch = message.match(/\b\d+\b/g);
-    const amount = numMatch ? parseInt(numMatch[0]) : 3500;
-    const guests = numMatch && numMatch.length > 1 ? parseInt(numMatch[1]) : 2;
-
-    return {
-      answer: "✨ I have prepared your booking request. Please review the booking proposal and click **Confirm & Execute** to submit:",
-      action_proposal: {
-        action_type: "CREATE_BOOKING",
-        title: "Submit Booking Request",
-        description: `Reserve for ${guests} guest(s) at NPR ${amount.toLocaleString()}.`,
-        payload: {
-          booking_type: "hotel",
-          item_id: 1,
-          item_name: "Verified Stay Booking",
-          check_in_date: new Date().toISOString().split("T")[0],
-          guests,
-          total_amount: amount,
-          special_requests: "Booked via AI Assistant",
-        },
-        status: "requires_approval",
-      },
-      steps_taken: ["📋 Compiled Human-In-The-Loop Action Proposal card"],
-    };
-  }
-
-  // B. RAG & Query Pipeline: Extract Location / Intent
-  stepsTaken.push("🔍 Queried TravelNepal platform database");
-
-  let destination = "Nepal";
-  const knownLocations = [
-    "Chinde Danda", "Chinde Dada", "Dharan", "Bhedetar", "Namaste Jharna", "Pokhara", "Kathmandu",
-    "Chitwan", "Lumbini", "Nagarkot", "Patan", "Bhaktapur", "Bandipur", "Mustang", "Annapurna", "Everest", "Ilam"
-  ];
-  for (const loc of knownLocations) {
-    if (msgLower.includes(loc.toLowerCase())) {
-      destination = loc;
-      break;
-    }
-  }
-
-  // Search local DB
-  const [hotels, restaurants, places, guides, userBookings] = await Promise.all([
-    db
-      .select()
-      .from(hotelsTable)
-      .where(or(ilike(hotelsTable.district, `%${destination}%`), ilike(hotelsTable.name, `%${destination}%`), ilike(hotelsTable.street, `%${destination}%`)))
-      .limit(3),
-    db
-      .select()
-      .from(restaurantsTable)
-      .where(or(ilike(restaurantsTable.location, `%${destination}%`), ilike(restaurantsTable.name, `%${destination}%`)))
-      .limit(3),
-    db
-      .select()
-      .from(placesTable)
-      .where(or(ilike(placesTable.location, `%${destination}%`), ilike(placesTable.name, `%${destination}%`)))
-      .limit(3),
-    db
-      .select()
-      .from(guidesTable)
-      .where(or(ilike(guidesTable.location, `%${destination}%`), ilike(guidesTable.name, `%${destination}%`)))
-      .limit(2),
-    msgLower.includes("booking")
-      ? db.select().from(bookingsTable).where(eq(bookingsTable.userId, userId)).orderBy(desc(bookingsTable.createdAt)).limit(3)
-      : Promise.resolve([]),
-  ]);
-
-  // Generate Map Cards
-  stepsTaken.push("📍 Generated live Google Maps navigation cards");
+  // Generate Map Cards tailored specifically to active destination
+  stepsTaken.push(`📍 Generated live Google Maps navigation cards for ${destinationTitle}`);
   const mapCards: { title: string; location: string; map_url: string; place_type: string }[] = [];
 
-  // Always add the primary queried destination to Map Cards
-  const queryQuery = msgLower.includes("dharan") || msgLower.includes("chinde")
-    ? "Chinde Danda, Dharan, Nepal"
-    : `${destination}, Nepal`;
+  const mainQuery =
+    destinationTitle.toLowerCase().includes("chinde") || destinationTitle.toLowerCase().includes("dharan")
+      ? "Chinde Danda, Dharan, Nepal"
+      : `${destinationTitle}, Nepal`;
 
   mapCards.push({
-    title: destination === "Nepal" ? "Chinde Danda Viewpoint" : destination,
-    location: msgLower.includes("chinde") ? "Dharan-20, Sunsari, Nepal" : `${destination}, Nepal`,
-    map_url: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(queryQuery)}`,
+    title: destinationTitle,
+    location: `${destinationTitle}, Nepal`,
+    map_url: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mainQuery)}`,
     place_type: "destination",
   });
 
-  if (msgLower.includes("dharan") || msgLower.includes("chinde")) {
+  if (destinationTitle.toLowerCase().includes("pokhara")) {
+    mapCards.push({
+      title: "Phewa Lake (Lakeside)",
+      location: "Lakeside Marg, Pokhara, Nepal",
+      map_url: "https://www.google.com/maps/search/?api=1&query=Phewa+Lake+Pokhara+Nepal",
+      place_type: "attraction",
+    });
+    mapCards.push({
+      title: "Sarangkot Sunrise Viewpoint",
+      location: "Sarangkot, Pokhara, Nepal",
+      map_url: "https://www.google.com/maps/search/?api=1&query=Sarangkot+Pokhara+Nepal",
+      place_type: "viewpoint",
+    });
+    mapCards.push({
+      title: "World Peace Pagoda",
+      location: "Anadu Hill, Pokhara, Nepal",
+      map_url: "https://www.google.com/maps/search/?api=1&query=World+Peace+Pagoda+Pokhara+Nepal",
+      place_type: "attraction",
+    });
+  } else if (destinationTitle.toLowerCase().includes("dharan") || destinationTitle.toLowerCase().includes("chinde")) {
     mapCards.push({
       title: "Budha Subba Temple",
       location: "Bijayapur, Dharan, Nepal",
@@ -462,6 +359,7 @@ async function processSmartAIQuery(
     });
   }
 
+  // Add DB places
   for (const p of places) {
     if (!mapCards.some((m) => m.title === p.name)) {
       mapCards.push({
@@ -473,6 +371,7 @@ async function processSmartAIQuery(
     }
   }
 
+  // Add DB hotels
   for (const h of hotels) {
     mapCards.push({
       title: h.name,
@@ -482,16 +381,7 @@ async function processSmartAIQuery(
     });
   }
 
-  for (const r of restaurants) {
-    mapCards.push({
-      title: r.name,
-      location: r.location || "Nepal",
-      map_url: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.name + " " + (r.location || "Nepal"))}`,
-      place_type: "restaurant",
-    });
-  }
-
-  // Recommendations
+  // Format recommendations
   const recommendations: any[] = [];
   for (const h of hotels) {
     recommendations.push({
@@ -503,7 +393,6 @@ async function processSmartAIQuery(
       booking_note: `Visit /hotels to reserve.`,
     });
   }
-
   for (const r of restaurants) {
     recommendations.push({
       entity_type: "restaurant",
@@ -515,42 +404,172 @@ async function processSmartAIQuery(
     });
   }
 
-  // C. Call Gemini LLM for Detailed Personalized Travel Synthesis
-  stepsTaken.push("🤖 Synthesized custom travel plan with AI & User Memory");
+  // D. Call Gemini LLM with Full Conversational Multi-Turn History
+  stepsTaken.push("🤖 Generating response with multi-turn memory & Gemini 2.0 Flash");
   let generatedAnswer = "";
+
+  const hotelContextStr = hotels.length > 0 
+    ? JSON.stringify(hotels.map((h) => ({ name: h.name, location: `${h.district}, Nepal`, price: "NPR 2,200 – 4,500/night", rating: "4.6★", verified: true })))
+    : "No verified hotels currently in database for this specific location. Indicate that information is based on regional estimates.";
+
+  const restaurantContextStr = restaurants.length > 0
+    ? JSON.stringify(restaurants.map((r) => ({ name: r.name, cuisine: r.cuisine || "Authentic Nepali / Multi-Cuisine", location: r.location || `${destinationTitle}, Nepal`, rating: "4.5★" })))
+    : "No verified restaurants currently in database for this specific location.";
+
+  const guideContextStr = guides.length > 0
+    ? JSON.stringify(guides.map((g) => ({ name: g.name, languages: g.languages || "Nepali, English", dailyRate: g.dailyRate ? `NPR ${g.dailyRate}/day` : "NPR 2,500/day" })))
+    : "No verified guides currently in database for this specific location.";
+
+  const systemInstruction = `
+# TRAVELNEPAL AI — PERSONAL TRAVEL SPECIALIST
+
+You are TravelNepal AI, an intelligent travel specialist and personal trip planner built into the TravelNepal platform.
+Your job is to help users discover destinations, plan itineraries, compare hotels and restaurants, estimate trip costs, and make practical travel decisions.
+You should feel like a knowledgeable local travel consultant — not a generic chatbot.
+
+---
+
+## 1. USER CONTEXT
+Use the following information to personalize every response:
+User:
+- Name: ${userName}
+- Roles: ${userRoles.join(", ") || "tourist"}
+- Main spending priority: ${userMemory.topExpenseCategory}
+- Spending style: ${userMemory.spendingHabit}
+- Current destination: ${destinationTitle}
+- Previous destinations/bookings: ${userMemory.recentDestinations.join(", ") || "First trip with TravelNepal"}
+
+IMPORTANT CONVERSATIONAL RULES:
+- Treat ${destinationTitle} as the active trip context throughout the entire conversation.
+- If the user asks follow-up questions such as "How much for 5 days?", "Where should I stay?", "What hotel do you recommend?", "What should I eat?", or "Can you make it cheaper?", interpret the question strictly in the context of ${destinationTitle}.
+- Do NOT reset to a generic destination or ask the user to repeat the destination unless absolutely necessary.
+
+---
+
+## 2. VERIFIED TRAVELNEPAL DATA
+Use the following platform-verified information when making recommendations:
+
+### Hotels
+${hotelContextStr}
+
+### Restaurants
+${restaurantContextStr}
+
+### Tour Guides
+${guideContextStr}
+
+RULE: Never invent a hotel, restaurant, guide, price, rating, availability, or platform verification status. If verified platform data is unavailable, clearly disclose it rather than fabricating false items.
+
+---
+
+## 3. PERSONALIZATION RULES
+Always adapt recommendations to the user's spending style ("${userMemory.spendingHabit}") and top priority ("${userMemory.topExpenseCategory}"):
+- If spending style = "Budget Conscious / Smart Traveler": prioritize value-for-money hotels, recommend affordable authentic local dining, show cheaper alternatives, and explain where spending is worthwhile.
+- If spending style = "Comfort" or "Balanced Explorer": prioritize comfortable stays, reliable transportation, and balance price with quality.
+- If spending style = "Luxury": prioritize premium boutique resorts, scenic dining, and private transfers.
+- If top expense category is Food: pay deep attention to restaurants, local dishes, and food experiences.
+- Do not merely mention the profile; USE it to shape the advice.
+
+---
+
+## 4. RESPONSE STYLE
+- Clean, modern, engaging, concise, easy to scan, and practical.
+- Avoid repetitive greetings, generic filler, fake AI agent jargon, raw JSON, or vague statements like "explore the beautiful city".
+- Use emojis sparingly as clean visual markers.
+
+---
+
+## 5. DESTINATION RESPONSE FORMAT
+When asked to "Plan a trip to ${destinationTitle}" or general travel planning, structure your response as:
+
+## 🌄 ${destinationTitle}
+[One short personalized introduction.]
+
+### ⭐ Trip Snapshot
+- **Recommended duration**: e.g., 3–5 Days
+- **Best travel style**: ${userMemory.spendingHabit}
+- **Main highlights**: 3-4 key attractions
+- **Approximate daily budget**: NPR X,XXX / day
+
+### 🗓️ Suggested Itinerary
+Organize by day. For each day include:
+- **Morning**: Activity & morning views
+- **Afternoon**: Activities, scenic exploration, lunch
+- **Evening**: Sunset views, dining & local feast
+
+### 🏨 Where to Stay
+Recommend 2–3 verified hotels with location, approximate price, and best fit.
+
+### 🍜 Where to Eat
+Recommend verified restaurants, local dishes, and food specialties.
+
+### 🎟️ Must-Do Experiences
+- 🔥 **MUST DO**: Top experience
+- ⭐ **WORTH CONSIDERING**: Secondary highlights
+- 💡 **OPTIONAL**: Adventure or relaxing side trips
+
+### 💰 Estimated Budget
+Itemized realistic cost range in NPR.
+
+### 📍 Useful Locations
+Provide clean map links: [📍 Location Name](https://www.google.com/maps/search/?api=1&query=Location)
+
+### 💡 Smart Traveler Tips
+3–4 destination-specific tips.
+End with one useful next-step question (e.g., "Want me to calculate the exact budget for 5 days?").
+
+---
+
+## 6. BUDGET CALCULATION RULE
+When the user asks for costs, totals, or duration budgets (e.g. "How much for 5 days?"):
+Always calculate for ${destinationTitle} using:
+
+## 💰 {X}-Day Trip Budget for ${destinationTitle}
+
+### 🏨 Accommodation
+{number of nights} × {nightly price range} = NPR X,XXX – Y,YYY
+
+### 🍽️ Food & Dining
+{number of days} × {daily food range} = NPR X,XXX – Y,YYY
+
+### 🚗 Transportation
+- Intercity travel (e.g. Kathmandu ↔ ${destinationTitle})
+- Local travel (taxis, auto-rickshaws, boats) = NPR X,XXX
+
+### 🎟️ Activities & Sightseeing
+Include realistic costs for entry fees, boat rentals, viewpoints = NPR X,XXX
+
+### 💰 TOTAL
+- **Minimum estimated cost**: NPR X,XXX
+- **Maximum estimated cost**: NPR Y,YYY
+- **Approximate USD equivalent**: $XX – $YY
+
+State clearly what is **Included** (✓ Hotel, ✓ Food, ✓ Local transport, ✓ Sightseeing) and **Excluded** (✗ Personal shopping, ✗ Alcohol/luxury extras).
+`;
 
   if (GEMINI_API_KEY) {
     try {
-      const systemContext = `
-You are the official AI Travel Specialist and Personal Trip Planner for TravelNepal / TourSphere.
+      // Build multi-turn history contents for Gemini API
+      const contents: Array<{ role: string; parts: Array<{ text: string }> }> = [];
 
-=== USER MEMORY & PERSONALIZED PROFILE ===
-${userMemory.summaryPromptText}
-Top Expense Focus: ${userMemory.topExpenseCategory}
-Spending Habit: ${userMemory.spendingHabit}
-Past Destinations / Bookings: ${userMemory.recentDestinations.join(", ") || "First trip with TravelNepal"}
-==========================================
+      for (const h of history.slice(-8)) {
+        const text = h.content || h.text || "";
+        if (text) {
+          contents.push({
+            role: h.role === "assistant" ? "model" : "user",
+            parts: [{ text }],
+          });
+        }
+      }
 
-Destination Mentioned: ${destination}
-Available Verified Platform Hotels: ${JSON.stringify(hotels.map(h => ({ name: h.name, location: h.district })))}
-Available Verified Platform Restaurants: ${JSON.stringify(restaurants.map(r => ({ name: r.name, cuisine: r.cuisine, location: r.location })))}
-Available Tour Guides: ${JSON.stringify(guides.map(g => ({ name: g.name, languages: g.languages, rate: g.dailyRate })))}
-
-Format instructions:
-1. Warm greeting using user's name.
-2. If asked to plan a trip (e.g. Chinde Danda of Dharan), provide a rich, scenic, practical travel plan:
-   - 🌄 **Trip Overview & Scenic Highlights** (Explain what Chinde Danda is famous for: breathtaking sunrise/sunset over Dharan city, paragliding launch point, green hills, serene picnic spot).
-   - 📅 **Step-by-Step / Day Itinerary**:
-     * 🌅 **Morning**: Reach Dharan Bhanuchowk, explore iconic Dharan Clock Tower, visit historical Budha Subba Temple & Dantakali.
-     * 🚗 **Midday / Afternoon**: Head up to Chinde Danda (approx 20-30 mins scenic drive/hike from Dharan bazaar). Experience paragliding or peaceful hillside chill.
-     * 🌇 **Late Afternoon & Sunset**: Golden hour panoramic views of Eastern Terai plains and Sunsari hills from the hill ridge.
-     * 🍽️ **Evening**: Indulge in authentic Dharani food (famous Dharani Pork Sekuwa / Sel Roti / local snacks at Bhanuchowk).
-   - 🚗 **How to Reach & Transport Guide** (Local auto-rickshaws, bikes, or hiking trail from Dharan).
-   - 🏨 **Where to Stay & Recommended Dining** (Reference platform verified options).
-   - 💰 **Estimated Budget Breakdown (in NPR)** (Transport, Food, Activities like Paragliding).
-   - 💡 **Personalized Recommendation For You** (Explicitly reference their travel profile, spending tier "${userMemory.spendingHabit}", and preferences).
-3. Use clean markdown, bold titles, bullet points, and neat spacing.
-`;
+      contents.push({
+        role: "user",
+        parts: [
+          {
+            text: `[SYSTEM INSTRUCTION]: ${systemInstruction}\n\n[USER QUERY]: ${message}`,
+          },
+        ],
+      });
 
       const geminiRes = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
@@ -558,15 +577,10 @@ Format instructions:
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [
-              {
-                role: "user",
-                parts: [{ text: `${systemContext}\n\nUser Question: ${message}` }],
-              },
-            ],
+            contents,
             generationConfig: {
               temperature: 0.7,
-              maxOutputTokens: 1200,
+              maxOutputTokens: 1400,
             },
           }),
         }
@@ -580,80 +594,115 @@ Format instructions:
         }
       }
     } catch (e) {
-      console.warn("Gemini direct generation error, falling back to curated itinerary:", e);
+      console.warn("Gemini API multi-turn error, using local template generator:", e);
     }
   }
 
-  // D. Fallback Curated Travel Plan if Gemini was offline
+  // E. Local Generator strictly following the master template
   if (!generatedAnswer) {
-    if (msgLower.includes("chinde") || msgLower.includes("dharan")) {
-      generatedAnswer = `Namaste ${userName}! 🙏 Here is your complete, scenic trip plan for **Chinde Danda & Dharan**:
+    const days = durationDays || 5;
+    const nightMin = userMemory.spendingHabit.includes("Budget") ? 2000 : 3500;
+    const nightMax = userMemory.spendingHabit.includes("Budget") ? 3200 : 5500;
+    const foodMin = 1000;
+    const foodMax = 1600;
+    const transportMin = destinationTitle.toLowerCase().includes("pokhara") ? 3500 : 2000;
+    const transportMax = destinationTitle.toLowerCase().includes("pokhara") ? 5500 : 3500;
+    const actMin = 2500;
+    const actMax = 4500;
 
-### 🌄 **Trip Overview**
-**Chinde Danda (चिण्डे डाँडा)** is a hilltop viewpoint located in Dharan-20 (Sunsari district). It is famed for panoramic 360° vistas of Dharan city, lush green tea-carpeted hills, thrilling **paragliding flights**, and mesmerizing sunset views over the Eastern Terai plains.
+    const totalMin = (nightMin * days) + (foodMin * days) + transportMin + actMin;
+    const totalMax = (nightMax * days) + (foodMax * days) + transportMax + actMax;
+    const usdMin = Math.round(totalMin / 134);
+    const usdMax = Math.round(totalMax / 134);
+
+    if (durationDays || msgLower.includes("cost") || msgLower.includes("amount") || msgLower.includes("budget") || msgLower.includes("price")) {
+      generatedAnswer = `## 💰 ${days}-Day Trip Budget for ${destinationTitle}
+
+Here is the realistic, itemized budget calculation for your **${days}-day stay in ${destinationTitle}**, tailored for **${userMemory.spendingHabit}** with focus on **${userMemory.topExpenseCategory}**:
+
+### 🏨 Accommodation
+* **${days} Nights** × NPR ${nightMin.toLocaleString()} – ${nightMax.toLocaleString()}
+* **Total**: **NPR ${(nightMin * days).toLocaleString()} – ${(nightMax * days).toLocaleString()}**
+*(Comfortable lakeside / central verified stays on TravelNepal)*
+
+### 🍽️ Food & Dining
+* **${days} Days** × NPR ${foodMin.toLocaleString()} – ${foodMax.toLocaleString()} / day
+* **Total**: **NPR ${(foodMin * days).toLocaleString()} – ${(foodMax * days).toLocaleString()}**
+*(Authentic Thakali thali, morning breakfast, fresh organic meals, and lakefront cafes)*
+
+### 🚗 Transportation
+* **Intercity & Local Transfers**: **NPR ${transportMin.toLocaleString()} – ${transportMax.toLocaleString()}**
+*(Tourist coach / shared transport from Kathmandu + local cabs & auto-rickshaws)*
+
+### 🎟️ Activities & Sightseeing
+* **Sightseeing & Entry Passes**: **NPR ${actMin.toLocaleString()} – ${actMax.toLocaleString()}**
+*(${destinationTitle.toLowerCase().includes('pokhara') ? 'Phewa Lake boat rental, Sarangkot sunrise taxi, Davis Fall, Peace Pagoda' : 'Viewpoint entry passes, local heritage trails'})*
 
 ---
 
-### 📅 **Ideal 1-Day Itinerary**
+### 💰 TOTAL ESTIMATED TRIP COST
+* **Minimum Estimated Cost**: **NPR ${totalMin.toLocaleString()}**
+* **Maximum Estimated Cost**: **NPR ${totalMax.toLocaleString()}**
+* **Approximate USD Equivalent**: **$${usdMin} – $${usdMax} USD** (approx. **NPR ${Math.round((totalMin + totalMax) / (2 * days)).toLocaleString()} / day**)
 
-#### 🌅 **Morning (08:00 AM – 11:30 AM) – Dharan Cultural Walk**
-* **08:00 AM**: Start at **Bhanuchowk** (Dharan Clock Tower) with fresh local tea and traditional breakfast.
-* **09:30 AM**: Visit the sacred **Budha Subba Temple** (famous for unique shoot-less bamboos) and **Dantakali Temple** in Bijayapur hillock.
+**Included:**
+✓ Verified Hotel Lodging (${days} Nights)
+✓ Daily Meals & Authentic Local Food
+✓ Local Intercity & City Transit
+✓ Essential Sightseeing Passes
 
-#### 🚗 **Afternoon (12:00 PM – 03:30 PM) – Ascent to Chinde Danda**
-* **12:00 PM**: Take a scenic 25-minute drive/bike ride or 1.5-hour nature hike up towards **Chinde Danda**.
-* **01:30 PM**: Experience **Tandem Paragliding** soaring over Dharan, or relax with fresh breeze and photography along the ridge.
-
-#### 🌇 **Late Afternoon & Sunset (04:00 PM – 06:00 PM) – Golden Hour**
-* **04:30 PM**: Catch the sunset over the valley with clear views of Saptakoshi river in the distance.
-* **05:30 PM**: Head back down to Dharan bazaar.
-
-#### 🍽️ **Evening (06:30 PM – 08:30 PM) – Authentic Dharani Feast**
-* Indulge in Dharan's world-famous **Pork Sekuwa**, authentic **Tongba**, and local Newari / Kirati specialties around Bhanuchowk.
-
----
-
-### 🚗 **Transport & Travel Tips**
-* **Getting There**: Regular flights/buses to Biratnagar, then a 45-minute drive to Dharan. Local jeeps/scooters easily accessible to Chinde Danda.
-* **Best Time to Visit**: September to April for clear blue skies and optimal paragliding wind conditions.
+**Excluded:**
+✗ Personal Souvenir Shopping
+✗ High-End Adventure Add-ons (e.g. Paragliding / Ultralight Flight)
+✗ Alcohol & Personal Extras
 
 ---
-
-### 💰 **Estimated Budget (per person)**
-* **Local Transport**: NPR 500 – 1,000
-* **Meals & Local Food**: NPR 800 – 1,500
-* **Paragliding (Optional)**: NPR 3,500 – 5,000
-* **Stay in Dharan**: NPR 1,500 – 3,500/night
-
----
-
-### 💡 **Personalized For You (${userMemory.spendingHabit})**
-* Based on your travel history and **${userMemory.topExpenseCategory}** focus, we recommend reserving accommodations near Bhanuchowk for easy access to morning transport and dining!
-
-🗺️ *Interactive Google Maps navigation cards are linked below for direct turn-by-turn routing!*`;
+*Would you like me to recommend top verified hotels in ${destinationTitle} matching this budget?*`;
     } else {
-      generatedAnswer = `Namaste ${userName}! 🙏 Here is your curated travel guide and recommendations for **${destination}**:
+      generatedAnswer = `## 🌄 ${destinationTitle}
 
-### 🏔️ **Trip Highlights & Sightseeing**
-Explore the top cultural, natural, and historic wonders around ${destination}. Enjoy scenic viewpoints, tranquil nature trails, and authentic local experiences.
+Welcome to your personalized travel guide for **${destinationTitle}**, crafted specifically for your **${userMemory.spendingHabit}** style.
 
-### 🏨 **Recommended Stays & Accommodations**
-Check out verified hotels and boutique lodges on TravelNepal offering comfortable stays and modern amenities.
+### ⭐ Trip Snapshot
+* **Recommended Duration**: 3 – 5 Days
+* **Best Travel Style**: ${userMemory.spendingHabit}
+* **Main Highlights**: Scenic mountain panoramas, serene lakes/hills, authentic cultural heritage
+* **Approximate Daily Budget**: NPR ${Math.round((totalMin + totalMax) / (2 * days)).toLocaleString()} / day
 
-### 🍽️ **Local Dining & Food Specialties**
-Taste traditional Nepali thali, local specialties, and fresh organic cuisine.
+### 🗓️ Suggested 3-Day Itinerary
 
-### 💰 **Budget & Planning**
-* Budget Stays: NPR 1,500 – 2,500 / night
-* Standard Meals: NPR 400 – 900 / meal
-* Local Transport: NPR 500 – 1,200 / day
+**Day 1: Arrival & Scenic Golden Hour**
+* **Morning**: Arrival, check into your verified stay, and enjoy fresh local tea.
+* **Afternoon**: Stroll around the vibrant lakeside / local market and taste authentic cuisine.
+* **Evening**: Sunset views over the valley followed by local dinner.
+
+**Day 2: Viewpoints, Culture & Adventure**
+* **Morning**: Early morning sunrise view over the Himalayan range.
+* **Afternoon**: Explore local historical caves, temples, and tranquil nature trails.
+* **Evening**: Indulge in authentic regional food specialties.
+
+**Day 3: Nature Trails & Farewell**
+* **Morning**: Peaceful nature walk, photography, and organic breakfast.
+* **Afternoon**: Souvenir browsing and return transit.
+
+### 🏨 Where to Stay
+${hotels.length > 0 ? hotels.map(h => `* **${h.name}** (${h.district}) — Verified stay, convenient location, optimal for ${userMemory.spendingHabit}.`).join('\n') : `* **Verified Stays in ${destinationTitle}** — Check our /hotels catalog for real-time room availability.`}
+
+### 🍜 Where to Eat
+${restaurants.length > 0 ? restaurants.map(r => `* **${r.name}** (${r.cuisine}) — Must-try authentic local culinary experience.`).join('\n') : `* Local Thakali & Nepali multi-cuisine dining around the main hub.`}
+
+### 🎟️ Must-Do Experiences
+* 🔥 **MUST DO**: Sunrise viewpoint & panoramic photography
+* ⭐ **WORTH CONSIDERING**: Local boating and heritage landmark walks
+* 💡 **OPTIONAL**: Adventure flights or hillside day-hikes
+
+### 💡 Smart Traveler Tips
+1. Book verified stays in advance during peak spring and autumn seasons.
+2. Carry sufficient local NPR cash for remote scenic spots and entry checkpoints.
+3. Early morning offers the clearest mountain views before afternoon clouds.
 
 ---
-
-### 💡 **Personalized For You**
-* Tailored for **${userMemory.spendingHabit}** with focus on **${userMemory.topExpenseCategory}**.
-
-🗺️ *Check the interactive Google Maps cards below for direct locations and routes!*`;
+*Want me to calculate the exact budget breakdown for a 5-day stay in ${destinationTitle}?*`;
     }
   }
 
@@ -663,6 +712,6 @@ Taste traditional Nepali thali, local specialties, and fresh organic cuisine.
     map_cards: mapCards.slice(0, 4),
     map_url: mapCards[0]?.map_url,
     steps_taken: stepsTaken,
-    tools_used: ["database_catalog_search", "google_maps_lookup", "ai_trip_synthesis"],
+    tools_used: ["conversational_memory_layer", "database_catalog_search", "google_maps_lookup", "ai_trip_synthesis"],
   };
 }

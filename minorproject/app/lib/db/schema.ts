@@ -10,6 +10,7 @@ import {
   doublePrecision,
   unique,
   numeric,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -480,4 +481,51 @@ export const aiUserMemoriesRelations = relations(aiUserMemoriesTable, ({ one }) 
     fields: [aiUserMemoriesTable.userId],
     references: [usersTable.id],
   }),
-}));
+}));
+
+// ================= EMERGENCY & SOS DISPATCH =================
+export const emergencyAlertsTable = pgTable("emergency_alerts", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  userId: integer("user_id").references(() => usersTable.id, { onDelete: "set null" }),
+  touristName: varchar("tourist_name", { length: 255 }).notNull(),
+  contactNumber: varchar("contact_number", { length: 50 }).notNull(),
+  emergencyType: varchar("emergency_type", { length: 100 }).notNull(), // 'police', 'flood_disaster', 'medical_ambulance', 'lost_trekking', 'altitude_sickness', 'other'
+  severity: varchar("severity", { length: 50 }).default("high").notNull(),
+  latitude: varchar("latitude", { length: 50 }),
+  longitude: varchar("longitude", { length: 50 }),
+  locationAddress: text("location_address"),
+  situationDescription: text("situation_description").notNull(),
+  status: varchar("status", { length: 50 }).default("dispatched").notNull(), // 'dispatched', 'in_progress', 'resolved'
+  dispatchProtocol: text("dispatch_protocol"),
+  isOfflineSmsSent: boolean("is_offline_sms_sent").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const emergencyAlertsRelations = relations(emergencyAlertsTable, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [emergencyAlertsTable.userId],
+    references: [usersTable.id],
+  }),
+}));
+
+// ================= DESTINATIONS =================
+export const destinationsTable = pgTable("destinations", {
+  id: integer().primaryKey(),
+  name: varchar({ length: 255 }).notNull(),
+  region: varchar({ length: 255 }).notNull(),
+  category: varchar({ length: 100 }).notNull(),
+  altitude: varchar({ length: 100 }),
+  bestSeason: varchar("best_season", { length: 255 }),
+  rating: doublePrecision().default(4.8),
+  reviews: integer().default(100),
+  startingCost: varchar("starting_cost", { length: 100 }),
+  coverImage: text("cover_image").notNull(),
+  shortDescription: text("short_description").notNull(),
+  historyAndCulture: text("history_and_culture"),
+  activities: jsonb("activities"), // string[]
+  highlights: jsonb("highlights"), // string[]
+  mapQuery: text("map_query"),
+  nearbyAttractions: jsonb("nearby_attractions"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+

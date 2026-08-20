@@ -57,7 +57,7 @@ export async function requestAdminAccess(): Promise<ApiResponse<{ status: string
       approvalStatus: "pending",
     });
 
-    revalidatePath("/workspace");
+    revalidatePath("/dashboard");
     revalidatePath("/profile");
 
     return {

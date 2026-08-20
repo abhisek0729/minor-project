@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  Building2,
   Clock3,
   Hotel,
   ShieldAlert,
@@ -37,6 +38,7 @@ export default async function AdminDashboardPage() {
 
   const pendingRestaurants = pendingRes.data?.restaurants || [];
   const pendingHotels = pendingRes.data?.hotels || [];
+  const pendingGuides = pendingRes.data?.guides || [];
 
   return (
     <div className="space-y-6">
@@ -52,11 +54,19 @@ export default async function AdminDashboardPage() {
           </p>
         </div>
 
-        {stats.totalPending > 0 && (
-          <Badge className="bg-amber-500 text-white px-3 py-1 text-xs font-bold animate-pulse">
-            ⚠️ {stats.totalPending} New Partner Application{stats.totalPending > 1 ? "s" : ""}
-          </Badge>
-        )}
+        <div className="flex items-center gap-3">
+          <Link href="/dashboard/admin/companies">
+            <Button size="sm" className="font-bold text-xs gap-1.5 rounded-xl cursor-pointer">
+              <Building2 className="size-4" /> Manage All Companies
+            </Button>
+          </Link>
+
+          {stats.totalPending > 0 && (
+            <Badge className="bg-amber-500 text-white px-3 py-1 text-xs font-bold animate-pulse">
+              ⚠️ {stats.totalPending} Pending
+            </Badge>
+          )}
+        </div>
       </div>
 
       {/* Stats Grid */}
@@ -72,7 +82,7 @@ export default async function AdminDashboardPage() {
               {stats.totalPending}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              {stats.pendingRestaurants} restaurants, {stats.pendingHotels} hotels
+              {stats.pendingRestaurants} restaurants, {stats.pendingHotels} hotels, {stats.pendingGuides || 0} guides
             </p>
           </CardContent>
         </Card>
@@ -146,6 +156,7 @@ export default async function AdminDashboardPage() {
         <PendingApprovalsTable
           initialRestaurants={pendingRestaurants}
           initialHotels={pendingHotels}
+          initialGuides={pendingGuides}
         />
       </div>
     </div>

@@ -74,6 +74,17 @@ async def chat(db, req):
     # 2. QUERY & INFORMATION RETRIEVAL
     keywords = extract_query_keywords(user_msg)
     search_term = destination or (keywords[0] if keywords else None)
+
+    # Conversational History Fallback for Search Term
+    if not search_term and req.history:
+        for prev in reversed(req.history):
+            prev_text = getattr(prev, "content", None) or getattr(prev, "text", "") or (prev.get("text", "") if isinstance(prev, dict) else "")
+            prev_keywords = extract_query_keywords(str(prev_text))
+            if prev_keywords:
+                search_term = prev_keywords[0]
+                steps_taken.append(f"🧠 Maintained active destination from conversation history: '{search_term.capitalize()}'")
+                break
+
     msg_lower = user_msg.lower()
     is_asking_bookings = any(k in msg_lower for k in ["my booking", "my trip", "my reservation", "booked", "my stay"])
 
