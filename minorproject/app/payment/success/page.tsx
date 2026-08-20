@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -34,14 +34,18 @@ function PaymentSuccessContent() {
   const [loading, setLoading] = useState(true);
   const [verified, setVerified] = useState<boolean | null>(null);
   const [details, setDetails] = useState<any>(null);
+  const hasVerified = useRef(false);
 
   useEffect(() => {
     async function verifyTransaction() {
       if (!pidx) {
         setLoading(false);
-        setVerified(true); // Fallback display if redirect parameters vary
+        setVerified(false);
         return;
       }
+
+      if (hasVerified.current) return;
+      hasVerified.current = true;
 
       try {
         const res = await fetch("/api/payment/verify", {
@@ -55,15 +59,16 @@ function PaymentSuccessContent() {
         });
 
         const data = await res.json();
-        if (data.verified || data.status === "Completed") {
+        if (data.verified && (data.status === "Completed" || data.success)) {
           setVerified(true);
           setDetails(data);
         } else {
           setVerified(false);
+          setDetails(data);
         }
       } catch (err) {
-        console.warn("Verification fetch error, assuming completed fallback:", err);
-        setVerified(true);
+        console.error("Verification fetch error:", err);
+        setVerified(false);
       } finally {
         setLoading(false);
       }

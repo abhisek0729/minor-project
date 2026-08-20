@@ -3,6 +3,7 @@ import {
   Building2,
   Clock3,
   Hotel,
+  Mountain,
   ShieldAlert,
   ShieldCheck,
   TrendingUp,
@@ -54,10 +55,16 @@ export default async function AdminDashboardPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Link href="/dashboard/admin/destinations">
+            <Button variant="outline" size="sm" className="font-bold text-xs gap-1.5 rounded-xl cursor-pointer">
+              <Mountain className="size-4 text-primary" /> Destinations (150+)
+            </Button>
+          </Link>
+
           <Link href="/dashboard/admin/companies">
             <Button size="sm" className="font-bold text-xs gap-1.5 rounded-xl cursor-pointer">
-              <Building2 className="size-4" /> Manage All Companies
+              <Building2 className="size-4" /> Manage Companies
             </Button>
           </Link>
 
