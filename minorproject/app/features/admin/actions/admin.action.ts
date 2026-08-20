@@ -259,11 +259,12 @@ export async function getAllRestaurantsAdmin() {
       })
       .from(restaurantsTable)
       .innerJoin(usersTable, eq(restaurantsTable.userId, usersTable.id))
+      .innerJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
       .innerJoin(
-        userRolesTable,
+        rolesTable,
         and(
-          eq(userRolesTable.userId, usersTable.id),
-          eq(userRolesTable.roleId, 3) // restaurantOwner
+          eq(userRolesTable.roleId, rolesTable.id),
+          eq(rolesTable.name, "restaurantOwner")
         )
       )
       .orderBy(desc(restaurantsTable.id));
@@ -304,11 +305,12 @@ export async function getAllHotelsAdmin() {
       })
       .from(hotelsTable)
       .innerJoin(usersTable, eq(hotelsTable.userId, usersTable.id))
+      .innerJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
       .innerJoin(
-        userRolesTable,
+        rolesTable,
         and(
-          eq(userRolesTable.userId, usersTable.id),
-          eq(userRolesTable.roleId, 2) // hotelOwner
+          eq(userRolesTable.roleId, rolesTable.id),
+          eq(rolesTable.name, "hotelOwner")
         )
       )
       .orderBy(desc(hotelsTable.id));

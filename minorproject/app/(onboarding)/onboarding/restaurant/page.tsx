@@ -20,15 +20,13 @@ export default async function RestaurantOnboardingPage() {
     redirect("/unauthorized");
   }
 
-  // 3. Unverified User Check (Assuming approvalStatus exists on the role pivot)
-  const ownerRole = session.user.roles?.find((r) => r.name === "restaurantOwner");
-  if (ownerRole?.approvalStatus === "pending") {
-    redirect("/dashboard/restaurant/pending");
-  }
-
-  // 4. Already Onboarded Check
+  // 3. Already Onboarded Check
   const hasRestaurant = await checkHasRestaurant(Number(session.user.id));
   if (hasRestaurant) {
+    const ownerRole = session.user.roles?.find((r) => r.name === "restaurantOwner");
+    if (ownerRole?.approvalStatus === "pending") {
+      redirect("/dashboard/restaurant/pending");
+    }
     redirect("/dashboard/restaurant");
   }
 

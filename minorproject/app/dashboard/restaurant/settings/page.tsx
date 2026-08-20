@@ -12,12 +12,16 @@ export default async function RestaurantSettingsPage() {
     redirect("/sign-in");
   }
 
-  const isOwner = session.user.roles?.some(
+  const ownerRole = session.user.roles?.find(
     (role) => role.name === "restaurantOwner"
   );
 
-  if (!isOwner) {
+  if (!ownerRole) {
     redirect("/unauthorized");
+  }
+
+  if (ownerRole.approvalStatus === "pending") {
+    redirect("/dashboard/restaurant/pending");
   }
 
   const restaurant = await getRestaurantByOwnerId(Number(session.user.id));
