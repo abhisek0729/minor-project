@@ -60,7 +60,7 @@ type ModuleConfig = {
   cards: ModuleCard[];
 };
 
-const modules: ModuleConfig[] = [
+const defaultModules: ModuleConfig[] = [
   {
     id: "accommodation",
     label: "Accommodation",
@@ -69,37 +69,34 @@ const modules: ModuleConfig[] = [
     summary: "Boutique stays, mountain cabins, and family-friendly hotels",
     cards: [
       {
-        id: "stay-1",
-        title: "Lakeview Haven",
-        subtitle: "Private villa with sunrise deck",
-        price: "NPR 8,400 / night",
+        id: "1",
+        title: "Hotel Barahi",
+        subtitle: "Lakeside luxury resort with mountain garden views",
+        price: "NPR 6,500 / night",
         rating: 4.9,
-        image:
-          "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop",
-        tag: "2 guests",
-        location: "Pokhara",
+        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        tag: "Verified Stay",
+        location: "Pokhara, Gandaki",
       },
       {
-        id: "stay-2",
-        title: "Everest Heights",
-        subtitle: "Warm cabins with mountain panoramas",
+        id: "2",
+        title: "Dwarika's Heritage",
+        subtitle: "Restored Newari palace hotel in central Kathmandu",
         price: "NPR 11,200 / night",
         rating: 5.0,
-        image:
-          "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200&auto=format&fit=crop",
-        tag: "2 bedrooms",
-        location: "Namche",
+        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200",
+        tag: "Heritage",
+        location: "Kathmandu, Bagmati",
       },
       {
-        id: "stay-3",
-        title: "Garden Courtyard",
-        subtitle: "Peaceful boutique stay in the city",
-        price: "NPR 6,800 / night",
+        id: "3",
+        title: "Temple Tree Resort",
+        subtitle: "Boutique peaceful retreat with pool and garden",
+        price: "NPR 7,800 / night",
         rating: 4.8,
-        image:
-          "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop",
-        tag: "Family room",
-        location: "Kathmandu",
+        image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200",
+        tag: "Boutique",
+        location: "Pokhara, Gandaki",
       },
     ],
   },
@@ -111,37 +108,34 @@ const modules: ModuleConfig[] = [
     summary: "Foodie spots, rooftop dinners, and authentic local cuisine",
     cards: [
       {
-        id: "food-1",
-        title: "Himalayan Table",
-        subtitle: "Traditional thali and Himalayan tasting menu",
-        price: "NPR 1,950 / person",
+        id: "1",
+        title: "Moondance Restaurant & Bar",
+        subtitle: "Wood-fired pizzas and fresh Himalayan trout",
+        price: "NPR 850 / set",
         rating: 4.9,
-        image:
-          "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop",
-        tag: "Local favorite",
-        location: "Kathmandu",
+        image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+        tag: "Lakeside",
+        location: "Pokhara, Gandaki",
       },
       {
-        id: "food-2",
-        title: "Lakeside Grill",
-        subtitle: "Fresh grills with sunset views over Phewa",
-        price: "NPR 2,300 / person",
-        rating: 4.8,
-        image:
-          "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1200&auto=format&fit=crop",
-        tag: "Rooftop dining",
-        location: "Pokhara",
-      },
-      {
-        id: "food-3",
-        title: "Boutique Tea Garden",
-        subtitle: "Organic breakfast bowls and fresh pastries",
+        id: "2",
+        title: "Bhojan Griha Heritage Dining",
+        subtitle: "Traditional Newari feasts and cultural performance",
         price: "NPR 1,200 / set",
+        rating: 4.8,
+        image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1200",
+        tag: "Cultural Feast",
+        location: "Kathmandu, Bagmati",
+      },
+      {
+        id: "3",
+        title: "OR2K Middle Eastern",
+        subtitle: "Fresh organic salads, hummus and vegan specialties",
+        price: "NPR 750 / set",
         rating: 4.7,
-        image:
-          "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?q=80&w=1200&auto=format&fit=crop",
-        tag: "Morning spot",
-        location: "Patan",
+        image: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?q=80&w=1200",
+        tag: "Organic Vegan",
+        location: "Kathmandu, Bagmati",
       },
     ],
   },
@@ -153,37 +147,34 @@ const modules: ModuleConfig[] = [
     summary: "Heritage alleys, lakeside strolls, and alpine viewpoints",
     cards: [
       {
-        id: "dest-1",
-        title: "Phewa Lake Trail",
-        subtitle: "Gentle morning walks with temple island stops",
+        id: "1",
+        title: "Phewa Lake & Tal Barahi",
+        subtitle: "Peaceful boat rides with reflection of Annapurna",
         price: "Free access",
         rating: 4.9,
-        image:
-          "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
-        tag: "Nature",
-        location: "Pokhara",
+        image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        tag: "Must Visit",
+        location: "Gandaki Province",
       },
       {
-        id: "dest-2",
-        title: "Patan Durbar Square",
-        subtitle: "Historic courtyards, stone carvings, and artisan shops",
-        price: "NPR 1,000 entry",
+        id: "2",
+        title: "Everest Base Camp (EBC)",
+        subtitle: "World famous trekking trail under Mount Everest",
+        price: "NPR 9,500/day",
+        rating: 5.0,
+        image: "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+        tag: "High Trek",
+        location: "Koshi Province",
+      },
+      {
+        id: "3",
+        title: "Pashupatinath Temple Complex",
+        subtitle: "Sacred UNESCO World Heritage pagoda shrine on Bagmati",
+        price: "NPR 2,000 entry",
         rating: 4.8,
-        image:
-          "https://images.unsplash.com/photo-1582650625119-3a31f8418b7d?q=80&w=1200&auto=format&fit=crop",
-        tag: "Culture",
-        location: "Lalitpur",
-      },
-      {
-        id: "dest-3",
-        title: "Nagarkot Ridge",
-        subtitle: "Panoramic views from Annapurna to Everest range",
-        price: "Day trip",
-        rating: 4.9,
-        image:
-          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
-        tag: "Sunrise view",
-        location: "Nagarkot",
+        image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        tag: "Heritage",
+        location: "Bagmati Province",
       },
     ],
   },
@@ -195,37 +186,34 @@ const modules: ModuleConfig[] = [
     summary: "Heritage specialists, trekking leaders, and culture storytellers",
     cards: [
       {
-        id: "guide-1",
-        title: "Aarav Sharma",
-        subtitle: "Heritage walking tours and hidden courtyards",
-        price: "NPR 3,200 / day",
+        id: "1",
+        title: "Pasang Sherpa",
+        subtitle: "Certified high-altitude mountain guide with 12+ yrs exp",
+        price: "NPR 3,500 / day",
         rating: 5.0,
-        image:
-          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
-        tag: "Cultural",
-        location: "Kathmandu",
+        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800",
+        tag: "Everest Guide",
+        location: "Namche / Kathmandu",
       },
       {
-        id: "guide-2",
-        title: "Bikram Rai",
-        subtitle: "Experienced trekking guide for mountain trails",
-        price: "NPR 4,600 / day",
+        id: "2",
+        title: "Nima Gurung",
+        subtitle: "Annapurna and Mardi Himal trekking specialist",
+        price: "NPR 3,200 / day",
         rating: 4.9,
-        image:
-          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
-        tag: "Trekking",
-        location: "Pokhara",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200",
+        tag: "Alpine Leader",
+        location: "Pokhara, Gandaki",
       },
       {
-        id: "guide-3",
-        title: "Sunita Tamang",
-        subtitle: "Nature guide for wildlife and village experiences",
-        price: "NPR 3,800 / day",
+        id: "3",
+        title: "Lakpa Tamang",
+        subtitle: "Wilderness first responder and Langtang valley guide",
+        price: "NPR 3,000 / day",
         rating: 4.8,
-        image:
-          "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200&auto=format&fit=crop",
-        tag: "Wildlife",
-        location: "Chitwan",
+        image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200",
+        tag: "Langtang Leader",
+        location: "Kathmandu / Rasuwa",
       },
     ],
   },
@@ -234,8 +222,7 @@ const modules: ModuleConfig[] = [
     label: "Expense Tracking",
     icon: ReceiptText,
     description: "Stay on budget with smarter trip tracking",
-    summary:
-      "Track stays, food, local transport, and daily spending in one place",
+    summary: "Track stays, food, local transport, and daily spending in one place",
     cards: [],
   },
 ];
@@ -255,12 +242,23 @@ function getModuleExploreTarget(id: ModuleId): { href: string; label: string } {
   }
 }
 
-export default function ModuleExplorer() {
+interface ModuleExplorerProps {
+  featuredHotels?: ModuleCard[];
+  featuredRestaurants?: ModuleCard[];
+  featuredDestinations?: ModuleCard[];
+  featuredGuides?: ModuleCard[];
+}
+
+export default function ModuleExplorer({
+  featuredHotels,
+  featuredRestaurants,
+  featuredDestinations,
+  featuredGuides,
+}: ModuleExplorerProps) {
   const { data: session, status } = useSession();
   const isAuthenticated = status === "authenticated";
 
-  const [activeModuleId, setActiveModuleId] =
-    useState<ModuleId>("accommodation");
+  const [activeModuleId, setActiveModuleId] = useState<ModuleId>("accommodation");
   const [isSubmittingExpense, setIsSubmittingExpense] = useState(false);
   const [isBooking, setIsBooking] = useState<string | null>(null);
 
@@ -272,6 +270,51 @@ export default function ModuleExplorer() {
     location: "",
     type: "food",
   });
+
+  const dynamicModules: ModuleConfig[] = [
+    {
+      id: "accommodation",
+      label: "Accommodation",
+      icon: BedDouble,
+      description: "Curated stays for every kind of trip",
+      summary: "Boutique stays, mountain cabins, and family-friendly hotels",
+      cards: featuredHotels && featuredHotels.length > 0 ? featuredHotels : defaultModules[0].cards,
+    },
+    {
+      id: "food",
+      label: "Food & Dining",
+      icon: Utensils,
+      description: "Local flavors and memorable dining",
+      summary: "Foodie spots, rooftop dinners, and authentic local cuisine",
+      cards: featuredRestaurants && featuredRestaurants.length > 0 ? featuredRestaurants : defaultModules[1].cards,
+    },
+    {
+      id: "destination",
+      label: "Destinations",
+      icon: Compass,
+      description: "Iconic places and hidden viewpoints",
+      summary: "Heritage alleys, lakeside strolls, and alpine viewpoints",
+      cards: featuredDestinations && featuredDestinations.length > 0 ? featuredDestinations : defaultModules[2].cards,
+    },
+    {
+      id: "guides",
+      label: "Tour Guides",
+      icon: Users,
+      description: "Certified locals who bring stories to life",
+      summary: "Heritage specialists, trekking leaders, and culture storytellers",
+      cards: featuredGuides && featuredGuides.length > 0 ? featuredGuides : defaultModules[3].cards,
+    },
+    {
+      id: "expenses",
+      label: "Expense Tracking",
+      icon: ReceiptText,
+      description: "Stay on budget with smarter trip tracking",
+      summary: "Track stays, food, local transport, and daily spending in one place",
+      cards: [],
+    },
+  ];
+
+  const modules = dynamicModules;
 
   // Load existing expenses when signed in
   useEffect(() => {
@@ -649,7 +692,7 @@ export default function ModuleExplorer() {
               /* OTHER MODULES (Accommodation, Food, Destinations, Guides) */
               <div className="grid gap-4 md:grid-cols-3">
                 {activeModule.cards.map((card) => {
-                  const cardNumId = card.id.split("-")[1] || "1";
+                  const cardNumId = card.id.includes("-") ? card.id.split("-")[1] : card.id;
                   const detailHref =
                     activeModule.id === "accommodation"
                       ? `/hotels/${cardNumId}`
