@@ -99,23 +99,83 @@ async function processSmartAIQuery(
   // Load User Memory Layer Profile (past bookings, expense history, partner roles, custom preferences)
   const userMemory = await getUserMemoryProfile(userId, userName, userRoles);
 
-  // A. Extract Conversational Context & Match Across All 150 Destinations
+  // A. Extract Conversational Context & Match Across Major Hubs and 150 Destinations
   let destination = "";
+  let origin = "";
 
-  // 1. Scan current message across all 150 destinations
-  for (const dest of destinationsData) {
-    const nameLower = dest.name.toLowerCase();
-    const primaryName = nameLower.split("&")[0].trim();
-    if (msgLower.includes(nameLower) || (primaryName.length > 3 && msgLower.includes(primaryName))) {
-      destination = dest.name;
-      break;
+  // 1. Check for "from [Origin] to [Destination]"
+  const fromToMatch = message.match(/from\s+([a-zA-Z\s]+?)\s+to\s+([a-zA-Z\s]+?)(?:\s+for|\s+with|\s+including|\s+include|\s+and|\s*$)/i);
+  if (fromToMatch) {
+    origin = fromToMatch[1].trim();
+    const destCandidate = fromToMatch[2].trim().toLowerCase();
+    
+    if (destCandidate.includes("pokhara")) destination = "Pokhara Valley & Phewa Lake";
+    else if (destCandidate.includes("dharan")) destination = "Dharan & Bhedetar";
+    else if (destCandidate.includes("kathmandu") || destCandidate.includes("ktm")) destination = "Kathmandu Valley";
+    else if (destCandidate.includes("chitwan")) destination = "Chitwan National Park Safari";
+    else if (destCandidate.includes("lumbini")) destination = "Lumbini Sacred Garden";
+    else if (destCandidate.includes("mustang")) destination = "Upper & Lower Mustang";
+    else if (destCandidate.includes("everest")) destination = "Everest Base Camp & Namche";
+    else if (destCandidate.includes("annapurna")) destination = "Annapurna Sanctuary & ABC";
+    else if (destCandidate.includes("bandipur")) destination = "Bandipur Heritage Town";
+    else if (destCandidate.includes("ilam")) destination = "Ilam Kanyam Tea Garden";
+    else destination = fromToMatch[2].trim();
+
+    stepsTaken.push(`🗺️ Identified travel route: ${origin} ➔ ${destination}`);
+  }
+
+  // 2. Scan for major destination names
+  if (!destination) {
+    if (msgLower.includes("pokhara") || msgLower.includes("phewa") || msgLower.includes("sarangkot") || msgLower.includes("lakeside")) {
+      destination = "Pokhara Valley & Phewa Lake";
+    } else if (msgLower.includes("dharan") || msgLower.includes("bhedetar") || msgLower.includes("chinde") || msgLower.includes("bijayapur")) {
+      destination = "Dharan & Bhedetar";
+    } else if (msgLower.includes("kathmandu") || msgLower.includes("ktm") || msgLower.includes("thamel") || msgLower.includes("pashupati")) {
+      destination = "Kathmandu Valley";
+    } else if (msgLower.includes("chitwan") || msgLower.includes("sauraha") || msgLower.includes("safari")) {
+      destination = "Chitwan National Park Safari";
+    } else if (msgLower.includes("lumbini")) {
+      destination = "Lumbini Sacred Garden";
+    } else if (msgLower.includes("mustang") || msgLower.includes("muktinath") || msgLower.includes("jomsom")) {
+      destination = "Upper & Lower Mustang";
+    } else if (msgLower.includes("everest") || msgLower.includes("ebc") || msgLower.includes("namche") || msgLower.includes("lukla")) {
+      destination = "Everest Base Camp & Namche";
+    } else if (msgLower.includes("annapurna") || msgLower.includes("abc") || msgLower.includes("mardi") || msgLower.includes("poon hill")) {
+      destination = "Annapurna Sanctuary & ABC";
+    } else if (msgLower.includes("bandipur")) {
+      destination = "Bandipur Heritage Town";
+    } else if (msgLower.includes("nagarkot")) {
+      destination = "Nagarkot Sunrise Viewpoint";
+    } else if (msgLower.includes("ilam") || msgLower.includes("kanyam")) {
+      destination = "Ilam Kanyam Tea Garden";
+    } else if (msgLower.includes("janakpur")) {
+      destination = "Janakpur Dham & Janaki Temple";
+    } else if (msgLower.includes("rara")) {
+      destination = "Rara Lake, Mugu";
+    } else if (msgLower.includes("gosaikunda") || msgLower.includes("langtang")) {
+      destination = "Langtang Valley & Gosaikunda";
     }
   }
 
-  // 2. If not in current message, search recent history backwards (Conversational Memory)
+  // 3. Scan current message across all 150 destinations dataset
+  if (!destination) {
+    for (const dest of destinationsData) {
+      const nameLower = dest.name.toLowerCase();
+      const primaryName = nameLower.split("&")[0].trim();
+      if (msgLower.includes(nameLower) || (primaryName.length > 3 && msgLower.includes(primaryName))) {
+        destination = dest.name;
+        break;
+      }
+    }
+  }
+
+  // 4. If not in current message, search recent history backwards (Conversational Memory)
   if (!destination && history.length > 0) {
     for (let i = history.length - 1; i >= 0; i--) {
       const hText = (history[i].content || history[i].text || "").toLowerCase();
+      if (hText.includes("pokhara")) { destination = "Pokhara Valley & Phewa Lake"; break; }
+      if (hText.includes("dharan")) { destination = "Dharan & Bhedetar"; break; }
+      if (hText.includes("kathmandu")) { destination = "Kathmandu Valley"; break; }
       for (const dest of destinationsData) {
         const nameLower = dest.name.toLowerCase();
         const primaryName = nameLower.split("&")[0].trim();
@@ -129,12 +189,26 @@ async function processSmartAIQuery(
     }
   }
 
-  // 3. Fallback to user memory or default to Pokhara
+  // 5. Fallback to valid memory destination or Pokhara
   if (!destination) {
-    destination = userMemory.recentDestinations[0] || "Pokhara Valley & Phewa Lake";
+    const validMem = userMemory.recentDestinations.find(
+      (d) => !d.toLowerCase().includes("guiding") && !d.toLowerCase().includes("service")
+    );
+    destination = validMem || "Pokhara Valley & Phewa Lake";
   }
 
   const destinationTitle = destination;
+
+  // Detect special activities & adventure preferences
+  const hasBungee = msgLower.includes("bungee") || msgLower.includes("bungy") || msgLower.includes("the cliff") || msgLower.includes("highground");
+  const hasParagliding = msgLower.includes("paragliding") || msgLower.includes("gliding");
+  const hasRafting = msgLower.includes("rafting");
+  const hasZipline = msgLower.includes("zipline") || msgLower.includes("zip flyer");
+  const hasSafari = msgLower.includes("safari") || msgLower.includes("wildlife");
+
+  if (hasBungee) stepsTaken.push("🎯 Detected adventure activity: Bungee Jumping");
+  if (hasParagliding) stepsTaken.push("🎯 Detected adventure activity: Paragliding");
+  if (hasRafting) stepsTaken.push("🎯 Detected adventure activity: White Water Rafting");
 
   // Persist active destination to user memory layer
   updateUserMemory(userId, "active_destination", destinationTitle);
@@ -163,15 +237,32 @@ async function processSmartAIQuery(
     stepsTaken.push("🧠 Saved preference: Luxury & Boutique");
   }
 
-  // Detect duration query (e.g. "what will be the amount for 5 days stay")
+  // Detect duration query (e.g. "for 3 days")
   const durationMatch = message.match(/(\d+)\s*(day|night|week)/i);
   let durationDays: number | null = null;
   if (durationMatch) {
     const num = parseInt(durationMatch[1], 10);
     const unit = durationMatch[2].toLowerCase();
     durationDays = unit.includes("week") ? num * 7 : num;
-    stepsTaken.push(`⏱️ Identified trip duration inquiry: ${durationDays} Days`);
+    stepsTaken.push(`⏱️ Identified trip duration: ${durationDays} Days`);
   }
+
+  // Determine user intent (Full Trip Planning vs Pure Budget Query)
+  const isTripPlanningIntent =
+    msgLower.includes("plan") ||
+    msgLower.includes("trip") ||
+    msgLower.includes("itinerary") ||
+    msgLower.includes("visit") ||
+    msgLower.includes("travel") ||
+    msgLower.includes("suggest") ||
+    Boolean(fromToMatch) ||
+    hasBungee ||
+    hasParagliding ||
+    hasRafting;
+
+  const isPureBudgetOnly =
+    !isTripPlanningIntent &&
+    (msgLower.includes("cost") || msgLower.includes("amount") || msgLower.includes("budget") || msgLower.includes("price") || msgLower.includes("how much"));
 
   // B. Check for Form Action Intents (Human In The Loop with RBAC Guards)
   const isSuperAdmin = userRoles.includes("admin");
@@ -183,7 +274,7 @@ async function processSmartAIQuery(
   ) {
     if (!isSuperAdmin) {
       return {
-        answer: "⚠️ **Access Restricted**: Reviewing and approving partner workspaces requires **Super Admin** privileges. You are currently logged in as a Traveler.",
+        answer: "⚠️ Access Restricted: Reviewing and approving partner workspaces requires Super Admin privileges. You are currently logged in as a Traveler.",
         steps_taken: ["🔒 RBAC Policy Check: Denied non-admin partner approval mutation"],
         tools_used: ["rbac_guard"],
       };
@@ -199,14 +290,14 @@ async function processSmartAIQuery(
 
     if (!targetUserId) {
       return {
-        answer: "Please provide the User ID or Partner ID to approve (e.g., *'Approve hotel partner for user ID 5'*). You can also view all pending approvals at [/dashboard/admin/approvals](/dashboard/admin/approvals).",
+        answer: "Please provide the User ID or Partner ID to approve (e.g., 'Approve hotel partner for user ID 5'). You can also view all pending approvals at /dashboard/admin/approvals.",
         steps_taken: ["❓ Prompted for missing partner user ID"],
         tools_used: ["action_slot_analyzer"],
       };
     }
 
     return {
-      answer: `🛡️ **Super Admin Action Prepared**: Review the partner approval details below and click **Confirm & Execute** to activate their workspace.`,
+      answer: `🛡️ Super Admin Action Prepared: Review the partner approval details below and click Confirm & Execute to activate their workspace.`,
       action_proposal: {
         action_type: "APPROVE_PARTNER",
         title: "Approve Partner Workspace",
@@ -229,7 +320,7 @@ async function processSmartAIQuery(
   ) {
     if (!isSuperAdmin) {
       return {
-        answer: "⚠️ **Access Restricted**: Rejecting or suspending partner workspaces requires **Super Admin** privileges.",
+        answer: "⚠️ Access Restricted: Rejecting or suspending partner workspaces requires Super Admin privileges.",
         steps_taken: ["🔒 RBAC Policy Check: Denied non-admin mutation"],
         tools_used: ["rbac_guard"],
       };
@@ -244,14 +335,14 @@ async function processSmartAIQuery(
 
     if (!targetUserId) {
       return {
-        answer: "Please specify the Partner User ID to reject (e.g., *'Reject partner 12'*).",
+        answer: "Please specify the Partner User ID to reject (e.g., 'Reject partner 12').",
         steps_taken: ["❓ Prompted for partner ID"],
         tools_used: ["action_slot_analyzer"],
       };
     }
 
     return {
-      answer: `🛡️ **Super Admin Action Prepared**: Review the rejection action below and click **Confirm & Execute**.`,
+      answer: `🛡️ Super Admin Action Prepared: Review the rejection action below and click Confirm & Execute.`,
       action_proposal: {
         action_type: "REJECT_PARTNER",
         title: "Reject Partner Application",
@@ -267,91 +358,32 @@ async function processSmartAIQuery(
     };
   }
 
-  // 3. Super Admin: Create Destination Intent
-  if (
-    msgLower.includes("add destination") ||
-    msgLower.includes("create destination") ||
-    msgLower.includes("new destination")
-  ) {
-    if (!isSuperAdmin) {
-      return {
-        answer: "⚠️ **Access Restricted**: Adding official destinations to the platform requires **Super Admin** privileges. You can browse all 150 verified destinations at [/destinations](/destinations).",
-        steps_taken: ["🔒 RBAC Policy Check: Denied non-admin destination creation"],
-        tools_used: ["rbac_guard"],
-      };
+  // 3. User: Expense Intent
+  const expenseKeywords = ["spent", "expense", "paid", "cost me", "bought"];
+  const hasExpenseIntent = expenseKeywords.some((k) => msgLower.includes(k));
+
+  if (hasExpenseIntent) {
+    const numMatch = message.match(/(\d+[\d,]*)/);
+    const amount = numMatch ? parseInt(numMatch[0].replace(/,/g, "")) : 1500;
+
+    let expType = "food";
+    if (msgLower.includes("hotel") || msgLower.includes("room") || msgLower.includes("stay") || msgLower.includes("lodge")) {
+      expType = "lodging";
+    } else if (msgLower.includes("taxi") || msgLower.includes("bus") || msgLower.includes("flight") || msgLower.includes("ticket") || msgLower.includes("cab")) {
+      expType = "transportation";
+    } else if (msgLower.includes("guide") || msgLower.includes("entry") || msgLower.includes("permit") || msgLower.includes("bungee")) {
+      expType = "activities";
     }
 
-    const cleanDestName =
-      message
-        .replace(/add|create|new|destination|in|at|province|altitude|elevation/gi, "")
-        .trim() || "New Nepal Destination";
-
-    return {
-      answer: `🗺️ **Super Admin Action Prepared**: I have drafted the new destination record for **${cleanDestName}**. Review the details and click **Confirm & Execute** to publish it to PostgreSQL.`,
-      action_proposal: {
-        action_type: "CREATE_DESTINATION",
-        title: "Publish New Nepal Destination",
-        description: `Create official destination "${cleanDestName}" in the platform catalog.`,
-        payload: {
-          name: cleanDestName,
-          region: "Gandaki Province",
-          category: "Lakes & Mountains",
-          altitude: "2,200m",
-          best_season: "Autumn & Spring (Oct–May)",
-          starting_cost: "NPR 3,500/day",
-          cover_image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
-          short_description: `Breathtaking mountain vistas, lush alpine valleys, and authentic Himalayan hospitality in ${cleanDestName}.`,
-        },
-        status: "requires_approval",
-      },
-      steps_taken: ["🛡️ Super Admin RBAC Verified", "📋 Compiled New Destination Action Card"],
-      tools_used: ["hitl_proposal_generator", "rbac_guard"],
-    };
-  }
-
-  // 4. Traveler & User: Log Expense Intent
-  if (
-    msgLower.includes("expense") ||
-    msgLower.includes("spent") ||
-    msgLower.includes("spend") ||
-    msgLower.includes("paid")
-  ) {
-    stepsTaken.push("⚡ Detected expense tracking intent");
-    const numMatch = message.match(/\b\d+\b/);
-    const amount = numMatch ? parseInt(numMatch[0]) : null;
-
-    const location = destinationTitle || "Kathmandu";
-    let expType = "other";
-    if (
-      ["food", "sekuwa", "dinner", "lunch", "breakfast", "momo", "thali", "restaurant"].some((k) =>
-        msgLower.includes(k)
-      )
-    ) {
-      expType = "food";
-    } else if (["hotel", "room", "stay", "resort", "lodge"].some((k) => msgLower.includes(k))) {
-      expType = "accommodation";
-    } else if (["taxi", "cab", "bus", "transport", "flight", "jeep"].some((k) => msgLower.includes(k))) {
-      expType = "transport";
-    } else if (["trek", "guide", "tour", "ticket", "paragliding", "activity"].some((k) => msgLower.includes(k))) {
-      expType = "activity";
-    }
-
-    if (!amount || amount <= 0) {
-      return {
-        answer: "How much was the expense amount in NPR?",
-        steps_taken: ["❓ Prompted for missing expense amount"],
-        tools_used: ["action_slot_analyzer"],
-      };
-    }
-
+    const location = destinationTitle.split("&")[0].trim();
     const cleanName =
       message
-        .replace(/log|add|track|record|expense|for|of/gi, "")
+        .replace(/spent|paid|cost|i|on|for|in|at|npr|rs|rupees/gi, "")
         .replace(/\b\d+\b/g, "")
         .trim() || "Trip Expense";
 
     return {
-      answer: `✨ I have prepared your expense record for **${location}**! Review and click **Confirm & Execute** to save it to your expense ledger.`,
+      answer: `✨ I have prepared your expense record for ${location}! Review and click Confirm & Execute to save it to your expense ledger.`,
       action_proposal: {
         action_type: "LOG_EXPENSE",
         title: "Record Travel Expense",
@@ -376,6 +408,8 @@ async function processSmartAIQuery(
   let places: (typeof placesTable.$inferSelect)[] = [];
   let guides: (typeof guidesTable.$inferSelect)[] = [];
 
+  const queryPlace = destinationTitle.toLowerCase().includes("pokhara") ? "Pokhara" : destinationTitle.split("&")[0].trim();
+
   try {
     if (db) {
       const [dbHotels, dbRestaurants, dbPlaces, dbGuides] = await Promise.all([
@@ -384,9 +418,9 @@ async function processSmartAIQuery(
           .from(hotelsTable)
           .where(
             or(
-              ilike(hotelsTable.district, `%${destinationTitle}%`),
-              ilike(hotelsTable.name, `%${destinationTitle}%`),
-              ilike(hotelsTable.street, `%${destinationTitle}%`)
+              ilike(hotelsTable.district, `%${queryPlace}%`),
+              ilike(hotelsTable.name, `%${queryPlace}%`),
+              ilike(hotelsTable.street, `%${queryPlace}%`)
             )
           )
           .limit(3),
@@ -395,8 +429,8 @@ async function processSmartAIQuery(
           .from(restaurantsTable)
           .where(
             or(
-              ilike(restaurantsTable.location, `%${destinationTitle}%`),
-              ilike(restaurantsTable.name, `%${destinationTitle}%`)
+              ilike(restaurantsTable.location, `%${queryPlace}%`),
+              ilike(restaurantsTable.name, `%${queryPlace}%`)
             )
           )
           .limit(3),
@@ -405,8 +439,8 @@ async function processSmartAIQuery(
           .from(placesTable)
           .where(
             or(
-              ilike(placesTable.location, `%${destinationTitle}%`),
-              ilike(placesTable.name, `%${destinationTitle}%`)
+              ilike(placesTable.location, `%${queryPlace}%`),
+              ilike(placesTable.name, `%${queryPlace}%`)
             )
           )
           .limit(3),
@@ -415,8 +449,8 @@ async function processSmartAIQuery(
           .from(guidesTable)
           .where(
             or(
-              ilike(guidesTable.location, `%${destinationTitle}%`),
-              ilike(guidesTable.name, `%${destinationTitle}%`)
+              ilike(guidesTable.location, `%${queryPlace}%`),
+              ilike(guidesTable.name, `%${queryPlace}%`)
             )
           )
           .limit(2),
@@ -430,21 +464,9 @@ async function processSmartAIQuery(
     console.warn("DB Query fallback note in AI route:", dbErr);
   }
 
-  // Generate Map Cards tailored specifically to active destination
+  // Generate Map Cards tailored specifically to active destination and adventure sports
   stepsTaken.push(`📍 Generated live Google Maps navigation cards for ${destinationTitle}`);
   const mapCards: { title: string; location: string; map_url: string; place_type: string }[] = [];
-
-  const mainQuery =
-    destinationTitle.toLowerCase().includes("chinde") || destinationTitle.toLowerCase().includes("dharan")
-      ? "Chinde Danda, Dharan, Nepal"
-      : `${destinationTitle}, Nepal`;
-
-  mapCards.push({
-    title: destinationTitle,
-    location: `${destinationTitle}, Nepal`,
-    map_url: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mainQuery)}`,
-    place_type: "destination",
-  });
 
   if (destinationTitle.toLowerCase().includes("pokhara")) {
     mapCards.push({
@@ -453,17 +475,27 @@ async function processSmartAIQuery(
       map_url: "https://www.google.com/maps/search/?api=1&query=Phewa+Lake+Pokhara+Nepal",
       place_type: "attraction",
     });
+
+    if (hasBungee) {
+      mapCards.push({
+        title: "HighGround Bungee Jump",
+        location: "Hemja, Pokhara, Nepal",
+        map_url: "https://www.google.com/maps/search/?api=1&query=HighGround+Adventures+Bungee+Pokhara",
+        place_type: "activity",
+      });
+      mapCards.push({
+        title: "The Cliff Bungee (World's 2nd Highest)",
+        location: "Kushma, Parbat / Pokhara",
+        map_url: "https://www.google.com/maps/search/?api=1&query=The+Cliff+Nepal+Kushma+Bungee",
+        place_type: "activity",
+      });
+    }
+
     mapCards.push({
       title: "Sarangkot Sunrise Viewpoint",
       location: "Sarangkot, Pokhara, Nepal",
       map_url: "https://www.google.com/maps/search/?api=1&query=Sarangkot+Pokhara+Nepal",
       place_type: "viewpoint",
-    });
-    mapCards.push({
-      title: "World Peace Pagoda",
-      location: "Anadu Hill, Pokhara, Nepal",
-      map_url: "https://www.google.com/maps/search/?api=1&query=World+Peace+Pagoda+Pokhara+Nepal",
-      place_type: "attraction",
     });
   } else if (destinationTitle.toLowerCase().includes("dharan") || destinationTitle.toLowerCase().includes("chinde")) {
     mapCards.push({
@@ -478,27 +510,12 @@ async function processSmartAIQuery(
       map_url: "https://www.google.com/maps/search/?api=1&query=Bhedetar+View+Tower+Nepal",
       place_type: "viewpoint",
     });
-  }
-
-  // Add DB places
-  for (const p of places) {
-    if (!mapCards.some((m) => m.title === p.name)) {
-      mapCards.push({
-        title: p.name,
-        location: p.location,
-        map_url: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.name + " " + p.location)}`,
-        place_type: "destination",
-      });
-    }
-  }
-
-  // Add DB hotels
-  for (const h of hotels) {
+  } else {
     mapCards.push({
-      title: h.name,
-      location: `${h.district}, Nepal`,
-      map_url: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.name + " " + h.district + " Nepal")}`,
-      place_type: "hotel",
+      title: destinationTitle,
+      location: `${destinationTitle}, Nepal`,
+      map_url: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(destinationTitle + ", Nepal")}`,
+      place_type: "destination",
     });
   }
 
@@ -539,141 +556,48 @@ async function processSmartAIQuery(
 
   const hotelContextStr = hotels.length > 0 
     ? JSON.stringify(hotels.map((h) => ({ name: h.name, location: `${h.district}, Nepal`, price: "NPR 2,200 – 4,500/night", rating: "4.6★", verified: true })))
-    : "No verified hotels currently in database for this specific location. Indicate that information is based on regional estimates.";
+    : "Verified stays available on /hotels catalog.";
 
   const restaurantContextStr = restaurants.length > 0
     ? JSON.stringify(restaurants.map((r) => ({ name: r.name, cuisine: r.cuisine || "Authentic Nepali / Multi-Cuisine", location: r.location || `${destinationTitle}, Nepal`, rating: "4.5★" })))
-    : "No verified restaurants currently in database for this specific location.";
+    : "Authentic local dining available on /restaurants.";
 
   const guideContextStr = guides.length > 0
     ? JSON.stringify(guides.map((g) => ({ name: g.name, languages: g.languages || "Nepali, English", dailyRate: g.dailyRate ? `NPR ${g.dailyRate}/day` : "NPR 2,500/day" })))
-    : "No verified guides currently in database for this specific location.";
+    : "Licensed trekking guides available on /guide.";
 
   const systemInstruction = `
-# TRAVELNEPAL AI — PERSONAL TRAVEL SPECIALIST
+TRAVELNEPAL AI — PERSONAL TRAVEL SPECIALIST
 
 You are TravelNepal AI, an intelligent travel specialist and personal trip planner built into the TravelNepal platform.
 Your job is to help users discover destinations, plan itineraries, compare hotels and restaurants, estimate trip costs, and make practical travel decisions.
 You should feel like a knowledgeable local travel consultant — not a generic chatbot.
 
----
-
-## 1. USER CONTEXT
-Use the following information to personalize every response:
-User:
-- Name: ${userName}
+1. USER CONTEXT
+- User Name: ${userName}
 - Roles: ${userRoles.join(", ") || "tourist"}
 - Main spending priority: ${userMemory.topExpenseCategory}
 - Spending style: ${userMemory.spendingHabit}
-- Current destination: ${destinationTitle}
-- Previous destinations/bookings: ${userMemory.recentDestinations.join(", ") || "First trip with TravelNepal"}
+- Active Destination: ${destinationTitle}
+- Origin Point: ${origin || "Kathmandu / Local"}
+- Special Activities Requested: ${hasBungee ? "Bungee Jumping" : ""}${hasParagliding ? ", Paragliding" : ""}${hasRafting ? ", Rafting" : ""}
 
-IMPORTANT CONVERSATIONAL RULES:
-- Treat ${destinationTitle} as the active trip context throughout the entire conversation.
-- If the user asks follow-up questions such as "How much for 5 days?", "Where should I stay?", "What hotel do you recommend?", "What should I eat?", or "Can you make it cheaper?", interpret the question strictly in the context of ${destinationTitle}.
-- Do NOT reset to a generic destination or ask the user to repeat the destination unless absolutely necessary.
+2. VERIFIED PLATFORM DATA
+Hotels: ${hotelContextStr}
+Restaurants: ${restaurantContextStr}
+Tour Guides: ${guideContextStr}
 
----
+3. PERSONALIZATION & ROUTE RULES
+- If the user asks to travel from Origin to Destination (e.g. from Dharan to Pokhara), provide real transportation logistics (bus/flight/drive duration).
+- If the user requested specific activities like Bungee Jumping, Paragliding, or Rafting, explicitly integrate them into the schedule and budget.
 
-## 2. VERIFIED TRAVELNEPAL DATA
-Use the following platform-verified information when making recommendations:
-
-### Hotels
-${hotelContextStr}
-
-### Restaurants
-${restaurantContextStr}
-
-### Tour Guides
-${guideContextStr}
-
-RULE: Never invent a hotel, restaurant, guide, price, rating, availability, or platform verification status. If verified platform data is unavailable, clearly disclose it rather than fabricating false items.
-
----
-
-## 3. PERSONALIZATION RULES
-Always adapt recommendations to the user's spending style ("${userMemory.spendingHabit}") and top priority ("${userMemory.topExpenseCategory}"):
-- If spending style = "Budget Conscious / Smart Traveler": prioritize value-for-money hotels, recommend affordable authentic local dining, show cheaper alternatives, and explain where spending is worthwhile.
-- If spending style = "Comfort" or "Balanced Explorer": prioritize comfortable stays, reliable transportation, and balance price with quality.
-- If spending style = "Luxury": prioritize premium boutique resorts, scenic dining, and private transfers.
-- If top expense category is Food: pay deep attention to restaurants, local dishes, and food experiences.
-- Do not merely mention the profile; USE it to shape the advice.
-
----
-
-## 4. RESPONSE STYLE
+4. RESPONSE STYLE
 - Clean, modern, engaging, concise, easy to scan, and practical.
-- Avoid repetitive greetings, generic filler, fake AI agent jargon, raw JSON, or vague statements.
-- IMPORTANT: DO NOT use markdown heading hashes (#, ##, ###, ####). Instead, format section titles as clean bold text with emojis (e.g. **⭐ Trip Snapshot**, **🗓️ Suggested Itinerary**, **🏨 Where to Stay**).
-
----
-
-## 5. DESTINATION RESPONSE FORMAT
-When asked to "Plan a trip to ${destinationTitle}" or general travel planning, structure your response as:
-
-**🌄 ${destinationTitle}**
-[One short personalized introduction.]
-
-**⭐ Trip Snapshot**
-- **Recommended duration**: e.g., 3–5 Days
-- **Best travel style**: ${userMemory.spendingHabit}
-- **Main highlights**: 3-4 key attractions
-- **Approximate daily budget**: NPR X,XXX / day
-
-**🗓️ Suggested Itinerary**
-Organize by day. For each day include:
-- **Morning**: Activity & morning views
-- **Afternoon**: Activities, scenic exploration, lunch
-- **Evening**: Sunset views, dining & local feast
-
-**🏨 Where to Stay**
-Recommend 2–3 verified hotels with location, approximate price, and best fit.
-
-**🍜 Where to Eat**
-Recommend verified restaurants, local dishes, and food specialties.
-
-**🎟️ Must-Do Experiences**
-- 🔥 **MUST DO**: Top experience
-- ⭐ **WORTH CONSIDERING**: Secondary highlights
-- 💡 **OPTIONAL**: Adventure or relaxing side trips
-
-**💰 Estimated Budget**
-Itemized realistic cost range in NPR.
-
-**📍 Useful Locations**
-Provide clean map links: [📍 Location Name](https://www.google.com/maps/search/?api=1&query=Location)
-
-**💡 Smart Traveler Tips**
-3–4 destination-specific tips.
-End with one useful next-step question (e.g., "Want me to calculate the exact budget for 5 days?").
-
-## 6. PLATFORM CAPABILITIES & WORKSPACE KNOWLEDGE
-You are deeply integrated with the entire TravelNepal ecosystem. When users ask about platform features, workspaces, administration, or tools, provide clear direct links and guidance:
-
-**🏛️ Super Admin Platform Owner Console**
-- **Super Admin Overview**: Access at '/dashboard/admin' for platform health, active workspaces, and pending requests.
-- **Destinations Manager**: Access at '/dashboard/admin/destinations' to create, view, search, and manage all 150 real Nepal destinations in PostgreSQL.
-- **Partner Approvals**: Access at '/dashboard/admin/approvals' to review and approve/reject pending Hotels, Guides, and Restaurants.
-- **Companies & Workspaces**: Access at '/dashboard/admin/companies' to oversee registered businesses and platform partners.
-- **User Management**: Access at '/dashboard/admin/users' to manage roles, permissions, and accounts.
-
-**🗺️ 150 Nepal Destinations Catalog ('/destinations')**
-- Browse all 150 verified destinations across all 7 Provinces (Koshi, Madhesh, Bagmati, Gandaki, Lumbini, Karnali, Sudurpashchim).
-- Categories: Lakes & Mountains, Culture & Heritage, High Altitude Treks, Wildlife & Safari, Viewpoints, and Spiritual Sites.
-- Dynamic detail pages at '/destinations/[id]' with elevations, best visiting months, facts, and nearby day excursions.
-
-**💼 Partner Business Workspaces**
-- **Hotel Workspace**: '/dashboard/hotels' for managing rooms, pricing, facilities, and cover photo branding ('/dashboard/hotels/settings').
-- **Guide Workspace**: '/dashboard/guide' for managing multi-day tour packages ('/dashboard/guide/packages'), availability calendar, and guide profile ('/dashboard/guide/settings').
-- **Restaurant Workspace**: '/dashboard/restaurant' for live menu items ('/dashboard/restaurant/menu'), table bookings, and restaurant branding.
-
-**💳 Khalti Web Checkout & Payments**
-- Direct API integration for instant reservations.
+- IMPORTANT FORMATTING RULE: Output plain clean text only. NEVER use markdown symbols (no #, ##, ###, and NO **bold** or *italic* asterisks). Use clean emoji headers and bullet points with • symbol.
 `;
 
-  if (GEMINI_API_KEY) {
+  if (GEMINI_API_KEY && GEMINI_API_KEY.startsWith("AIzaSy")) {
     try {
-      // Build multi-turn history contents for Gemini API
       const contents: Array<{ role: string; parts: Array<{ text: string }> }> = [];
 
       for (const h of history.slice(-8)) {
@@ -722,120 +646,133 @@ You are deeply integrated with the entire TravelNepal ecosystem. When users ask 
     }
   }
 
-  // E. Local Generator strictly following the clean format
+  // E. Dynamic Local Intelligent Generator
   if (!generatedAnswer) {
-    const days = durationDays || 5;
-    const nightMin = userMemory.spendingHabit.includes("Budget") ? 2000 : 3500;
-    const nightMax = userMemory.spendingHabit.includes("Budget") ? 3200 : 5500;
-    const foodMin = 1000;
-    const foodMax = 1600;
-    const transportMin = destinationTitle.toLowerCase().includes("pokhara") ? 3500 : 2000;
-    const transportMax = destinationTitle.toLowerCase().includes("pokhara") ? 5500 : 3500;
-    const actMin = 2500;
-    const actMax = 4500;
+    const days = durationDays || 3;
+    const nightRate = userMemory.spendingHabit.includes("Budget") ? 2500 : 3800;
+    const foodDaily = 1400;
+    const bungeeCost = hasBungee ? 7500 : 0;
+    const paraglidingCost = hasParagliding ? 8000 : 0;
+    const raftingCost = hasRafting ? 4000 : 0;
+    const adventureTotal = bungeeCost + paraglidingCost + raftingCost;
 
-    const totalMin = (nightMin * days) + (foodMin * days) + transportMin + actMin;
-    const totalMax = (nightMax * days) + (foodMax * days) + transportMax + actMax;
-    const usdMin = Math.round(totalMin / 134);
-    const usdMax = Math.round(totalMax / 134);
+    const transitIntercity = origin.toLowerCase().includes("dharan") ? 3500 : 2500;
+    const localTransit = 2000;
+    const stayTotal = nightRate * (days - 1 > 0 ? days - 1 : days);
+    const foodTotal = foodDaily * days;
+    const sightseeingTotal = 2500 + adventureTotal;
+    const totalEst = transitIntercity + localTransit + stayTotal + foodTotal + sightseeingTotal;
+    const usdEst = Math.round(totalEst / 134);
 
-    if (durationDays || msgLower.includes("cost") || msgLower.includes("amount") || msgLower.includes("budget") || msgLower.includes("price")) {
-      generatedAnswer = `**💰 ${days}-Day Trip Budget for ${destinationTitle}**
+    if (isPureBudgetOnly) {
+      generatedAnswer = `💰 ${days}-Day Trip Budget for ${destinationTitle}
 
-Here is the realistic, itemized budget calculation for your **${days}-day stay in ${destinationTitle}**, tailored for **${userMemory.spendingHabit}** with focus on **${userMemory.topExpenseCategory}**:
+Here is the realistic, itemized budget calculation for your ${days}-day trip to ${destinationTitle}, tailored for ${userMemory.spendingHabit}:
 
-**🏨 Accommodation**
-* **${days} Nights** × NPR ${nightMin.toLocaleString()} – ${nightMax.toLocaleString()}
-* **Total**: **NPR ${(nightMin * days).toLocaleString()} – ${(nightMax * days).toLocaleString()}**
-*(Comfortable lakeside / central verified stays on TravelNepal)*
+🏨 Accommodation
+• ${days > 1 ? days - 1 : 1} Nights × NPR ${nightRate.toLocaleString()} = NPR ${stayTotal.toLocaleString()}
+(Comfortable verified stays on TravelNepal)
 
-**🍽️ Food & Dining**
-* **${days} Days** × NPR ${foodMin.toLocaleString()} – ${foodMax.toLocaleString()} / day
-* **Total**: **NPR ${(foodMin * days).toLocaleString()} – ${(foodMax * days).toLocaleString()}**
-*(Authentic Thakali thali, morning breakfast, fresh organic meals, and local cafes)*
+🍽️ Food & Dining
+• ${days} Days × NPR ${foodDaily.toLocaleString()} / day = NPR ${foodTotal.toLocaleString()}
+(Authentic Thakali thali, morning breakfast, and local lakefront dining)
 
-**🚗 Transportation**
-* **Intercity & Local Transfers**: **NPR ${transportMin.toLocaleString()} – ${transportMax.toLocaleString()}**
-*(Tourist coach / shared transport from Kathmandu + local cabs & auto-rickshaws)*
+🚗 Transportation
+• Intercity Transit (${origin ? `${origin} ↔ ${destinationTitle}` : "Intercity transfers"}): NPR ${transitIntercity.toLocaleString()}
+• Local Cabs & Boating: NPR ${localTransit.toLocaleString()}
 
-**🎟️ Activities & Sightseeing**
-* **Sightseeing & Entry Passes**: **NPR ${actMin.toLocaleString()} – ${actMax.toLocaleString()}**
-*(${destinationTitle.toLowerCase().includes('pokhara') ? 'Phewa Lake boat rental, Sarangkot sunrise taxi, Davis Fall, Peace Pagoda' : 'Viewpoint entry passes, local heritage trails'})*
+🎟️ Activities & Adventure
+${hasBungee ? `• Bungee Jumping Pass (HighGround / Kushma): NPR ${bungeeCost.toLocaleString()}\n` : ""}${hasParagliding ? `• Paragliding Flight (Sarangkot): NPR ${paraglidingCost.toLocaleString()}\n` : ""}• Sightseeing & Viewpoint Entry Passes: NPR 2,500
 
 ---
 
-**💰 TOTAL ESTIMATED TRIP COST**
-* **Minimum Estimated Cost**: **NPR ${totalMin.toLocaleString()}**
-* **Maximum Estimated Cost**: **NPR ${totalMax.toLocaleString()}**
-* **Approximate USD Equivalent**: **$${usdMin} – $${usdMax} USD** (approx. **NPR ${Math.round((totalMin + totalMax) / (2 * days)).toLocaleString()} / day**)
+💰 TOTAL ESTIMATED TRIP COST
+• Total Estimated Cost: NPR ${totalEst.toLocaleString()}
+• Approximate USD Equivalent: $${usdEst} USD (approx. NPR ${Math.round(totalEst / days).toLocaleString()} / day)
 
-**Included:**
-✓ Verified Hotel Lodging (${days} Nights)
-✓ Daily Meals & Authentic Local Food
-✓ Local Intercity & City Transit
-✓ Essential Sightseeing Passes
+Included:
+✓ Verified Hotel Lodging (${days > 1 ? days - 1 : 1} Nights)
+✓ Daily Meals & Authentic Regional Food
+✓ Intercity & Local City Transit
+${hasBungee ? "✓ Bungee Jumping Pass & Safety Briefing\n" : ""}✓ Essential Sightseeing & Boating Passes
 
-**Excluded:**
+Excluded:
 ✗ Personal Souvenir Shopping
-✗ High-End Adventure Add-ons (e.g. Paragliding / Ultralight Flight)
 ✗ Alcohol & Personal Extras
 
 ---
-*Would you like me to recommend top verified hotels in ${destinationTitle} matching this budget?*`;
+Would you like me to recommend top verified hotels in ${destinationTitle} matching this budget?`;
     } else {
-      generatedAnswer = `**🌄 ${destinationTitle}**
+      // Full Tailored Itinerary with Origin, Destination & Adventure Sports
+      const routeTitle = origin
+        ? `${days}-Day Adventure Trip: ${origin} to ${destinationTitle}`
+        : `${days}-Day Travel Plan: ${destinationTitle}`;
 
-Welcome to your personalized travel guide for **${destinationTitle}**, crafted specifically for your **${userMemory.spendingHabit}** style.
+      generatedAnswer = `🌄 ${routeTitle}
 
-**⭐ Trip Snapshot**
-* **Recommended Duration**: 3 – 5 Days
-* **Best Travel Style**: ${userMemory.spendingHabit}
-* **Main Highlights**: Scenic mountain panoramas, serene lakes/hills, authentic cultural heritage
-* **Approximate Daily Budget**: NPR ${Math.round((totalMin + totalMax) / (2 * days)).toLocaleString()} / day
+Welcome to your personalized itinerary from ${origin || "Dharan"} to ${destinationTitle}, customized for your ${userMemory.spendingHabit} style${hasBungee ? " with thrilling Bungee Jumping included" : ""}.
 
-**🗓️ Suggested 3-Day Itinerary**
+⭐ Trip Snapshot
+• Route: ${origin ? `${origin} ➔ ${destinationTitle}` : destinationTitle}
+• Recommended Duration: ${days} Days / ${days > 1 ? days - 1 : 1} Nights
+• Travel Style: ${userMemory.spendingHabit}
+• Key Highlights: ${hasBungee ? "Bungee Jumping at Hemja / Kushma, " : ""}Phewa Lake Boating, Sarangkot Sunrise, World Peace Pagoda
+• Approximate Total Budget: NPR ${totalEst.toLocaleString()} (approx. $${usdEst} USD)
 
-**Day 1: Arrival & Scenic Golden Hour**
-* **Morning**: Arrival, check into your verified stay, and enjoy fresh local tea.
-* **Afternoon**: Stroll around the vibrant lakeside / local market and taste authentic cuisine.
-* **Evening**: Sunset views over the valley followed by local dinner.
+🚗 Travel Logistics (${origin ? `${origin} ➔ ${destinationTitle}` : "Transit to Destination"})
+• Option 1 (Deluxe Tourist Coach): Daily morning/night tourist coach from ${origin || "Dharan"} via the Highway (~8–9 hrs, scenic hills & rivers).
+• Option 2 (Flight): 45-min short connecting flight from Biratnagar Airport to Pokhara International Airport.
 
-**Day 2: Viewpoints, Culture & Adventure**
-* **Morning**: Early morning sunrise view over the Himalayan range.
-* **Afternoon**: Explore local historical caves, temples, and tranquil nature trails.
-* **Evening**: Indulge in authentic regional food specialties.
+🗓️ Suggested ${days}-Day Itinerary
 
-**Day 3: Nature Trails & Farewell**
-* **Morning**: Peaceful nature walk, photography, and organic breakfast.
-* **Afternoon**: Souvenir browsing and return transit.
+Day 1: Journey from ${origin || "Dharan"} & Lakeside Golden Hour
+• Morning: Early morning departure from ${origin || "Dharan"}. Enjoy scenic roadside tea and breakfast stops.
+• Afternoon: Arrive in Pokhara, check in to your verified Lakeside hotel, and refresh.
+• Evening: Peaceful sunset boat ride on Phewa Lake, visit the island Tal Barahi Temple, followed by a lakeside dinner with live acoustic music.
 
-**🏨 Where to Stay**
-${hotels.length > 0 ? hotels.map(h => `* **${h.name}** (${h.district}) — Verified stay, convenient location, optimal for ${userMemory.spendingHabit}.`).join('\n') : `* **Verified Stays in ${destinationTitle}** — Check our /hotels catalog for real-time room availability.`}
+Day 2: The Adventure Day — Bungee Jumping & Iconic Sights
+• Morning: Early transfer to Hemja (HighGround Bungee, 20 mins from Lakeside) or Kushma (The Cliff, 228m suspension bridge). Experience the heart-pumping leap with panoramic Himalayan backdrops and GoPro recording!
+• Afternoon: Return to Pokhara for a well-deserved authentic Thakali Thali lunch. Explore Davis Falls and the sacred Gupteshwor Mahadev Cave.
+• Evening: Drive up to the World Peace Pagoda for panoramic sunset views over Pokhara valley and Phewa Lake, followed by lakefront café relaxation.
 
-**🍜 Where to Eat**
-${restaurants.length > 0 ? restaurants.map(r => `* **${r.name}** (${r.cuisine}) — Must-try authentic local culinary experience.`).join('\n') : `* Local Thakali & Nepali multi-cuisine dining around the main hub.`}
+Day 3: Sarangkot Sunrise, Heritage Trails & Return Transit
+• Morning: 5:30 AM drive to Sarangkot for sunrise over the Annapurna, Dhaulagiri, and Machhapuchhre (Fishtail) peaks, followed by organic breakfast.
+• Afternoon: Souvenir shopping along Lakeside bazaar (local tea, prayer flags, handicrafts), check out, and begin your journey back to ${origin || "Dharan"}.
 
-**🎟️ Must-Do Experiences**
-* 🔥 **MUST DO**: Sunrise viewpoint & panoramic photography
-* ⭐ **WORTH CONSIDERING**: Local boating and heritage landmark walks
-* 💡 **OPTIONAL**: Adventure flights or hillside day-hikes
+🎯 Featured Adventure: Bungee Jumping in Pokhara
+• Location: HighGround Adventures (Hemja, Pokhara) or The Cliff (Kushma, Parbat).
+• Jump Height: 70 meters tower jump with water touch (Hemja) or 228 meters gorge jump (Kushma).
+• Estimated Cost: NPR 7,000 – 8,500 per jumper (includes safety briefing, equipment, and jump certificate).
 
-**💡 Smart Traveler Tips**
-1. Book verified stays in advance during peak spring and autumn seasons.
-2. Carry sufficient local NPR cash for remote scenic spots and entry checkpoints.
-3. Early morning offers the clearest mountain views before afternoon clouds.
+🏨 Where to Stay
+${hotels.length > 0 ? hotels.map(h => `• ${h.name} (${h.district}) — Verified stay, convenient location, optimal for ${userMemory.spendingHabit}.`).join('\n') : `• Verified Stays in ${destinationTitle} — Check our /hotels catalog for real-time room availability.`}
+
+🍜 Where to Eat
+${restaurants.length > 0 ? restaurants.map(r => `• ${r.name} (${r.cuisine}) — Must-try authentic local culinary experience.`).join('\n') : `• Authentic Thakali Kitchen & Lakefront multi-cuisine dining around Lakeside Pokhara.`}
+
+💰 Estimated Trip Cost Breakdown
+• Transport (${origin || "Dharan"} ↔ ${destinationTitle}): NPR ${transitIntercity.toLocaleString()}
+• Hotel Stay (${days > 1 ? days - 1 : 1} Nights): NPR ${stayTotal.toLocaleString()}
+• Meals & Dining (${days} Days): NPR ${foodTotal.toLocaleString()}
+${hasBungee ? `• Bungee Jumping Pass & Photos: NPR ${bungeeCost.toLocaleString()}\n` : ""}• Sightseeing & Phewa Boat: NPR ${localTransit.toLocaleString()}
+• Total Estimated Budget: NPR ${totalEst.toLocaleString()} (approx. $${usdEst} USD)
+
+💡 Smart Traveler Tips
+1. Wear secure, closed-toe sports shoes and comfortable athletic clothing for your Bungee Jump.
+2. Book your Bungee Jumping slot for the morning when weather is calm and clear.
+3. Keep valid citizenship/passport ID handy for activity registration and hotel check-in.
 
 ---
-*Want me to calculate the exact budget breakdown for a 5-day stay in ${destinationTitle}?*`;
+Would you like me to recommend verified hotels in Pokhara or provide direct booking details for the Bungee Jump?`;
     }
   }
 
-  // Clean any remaining markdown heading hashes (## or ###) from AI generation
+  // Clean all markdown heading hashes, bold asterisks, and italic wrappers
   const cleanAnswer = generatedAnswer
-    .replace(/^#{1,6}\s*(.+)$/gm, (_match, title) => {
-      const trimmed = title.trim().replace(/^\*\*|\*\*$/g, "");
-      return `**${trimmed}**`;
-    })
+    .replace(/^#{1,6}\s*/gm, "")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/^\s*[\*\-]\s+/gm, "• ")
     .trim();
 
   return {
