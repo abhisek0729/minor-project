@@ -603,76 +603,72 @@ Always adapt recommendations to the user's spending style ("${userMemory.spendin
 
 ## 4. RESPONSE STYLE
 - Clean, modern, engaging, concise, easy to scan, and practical.
-- Avoid repetitive greetings, generic filler, fake AI agent jargon, raw JSON, or vague statements like "explore the beautiful city".
-- Use emojis sparingly as clean visual markers.
+- Avoid repetitive greetings, generic filler, fake AI agent jargon, raw JSON, or vague statements.
+- IMPORTANT: DO NOT use markdown heading hashes (#, ##, ###, ####). Instead, format section titles as clean bold text with emojis (e.g. **⭐ Trip Snapshot**, **🗓️ Suggested Itinerary**, **🏨 Where to Stay**).
 
 ---
 
 ## 5. DESTINATION RESPONSE FORMAT
 When asked to "Plan a trip to ${destinationTitle}" or general travel planning, structure your response as:
 
-## 🌄 ${destinationTitle}
+**🌄 ${destinationTitle}**
 [One short personalized introduction.]
 
-### ⭐ Trip Snapshot
+**⭐ Trip Snapshot**
 - **Recommended duration**: e.g., 3–5 Days
 - **Best travel style**: ${userMemory.spendingHabit}
 - **Main highlights**: 3-4 key attractions
 - **Approximate daily budget**: NPR X,XXX / day
 
-### 🗓️ Suggested Itinerary
+**🗓️ Suggested Itinerary**
 Organize by day. For each day include:
 - **Morning**: Activity & morning views
 - **Afternoon**: Activities, scenic exploration, lunch
 - **Evening**: Sunset views, dining & local feast
 
-### 🏨 Where to Stay
+**🏨 Where to Stay**
 Recommend 2–3 verified hotels with location, approximate price, and best fit.
 
-### 🍜 Where to Eat
+**🍜 Where to Eat**
 Recommend verified restaurants, local dishes, and food specialties.
 
-### 🎟️ Must-Do Experiences
+**🎟️ Must-Do Experiences**
 - 🔥 **MUST DO**: Top experience
 - ⭐ **WORTH CONSIDERING**: Secondary highlights
 - 💡 **OPTIONAL**: Adventure or relaxing side trips
 
-### 💰 Estimated Budget
+**💰 Estimated Budget**
 Itemized realistic cost range in NPR.
 
-### 📍 Useful Locations
+**📍 Useful Locations**
 Provide clean map links: [📍 Location Name](https://www.google.com/maps/search/?api=1&query=Location)
 
-### 💡 Smart Traveler Tips
+**💡 Smart Traveler Tips**
 3–4 destination-specific tips.
 End with one useful next-step question (e.g., "Want me to calculate the exact budget for 5 days?").
 
 ## 6. PLATFORM CAPABILITIES & WORKSPACE KNOWLEDGE
 You are deeply integrated with the entire TravelNepal ecosystem. When users ask about platform features, workspaces, administration, or tools, provide clear direct links and guidance:
 
-### 🏛️ Super Admin Platform Owner Console
+**🏛️ Super Admin Platform Owner Console**
 - **Super Admin Overview**: Access at '/dashboard/admin' for platform health, active workspaces, and pending requests.
 - **Destinations Manager**: Access at '/dashboard/admin/destinations' to create, view, search, and manage all 150 real Nepal destinations in PostgreSQL.
 - **Partner Approvals**: Access at '/dashboard/admin/approvals' to review and approve/reject pending Hotels, Guides, and Restaurants.
 - **Companies & Workspaces**: Access at '/dashboard/admin/companies' to oversee registered businesses and platform partners.
 - **User Management**: Access at '/dashboard/admin/users' to manage roles, permissions, and accounts.
 
-### 🗺️ 150 Nepal Destinations Catalog ('/destinations')
+**🗺️ 150 Nepal Destinations Catalog ('/destinations')**
 - Browse all 150 verified destinations across all 7 Provinces (Koshi, Madhesh, Bagmati, Gandaki, Lumbini, Karnali, Sudurpashchim).
 - Categories: Lakes & Mountains, Culture & Heritage, High Altitude Treks, Wildlife & Safari, Viewpoints, and Spiritual Sites.
 - Dynamic detail pages at '/destinations/[id]' with elevations, best visiting months, facts, and nearby day excursions.
 
-### 💼 Partner Business Workspaces
+**💼 Partner Business Workspaces**
 - **Hotel Workspace**: '/dashboard/hotels' for managing rooms, pricing, facilities, and cover photo branding ('/dashboard/hotels/settings').
 - **Guide Workspace**: '/dashboard/guide' for managing multi-day tour packages ('/dashboard/guide/packages'), availability calendar, and guide profile ('/dashboard/guide/settings').
 - **Restaurant Workspace**: '/dashboard/restaurant' for live menu items ('/dashboard/restaurant/menu'), table bookings, and restaurant branding.
 
-### 💳 Khalti Web Checkout & Payments
-- Official Khalti Sandbox Web Checkout integrated for seamless booking of hotel stays and tour packages.
-- Instant server-side verification at '/api/payment/verify' returning digital e-receipts at '/payment/success'.
-
-### 🚨 Emergency SOS & Safety ('/emergency')
-- 24/7 Tourist Police Hotline (1144), Himalayan Rescue Association, Ambulance (102), and Emergency SOS alert logging.
+**💳 Khalti Web Checkout & Payments**
+- Direct API integration for instant reservations.
 `;
 
   if (GEMINI_API_KEY) {
@@ -726,7 +722,7 @@ You are deeply integrated with the entire TravelNepal ecosystem. When users ask 
     }
   }
 
-  // E. Local Generator strictly following the master template
+  // E. Local Generator strictly following the clean format
   if (!generatedAnswer) {
     const days = durationDays || 5;
     const nightMin = userMemory.spendingHabit.includes("Budget") ? 2000 : 3500;
@@ -744,31 +740,31 @@ You are deeply integrated with the entire TravelNepal ecosystem. When users ask 
     const usdMax = Math.round(totalMax / 134);
 
     if (durationDays || msgLower.includes("cost") || msgLower.includes("amount") || msgLower.includes("budget") || msgLower.includes("price")) {
-      generatedAnswer = `## 💰 ${days}-Day Trip Budget for ${destinationTitle}
+      generatedAnswer = `**💰 ${days}-Day Trip Budget for ${destinationTitle}**
 
 Here is the realistic, itemized budget calculation for your **${days}-day stay in ${destinationTitle}**, tailored for **${userMemory.spendingHabit}** with focus on **${userMemory.topExpenseCategory}**:
 
-### 🏨 Accommodation
+**🏨 Accommodation**
 * **${days} Nights** × NPR ${nightMin.toLocaleString()} – ${nightMax.toLocaleString()}
 * **Total**: **NPR ${(nightMin * days).toLocaleString()} – ${(nightMax * days).toLocaleString()}**
 *(Comfortable lakeside / central verified stays on TravelNepal)*
 
-### 🍽️ Food & Dining
+**🍽️ Food & Dining**
 * **${days} Days** × NPR ${foodMin.toLocaleString()} – ${foodMax.toLocaleString()} / day
 * **Total**: **NPR ${(foodMin * days).toLocaleString()} – ${(foodMax * days).toLocaleString()}**
-*(Authentic Thakali thali, morning breakfast, fresh organic meals, and lakefront cafes)*
+*(Authentic Thakali thali, morning breakfast, fresh organic meals, and local cafes)*
 
-### 🚗 Transportation
+**🚗 Transportation**
 * **Intercity & Local Transfers**: **NPR ${transportMin.toLocaleString()} – ${transportMax.toLocaleString()}**
 *(Tourist coach / shared transport from Kathmandu + local cabs & auto-rickshaws)*
 
-### 🎟️ Activities & Sightseeing
+**🎟️ Activities & Sightseeing**
 * **Sightseeing & Entry Passes**: **NPR ${actMin.toLocaleString()} – ${actMax.toLocaleString()}**
 *(${destinationTitle.toLowerCase().includes('pokhara') ? 'Phewa Lake boat rental, Sarangkot sunrise taxi, Davis Fall, Peace Pagoda' : 'Viewpoint entry passes, local heritage trails'})*
 
 ---
 
-### 💰 TOTAL ESTIMATED TRIP COST
+**💰 TOTAL ESTIMATED TRIP COST**
 * **Minimum Estimated Cost**: **NPR ${totalMin.toLocaleString()}**
 * **Maximum Estimated Cost**: **NPR ${totalMax.toLocaleString()}**
 * **Approximate USD Equivalent**: **$${usdMin} – $${usdMax} USD** (approx. **NPR ${Math.round((totalMin + totalMax) / (2 * days)).toLocaleString()} / day**)
@@ -787,17 +783,17 @@ Here is the realistic, itemized budget calculation for your **${days}-day stay i
 ---
 *Would you like me to recommend top verified hotels in ${destinationTitle} matching this budget?*`;
     } else {
-      generatedAnswer = `## 🌄 ${destinationTitle}
+      generatedAnswer = `**🌄 ${destinationTitle}**
 
 Welcome to your personalized travel guide for **${destinationTitle}**, crafted specifically for your **${userMemory.spendingHabit}** style.
 
-### ⭐ Trip Snapshot
+**⭐ Trip Snapshot**
 * **Recommended Duration**: 3 – 5 Days
 * **Best Travel Style**: ${userMemory.spendingHabit}
 * **Main Highlights**: Scenic mountain panoramas, serene lakes/hills, authentic cultural heritage
 * **Approximate Daily Budget**: NPR ${Math.round((totalMin + totalMax) / (2 * days)).toLocaleString()} / day
 
-### 🗓️ Suggested 3-Day Itinerary
+**🗓️ Suggested 3-Day Itinerary**
 
 **Day 1: Arrival & Scenic Golden Hour**
 * **Morning**: Arrival, check into your verified stay, and enjoy fresh local tea.
@@ -813,18 +809,18 @@ Welcome to your personalized travel guide for **${destinationTitle}**, crafted s
 * **Morning**: Peaceful nature walk, photography, and organic breakfast.
 * **Afternoon**: Souvenir browsing and return transit.
 
-### 🏨 Where to Stay
+**🏨 Where to Stay**
 ${hotels.length > 0 ? hotels.map(h => `* **${h.name}** (${h.district}) — Verified stay, convenient location, optimal for ${userMemory.spendingHabit}.`).join('\n') : `* **Verified Stays in ${destinationTitle}** — Check our /hotels catalog for real-time room availability.`}
 
-### 🍜 Where to Eat
+**🍜 Where to Eat**
 ${restaurants.length > 0 ? restaurants.map(r => `* **${r.name}** (${r.cuisine}) — Must-try authentic local culinary experience.`).join('\n') : `* Local Thakali & Nepali multi-cuisine dining around the main hub.`}
 
-### 🎟️ Must-Do Experiences
+**🎟️ Must-Do Experiences**
 * 🔥 **MUST DO**: Sunrise viewpoint & panoramic photography
 * ⭐ **WORTH CONSIDERING**: Local boating and heritage landmark walks
 * 💡 **OPTIONAL**: Adventure flights or hillside day-hikes
 
-### 💡 Smart Traveler Tips
+**💡 Smart Traveler Tips**
 1. Book verified stays in advance during peak spring and autumn seasons.
 2. Carry sufficient local NPR cash for remote scenic spots and entry checkpoints.
 3. Early morning offers the clearest mountain views before afternoon clouds.
@@ -834,8 +830,16 @@ ${restaurants.length > 0 ? restaurants.map(r => `* **${r.name}** (${r.cuisine}) 
     }
   }
 
+  // Clean any remaining markdown heading hashes (## or ###) from AI generation
+  const cleanAnswer = generatedAnswer
+    .replace(/^#{1,6}\s*(.+)$/gm, (_match, title) => {
+      const trimmed = title.trim().replace(/^\*\*|\*\*$/g, "");
+      return `**${trimmed}**`;
+    })
+    .trim();
+
   return {
-    answer: generatedAnswer,
+    answer: cleanAnswer,
     recommendations,
     map_cards: mapCards.slice(0, 4),
     map_url: mapCards[0]?.map_url,
