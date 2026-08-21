@@ -1,0 +1,3102 @@
+[
+  {
+    "id": 1,
+    "name": "Phewa Lake & Tal Barahi",
+    "region": "Gandaki Province",
+    "category": "Lakes & Mountains",
+    "altitude": "822m",
+    "bestSeason": "October – May",
+    "rating": 4.6,
+    "reviews": 740,
+    "startingCost": "NPR 3,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Phewa Lake & Tal Barahi.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Phewa Lake & Tal Barahi, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Everest Base Camp (EBC)",
+    "region": "Koshi Province",
+    "category": "High Altitude Trek",
+    "altitude": "5,364m",
+    "bestSeason": "March – May, Oct – Nov",
+    "rating": 4.8,
+    "reviews": 274,
+    "startingCost": "NPR 9,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Everest Base Camp (EBC).",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Everest Base Camp (EBC), Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Pashupatinath Temple Complex",
+    "region": "Bagmati Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "1,400m",
+    "bestSeason": "All Year Round",
+    "rating": 4.8,
+    "reviews": 638,
+    "startingCost": "NPR 2,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Pashupatinath Temple Complex.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Pashupatinath Temple Complex, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Chitwan National Park Safari",
+    "region": "Bagmati Province",
+    "category": "Wildlife & Safari",
+    "altitude": "415m",
+    "bestSeason": "October – March",
+    "rating": 4.6,
+    "reviews": 759,
+    "startingCost": "NPR 6,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Chitwan National Park Safari.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Chitwan National Park Safari, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Annapurna Sanctuary & ABC",
+    "region": "Gandaki Province",
+    "category": "High Altitude Trek",
+    "altitude": "4,130m",
+    "bestSeason": "March – May, Sep – Nov",
+    "rating": 4.7,
+    "reviews": 510,
+    "startingCost": "NPR 6,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Annapurna Sanctuary & ABC.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Annapurna Sanctuary & ABC, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Bhaktapur Durbar Square",
+    "region": "Bagmati Province",
+    "category": "Culture & Heritage",
+    "altitude": "1,401m",
+    "bestSeason": "All Year Round",
+    "rating": 4.7,
+    "reviews": 843,
+    "startingCost": "NPR 2,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Bhaktapur Durbar Square.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Bhaktapur Durbar Square, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Swayambhunath Monkey Temple",
+    "region": "Bagmati Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "1,450m",
+    "bestSeason": "All Year Round",
+    "rating": 5,
+    "reviews": 663,
+    "startingCost": "NPR 1,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Swayambhunath Monkey Temple.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Swayambhunath Monkey Temple, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Lumbini Sacred Garden & Maya Devi",
+    "region": "Lumbini Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "150m",
+    "bestSeason": "October – April",
+    "rating": 4.9,
+    "reviews": 489,
+    "startingCost": "NPR 3,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Lumbini Sacred Garden & Maya Devi.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Lumbini Sacred Garden & Maya Devi, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Rara Lake (Queen of Lakes)",
+    "region": "Karnali Province",
+    "category": "Lakes & Mountains",
+    "altitude": "2,990m",
+    "bestSeason": "April – June, Sep – Nov",
+    "rating": 4.6,
+    "reviews": 730,
+    "startingCost": "NPR 7,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Rara Lake (Queen of Lakes).",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Rara Lake (Queen of Lakes), Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Upper Mustang & Lo Manthang",
+    "region": "Gandaki Province",
+    "category": "Expedition & Culture",
+    "altitude": "3,840m",
+    "bestSeason": "April – November",
+    "rating": 4.6,
+    "reviews": 686,
+    "startingCost": "NPR 14,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Upper Mustang & Lo Manthang.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Upper Mustang & Lo Manthang, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Poon Hill & Ghorepani Sunrise",
+    "region": "Gandaki Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "3,210m",
+    "bestSeason": "September – May",
+    "rating": 4.8,
+    "reviews": 199,
+    "startingCost": "NPR 4,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Poon Hill & Ghorepani Sunrise.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Poon Hill & Ghorepani Sunrise, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Nagarkot Himalayan Panoramic Point",
+    "region": "Bagmati Province",
+    "category": "Scenic Viewpoint",
+    "altitude": "2,175m",
+    "bestSeason": "October – March",
+    "rating": 5,
+    "reviews": 611,
+    "startingCost": "NPR 4,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Nagarkot Himalayan Panoramic Point.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Nagarkot Himalayan Panoramic Point, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Tilicho Lake (World Highest Lake)",
+    "region": "Gandaki Province",
+    "category": "High Altitude Trek",
+    "altitude": "4,919m",
+    "bestSeason": "April – June, Sep – Nov",
+    "rating": 4.6,
+    "reviews": 449,
+    "startingCost": "NPR 8,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Tilicho Lake (World Highest Lake).",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Tilicho Lake (World Highest Lake), Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Bardia National Park Wilderness",
+    "region": "Lumbini Province",
+    "category": "Wildlife & Safari",
+    "altitude": "152m",
+    "bestSeason": "October – April",
+    "rating": 4.7,
+    "reviews": 154,
+    "startingCost": "NPR 7,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Bardia National Park Wilderness.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Bardia National Park Wilderness, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Gosaikunda Holy Alpine Lakes",
+    "region": "Bagmati Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "4,380m",
+    "bestSeason": "August – November",
+    "rating": 5,
+    "reviews": 155,
+    "startingCost": "NPR 5,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Gosaikunda Holy Alpine Lakes.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Gosaikunda Holy Alpine Lakes, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Patan Durbar Square & Krishna Mandir",
+    "region": "Bagmati Province",
+    "category": "Culture & Heritage",
+    "altitude": "1,400m",
+    "bestSeason": "All Year Round",
+    "rating": 4.7,
+    "reviews": 276,
+    "startingCost": "NPR 2,200/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Patan Durbar Square & Krishna Mandir.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Patan Durbar Square & Krishna Mandir, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Manaslu Circuit & Larkya La Pass",
+    "region": "Gandaki Province",
+    "category": "High Altitude Trek",
+    "altitude": "5,106m",
+    "bestSeason": "March – May, Sep – Nov",
+    "rating": 4.8,
+    "reviews": 515,
+    "startingCost": "NPR 10,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Manaslu Circuit & Larkya La Pass.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Manaslu Circuit & Larkya La Pass, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Boudhanath Stupa",
+    "region": "Bagmati Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "1,400m",
+    "bestSeason": "All Year Round",
+    "rating": 4.7,
+    "reviews": 346,
+    "startingCost": "NPR 1,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Boudhanath Stupa.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Boudhanath Stupa, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Bandipur Preserved Heritage Town",
+    "region": "Gandaki Province",
+    "category": "Culture & Heritage",
+    "altitude": "1,030m",
+    "bestSeason": "All Year Round",
+    "rating": 4.8,
+    "reviews": 371,
+    "startingCost": "NPR 3,800/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Bandipur Preserved Heritage Town.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Bandipur Preserved Heritage Town, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Sarangkot Sunrise & Paragliding",
+    "region": "Gandaki Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "1,600m",
+    "bestSeason": "October – April",
+    "rating": 5,
+    "reviews": 365,
+    "startingCost": "NPR 5,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Sarangkot Sunrise & Paragliding.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Sarangkot Sunrise & Paragliding, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Gokyo Ri & Turquoise Lakes",
+    "region": "Koshi Province",
+    "category": "High Altitude Trek",
+    "altitude": "5,357m",
+    "bestSeason": "March – May, Oct – Nov",
+    "rating": 4.9,
+    "reviews": 237,
+    "startingCost": "NPR 9,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Gokyo Ri & Turquoise Lakes.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Gokyo Ri & Turquoise Lakes, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Janaki Mandir (Janakpurdham)",
+    "region": "Madhesh Province",
+    "category": "Culture & Heritage",
+    "altitude": "74m",
+    "bestSeason": "October – March",
+    "rating": 4.8,
+    "reviews": 813,
+    "startingCost": "NPR 2,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Janaki Mandir (Janakpurdham).",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Janaki Mandir (Janakpurdham), Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Kanchenjunga Base Camp",
+    "region": "Koshi Province",
+    "category": "Expedition & Culture",
+    "altitude": "5,143m",
+    "bestSeason": "March – May, Oct – Nov",
+    "rating": 4.9,
+    "reviews": 208,
+    "startingCost": "NPR 12,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Kanchenjunga Base Camp.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Kanchenjunga Base Camp, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Khaptad National Park & Ashram",
+    "region": "Sudurpashchim Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "3,000m",
+    "bestSeason": "April – June, Sep – Nov",
+    "rating": 4.9,
+    "reviews": 538,
+    "startingCost": "NPR 6,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Khaptad National Park & Ashram.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Khaptad National Park & Ashram, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Shey Phoksundo Lake & Bon Monasteries",
+    "region": "Karnali Province",
+    "category": "Lakes & Mountains",
+    "altitude": "3,611m",
+    "bestSeason": "April – October",
+    "rating": 5,
+    "reviews": 363,
+    "startingCost": "NPR 11,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Shey Phoksundo Lake & Bon Monasteries.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Shey Phoksundo Lake & Bon Monasteries, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Ilam Kanyam Tea Gardens",
+    "region": "Koshi Province",
+    "category": "Scenic Viewpoint",
+    "altitude": "1,600m",
+    "bestSeason": "All Year Round",
+    "rating": 4.8,
+    "reviews": 763,
+    "startingCost": "NPR 3,200/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Ilam Kanyam Tea Gardens.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Ilam Kanyam Tea Gardens, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Kalinchowk Bhagwati Shrine & Snow View",
+    "region": "Bagmati Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "3,842m",
+    "bestSeason": "December – February (Snow)",
+    "rating": 4.9,
+    "reviews": 399,
+    "startingCost": "NPR 4,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Kalinchowk Bhagwati Shrine & Snow View.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Kalinchowk Bhagwati Shrine & Snow View, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Mardi Himal High Camp Trek",
+    "region": "Gandaki Province",
+    "category": "High Altitude Trek",
+    "altitude": "4,500m",
+    "bestSeason": "March – May, Sep – Nov",
+    "rating": 4.9,
+    "reviews": 145,
+    "startingCost": "NPR 5,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Mardi Himal High Camp Trek.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Mardi Himal High Camp Trek, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Langtang Valley & Kyanjin Gompa",
+    "region": "Bagmati Province",
+    "category": "High Altitude Trek",
+    "altitude": "3,870m",
+    "bestSeason": "March – May, Sep – Nov",
+    "rating": 4.7,
+    "reviews": 386,
+    "startingCost": "NPR 5,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Langtang Valley & Kyanjin Gompa.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Langtang Valley & Kyanjin Gompa, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Bhedetar Viewpoint & Namaste Falls",
+    "region": "Koshi Province",
+    "category": "Scenic Viewpoint",
+    "altitude": "1,420m",
+    "bestSeason": "All Year Round",
+    "rating": 4.7,
+    "reviews": 483,
+    "startingCost": "NPR 3,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Bhedetar Viewpoint & Namaste Falls.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Bhedetar Viewpoint & Namaste Falls, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Tansen & Rani Mahal (Palpa)",
+    "region": "Lumbini Province",
+    "category": "Culture & Heritage",
+    "altitude": "1,350m",
+    "bestSeason": "October – April",
+    "rating": 4.7,
+    "reviews": 561,
+    "startingCost": "NPR 3,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Tansen & Rani Mahal (Palpa).",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Tansen & Rani Mahal (Palpa), Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Dhorpatan Hunting Reserve",
+    "region": "Gandaki Province",
+    "category": "Wildlife & Safari",
+    "altitude": "2,850m",
+    "bestSeason": "March – May, Oct – Nov",
+    "rating": 5,
+    "reviews": 324,
+    "startingCost": "NPR 8,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Dhorpatan Hunting Reserve.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Dhorpatan Hunting Reserve, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Khumai Danda (Great Wall of Machhapuchhre)",
+    "region": "Gandaki Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "3,245m",
+    "bestSeason": "September – May",
+    "rating": 4.8,
+    "reviews": 550,
+    "startingCost": "NPR 4,200/day",
+    "coverImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Khumai Danda (Great Wall of Machhapuchhre).",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Khumai Danda (Great Wall of Machhapuchhre), Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Shuklaphanta National Park Grasslands",
+    "region": "Sudurpashchim Province",
+    "category": "Wildlife & Safari",
+    "altitude": "174m",
+    "bestSeason": "November – April",
+    "rating": 4.8,
+    "reviews": 537,
+    "startingCost": "NPR 5,800/day",
+    "coverImage": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Shuklaphanta National Park Grasslands.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Shuklaphanta National Park Grasslands, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Gorkha Durbar & Museum",
+    "region": "Gandaki Province",
+    "category": "Culture & Heritage",
+    "altitude": "1,143m",
+    "bestSeason": "All Year Round",
+    "rating": 5,
+    "reviews": 156,
+    "startingCost": "NPR 2,800/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Gorkha Durbar & Museum.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Gorkha Durbar & Museum, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Chandragiri Hills Cable Car & Temple",
+    "region": "Bagmati Province",
+    "category": "Scenic Viewpoint",
+    "altitude": "2,551m",
+    "bestSeason": "All Year Round",
+    "rating": 4.9,
+    "reviews": 136,
+    "startingCost": "NPR 3,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Chandragiri Hills Cable Car & Temple.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Chandragiri Hills Cable Car & Temple, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Dharan Dantakali & Budha Subba",
+    "region": "Koshi Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "349m",
+    "bestSeason": "All Year Round",
+    "rating": 4.8,
+    "reviews": 313,
+    "startingCost": "NPR 2,500/day",
+    "coverImage": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Dharan Dantakali & Budha Subba.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Dharan Dantakali & Budha Subba, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Shivapuri Peak & Bagdwar",
+    "region": "Bagmati Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "2,732m",
+    "bestSeason": "September – May",
+    "rating": 4.8,
+    "reviews": 298,
+    "startingCost": "NPR 2,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Shivapuri Peak & Bagdwar.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Shivapuri Peak & Bagdwar, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Badimalika Temple Sacred Plateau",
+    "region": "Sudurpashchim Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "4,200m",
+    "bestSeason": "August – September",
+    "rating": 4.7,
+    "reviews": 722,
+    "startingCost": "NPR 8,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Badimalika Temple Sacred Plateau.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Badimalika Temple Sacred Plateau, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Panch Pokhari Sacred Alpine Lakes",
+    "region": "Bagmati Province",
+    "category": "High Altitude Trek",
+    "altitude": "4,100m",
+    "bestSeason": "August – November",
+    "rating": 4.7,
+    "reviews": 515,
+    "startingCost": "NPR 6,000/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Discover the breathtaking vistas, rich cultural heritage, and pristine alpine environment of Panch Pokhari Sacred Alpine Lakes.",
+    "historyAndCulture": "Deeply rooted in traditional Himalayan traditions, ancient shrines, and local ethnic communities.",
+    "activities": [
+      "Sightseeing",
+      "Guided Trekking",
+      "Photography",
+      "Cultural Walking"
+    ],
+    "highlights": [
+      "Panoramic Views",
+      "Local Hospitality",
+      "Authentic Heritage"
+    ],
+    "mapQuery": "Panch Pokhari Sacred Alpine Lakes, Nepal",
+    "nearbyAttractions": [
+      "Scenic Viewpoint",
+      "Local Monastery/Temple",
+      "Traditional Village"
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Sindhupalchok Temple",
+    "region": "Lumbini Province",
+    "category": "Scenic Viewpoint",
+    "altitude": "1701m",
+    "bestSeason": "October – March",
+    "rating": 4.5,
+    "reviews": 56,
+    "startingCost": "NPR 3,574/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Sindhupalchok Temple in Lumbini Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Sindhupalchok Temple, Lumbini Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Ramechhap Hilltop Viewpoint",
+    "region": "Karnali Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "2679m",
+    "bestSeason": "All Year Round",
+    "rating": 4.8,
+    "reviews": 186,
+    "startingCost": "NPR 6,698/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Ramechhap Hilltop Viewpoint in Karnali Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Ramechhap Hilltop Viewpoint, Karnali Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Pyuthan Waterfall",
+    "region": "Lumbini Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "2948m",
+    "bestSeason": "September – November",
+    "rating": 4.9,
+    "reviews": 403,
+    "startingCost": "NPR 8,184/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Pyuthan Waterfall in Lumbini Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Pyuthan Waterfall, Lumbini Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Rolwaling Cave Complex",
+    "region": "Madhesh Province",
+    "category": "High Altitude Trek",
+    "altitude": "1947m",
+    "bestSeason": "October – March",
+    "rating": 4.7,
+    "reviews": 100,
+    "startingCost": "NPR 5,204/day",
+    "coverImage": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Rolwaling Cave Complex in Madhesh Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Rolwaling Cave Complex, Madhesh Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Gulmi Monastery",
+    "region": "Lumbini Province",
+    "category": "Lakes & Mountains",
+    "altitude": "1210m",
+    "bestSeason": "All Year Round",
+    "rating": 4.5,
+    "reviews": 149,
+    "startingCost": "NPR 5,675/day",
+    "coverImage": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Gulmi Monastery in Lumbini Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Gulmi Monastery, Lumbini Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Dailekh Temple",
+    "region": "Koshi Province",
+    "category": "Lakes & Mountains",
+    "altitude": "2517m",
+    "bestSeason": "October – March",
+    "rating": 4.7,
+    "reviews": 101,
+    "startingCost": "NPR 7,151/day",
+    "coverImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dailekh Temple in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dailekh Temple, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Sankhuwasabha Pass Trek",
+    "region": "Bagmati Province",
+    "category": "Lakes & Mountains",
+    "altitude": "2130m",
+    "bestSeason": "September – November",
+    "rating": 4.5,
+    "reviews": 186,
+    "startingCost": "NPR 4,532/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Sankhuwasabha Pass Trek in Bagmati Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Sankhuwasabha Pass Trek, Bagmati Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Dadeldhura Cave Complex",
+    "region": "Koshi Province",
+    "category": "Culture & Heritage",
+    "altitude": "1457m",
+    "bestSeason": "October – March",
+    "rating": 4.8,
+    "reviews": 298,
+    "startingCost": "NPR 6,600/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dadeldhura Cave Complex in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dadeldhura Cave Complex, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Sankhuwasabha Valley",
+    "region": "Koshi Province",
+    "category": "High Altitude Trek",
+    "altitude": "821m",
+    "bestSeason": "September – November",
+    "rating": 4.4,
+    "reviews": 102,
+    "startingCost": "NPR 5,928/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Sankhuwasabha Valley in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Sankhuwasabha Valley, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Bardiya Monastery",
+    "region": "Karnali Province",
+    "category": "Scenic Viewpoint",
+    "altitude": "1502m",
+    "bestSeason": "March – May",
+    "rating": 4.6,
+    "reviews": 197,
+    "startingCost": "NPR 5,842/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Bardiya Monastery in Karnali Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Bardiya Monastery, Karnali Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Dailekh Base Camp",
+    "region": "Lumbini Province",
+    "category": "Culture & Heritage",
+    "altitude": "905m",
+    "bestSeason": "September – November",
+    "rating": 4.7,
+    "reviews": 291,
+    "startingCost": "NPR 7,602/day",
+    "coverImage": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dailekh Base Camp in Lumbini Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dailekh Base Camp, Lumbini Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Doti Valley",
+    "region": "Karnali Province",
+    "category": "Expedition & Culture",
+    "altitude": "2254m",
+    "bestSeason": "March – May",
+    "rating": 4.8,
+    "reviews": 325,
+    "startingCost": "NPR 6,272/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Doti Valley in Karnali Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Doti Valley, Karnali Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Rolwaling National Park",
+    "region": "Gandaki Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "1718m",
+    "bestSeason": "September – November",
+    "rating": 4.3,
+    "reviews": 307,
+    "startingCost": "NPR 4,054/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Rolwaling National Park in Gandaki Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Rolwaling National Park, Gandaki Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Pyuthan Hilltop Viewpoint",
+    "region": "Koshi Province",
+    "category": "Culture & Heritage",
+    "altitude": "1459m",
+    "bestSeason": "March – May",
+    "rating": 4.3,
+    "reviews": 297,
+    "startingCost": "NPR 5,481/day",
+    "coverImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Pyuthan Hilltop Viewpoint in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Pyuthan Hilltop Viewpoint, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 55,
+    "name": "Ramechhap Pass Trek",
+    "region": "Sudurpashchim Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "2954m",
+    "bestSeason": "October – March",
+    "rating": 4.6,
+    "reviews": 294,
+    "startingCost": "NPR 8,122/day",
+    "coverImage": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Ramechhap Pass Trek in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Ramechhap Pass Trek, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 56,
+    "name": "Dhorpatan Waterfall",
+    "region": "Sudurpashchim Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "791m",
+    "bestSeason": "October – March",
+    "rating": 4.8,
+    "reviews": 302,
+    "startingCost": "NPR 6,795/day",
+    "coverImage": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dhorpatan Waterfall in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dhorpatan Waterfall, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 57,
+    "name": "Sindhupalchok National Park",
+    "region": "Madhesh Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "793m",
+    "bestSeason": "All Year Round",
+    "rating": 4.9,
+    "reviews": 184,
+    "startingCost": "NPR 7,660/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Sindhupalchok National Park in Madhesh Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Sindhupalchok National Park, Madhesh Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 58,
+    "name": "Doti Cave Complex",
+    "region": "Sudurpashchim Province",
+    "category": "Expedition & Culture",
+    "altitude": "1646m",
+    "bestSeason": "All Year Round",
+    "rating": 4.6,
+    "reviews": 358,
+    "startingCost": "NPR 5,443/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Doti Cave Complex in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Doti Cave Complex, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 59,
+    "name": "Humla Lake",
+    "region": "Karnali Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "3405m",
+    "bestSeason": "September – November",
+    "rating": 4.9,
+    "reviews": 145,
+    "startingCost": "NPR 5,835/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Humla Lake in Karnali Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Humla Lake, Karnali Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 60,
+    "name": "Jumla Pass Trek",
+    "region": "Karnali Province",
+    "category": "Expedition & Culture",
+    "altitude": "3433m",
+    "bestSeason": "September – November",
+    "rating": 4.5,
+    "reviews": 234,
+    "startingCost": "NPR 5,315/day",
+    "coverImage": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Jumla Pass Trek in Karnali Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Jumla Pass Trek, Karnali Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 61,
+    "name": "Taplejung National Park",
+    "region": "Bagmati Province",
+    "category": "Scenic Viewpoint",
+    "altitude": "3301m",
+    "bestSeason": "October – March",
+    "rating": 4.6,
+    "reviews": 194,
+    "startingCost": "NPR 8,170/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Taplejung National Park in Bagmati Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Taplejung National Park, Bagmati Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 62,
+    "name": "Dolpo Ghat",
+    "region": "Sudurpashchim Province",
+    "category": "Culture & Heritage",
+    "altitude": "3298m",
+    "bestSeason": "September – November",
+    "rating": 4.3,
+    "reviews": 76,
+    "startingCost": "NPR 8,292/day",
+    "coverImage": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dolpo Ghat in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dolpo Ghat, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 63,
+    "name": "Dadeldhura Pass Trek",
+    "region": "Bagmati Province",
+    "category": "Expedition & Culture",
+    "altitude": "1105m",
+    "bestSeason": "October – March",
+    "rating": 4.4,
+    "reviews": 394,
+    "startingCost": "NPR 4,886/day",
+    "coverImage": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dadeldhura Pass Trek in Bagmati Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dadeldhura Pass Trek, Bagmati Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 64,
+    "name": "Humla Valley",
+    "region": "Gandaki Province",
+    "category": "Lakes & Mountains",
+    "altitude": "2696m",
+    "bestSeason": "All Year Round",
+    "rating": 4.7,
+    "reviews": 156,
+    "startingCost": "NPR 8,273/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Humla Valley in Gandaki Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Humla Valley, Gandaki Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 65,
+    "name": "Surkhet Sanctuary",
+    "region": "Koshi Province",
+    "category": "High Altitude Trek",
+    "altitude": "1192m",
+    "bestSeason": "October – March",
+    "rating": 4.4,
+    "reviews": 141,
+    "startingCost": "NPR 6,679/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Surkhet Sanctuary in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Surkhet Sanctuary, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 66,
+    "name": "Sindhupalchok Waterfall",
+    "region": "Gandaki Province",
+    "category": "Lakes & Mountains",
+    "altitude": "1517m",
+    "bestSeason": "All Year Round",
+    "rating": 4.9,
+    "reviews": 389,
+    "startingCost": "NPR 5,700/day",
+    "coverImage": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Sindhupalchok Waterfall in Gandaki Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Sindhupalchok Waterfall, Gandaki Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 67,
+    "name": "Doti Valley",
+    "region": "Karnali Province",
+    "category": "Wildlife & Safari",
+    "altitude": "1265m",
+    "bestSeason": "All Year Round",
+    "rating": 4.6,
+    "reviews": 278,
+    "startingCost": "NPR 8,192/day",
+    "coverImage": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Doti Valley in Karnali Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Doti Valley, Karnali Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 68,
+    "name": "Sankhuwasabha Base Camp",
+    "region": "Gandaki Province",
+    "category": "Expedition & Culture",
+    "altitude": "1371m",
+    "bestSeason": "October – March",
+    "rating": 4.8,
+    "reviews": 234,
+    "startingCost": "NPR 5,532/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Sankhuwasabha Base Camp in Gandaki Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Sankhuwasabha Base Camp, Gandaki Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 69,
+    "name": "Lamjung National Park",
+    "region": "Karnali Province",
+    "category": "Scenic Viewpoint",
+    "altitude": "2163m",
+    "bestSeason": "March – May",
+    "rating": 4.6,
+    "reviews": 200,
+    "startingCost": "NPR 6,022/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Lamjung National Park in Karnali Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Lamjung National Park, Karnali Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 70,
+    "name": "Baitadi Cave Complex",
+    "region": "Karnali Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "2265m",
+    "bestSeason": "All Year Round",
+    "rating": 4.5,
+    "reviews": 360,
+    "startingCost": "NPR 5,697/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Baitadi Cave Complex in Karnali Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Baitadi Cave Complex, Karnali Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 71,
+    "name": "Gulmi Hilltop Viewpoint",
+    "region": "Gandaki Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "2629m",
+    "bestSeason": "October – March",
+    "rating": 4.8,
+    "reviews": 302,
+    "startingCost": "NPR 6,283/day",
+    "coverImage": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Gulmi Hilltop Viewpoint in Gandaki Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Gulmi Hilltop Viewpoint, Gandaki Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 72,
+    "name": "Doti Base Camp",
+    "region": "Koshi Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "2014m",
+    "bestSeason": "All Year Round",
+    "rating": 4.6,
+    "reviews": 267,
+    "startingCost": "NPR 4,123/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Doti Base Camp in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Doti Base Camp, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 73,
+    "name": "Dolpo Lake",
+    "region": "Madhesh Province",
+    "category": "Culture & Heritage",
+    "altitude": "801m",
+    "bestSeason": "September – November",
+    "rating": 4.6,
+    "reviews": 370,
+    "startingCost": "NPR 6,437/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dolpo Lake in Madhesh Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dolpo Lake, Madhesh Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 74,
+    "name": "Kanchanpur Sanctuary",
+    "region": "Koshi Province",
+    "category": "Wildlife & Safari",
+    "altitude": "873m",
+    "bestSeason": "September – November",
+    "rating": 4.4,
+    "reviews": 182,
+    "startingCost": "NPR 7,155/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Kanchanpur Sanctuary in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Kanchanpur Sanctuary, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 75,
+    "name": "Dolpo Monastery",
+    "region": "Gandaki Province",
+    "category": "Culture & Heritage",
+    "altitude": "3008m",
+    "bestSeason": "March – May",
+    "rating": 4.8,
+    "reviews": 384,
+    "startingCost": "NPR 8,392/day",
+    "coverImage": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dolpo Monastery in Gandaki Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dolpo Monastery, Gandaki Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 76,
+    "name": "Surkhet Ghat",
+    "region": "Sudurpashchim Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "2211m",
+    "bestSeason": "All Year Round",
+    "rating": 4.4,
+    "reviews": 86,
+    "startingCost": "NPR 4,527/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Surkhet Ghat in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Surkhet Ghat, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 77,
+    "name": "Doti Valley",
+    "region": "Sudurpashchim Province",
+    "category": "Expedition & Culture",
+    "altitude": "1493m",
+    "bestSeason": "October – March",
+    "rating": 4.3,
+    "reviews": 58,
+    "startingCost": "NPR 7,571/day",
+    "coverImage": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Doti Valley in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Doti Valley, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 78,
+    "name": "Sindhupalchok Hilltop Viewpoint",
+    "region": "Sudurpashchim Province",
+    "category": "Wildlife & Safari",
+    "altitude": "2608m",
+    "bestSeason": "March – May",
+    "rating": 4.7,
+    "reviews": 190,
+    "startingCost": "NPR 8,563/day",
+    "coverImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Sindhupalchok Hilltop Viewpoint in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Sindhupalchok Hilltop Viewpoint, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 79,
+    "name": "Jumla Lake",
+    "region": "Madhesh Province",
+    "category": "High Altitude Trek",
+    "altitude": "2709m",
+    "bestSeason": "October – March",
+    "rating": 4.4,
+    "reviews": 353,
+    "startingCost": "NPR 6,341/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Jumla Lake in Madhesh Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Jumla Lake, Madhesh Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 80,
+    "name": "Dolpo Cave Complex",
+    "region": "Koshi Province",
+    "category": "Culture & Heritage",
+    "altitude": "1217m",
+    "bestSeason": "September – November",
+    "rating": 4.4,
+    "reviews": 237,
+    "startingCost": "NPR 5,906/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dolpo Cave Complex in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dolpo Cave Complex, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 81,
+    "name": "Solu Base Camp",
+    "region": "Koshi Province",
+    "category": "Culture & Heritage",
+    "altitude": "1206m",
+    "bestSeason": "March – May",
+    "rating": 4.4,
+    "reviews": 75,
+    "startingCost": "NPR 8,055/day",
+    "coverImage": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Solu Base Camp in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Solu Base Camp, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 82,
+    "name": "Arghakhanchi Sanctuary",
+    "region": "Sudurpashchim Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "3393m",
+    "bestSeason": "All Year Round",
+    "rating": 4.7,
+    "reviews": 358,
+    "startingCost": "NPR 5,304/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Arghakhanchi Sanctuary in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Arghakhanchi Sanctuary, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 83,
+    "name": "Doti Temple",
+    "region": "Sudurpashchim Province",
+    "category": "Lakes & Mountains",
+    "altitude": "740m",
+    "bestSeason": "All Year Round",
+    "rating": 4.4,
+    "reviews": 316,
+    "startingCost": "NPR 2,545/day",
+    "coverImage": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Doti Temple in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Doti Temple, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 84,
+    "name": "Dailekh Sanctuary",
+    "region": "Lumbini Province",
+    "category": "Expedition & Culture",
+    "altitude": "1684m",
+    "bestSeason": "All Year Round",
+    "rating": 4.6,
+    "reviews": 304,
+    "startingCost": "NPR 5,517/day",
+    "coverImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dailekh Sanctuary in Lumbini Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dailekh Sanctuary, Lumbini Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 85,
+    "name": "Bajhang Lake",
+    "region": "Karnali Province",
+    "category": "High Altitude Trek",
+    "altitude": "2728m",
+    "bestSeason": "October – March",
+    "rating": 4.7,
+    "reviews": 107,
+    "startingCost": "NPR 4,532/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Bajhang Lake in Karnali Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Bajhang Lake, Karnali Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 86,
+    "name": "Dhorpatan Temple",
+    "region": "Madhesh Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "2061m",
+    "bestSeason": "All Year Round",
+    "rating": 4.4,
+    "reviews": 110,
+    "startingCost": "NPR 8,351/day",
+    "coverImage": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dhorpatan Temple in Madhesh Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dhorpatan Temple, Madhesh Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 87,
+    "name": "Sankhuwasabha Base Camp",
+    "region": "Sudurpashchim Province",
+    "category": "Wildlife & Safari",
+    "altitude": "795m",
+    "bestSeason": "October – March",
+    "rating": 4.6,
+    "reviews": 265,
+    "startingCost": "NPR 5,993/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Sankhuwasabha Base Camp in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Sankhuwasabha Base Camp, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 88,
+    "name": "Gulmi Hilltop Viewpoint",
+    "region": "Bagmati Province",
+    "category": "Lakes & Mountains",
+    "altitude": "660m",
+    "bestSeason": "All Year Round",
+    "rating": 4.9,
+    "reviews": 85,
+    "startingCost": "NPR 5,307/day",
+    "coverImage": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Gulmi Hilltop Viewpoint in Bagmati Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Gulmi Hilltop Viewpoint, Bagmati Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 89,
+    "name": "Surkhet Pass Trek",
+    "region": "Sudurpashchim Province",
+    "category": "Scenic Viewpoint",
+    "altitude": "2109m",
+    "bestSeason": "October – March",
+    "rating": 4.7,
+    "reviews": 224,
+    "startingCost": "NPR 7,027/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Surkhet Pass Trek in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Surkhet Pass Trek, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 90,
+    "name": "Sankhuwasabha Base Camp",
+    "region": "Sudurpashchim Province",
+    "category": "High Altitude Trek",
+    "altitude": "2438m",
+    "bestSeason": "October – March",
+    "rating": 4.6,
+    "reviews": 65,
+    "startingCost": "NPR 6,397/day",
+    "coverImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Sankhuwasabha Base Camp in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Sankhuwasabha Base Camp, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 91,
+    "name": "Dolpo Base Camp",
+    "region": "Sudurpashchim Province",
+    "category": "High Altitude Trek",
+    "altitude": "3248m",
+    "bestSeason": "March – May",
+    "rating": 4.7,
+    "reviews": 205,
+    "startingCost": "NPR 2,772/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dolpo Base Camp in Sudurpashchim Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dolpo Base Camp, Sudurpashchim Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 92,
+    "name": "Arghakhanchi Monastery",
+    "region": "Gandaki Province",
+    "category": "High Altitude Trek",
+    "altitude": "1005m",
+    "bestSeason": "March – May",
+    "rating": 4.4,
+    "reviews": 170,
+    "startingCost": "NPR 2,586/day",
+    "coverImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Arghakhanchi Monastery in Gandaki Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Arghakhanchi Monastery, Gandaki Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 93,
+    "name": "Dhorpatan Cave Complex",
+    "region": "Lumbini Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "1192m",
+    "bestSeason": "March – May",
+    "rating": 4.6,
+    "reviews": 191,
+    "startingCost": "NPR 6,438/day",
+    "coverImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dhorpatan Cave Complex in Lumbini Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dhorpatan Cave Complex, Lumbini Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 94,
+    "name": "Humla Hilltop Viewpoint",
+    "region": "Bagmati Province",
+    "category": "Wildlife & Safari",
+    "altitude": "2552m",
+    "bestSeason": "March – May",
+    "rating": 4.6,
+    "reviews": 323,
+    "startingCost": "NPR 3,356/day",
+    "coverImage": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Humla Hilltop Viewpoint in Bagmati Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Humla Hilltop Viewpoint, Bagmati Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 95,
+    "name": "Dailekh Base Camp",
+    "region": "Karnali Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "2901m",
+    "bestSeason": "October – March",
+    "rating": 4.8,
+    "reviews": 51,
+    "startingCost": "NPR 7,564/day",
+    "coverImage": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Dailekh Base Camp in Karnali Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Dailekh Base Camp, Karnali Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 96,
+    "name": "Ramechhap Monastery",
+    "region": "Koshi Province",
+    "category": "High Altitude Trek",
+    "altitude": "2945m",
+    "bestSeason": "All Year Round",
+    "rating": 4.3,
+    "reviews": 351,
+    "startingCost": "NPR 4,636/day",
+    "coverImage": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Ramechhap Monastery in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Ramechhap Monastery, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 97,
+    "name": "Bardiya Waterfall",
+    "region": "Lumbini Province",
+    "category": "Culture & Heritage",
+    "altitude": "2769m",
+    "bestSeason": "March – May",
+    "rating": 4.9,
+    "reviews": 334,
+    "startingCost": "NPR 8,008/day",
+    "coverImage": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Bardiya Waterfall in Lumbini Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Bardiya Waterfall, Lumbini Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 98,
+    "name": "Taplejung Cave Complex",
+    "region": "Koshi Province",
+    "category": "Lakes & Mountains",
+    "altitude": "961m",
+    "bestSeason": "October – March",
+    "rating": 4.3,
+    "reviews": 351,
+    "startingCost": "NPR 2,510/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Taplejung Cave Complex in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Taplejung Cave Complex, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 99,
+    "name": "Gulmi Ghat",
+    "region": "Madhesh Province",
+    "category": "Viewpoint & Adventure",
+    "altitude": "3285m",
+    "bestSeason": "March – May",
+    "rating": 4.9,
+    "reviews": 372,
+    "startingCost": "NPR 2,733/day",
+    "coverImage": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Gulmi Ghat in Madhesh Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Gulmi Ghat, Madhesh Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  },
+  {
+    "id": 100,
+    "name": "Gosaikunda Monastery",
+    "region": "Koshi Province",
+    "category": "Spiritual & Pilgrimage",
+    "altitude": "2494m",
+    "bestSeason": "September – November",
+    "rating": 4.6,
+    "reviews": 55,
+    "startingCost": "NPR 7,908/day",
+    "coverImage": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "shortDescription": "Experience the untouched mountain scenery and warm local hospitality of Gosaikunda Monastery in Koshi Province.",
+    "historyAndCulture": "Centuries-old trade route traditions and indigenous cultural heritage.",
+    "activities": [
+      "Photography",
+      "Nature Trail Walk",
+      "Cultural Exploration",
+      "Bird Watching"
+    ],
+    "highlights": [
+      "Lush Alpine Vistas",
+      "Traditional Homestays",
+      "Peaceful Wilderness"
+    ],
+    "mapQuery": "Gosaikunda Monastery, Koshi Province, Nepal",
+    "nearbyAttractions": [
+      "Local Village Market",
+      "Historic Gompa",
+      "Mountain River"
+    ]
+  }
+]

@@ -1,0 +1,3963 @@
+[
+  {
+    "name": "Hotel Barahi",
+    "description": "A distinguished property in Kapilvastu, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1989,
+    "phoneNumber": "+977-8-703238",
+    "website": "https://hotelbarahi.com.np",
+    "province": "Lumbini Province",
+    "district": "Kapilvastu",
+    "municipality": "Kapilvastu Municipality",
+    "ward": "13",
+    "street": "Main Tourist Road",
+    "latitude": 27.5045,
+    "longitude": 87.6448,
+    "coverImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "2659",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "11534",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Dwarika's Heritage",
+    "description": "A distinguished property in Baitadi, Sudurpashchim Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2023,
+    "phoneNumber": "+977-8-411466",
+    "website": "https://dwarikasheritage.com.np",
+    "province": "Sudurpashchim Province",
+    "district": "Baitadi",
+    "municipality": "Baitadi Municipality",
+    "ward": "3",
+    "street": "Temple View Street",
+    "latitude": 28.527,
+    "longitude": 81.3047,
+    "coverImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "4411",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "10038",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Soaltee Crowne",
+    "description": "A distinguished property in Sankhuwasabha, Koshi Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2022,
+    "phoneNumber": "+977-7-979457",
+    "website": "https://soalteecrowne.com.np",
+    "province": "Koshi Province",
+    "district": "Sankhuwasabha",
+    "municipality": "Sankhuwasabha Municipality",
+    "ward": "6",
+    "street": "Main Tourist Road",
+    "latitude": 27.5791,
+    "longitude": 87.1934,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "6980",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "17320",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Yak & Yeti",
+    "description": "A distinguished property in Bara, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1988,
+    "phoneNumber": "+977-1-761466",
+    "website": "https://yakyeti.com.np",
+    "province": "Madhesh Province",
+    "district": "Bara",
+    "municipality": "Bara Municipality",
+    "ward": "7",
+    "street": "Temple View Street",
+    "latitude": 28.1558,
+    "longitude": 85.318,
+    "coverImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "7341",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "10758",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Temple Tree Resort",
+    "description": "A distinguished property in Sarlahi, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2018,
+    "phoneNumber": "+977-3-763830",
+    "website": "https://templetreeresort.com.np",
+    "province": "Madhesh Province",
+    "district": "Sarlahi",
+    "municipality": "Sarlahi Municipality",
+    "ward": "15",
+    "street": "Lakeside Marg",
+    "latitude": 28.5676,
+    "longitude": 83.6228,
+    "coverImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "4800",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "21242",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Fish Tail Lodge",
+    "description": "A distinguished property in Ilam, Koshi Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2012,
+    "phoneNumber": "+977-5-587718",
+    "website": "https://fishtaillodge.com.np",
+    "province": "Koshi Province",
+    "district": "Ilam",
+    "municipality": "Ilam Municipality",
+    "ward": "15",
+    "street": "Heritage Chowk",
+    "latitude": 27.2819,
+    "longitude": 83.545,
+    "coverImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "4085",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "9970",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Kasara Jungle Resort",
+    "description": "A distinguished property in Lalitpur, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1993,
+    "phoneNumber": "+977-4-465093",
+    "website": "https://kasarajungleresort.com.np",
+    "province": "Bagmati Province",
+    "district": "Lalitpur",
+    "municipality": "Lalitpur Municipality",
+    "ward": "1",
+    "street": "Main Tourist Road",
+    "latitude": 27.8725,
+    "longitude": 84.5224,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "6932",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "19521",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Meghauli Serai",
+    "description": "A distinguished property in Arghakhanchi, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2004,
+    "phoneNumber": "+977-9-982295",
+    "website": "https://meghauliserai.com.np",
+    "province": "Lumbini Province",
+    "district": "Arghakhanchi",
+    "municipality": "Arghakhanchi Municipality",
+    "ward": "9",
+    "street": "Main Tourist Road",
+    "latitude": 27.66,
+    "longitude": 85.2049,
+    "coverImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "4720",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "15789",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Yeti Mountain Home",
+    "description": "A distinguished property in Bardiya, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2006,
+    "phoneNumber": "+977-1-893152",
+    "website": "https://yetimountainhome.com.np",
+    "province": "Lumbini Province",
+    "district": "Bardiya",
+    "municipality": "Bardiya Municipality",
+    "ward": "3",
+    "street": "Resort Valley Way",
+    "latitude": 29.068,
+    "longitude": 86.3602,
+    "coverImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "2915",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "15817",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Shinta Mani Mustang",
+    "description": "A distinguished property in Gulmi, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1987,
+    "phoneNumber": "+977-7-403209",
+    "website": "https://shintamanimustang.com.np",
+    "province": "Lumbini Province",
+    "district": "Gulmi",
+    "municipality": "Gulmi Municipality",
+    "ward": "9",
+    "street": "Heritage Chowk",
+    "latitude": 28.9704,
+    "longitude": 87.5346,
+    "coverImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "3983",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "16776",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Waterfront Resort",
+    "description": "A distinguished property in Kalikot, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1991,
+    "phoneNumber": "+977-5-907475",
+    "website": "https://waterfrontresort.com.np",
+    "province": "Karnali Province",
+    "district": "Kalikot",
+    "municipality": "Kalikot Municipality",
+    "ward": "5",
+    "street": "Heritage Chowk",
+    "latitude": 28.0726,
+    "longitude": 84.8971,
+    "coverImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "4988",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "13339",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Himalayan Front Hotel",
+    "description": "A distinguished property in Jajarkot, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2008,
+    "phoneNumber": "+977-8-569098",
+    "website": "https://himalayanfronthotel.com.np",
+    "province": "Karnali Province",
+    "district": "Jajarkot",
+    "municipality": "Jajarkot Municipality",
+    "ward": "15",
+    "street": "Temple View Street",
+    "latitude": 28.6601,
+    "longitude": 85.5517,
+    "coverImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "3684",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "9252",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Tiger Tops Tharu Lodge",
+    "description": "A distinguished property in Dhankuta, Koshi Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2021,
+    "phoneNumber": "+977-1-434306",
+    "website": "https://tigertopstharulodge.com.np",
+    "province": "Koshi Province",
+    "district": "Dhankuta",
+    "municipality": "Dhankuta Municipality",
+    "ward": "8",
+    "street": "Heritage Chowk",
+    "latitude": 27.447,
+    "longitude": 82.9316,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "5714",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8640",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Club Himalaya Nagarkot",
+    "description": "A distinguished property in Gorkha, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1985,
+    "phoneNumber": "+977-2-870158",
+    "website": "https://clubhimalayanagarkot.com.np",
+    "province": "Gandaki Province",
+    "district": "Gorkha",
+    "municipality": "Gorkha Municipality",
+    "ward": "3",
+    "street": "Resort Valley Way",
+    "latitude": 29.1838,
+    "longitude": 86.8694,
+    "coverImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "6813",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "20841",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Mystic Mountain Resort",
+    "description": "A distinguished property in Parsa, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1985,
+    "phoneNumber": "+977-4-818401",
+    "website": "https://mysticmountainresort.com.np",
+    "province": "Madhesh Province",
+    "district": "Parsa",
+    "municipality": "Parsa Municipality",
+    "ward": "2",
+    "street": "Resort Valley Way",
+    "latitude": 26.9556,
+    "longitude": 83.4397,
+    "coverImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "3788",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "11693",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Rupsi Resort",
+    "description": "A distinguished property in Gulmi, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2003,
+    "phoneNumber": "+977-3-559425",
+    "website": "https://rupsiresort.com.np",
+    "province": "Lumbini Province",
+    "district": "Gulmi",
+    "municipality": "Gulmi Municipality",
+    "ward": "4",
+    "street": "Main Tourist Road",
+    "latitude": 27.0969,
+    "longitude": 85.2521,
+    "coverImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "5780",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "9904",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Pavilions Himalayas",
+    "description": "A distinguished property in Banke, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1991,
+    "phoneNumber": "+977-5-645150",
+    "website": "https://pavilionshimalayas.com.np",
+    "province": "Lumbini Province",
+    "district": "Banke",
+    "municipality": "Banke Municipality",
+    "ward": "3",
+    "street": "Main Tourist Road",
+    "latitude": 28.99,
+    "longitude": 84.9984,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "6110",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "20226",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Everest Panorama Resort",
+    "description": "A distinguished property in Gorkha, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2008,
+    "phoneNumber": "+977-1-664300",
+    "website": "https://everestpanoramaresort.com.np",
+    "province": "Gandaki Province",
+    "district": "Gorkha",
+    "municipality": "Gorkha Municipality",
+    "ward": "8",
+    "street": "Heritage Chowk",
+    "latitude": 27.0067,
+    "longitude": 87.7705,
+    "coverImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "5608",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "21744",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Gokarna Forest Resort",
+    "description": "A distinguished property in Tanahun, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2019,
+    "phoneNumber": "+977-6-569300",
+    "website": "https://gokarnaforestresort.com.np",
+    "province": "Gandaki Province",
+    "district": "Tanahun",
+    "municipality": "Tanahun Municipality",
+    "ward": "9",
+    "street": "Resort Valley Way",
+    "latitude": 29.0554,
+    "longitude": 83.7217,
+    "coverImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "5660",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "16813",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Shanker Heritage",
+    "description": "A distinguished property in Doti, Sudurpashchim Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1992,
+    "phoneNumber": "+977-7-977708",
+    "website": "https://hotelshankerheritage.com.np",
+    "province": "Sudurpashchim Province",
+    "district": "Doti",
+    "municipality": "Doti Municipality",
+    "ward": "6",
+    "street": "Resort Valley Way",
+    "latitude": 27.7159,
+    "longitude": 85.2268,
+    "coverImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "3007",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "17129",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Landmark Hotel",
+    "description": "A distinguished property in Darchula, Sudurpashchim Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2008,
+    "phoneNumber": "+977-3-879796",
+    "website": "https://landmarkhotel.com.np",
+    "province": "Sudurpashchim Province",
+    "district": "Darchula",
+    "municipality": "Darchula Municipality",
+    "ward": "11",
+    "street": "Lakeside Marg",
+    "latitude": 27.3188,
+    "longitude": 85.2389,
+    "coverImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "6414",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8009",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Atithi Resort & Spa",
+    "description": "A distinguished property in Jhapa, Koshi Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1998,
+    "phoneNumber": "+977-9-927551",
+    "website": "https://atithiresortspa.com.np",
+    "province": "Koshi Province",
+    "district": "Jhapa",
+    "municipality": "Jhapa Municipality",
+    "ward": "6",
+    "street": "Main Tourist Road",
+    "latitude": 27.823,
+    "longitude": 81.0222,
+    "coverImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "2979",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "9076",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Mount Kailash Resort",
+    "description": "A distinguished property in Sankhuwasabha, Koshi Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2007,
+    "phoneNumber": "+977-3-837576",
+    "website": "https://mountkailashresort.com.np",
+    "province": "Koshi Province",
+    "district": "Sankhuwasabha",
+    "municipality": "Sankhuwasabha Municipality",
+    "ward": "14",
+    "street": "Resort Valley Way",
+    "latitude": 28.4756,
+    "longitude": 81.6375,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "4025",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8930",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Da Yatra Courtyard",
+    "description": "A distinguished property in Darchula, Sudurpashchim Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1994,
+    "phoneNumber": "+977-5-519462",
+    "website": "https://dayatracourtyard.com.np",
+    "province": "Sudurpashchim Province",
+    "district": "Darchula",
+    "municipality": "Darchula Municipality",
+    "ward": "12",
+    "street": "Temple View Street",
+    "latitude": 28.5921,
+    "longitude": 80.8137,
+    "coverImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "5018",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "14646",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Bodhi Redsun Hotel",
+    "description": "A distinguished property in Kavrepalanchok, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1995,
+    "phoneNumber": "+977-4-657591",
+    "website": "https://bodhiredsunhotel.com.np",
+    "province": "Bagmati Province",
+    "district": "Kavrepalanchok",
+    "municipality": "Kavrepalanchok Municipality",
+    "ward": "4",
+    "street": "Heritage Chowk",
+    "latitude": 28.3765,
+    "longitude": 83.6691,
+    "coverImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "6193",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "14432",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Peace Dragon Lodge",
+    "description": "A distinguished property in Bhaktapur, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2007,
+    "phoneNumber": "+977-9-550077",
+    "website": "https://peacedragonlodge.com.np",
+    "province": "Bagmati Province",
+    "district": "Bhaktapur",
+    "municipality": "Bhaktapur Municipality",
+    "ward": "2",
+    "street": "Heritage Chowk",
+    "latitude": 27.9099,
+    "longitude": 84.3379,
+    "coverImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "3030",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "17642",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Annapurna View Sarangkot",
+    "description": "A distinguished property in Surkhet, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2019,
+    "phoneNumber": "+977-8-916878",
+    "website": "https://annapurnaviewsarangkot.com.np",
+    "province": "Karnali Province",
+    "district": "Surkhet",
+    "municipality": "Surkhet Municipality",
+    "ward": "7",
+    "street": "Temple View Street",
+    "latitude": 28.3653,
+    "longitude": 84.6707,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "7407",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "20436",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Himalayan Horizon",
+    "description": "A distinguished property in Bajhang, Sudurpashchim Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2005,
+    "phoneNumber": "+977-8-557254",
+    "website": "https://himalayanhorizon.com.np",
+    "province": "Sudurpashchim Province",
+    "district": "Bajhang",
+    "municipality": "Bajhang Municipality",
+    "ward": "10",
+    "street": "Main Tourist Road",
+    "latitude": 27.6048,
+    "longitude": 81.976,
+    "coverImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "5568",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "15882",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Yak",
+    "description": "A distinguished property in Rautahat, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2017,
+    "phoneNumber": "+977-4-723442",
+    "website": "https://hotelyak.com.np",
+    "province": "Madhesh Province",
+    "district": "Rautahat",
+    "municipality": "Rautahat Municipality",
+    "ward": "9",
+    "street": "Main Tourist Road",
+    "latitude": 28.3773,
+    "longitude": 84.2337,
+    "coverImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "2892",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "10909",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Lake Star",
+    "description": "A distinguished property in Dang, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1988,
+    "phoneNumber": "+977-6-404145",
+    "website": "https://hotellakestar.com.np",
+    "province": "Lumbini Province",
+    "district": "Dang",
+    "municipality": "Dang Municipality",
+    "ward": "9",
+    "street": "Main Tourist Road",
+    "latitude": 27.8907,
+    "longitude": 83.5284,
+    "coverImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "6909",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8702",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Barahi Mustang",
+    "description": "A distinguished property in Mustang, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2004,
+    "phoneNumber": "+977-8-605742",
+    "website": "https://hotelbarahimustang.com.np",
+    "province": "Gandaki Province",
+    "district": "Mustang",
+    "municipality": "Mustang Municipality",
+    "ward": "11",
+    "street": "Heritage Chowk",
+    "latitude": 27.5592,
+    "longitude": 81.8533,
+    "coverImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "5687",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "19129",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Dwarika's Heritage Surkhet",
+    "description": "A distinguished property in Surkhet, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1989,
+    "phoneNumber": "+977-7-969646",
+    "website": "https://dwarikasheritagesurkhet.com.np",
+    "province": "Karnali Province",
+    "district": "Surkhet",
+    "municipality": "Surkhet Municipality",
+    "ward": "7",
+    "street": "Lakeside Marg",
+    "latitude": 28.3838,
+    "longitude": 80.8924,
+    "coverImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "4044",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "21851",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Soaltee Crowne Manang",
+    "description": "A distinguished property in Manang, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2000,
+    "phoneNumber": "+977-1-629895",
+    "website": "https://soalteecrownemanang.com.np",
+    "province": "Gandaki Province",
+    "district": "Manang",
+    "municipality": "Manang Municipality",
+    "ward": "14",
+    "street": "Lakeside Marg",
+    "latitude": 28.0001,
+    "longitude": 85.1023,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "2893",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8055",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Yak & Yeti Kailali",
+    "description": "A distinguished property in Kailali, Sudurpashchim Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2000,
+    "phoneNumber": "+977-5-811779",
+    "website": "https://yakyetikailali.com.np",
+    "province": "Sudurpashchim Province",
+    "district": "Kailali",
+    "municipality": "Kailali Municipality",
+    "ward": "8",
+    "street": "Heritage Chowk",
+    "latitude": 29.0291,
+    "longitude": 80.5156,
+    "coverImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "7424",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "15833",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Temple Tree Resort Dailekh",
+    "description": "A distinguished property in Dailekh, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2012,
+    "phoneNumber": "+977-6-997744",
+    "website": "https://templetreeresortdailekh.com.np",
+    "province": "Karnali Province",
+    "district": "Dailekh",
+    "municipality": "Dailekh Municipality",
+    "ward": "2",
+    "street": "Lakeside Marg",
+    "latitude": 26.9628,
+    "longitude": 84.6349,
+    "coverImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "2695",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "12549",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Fish Tail Lodge Bara",
+    "description": "A distinguished property in Bara, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1989,
+    "phoneNumber": "+977-7-794224",
+    "website": "https://fishtaillodgebara.com.np",
+    "province": "Madhesh Province",
+    "district": "Bara",
+    "municipality": "Bara Municipality",
+    "ward": "3",
+    "street": "Lakeside Marg",
+    "latitude": 27.4858,
+    "longitude": 80.982,
+    "coverImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "7219",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "17813",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Kasara Jungle Resort Rasuwa",
+    "description": "A distinguished property in Rasuwa, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2003,
+    "phoneNumber": "+977-8-824220",
+    "website": "https://kasarajungleresortrasuwa.com.np",
+    "province": "Bagmati Province",
+    "district": "Rasuwa",
+    "municipality": "Rasuwa Municipality",
+    "ward": "4",
+    "street": "Lakeside Marg",
+    "latitude": 28.4781,
+    "longitude": 81.6497,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "5616",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "11800",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Meghauli Serai Doti",
+    "description": "A distinguished property in Doti, Sudurpashchim Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1997,
+    "phoneNumber": "+977-8-446751",
+    "website": "https://meghauliseraidoti.com.np",
+    "province": "Sudurpashchim Province",
+    "district": "Doti",
+    "municipality": "Doti Municipality",
+    "ward": "12",
+    "street": "Temple View Street",
+    "latitude": 27.4225,
+    "longitude": 86.7748,
+    "coverImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "5938",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "13853",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Yeti Mountain Home Sindhupalchok",
+    "description": "A distinguished property in Sindhupalchok, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2007,
+    "phoneNumber": "+977-9-864693",
+    "website": "https://yetimountainhomesindhupalchok.com.np",
+    "province": "Bagmati Province",
+    "district": "Sindhupalchok",
+    "municipality": "Sindhupalchok Municipality",
+    "ward": "5",
+    "street": "Lakeside Marg",
+    "latitude": 27.8408,
+    "longitude": 81.2117,
+    "coverImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "5424",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "9756",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Shinta Mani Mustang Baitadi",
+    "description": "A distinguished property in Baitadi, Sudurpashchim Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2001,
+    "phoneNumber": "+977-7-474365",
+    "website": "https://shintamanimustangbaitadi.com.np",
+    "province": "Sudurpashchim Province",
+    "district": "Baitadi",
+    "municipality": "Baitadi Municipality",
+    "ward": "6",
+    "street": "Main Tourist Road",
+    "latitude": 28.8047,
+    "longitude": 84.1836,
+    "coverImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "5248",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "9745",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Waterfront Resort Banke",
+    "description": "A distinguished property in Banke, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1988,
+    "phoneNumber": "+977-7-641311",
+    "website": "https://waterfrontresortbanke.com.np",
+    "province": "Lumbini Province",
+    "district": "Banke",
+    "municipality": "Banke Municipality",
+    "ward": "3",
+    "street": "Temple View Street",
+    "latitude": 27.9378,
+    "longitude": 87.7807,
+    "coverImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "5204",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "21574",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Himalayan Front Hotel Mugu",
+    "description": "A distinguished property in Mugu, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2017,
+    "phoneNumber": "+977-7-404623",
+    "website": "https://himalayanfronthotelmugu.com.np",
+    "province": "Karnali Province",
+    "district": "Mugu",
+    "municipality": "Mugu Municipality",
+    "ward": "13",
+    "street": "Lakeside Marg",
+    "latitude": 29.0932,
+    "longitude": 81.476,
+    "coverImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "3610",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "18036",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Tiger Tops Tharu Lodge Kapilvastu",
+    "description": "A distinguished property in Kapilvastu, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2006,
+    "phoneNumber": "+977-9-465339",
+    "website": "https://tigertopstharulodgekapilvastu.com.np",
+    "province": "Lumbini Province",
+    "district": "Kapilvastu",
+    "municipality": "Kapilvastu Municipality",
+    "ward": "8",
+    "street": "Heritage Chowk",
+    "latitude": 27.059,
+    "longitude": 83.066,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "7210",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "13602",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Club Himalaya Nagarkot Myagdi",
+    "description": "A distinguished property in Myagdi, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1990,
+    "phoneNumber": "+977-5-654820",
+    "website": "https://clubhimalayanagarkotmyagdi.com.np",
+    "province": "Gandaki Province",
+    "district": "Myagdi",
+    "municipality": "Myagdi Municipality",
+    "ward": "7",
+    "street": "Resort Valley Way",
+    "latitude": 28.3809,
+    "longitude": 87.0805,
+    "coverImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "4403",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "13401",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Mystic Mountain Resort Jajarkot",
+    "description": "A distinguished property in Jajarkot, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2001,
+    "phoneNumber": "+977-1-769076",
+    "website": "https://mysticmountainresortjajarkot.com.np",
+    "province": "Karnali Province",
+    "district": "Jajarkot",
+    "municipality": "Jajarkot Municipality",
+    "ward": "2",
+    "street": "Main Tourist Road",
+    "latitude": 27.2922,
+    "longitude": 83.4256,
+    "coverImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "6523",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "18979",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Rupsi Resort Sarlahi",
+    "description": "A distinguished property in Sarlahi, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2021,
+    "phoneNumber": "+977-9-545710",
+    "website": "https://rupsiresortsarlahi.com.np",
+    "province": "Madhesh Province",
+    "district": "Sarlahi",
+    "municipality": "Sarlahi Municipality",
+    "ward": "13",
+    "street": "Lakeside Marg",
+    "latitude": 28.6354,
+    "longitude": 83.0677,
+    "coverImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "3555",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "9971",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Pavilions Himalayas Makwanpur",
+    "description": "A distinguished property in Makwanpur, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1988,
+    "phoneNumber": "+977-2-411739",
+    "website": "https://pavilionshimalayasmakwanpur.com.np",
+    "province": "Bagmati Province",
+    "district": "Makwanpur",
+    "municipality": "Makwanpur Municipality",
+    "ward": "9",
+    "street": "Temple View Street",
+    "latitude": 26.8361,
+    "longitude": 82.9309,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "3760",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8081",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Everest Panorama Resort Dang",
+    "description": "A distinguished property in Dang, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1995,
+    "phoneNumber": "+977-3-726575",
+    "website": "https://everestpanoramaresortdang.com.np",
+    "province": "Lumbini Province",
+    "district": "Dang",
+    "municipality": "Dang Municipality",
+    "ward": "2",
+    "street": "Main Tourist Road",
+    "latitude": 28.8195,
+    "longitude": 82.1811,
+    "coverImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "5515",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "17400",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Gokarna Forest Resort Syangja",
+    "description": "A distinguished property in Syangja, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2003,
+    "phoneNumber": "+977-2-990416",
+    "website": "https://gokarnaforestresortsyangja.com.np",
+    "province": "Gandaki Province",
+    "district": "Syangja",
+    "municipality": "Syangja Municipality",
+    "ward": "14",
+    "street": "Main Tourist Road",
+    "latitude": 28.9012,
+    "longitude": 86.5381,
+    "coverImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "4172",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "13733",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Shanker Heritage Lamjung",
+    "description": "A distinguished property in Lamjung, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1997,
+    "phoneNumber": "+977-7-439991",
+    "website": "https://hotelshankerheritagelamjung.com.np",
+    "province": "Gandaki Province",
+    "district": "Lamjung",
+    "municipality": "Lamjung Municipality",
+    "ward": "15",
+    "street": "Main Tourist Road",
+    "latitude": 27.7591,
+    "longitude": 87.6024,
+    "coverImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "2932",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "19713",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Landmark Hotel Bara",
+    "description": "A distinguished property in Bara, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1999,
+    "phoneNumber": "+977-7-508742",
+    "website": "https://landmarkhotelbara.com.np",
+    "province": "Madhesh Province",
+    "district": "Bara",
+    "municipality": "Bara Municipality",
+    "ward": "11",
+    "street": "Temple View Street",
+    "latitude": 27.0915,
+    "longitude": 82.7053,
+    "coverImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "6223",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "16066",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Atithi Resort & Spa Darchula",
+    "description": "A distinguished property in Darchula, Sudurpashchim Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2015,
+    "phoneNumber": "+977-2-593031",
+    "website": "https://atithiresortspadarchula.com.np",
+    "province": "Sudurpashchim Province",
+    "district": "Darchula",
+    "municipality": "Darchula Municipality",
+    "ward": "13",
+    "street": "Lakeside Marg",
+    "latitude": 28.1307,
+    "longitude": 81.5318,
+    "coverImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "3160",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "19692",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Mount Kailash Resort Parbat",
+    "description": "A distinguished property in Parbat, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1990,
+    "phoneNumber": "+977-4-572510",
+    "website": "https://mountkailashresortparbat.com.np",
+    "province": "Gandaki Province",
+    "district": "Parbat",
+    "municipality": "Parbat Municipality",
+    "ward": "11",
+    "street": "Main Tourist Road",
+    "latitude": 27.0088,
+    "longitude": 83.0532,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "5666",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "20082",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Da Yatra Courtyard Gorkha",
+    "description": "A distinguished property in Gorkha, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1992,
+    "phoneNumber": "+977-6-799993",
+    "website": "https://dayatracourtyardgorkha.com.np",
+    "province": "Gandaki Province",
+    "district": "Gorkha",
+    "municipality": "Gorkha Municipality",
+    "ward": "2",
+    "street": "Lakeside Marg",
+    "latitude": 28.7149,
+    "longitude": 80.9344,
+    "coverImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "2934",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "12143",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Bodhi Redsun Hotel Kavrepalanchok",
+    "description": "A distinguished property in Kavrepalanchok, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1995,
+    "phoneNumber": "+977-3-650585",
+    "website": "https://bodhiredsunhotelkavrepalanchok.com.np",
+    "province": "Bagmati Province",
+    "district": "Kavrepalanchok",
+    "municipality": "Kavrepalanchok Municipality",
+    "ward": "10",
+    "street": "Lakeside Marg",
+    "latitude": 26.8396,
+    "longitude": 83.0455,
+    "coverImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "4266",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8317",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Peace Dragon Lodge Kathmandu",
+    "description": "A distinguished property in Kathmandu, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1989,
+    "phoneNumber": "+977-6-745839",
+    "website": "https://peacedragonlodgekathmandu.com.np",
+    "province": "Bagmati Province",
+    "district": "Kathmandu",
+    "municipality": "Kathmandu Municipality",
+    "ward": "2",
+    "street": "Lakeside Marg",
+    "latitude": 28.7177,
+    "longitude": 85.9445,
+    "coverImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "3444",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "21065",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Annapurna View Sarangkot Jumla",
+    "description": "A distinguished property in Jumla, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2023,
+    "phoneNumber": "+977-9-433741",
+    "website": "https://annapurnaviewsarangkotjumla.com.np",
+    "province": "Karnali Province",
+    "district": "Jumla",
+    "municipality": "Jumla Municipality",
+    "ward": "5",
+    "street": "Resort Valley Way",
+    "latitude": 28.3917,
+    "longitude": 84.6854,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "4879",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "14367",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Himalayan Horizon Dolpa",
+    "description": "A distinguished property in Dolpa, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2006,
+    "phoneNumber": "+977-9-425467",
+    "website": "https://himalayanhorizondolpa.com.np",
+    "province": "Karnali Province",
+    "district": "Dolpa",
+    "municipality": "Dolpa Municipality",
+    "ward": "12",
+    "street": "Temple View Street",
+    "latitude": 27.4801,
+    "longitude": 84.1802,
+    "coverImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "7350",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "11985",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Yak Chitwan",
+    "description": "A distinguished property in Chitwan, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2007,
+    "phoneNumber": "+977-3-591903",
+    "website": "https://hotelyakchitwan.com.np",
+    "province": "Bagmati Province",
+    "district": "Chitwan",
+    "municipality": "Chitwan Municipality",
+    "ward": "8",
+    "street": "Heritage Chowk",
+    "latitude": 27.6086,
+    "longitude": 80.8899,
+    "coverImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "6272",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "13979",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Lake Star Banke",
+    "description": "A distinguished property in Banke, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2010,
+    "phoneNumber": "+977-8-728543",
+    "website": "https://hotellakestarbanke.com.np",
+    "province": "Lumbini Province",
+    "district": "Banke",
+    "municipality": "Banke Municipality",
+    "ward": "7",
+    "street": "Resort Valley Way",
+    "latitude": 27.877,
+    "longitude": 86.855,
+    "coverImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "5018",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "19447",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Barahi Gorkha",
+    "description": "A distinguished property in Gorkha, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2006,
+    "phoneNumber": "+977-6-810177",
+    "website": "https://hotelbarahigorkha.com.np",
+    "province": "Gandaki Province",
+    "district": "Gorkha",
+    "municipality": "Gorkha Municipality",
+    "ward": "9",
+    "street": "Resort Valley Way",
+    "latitude": 28.481,
+    "longitude": 87.7549,
+    "coverImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "2647",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "16661",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Dwarika's Heritage Kalikot",
+    "description": "A distinguished property in Kalikot, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2014,
+    "phoneNumber": "+977-2-944111",
+    "website": "https://dwarikasheritagekalikot.com.np",
+    "province": "Karnali Province",
+    "district": "Kalikot",
+    "municipality": "Kalikot Municipality",
+    "ward": "6",
+    "street": "Main Tourist Road",
+    "latitude": 28.7813,
+    "longitude": 81.1947,
+    "coverImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "7157",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "15233",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Soaltee Crowne Myagdi",
+    "description": "A distinguished property in Myagdi, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1994,
+    "phoneNumber": "+977-8-490214",
+    "website": "https://soalteecrownemyagdi.com.np",
+    "province": "Gandaki Province",
+    "district": "Myagdi",
+    "municipality": "Myagdi Municipality",
+    "ward": "4",
+    "street": "Temple View Street",
+    "latitude": 27.3545,
+    "longitude": 87.691,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "6362",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "9477",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Yak & Yeti Jajarkot",
+    "description": "A distinguished property in Jajarkot, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2017,
+    "phoneNumber": "+977-5-469735",
+    "website": "https://yakyetijajarkot.com.np",
+    "province": "Karnali Province",
+    "district": "Jajarkot",
+    "municipality": "Jajarkot Municipality",
+    "ward": "5",
+    "street": "Resort Valley Way",
+    "latitude": 28.6727,
+    "longitude": 85.6046,
+    "coverImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "2992",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8528",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Temple Tree Resort Saptari",
+    "description": "A distinguished property in Saptari, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2000,
+    "phoneNumber": "+977-7-978350",
+    "website": "https://templetreeresortsaptari.com.np",
+    "province": "Madhesh Province",
+    "district": "Saptari",
+    "municipality": "Saptari Municipality",
+    "ward": "2",
+    "street": "Temple View Street",
+    "latitude": 28.1922,
+    "longitude": 82.3541,
+    "coverImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "5101",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "20419",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Fish Tail Lodge Surkhet",
+    "description": "A distinguished property in Surkhet, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2018,
+    "phoneNumber": "+977-9-775711",
+    "website": "https://fishtaillodgesurkhet.com.np",
+    "province": "Karnali Province",
+    "district": "Surkhet",
+    "municipality": "Surkhet Municipality",
+    "ward": "6",
+    "street": "Temple View Street",
+    "latitude": 27.2364,
+    "longitude": 84.6827,
+    "coverImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "6692",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "21465",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Kasara Jungle Resort Lamjung",
+    "description": "A distinguished property in Lamjung, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2004,
+    "phoneNumber": "+977-7-526950",
+    "website": "https://kasarajungleresortlamjung.com.np",
+    "province": "Gandaki Province",
+    "district": "Lamjung",
+    "municipality": "Lamjung Municipality",
+    "ward": "2",
+    "street": "Temple View Street",
+    "latitude": 28.6371,
+    "longitude": 86.7452,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "2974",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "12730",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Meghauli Serai Manang",
+    "description": "A distinguished property in Manang, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1991,
+    "phoneNumber": "+977-1-449466",
+    "website": "https://meghauliseraimanang.com.np",
+    "province": "Gandaki Province",
+    "district": "Manang",
+    "municipality": "Manang Municipality",
+    "ward": "8",
+    "street": "Main Tourist Road",
+    "latitude": 27.7053,
+    "longitude": 82.481,
+    "coverImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "5515",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8065",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Yeti Mountain Home Sunsari",
+    "description": "A distinguished property in Sunsari, Koshi Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2007,
+    "phoneNumber": "+977-9-621838",
+    "website": "https://yetimountainhomesunsari.com.np",
+    "province": "Koshi Province",
+    "district": "Sunsari",
+    "municipality": "Sunsari Municipality",
+    "ward": "6",
+    "street": "Lakeside Marg",
+    "latitude": 27.2796,
+    "longitude": 80.5271,
+    "coverImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "4335",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "14284",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Shinta Mani Mustang Parsa",
+    "description": "A distinguished property in Parsa, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2011,
+    "phoneNumber": "+977-7-549456",
+    "website": "https://shintamanimustangparsa.com.np",
+    "province": "Madhesh Province",
+    "district": "Parsa",
+    "municipality": "Parsa Municipality",
+    "ward": "8",
+    "street": "Resort Valley Way",
+    "latitude": 28.7534,
+    "longitude": 87.1739,
+    "coverImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "6434",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "17961",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Waterfront Resort Achham",
+    "description": "A distinguished property in Achham, Sudurpashchim Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2000,
+    "phoneNumber": "+977-6-524910",
+    "website": "https://waterfrontresortachham.com.np",
+    "province": "Sudurpashchim Province",
+    "district": "Achham",
+    "municipality": "Achham Municipality",
+    "ward": "5",
+    "street": "Resort Valley Way",
+    "latitude": 27.4667,
+    "longitude": 81.5547,
+    "coverImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "3050",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "11994",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Himalayan Front Hotel Sunsari",
+    "description": "A distinguished property in Sunsari, Koshi Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2009,
+    "phoneNumber": "+977-6-497435",
+    "website": "https://himalayanfronthotelsunsari.com.np",
+    "province": "Koshi Province",
+    "district": "Sunsari",
+    "municipality": "Sunsari Municipality",
+    "ward": "10",
+    "street": "Heritage Chowk",
+    "latitude": 27.9167,
+    "longitude": 84.684,
+    "coverImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "4756",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "12389",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Tiger Tops Tharu Lodge Ilam",
+    "description": "A distinguished property in Ilam, Koshi Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1996,
+    "phoneNumber": "+977-2-955864",
+    "website": "https://tigertopstharulodgeilam.com.np",
+    "province": "Koshi Province",
+    "district": "Ilam",
+    "municipality": "Ilam Municipality",
+    "ward": "7",
+    "street": "Main Tourist Road",
+    "latitude": 27.4368,
+    "longitude": 85.4735,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "2599",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "13148",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Club Himalaya Nagarkot Sindhupalchok",
+    "description": "A distinguished property in Sindhupalchok, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1994,
+    "phoneNumber": "+977-5-672368",
+    "website": "https://clubhimalayanagarkotsindhupalchok.com.np",
+    "province": "Bagmati Province",
+    "district": "Sindhupalchok",
+    "municipality": "Sindhupalchok Municipality",
+    "ward": "10",
+    "street": "Temple View Street",
+    "latitude": 27.2571,
+    "longitude": 86.1303,
+    "coverImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "6806",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "16871",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Mystic Mountain Resort Banke",
+    "description": "A distinguished property in Banke, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2000,
+    "phoneNumber": "+977-8-911991",
+    "website": "https://mysticmountainresortbanke.com.np",
+    "province": "Lumbini Province",
+    "district": "Banke",
+    "municipality": "Banke Municipality",
+    "ward": "1",
+    "street": "Resort Valley Way",
+    "latitude": 29.1228,
+    "longitude": 84.6248,
+    "coverImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "6508",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "9805",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Rupsi Resort Dhanusha",
+    "description": "A distinguished property in Dhanusha, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2003,
+    "phoneNumber": "+977-4-490035",
+    "website": "https://rupsiresortdhanusha.com.np",
+    "province": "Madhesh Province",
+    "district": "Dhanusha",
+    "municipality": "Dhanusha Municipality",
+    "ward": "10",
+    "street": "Lakeside Marg",
+    "latitude": 28.7205,
+    "longitude": 87.1071,
+    "coverImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "2726",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "18194",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Pavilions Himalayas Arghakhanchi",
+    "description": "A distinguished property in Arghakhanchi, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1994,
+    "phoneNumber": "+977-8-433103",
+    "website": "https://pavilionshimalayasarghakhanchi.com.np",
+    "province": "Lumbini Province",
+    "district": "Arghakhanchi",
+    "municipality": "Arghakhanchi Municipality",
+    "ward": "1",
+    "street": "Temple View Street",
+    "latitude": 27.7386,
+    "longitude": 86.2389,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "3737",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "20890",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Everest Panorama Resort Sindhupalchok",
+    "description": "A distinguished property in Sindhupalchok, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1994,
+    "phoneNumber": "+977-4-722147",
+    "website": "https://everestpanoramaresortsindhupalchok.com.np",
+    "province": "Bagmati Province",
+    "district": "Sindhupalchok",
+    "municipality": "Sindhupalchok Municipality",
+    "ward": "14",
+    "street": "Main Tourist Road",
+    "latitude": 28.0587,
+    "longitude": 84.8159,
+    "coverImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "5738",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "16992",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Gokarna Forest Resort Taplejung",
+    "description": "A distinguished property in Taplejung, Koshi Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2000,
+    "phoneNumber": "+977-2-831623",
+    "website": "https://gokarnaforestresorttaplejung.com.np",
+    "province": "Koshi Province",
+    "district": "Taplejung",
+    "municipality": "Taplejung Municipality",
+    "ward": "12",
+    "street": "Resort Valley Way",
+    "latitude": 27.8376,
+    "longitude": 81.3958,
+    "coverImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "2971",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "14626",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Shanker Heritage Kathmandu",
+    "description": "A distinguished property in Kathmandu, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2000,
+    "phoneNumber": "+977-8-571678",
+    "website": "https://hotelshankerheritagekathmandu.com.np",
+    "province": "Bagmati Province",
+    "district": "Kathmandu",
+    "municipality": "Kathmandu Municipality",
+    "ward": "4",
+    "street": "Main Tourist Road",
+    "latitude": 28.5861,
+    "longitude": 87.1047,
+    "coverImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "4495",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8782",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Landmark Hotel Dhanusha",
+    "description": "A distinguished property in Dhanusha, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1993,
+    "phoneNumber": "+977-9-617183",
+    "website": "https://landmarkhoteldhanusha.com.np",
+    "province": "Madhesh Province",
+    "district": "Dhanusha",
+    "municipality": "Dhanusha Municipality",
+    "ward": "15",
+    "street": "Main Tourist Road",
+    "latitude": 27.6028,
+    "longitude": 86.8394,
+    "coverImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "5781",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "19598",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Atithi Resort & Spa Rautahat",
+    "description": "A distinguished property in Rautahat, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1997,
+    "phoneNumber": "+977-9-710557",
+    "website": "https://atithiresortsparautahat.com.np",
+    "province": "Madhesh Province",
+    "district": "Rautahat",
+    "municipality": "Rautahat Municipality",
+    "ward": "2",
+    "street": "Heritage Chowk",
+    "latitude": 27.1543,
+    "longitude": 80.6741,
+    "coverImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "6061",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "20926",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Mount Kailash Resort Sindhupalchok",
+    "description": "A distinguished property in Sindhupalchok, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2023,
+    "phoneNumber": "+977-5-977949",
+    "website": "https://mountkailashresortsindhupalchok.com.np",
+    "province": "Bagmati Province",
+    "district": "Sindhupalchok",
+    "municipality": "Sindhupalchok Municipality",
+    "ward": "6",
+    "street": "Main Tourist Road",
+    "latitude": 29.1353,
+    "longitude": 81.7259,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "4664",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "20064",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Da Yatra Courtyard Manang",
+    "description": "A distinguished property in Manang, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1985,
+    "phoneNumber": "+977-7-940306",
+    "website": "https://dayatracourtyardmanang.com.np",
+    "province": "Gandaki Province",
+    "district": "Manang",
+    "municipality": "Manang Municipality",
+    "ward": "11",
+    "street": "Heritage Chowk",
+    "latitude": 28.6964,
+    "longitude": 82.9679,
+    "coverImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "7194",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8857",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Bodhi Redsun Hotel Dhanusha",
+    "description": "A distinguished property in Dhanusha, Madhesh Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2004,
+    "phoneNumber": "+977-3-908822",
+    "website": "https://bodhiredsunhoteldhanusha.com.np",
+    "province": "Madhesh Province",
+    "district": "Dhanusha",
+    "municipality": "Dhanusha Municipality",
+    "ward": "12",
+    "street": "Resort Valley Way",
+    "latitude": 27.6889,
+    "longitude": 81.1212,
+    "coverImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "5422",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8214",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Peace Dragon Lodge Kaski",
+    "description": "A distinguished property in Kaski, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2021,
+    "phoneNumber": "+977-9-782507",
+    "website": "https://peacedragonlodgekaski.com.np",
+    "province": "Gandaki Province",
+    "district": "Kaski",
+    "municipality": "Kaski Municipality",
+    "ward": "12",
+    "street": "Heritage Chowk",
+    "latitude": 27.0101,
+    "longitude": 82.1953,
+    "coverImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "6316",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "19096",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Annapurna View Sarangkot Kapilvastu",
+    "description": "A distinguished property in Kapilvastu, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2013,
+    "phoneNumber": "+977-6-534678",
+    "website": "https://annapurnaviewsarangkotkapilvastu.com.np",
+    "province": "Lumbini Province",
+    "district": "Kapilvastu",
+    "municipality": "Kapilvastu Municipality",
+    "ward": "13",
+    "street": "Lakeside Marg",
+    "latitude": 27.9675,
+    "longitude": 86.478,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "3639",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "19579",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Himalayan Horizon Myagdi",
+    "description": "A distinguished property in Myagdi, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2013,
+    "phoneNumber": "+977-2-962600",
+    "website": "https://himalayanhorizonmyagdi.com.np",
+    "province": "Gandaki Province",
+    "district": "Myagdi",
+    "municipality": "Myagdi Municipality",
+    "ward": "13",
+    "street": "Heritage Chowk",
+    "latitude": 27.3101,
+    "longitude": 85.7619,
+    "coverImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "7487",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8356",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Yak Myagdi",
+    "description": "A distinguished property in Myagdi, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1985,
+    "phoneNumber": "+977-6-604891",
+    "website": "https://hotelyakmyagdi.com.np",
+    "province": "Gandaki Province",
+    "district": "Myagdi",
+    "municipality": "Myagdi Municipality",
+    "ward": "14",
+    "street": "Lakeside Marg",
+    "latitude": 27.2768,
+    "longitude": 84.8799,
+    "coverImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "4874",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "19330",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Lake Star Myagdi",
+    "description": "A distinguished property in Myagdi, Gandaki Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2020,
+    "phoneNumber": "+977-1-520291",
+    "website": "https://hotellakestarmyagdi.com.np",
+    "province": "Gandaki Province",
+    "district": "Myagdi",
+    "municipality": "Myagdi Municipality",
+    "ward": "4",
+    "street": "Heritage Chowk",
+    "latitude": 26.9342,
+    "longitude": 81.6848,
+    "coverImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "4112",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "20357",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Hotel Barahi Kapilvastu",
+    "description": "A distinguished property in Kapilvastu, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1992,
+    "phoneNumber": "+977-4-650139",
+    "website": "https://hotelbarahikapilvastu.com.np",
+    "province": "Lumbini Province",
+    "district": "Kapilvastu",
+    "municipality": "Kapilvastu Municipality",
+    "ward": "9",
+    "street": "Temple View Street",
+    "latitude": 28.6171,
+    "longitude": 80.8665,
+    "coverImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "double",
+        "pricePerNight": "6511",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "21086",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Dwarika's Heritage Bhaktapur",
+    "description": "A distinguished property in Bhaktapur, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2000,
+    "phoneNumber": "+977-5-794133",
+    "website": "https://dwarikasheritagebhaktapur.com.np",
+    "province": "Bagmati Province",
+    "district": "Bhaktapur",
+    "municipality": "Bhaktapur Municipality",
+    "ward": "1",
+    "street": "Resort Valley Way",
+    "latitude": 26.9481,
+    "longitude": 84.0056,
+    "coverImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "3859",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "15115",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Soaltee Crowne Morang",
+    "description": "A distinguished property in Morang, Koshi Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1990,
+    "phoneNumber": "+977-2-921023",
+    "website": "https://soalteecrownemorang.com.np",
+    "province": "Koshi Province",
+    "district": "Morang",
+    "municipality": "Morang Municipality",
+    "ward": "14",
+    "street": "Lakeside Marg",
+    "latitude": 27.7519,
+    "longitude": 83.4136,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "6785",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "13879",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Yak & Yeti Dang",
+    "description": "A distinguished property in Dang, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2007,
+    "phoneNumber": "+977-1-625748",
+    "website": "https://yakyetidang.com.np",
+    "province": "Lumbini Province",
+    "district": "Dang",
+    "municipality": "Dang Municipality",
+    "ward": "12",
+    "street": "Heritage Chowk",
+    "latitude": 27.2447,
+    "longitude": 82.1301,
+    "coverImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "6748",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "16907",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Temple Tree Resort Dang",
+    "description": "A distinguished property in Dang, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2003,
+    "phoneNumber": "+977-1-753470",
+    "website": "https://templetreeresortdang.com.np",
+    "province": "Lumbini Province",
+    "district": "Dang",
+    "municipality": "Dang Municipality",
+    "ward": "11",
+    "street": "Lakeside Marg",
+    "latitude": 28.6535,
+    "longitude": 82.5227,
+    "coverImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "family",
+        "pricePerNight": "3974",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "19940",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Fish Tail Lodge Dang",
+    "description": "A distinguished property in Dang, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2005,
+    "phoneNumber": "+977-2-637938",
+    "website": "https://fishtaillodgedang.com.np",
+    "province": "Lumbini Province",
+    "district": "Dang",
+    "municipality": "Dang Municipality",
+    "ward": "2",
+    "street": "Resort Valley Way",
+    "latitude": 28.7202,
+    "longitude": 82.709,
+    "coverImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "5078",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "17188",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Kasara Jungle Resort Surkhet",
+    "description": "A distinguished property in Surkhet, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1986,
+    "phoneNumber": "+977-5-638490",
+    "website": "https://kasarajungleresortsurkhet.com.np",
+    "province": "Karnali Province",
+    "district": "Surkhet",
+    "municipality": "Surkhet Municipality",
+    "ward": "13",
+    "street": "Heritage Chowk",
+    "latitude": 28.0622,
+    "longitude": 80.5904,
+    "coverImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "4236",
+        "capacity": 1,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "9167",
+        "capacity": 2,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Meghauli Serai Rasuwa",
+    "description": "A distinguished property in Rasuwa, Bagmati Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2014,
+    "phoneNumber": "+977-4-775390",
+    "website": "https://meghauliserairasuwa.com.np",
+    "province": "Bagmati Province",
+    "district": "Rasuwa",
+    "municipality": "Rasuwa Municipality",
+    "ward": "9",
+    "street": "Heritage Chowk",
+    "latitude": 28.5699,
+    "longitude": 82.3118,
+    "coverImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "twin",
+        "pricePerNight": "6514",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "21413",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Yeti Mountain Home Dolpa",
+    "description": "A distinguished property in Dolpa, Karnali Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 1996,
+    "phoneNumber": "+977-7-944111",
+    "website": "https://yetimountainhomedolpa.com.np",
+    "province": "Karnali Province",
+    "district": "Dolpa",
+    "municipality": "Dolpa Municipality",
+    "ward": "7",
+    "street": "Heritage Chowk",
+    "latitude": 27.2313,
+    "longitude": 81.1045,
+    "coverImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service",
+      "Swimming Pool"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "suite",
+        "pricePerNight": "7342",
+        "capacity": 2,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "8604",
+        "capacity": 4,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "name": "Shinta Mani Mustang Gulmi",
+    "description": "A distinguished property in Gulmi, Lumbini Province offering modern amenities, comfortable luxury suites, mountain views, and authentic Nepali hospitality.",
+    "establishedYear": 2011,
+    "phoneNumber": "+977-5-955659",
+    "website": "https://shintamanimustanggulmi.com.np",
+    "province": "Lumbini Province",
+    "district": "Gulmi",
+    "municipality": "Gulmi Municipality",
+    "ward": "6",
+    "street": "Heritage Chowk",
+    "latitude": 28.3672,
+    "longitude": 83.0478,
+    "coverImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "facilities": [
+      "Free High-Speed WiFi",
+      "Restaurant & Bar",
+      "Mountain View Balcony",
+      "Airport Shuttle",
+      "24/7 Room Service"
+    ],
+    "rooms": [
+      {
+        "roomNumber": "101",
+        "roomType": "single",
+        "pricePerNight": "7085",
+        "capacity": 3,
+        "description": "Comfortable deluxe room with air conditioning, private bathroom, and scenic views.",
+        "status": "available"
+      },
+      {
+        "roomNumber": "201",
+        "roomType": "suite",
+        "pricePerNight": "17919",
+        "capacity": 3,
+        "description": "Spacious premium executive suite with private balcony, mini-fridge, and panoramic mountain backdrop.",
+        "status": "available"
+      }
+    ]
+  }
+]
