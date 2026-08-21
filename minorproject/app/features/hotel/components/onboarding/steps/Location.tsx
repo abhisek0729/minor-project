@@ -3,6 +3,7 @@
 import { MapPin, MapPinned, Navigation } from "lucide-react";
 import { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
+import LocationMapPicker from "@/components/maps/LocationMapPicker";
 
 import { HotelSchema } from "../../../schemas/hotel.schema";
 import { provinces } from "../../../data/nepal-location";
@@ -262,34 +263,21 @@ export default function LocationStep({
             </div>
           </FieldGroup>
 
-          {/* Map Section */}
-
-          <div className="rounded-2xl border border-dashed bg-muted/20 p-10">
-            <div className="mx-auto max-w-md text-center">
-              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                <MapPinned className="size-8" />
-              </div>
-
-              <h3 className="text-lg font-semibold">
-                Pin Your Hotel Location
-              </h3>
-
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                In the next version you'll be able to drag a marker
-                on the map to set the exact location of your hotel.
-                This improves search accuracy and navigation.
-              </p>
-
-              <Button
-                variant="secondary"
-                disabled
-                className="mt-6"
-              >
-                <Navigation className="mr-2 size-4" />
-                Map Picker Coming Soon
-              </Button>
-            </div>
-          </div>
+          {/* Interactive Map Location Picker */}
+          <LocationMapPicker
+            latitude={watch("latitude") || null}
+            longitude={watch("longitude") || null}
+            address={`${watch("street") || ""}, ${watch("municipality") || ""}, ${watch("district") || ""}`}
+            label="Pin Exact Hotel Location"
+            description="Use GPS or select a tourism hub to pin your hotel coordinates on Google Maps."
+            onChange={({ latitude, longitude, address: newAddr }) => {
+              setValue("latitude", latitude);
+              setValue("longitude", longitude);
+              if (newAddr && !watch("street")) {
+                setValue("street", newAddr);
+              }
+            }}
+          />
 
           {/* Footer */}
 

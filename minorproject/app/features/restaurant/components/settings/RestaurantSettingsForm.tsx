@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import ImageUpload from "@/components/ui/image-upload";
+import LocationMapPicker from "@/components/maps/LocationMapPicker";
 import { updateRestaurantProfile } from "../../actions/restaurant.action";
 
 interface RestaurantSettingsFormProps {
@@ -115,6 +116,20 @@ export default function RestaurantSettingsForm({
                 required
               />
             </Field>
+          </div>
+
+          {/* Interactive Live Map Picker */}
+          <div className="pt-2">
+            <LocationMapPicker
+              address={location}
+              label="Pin Restaurant on Live Map"
+              description="Use GPS or select a tourism hub to pin your restaurant on Google Maps for diners."
+              onChange={({ address: newAddr }) => {
+                if (newAddr) {
+                  setLocation(newAddr);
+                }
+              }}
+            />
           </div>
 
           <Field>

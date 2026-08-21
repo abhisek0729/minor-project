@@ -19,6 +19,8 @@ import {
   Users,
   Utensils,
   Wifi,
+  Navigation,
+  ExternalLink,
 } from "lucide-react";
 
 import Navbar from "@/app/features/landing/components/Navbar";
@@ -257,16 +259,59 @@ export default async function HotelDetailPage({ params }: HotelDetailPageProps) 
                     </span>
                   </div>
 
-                  <HotelBookingModal
-                    hotelId={hotel.id}
-                    hotelName={hotel.name}
-                    roomId={room.id}
-                    roomType={room.type}
-                    pricePerNight={room.price}
-                  />
-                </div>
-              </Card>
-            ))}
+                    <HotelBookingModal
+                      hotelId={hotel.id}
+                      hotelName={hotel.name}
+                      roomId={room.id}
+                      roomType={room.type}
+                      pricePerNight={room.price}
+                    />
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+        {/* Interactive Location & Navigation Map */}
+        <section className="rounded-3xl border bg-card p-6 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4">
+            <div>
+              <h3 className="text-lg font-bold flex items-center gap-2">
+                <MapPin className="size-5 text-primary" />
+                Hotel Location & Navigation
+              </h3>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {hotel.street}, {hotel.municipality || hotel.district}, {hotel.province}, Nepal
+              </p>
+            </div>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                hotel.latitude && hotel.longitude
+                  ? `${hotel.latitude},${hotel.longitude}`
+                  : `${hotel.name}, ${hotel.district}, Nepal`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold shadow-xs hover:opacity-90 transition-all shrink-0"
+            >
+              <Navigation className="size-3.5" />
+              <span>Get Driving Directions</span>
+              <ExternalLink className="size-3 ml-0.5" />
+            </a>
+          </div>
+
+          <div className="relative w-full h-72 rounded-2xl overflow-hidden border shadow-inner bg-muted/40">
+            <iframe
+              title={`Map for ${hotel.name}`}
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                hotel.latitude && hotel.longitude
+                  ? `${hotel.latitude},${hotel.longitude}`
+                  : `${hotel.name}, ${hotel.district}, Nepal`
+              )}&z=15&output=embed`}
+              className="w-full h-full border-0"
+              loading="lazy"
+              allowFullScreen
+            />
           </div>
         </section>
       </main>

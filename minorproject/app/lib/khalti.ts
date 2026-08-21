@@ -55,29 +55,11 @@ export interface KhaltiVerifyResponse {
 }
 
 /**
- * Initiates payment via PayBridge SDK with direct Khalti API fallback
+ * Initiates payment directly via Khalti ePayment v2 API
  */
 export async function initiateKhaltiPayment(
   params: KhaltiInitiateParams
 ): Promise<KhaltiInitiateResponse> {
-  // Try Paybridge SDK first
-  try {
-    const res = await khaltiClient.initiate({
-      return_url: params.return_url,
-      website_url: params.website_url,
-      amount: params.amount, // in paisa
-      purchase_order_id: params.purchase_order_id,
-      purchase_order_name: params.purchase_order_name,
-    });
-
-    if (res && res.pidx && res.payment_url) {
-      return res as KhaltiInitiateResponse;
-    }
-  } catch (sdkErr) {
-    console.warn("Paybridge SDK initiate error, attempting direct Khalti API:", sdkErr);
-  }
-
-  // Direct Khalti ePayment v2 API fallback
   const response = await fetch("https://a.khalti.com/api/v2/epayment/initiate/", {
     method: "POST",
     headers: {
@@ -87,13 +69,13 @@ export async function initiateKhaltiPayment(
     body: JSON.stringify({
       return_url: params.return_url,
       website_url: params.website_url,
-      amount: params.amount, // paisa
+      amount: params.amount, // in paisa
       purchase_order_id: params.purchase_order_id,
       purchase_order_name: params.purchase_order_name,
       customer_info: params.customer_info || {
         name: "Traveler",
         email: "traveler@travelnepal.com",
-        phone: "9800000000",
+        phone: "9800000001",
       },
     }),
   });
@@ -113,22 +95,11 @@ export async function initiateKhaltiPayment(
 }
 
 /**
- * Verifies payment via PayBridge SDK with direct Khalti Lookup API fallback
+ * Verifies payment directly via Khalti ePayment v2 Lookup API
  */
 export async function verifyKhaltiPayment(
   pidx: string
 ): Promise<KhaltiVerifyResponse> {
-  // Try Paybridge SDK first
-  try {
-    const res = await khaltiClient.verify({ pidx });
-    if (res && res.status) {
-      return res as KhaltiVerifyResponse;
-    }
-  } catch (sdkErr) {
-    console.warn("Paybridge SDK verify error, attempting direct Khalti Lookup API:", sdkErr);
-  }
-
-  // Direct Khalti ePayment v2 Lookup API fallback
   const response = await fetch("https://a.khalti.com/api/v2/epayment/lookup/", {
     method: "POST",
     headers: {

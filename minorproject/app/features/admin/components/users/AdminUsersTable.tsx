@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { BadgeCheck, Loader2, Search, Shield, Trash2, User, X, XCircle } from "lucide-react";
 import { toast } from "sonner";

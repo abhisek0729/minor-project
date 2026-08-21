@@ -23,6 +23,12 @@ export default async function MainDashboardPage() {
   const userId = Number(session.user.id);
 
   const roles = session.user.roles ?? [];
+  const isAdmin = roles.some((r) => r.name === "admin" && r.approvalStatus === "approved");
+
+  if (isAdmin) {
+    redirect("/dashboard/admin");
+  }
+
   const hasRestaurant = roles.some((r) => r.name === "restaurantOwner");
   const hasHotel = roles.some((r) => r.name === "hotelOwner");
   const hasGuide = roles.some((r) => r.name === "guide");

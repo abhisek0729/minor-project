@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Image from "next/image";
 import { toast } from "sonner";
-import { Loader2, Save, ShieldCheck } from "lucide-react";
+import { Camera, Loader2, Save, ShieldCheck } from "lucide-react";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Field, FieldLabel } from "@/components/ui/field";
+import ImageUpload from "@/components/ui/image-upload";
 import { updateGuideProfile } from "../../actions/guide.action";
 
 interface GuideProfileFormProps {
@@ -29,6 +32,10 @@ export default function GuideProfileForm({ initialGuide }: GuideProfileFormProps
     isAvailable: initialGuide?.isAvailable ?? true,
   });
 
+  const [guideImageUrl, setGuideImageUrl] = useState(
+    initialGuide?.guideImageUrl || ""
+  );
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -40,7 +47,7 @@ export default function GuideProfileForm({ initialGuide }: GuideProfileFormProps
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     startTransition(async () => {
-      const res = await updateGuideProfile(formData);
+      const res = await updateGuideProfile({ ...formData, guideImageUrl });
       if (res.success) {
         toast.success(res.message);
       } else {
@@ -51,6 +58,52 @@ export default function GuideProfileForm({ initialGuide }: GuideProfileFormProps
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Profile Photo Card */}
+      <Card className="border shadow-xs">
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Camera className="size-5 text-primary" /> Profile Photo
+          </CardTitle>
+          <CardDescription>
+            Upload a professional photo. This is shown to travelers on your public guide listing.
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="space-y-3">
+          <ImageUpload
+            value={guideImageUrl ? [guideImageUrl] : []}
+            onChange={(urls) => setGuideImageUrl(urls[0] || "")}
+            onRemove={() => setGuideImageUrl("")}
+            folder="tourism/guides"
+            maxFiles={1}
+          />
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground">or Image URL:</span>
+            <Input
+              type="url"
+              placeholder="https://..."
+              value={guideImageUrl}
+              onChange={(e) => setGuideImageUrl(e.target.value)}
+              className="text-xs h-8"
+            />
+          </div>
+
+          {guideImageUrl && (
+            <div className="relative h-40 w-40 rounded-2xl overflow-hidden border shadow-sm">
+              <Image
+                src={guideImageUrl}
+                alt="Guide profile preview"
+                fill
+                className="object-cover"
+                unoptimized
+              />
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Personal & Business Details */}
       <Card className="border shadow-xs">
         <CardHeader>
           <CardTitle className="text-lg">Personal & Business Details</CardTitle>

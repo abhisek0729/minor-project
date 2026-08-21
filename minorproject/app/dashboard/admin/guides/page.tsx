@@ -10,9 +10,9 @@ export default async function AdminGuidesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Guide Partner Management</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Tour Guides Directory</h1>
         <p className="text-sm text-muted-foreground mt-0.5">
-          Verify licenses, view rates and languages, and control approval statuses for tour guides.
+          View registered tour guides, inspect profiles, daily rates, languages, and manage workspaces.
         </p>
       </div>
 

@@ -156,6 +156,9 @@ export async function getPendingApprovals() {
         businessLocation: restaurantsTable.location,
         businessPhone: restaurantsTable.phoneNumber,
         cuisine: restaurantsTable.cuisine,
+        openingTime: restaurantsTable.openingTime,
+        closingTime: restaurantsTable.closingTime,
+        establishedDate: restaurantsTable.establishedDate,
       })
       .from(userRolesTable)
       .innerJoin(rolesTable, eq(userRolesTable.roleId, rolesTable.id))
@@ -182,8 +185,15 @@ export async function getPendingApprovals() {
         businessName: hotelsTable.name,
         businessDescription: hotelsTable.description,
         businessImage: hotelsTable.coverImageUrl,
-        businessLocation: sql<string>`concat(${hotelsTable.street}, ', ', ${hotelsTable.district}, ', ', ${hotelsTable.province})`,
+        businessLocation: sql<string>`concat(${hotelsTable.street}, ', ', ${hotelsTable.municipality}, ' Ward ', ${hotelsTable.ward}, ', ', ${hotelsTable.district}, ', ', ${hotelsTable.province})`,
         businessPhone: hotelsTable.phoneNumber,
+        website: hotelsTable.website,
+        establishedYear: hotelsTable.establishedYear,
+        street: hotelsTable.street,
+        municipality: hotelsTable.municipality,
+        ward: hotelsTable.ward,
+        district: hotelsTable.district,
+        province: hotelsTable.province,
       })
       .from(userRolesTable)
       .innerJoin(rolesTable, eq(userRolesTable.roleId, rolesTable.id))
@@ -215,6 +225,7 @@ export async function getPendingApprovals() {
         dailyRate: guidesTable.dailyRate,
         languages: guidesTable.languages,
         experienceYears: guidesTable.experienceYears,
+        licenseNumber: guidesTable.licenseNumber,
       })
       .from(userRolesTable)
       .innerJoin(rolesTable, eq(userRolesTable.roleId, rolesTable.id))

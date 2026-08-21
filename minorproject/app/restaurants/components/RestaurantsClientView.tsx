@@ -5,11 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   Clock,
-  ExternalLink,
   MapPin,
   Phone,
   Search,
-  Store,
   Utensils,
   UtensilsCrossed,
 } from "lucide-react";
@@ -133,7 +131,7 @@ export default function RestaurantsClientView({
           </div>
         ) : (
           <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredRestaurants.map((restaurant, idx) => (
+            {filteredRestaurants.map((restaurant) => (
               <Link
                 key={restaurant.id}
                 href={`/restaurants/${restaurant.id}`}
