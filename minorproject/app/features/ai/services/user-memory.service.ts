@@ -72,10 +72,24 @@ export async function getUserMemoryProfile(
     // 2. Aggregate Recent Destinations
     const destinationsSet = new Set<string>();
     for (const b of bookings) {
-      if (b.itemName) destinationsSet.add(b.itemName);
+      if (
+        b.itemName &&
+        !b.itemName.toLowerCase().includes("guiding") &&
+        !b.itemName.toLowerCase().includes("guide") &&
+        !b.itemName.toLowerCase().includes("service with") &&
+        !b.itemName.toLowerCase().includes("deluxe room")
+      ) {
+        destinationsSet.add(b.itemName);
+      }
     }
     for (const e of expenses) {
-      if (e.location && e.location !== "Nepal") destinationsSet.add(e.location);
+      if (
+        e.location &&
+        e.location !== "Nepal" &&
+        !e.location.toLowerCase().includes("guiding")
+      ) {
+        destinationsSet.add(e.location);
+      }
     }
 
     // 3. Aggregate Expenses & Spending Tier
