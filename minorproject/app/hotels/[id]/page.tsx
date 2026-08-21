@@ -9,9 +9,11 @@ import {
   CheckCircle2,
   Clock,
   Coffee,
+  ExternalLink,
   Hotel,
   MapPin,
   Mountain,
+  Navigation,
   Phone,
   ShieldCheck,
   Sparkles,
@@ -19,14 +21,12 @@ import {
   Users,
   Utensils,
   Wifi,
-  Navigation,
-  ExternalLink,
 } from "lucide-react";
 
 import Navbar from "@/app/features/landing/components/Navbar";
 import Footer from "@/app/features/landing/components/Footer";
 import { db } from "@/app/lib/db";
-import { hotelsTable, roomsTable, roomImagesTable, roomFacilitiesTable, facilitiesTable } from "@/app/lib/db/schema";
+import { hotelsTable, roomsTable } from "@/app/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -108,15 +108,28 @@ export default async function HotelDetailPage({ params }: HotelDetailPageProps) 
         ...dbHotel,
         rating: 4.9,
         coverImage: dbHotel.coverImageUrl || hotel.coverImage,
-        rooms: dbRooms.length > 0 ? dbRooms.map(r => ({
-          id: r.id,
-          roomNumber: r.roomNumber,
-          type: r.type,
-          price: Number(r.pricePerNight),
-          capacity: r.capacity || 2,
-          description: r.description || "Comfortable guest room with modern amenities.",
-        })) : hotel.rooms,
-        facilities: hotel.facilities,
+        rooms: dbRooms.length > 0 ? dbRooms.map(r => {
+          const rawType = (r.roomType || (r as any).type || "Deluxe Room").toLowerCase();
+          const displayType = rawType.includes("suite")
+            ? "Executive Luxury Suite"
+            : rawType.includes("family")
+            ? "Family Mountain Room"
+            : rawType.includes("twin")
+            ? "Twin Deluxe Room"
+            : rawType.includes("single")
+            ? "Cozy Single Room"
+            : "Deluxe Mountain View Room";
+
+          return {
+            id: r.id,
+            roomNumber: r.roomNumber,
+            type: displayType,
+            price: Number(r.pricePerNight),
+            capacity: r.capacity || 2,
+            description: r.description || "Comfortable guest room with modern amenities, clean linen, and mountain views.",
+          };
+        }) : hotel.rooms,
+        facilities: hotel.facilities || ["Free High-Speed WiFi", "Mountain View Balcony", "Restaurant & Bar", "24/7 Room Service", "Airport Shuttle"],
       };
     }
   } catch (error) {
@@ -178,7 +191,7 @@ export default async function HotelDetailPage({ params }: HotelDetailPageProps) 
               <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-white/90">
                 <div className="flex items-center gap-1.5">
                   <MapPin className="size-4 text-primary shrink-0" />
-                  <span>{hotel.street || hotel.district}</span>
+                  <span>{hotel.street || hotel.district}, {hotel.district}, {hotel.province || "Nepal"}</span>
                 </div>
                 {hotel.phoneNumber && (
                   <div className="flex items-center gap-1.5">
@@ -189,52 +202,34 @@ export default async function HotelDetailPage({ params }: HotelDetailPageProps) 
               </div>
             </div>
           </div>
-
-          {/* Description & Amenities Preview */}
-          <div className="p-6 border-t bg-card grid gap-6 md:grid-cols-3">
-            <div className="md:col-span-2 space-y-2">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                About the Property
-              </h3>
-              <p className="text-sm text-foreground/90 leading-relaxed">
-                {hotel.description}
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                Key Amenities
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
-                {(hotel.facilities || ["WiFi", "Mountain View", "Restaurant"]).map((f: string) => (
-                  <Badge key={f} variant="outline" className="text-[11px] py-1 px-2">
-                    {f}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* Room Inventory & Direct Booking */}
-        <section className="space-y-4">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-              <BedDouble className="size-6 text-primary" /> Available Room Categories
-            </h2>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              Select your room type and reserve instantly with instant booking confirmation.
-            </p>
+        {/* ⭐ PRIMARY CORE OFFERING: ROOM INVENTORY & DIRECT BOOKING (FIRST VIEW) */}
+        <section className="space-y-4 pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-3">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+                <BedDouble className="size-6 text-primary" /> Available Room Inventory & Suites
+              </h2>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Select your room type and reserve instantly with instant booking confirmation.
+              </p>
+            </div>
+            <span className="text-xs font-semibold px-3 py-1 bg-primary/10 text-primary rounded-full w-fit">
+              {hotel.rooms.length} Room Categories Available
+            </span>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
             {hotel.rooms.map((room: any) => (
-              <Card key={room.id} className="p-6 border hover:border-primary/50 transition-all shadow-xs flex flex-col justify-between">
+              <Card key={room.id} className="p-6 border hover:border-primary/50 transition-all shadow-xs flex flex-col justify-between bg-card">
                 <div className="space-y-3">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <h3 className="font-bold text-lg text-foreground">{room.type}</h3>
-                      <p className="text-xs text-muted-foreground mt-0.5">Room #{room.roomNumber}</p>
+                      <h3 className="font-bold text-lg text-foreground flex items-center gap-2">
+                        {room.type}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-0.5 font-mono">Room Unit #{room.roomNumber}</p>
                     </div>
                     <Badge variant="secondary" className="text-xs font-semibold">
                       Up to {room.capacity} Guests
@@ -259,18 +254,47 @@ export default async function HotelDetailPage({ params }: HotelDetailPageProps) 
                     </span>
                   </div>
 
-                    <HotelBookingModal
-                      hotelId={hotel.id}
-                      hotelName={hotel.name}
-                      roomId={room.id}
-                      roomType={room.type}
-                      pricePerNight={room.price}
-                    />
-                  </div>
-                </Card>
-              ))}
+                  <HotelBookingModal
+                    hotelId={hotel.id}
+                    hotelName={hotel.name}
+                    roomId={room.id}
+                    roomType={room.type}
+                    pricePerNight={room.price}
+                  />
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Description & Key Amenities */}
+        <section className="rounded-3xl border bg-card p-6 shadow-sm space-y-4">
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="md:col-span-2 space-y-2">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                <Hotel className="size-4 text-primary" />
+                About the Hotel Property
+              </h3>
+              <p className="text-sm text-foreground/90 leading-relaxed">
+                {hotel.description}
+              </p>
             </div>
-          </section>
+
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                <Sparkles className="size-4 text-primary" />
+                Key Amenities & Services
+              </h3>
+              <div className="flex flex-wrap gap-1.5">
+                {(hotel.facilities || ["Free High-Speed WiFi", "Mountain View Balcony", "Restaurant & Bar", "24/7 Room Service", "Airport Shuttle"]).map((f: string) => (
+                  <Badge key={f} variant="outline" className="text-[11px] py-1 px-2">
+                    {f}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Interactive Location & Navigation Map */}
         <section className="rounded-3xl border bg-card p-6 shadow-sm space-y-4">
@@ -281,7 +305,7 @@ export default async function HotelDetailPage({ params }: HotelDetailPageProps) 
                 Hotel Location & Navigation
               </h3>
               <p className="text-xs text-muted-foreground mt-0.5">
-                {hotel.street}, {hotel.municipality || hotel.district}, {hotel.province}, Nepal
+                {hotel.street || hotel.district}, {hotel.district}, {hotel.province || "Nepal"}
               </p>
             </div>
             <a

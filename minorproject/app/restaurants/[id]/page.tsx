@@ -148,34 +148,38 @@ export default async function RestaurantDetailPage({
               </div>
             </div>
           </div>
-
-          {/* About Section */}
-          <div className="p-6 border-t bg-card/60">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-1">
-              About the Restaurant
-            </h3>
-            <p className="text-sm text-foreground/90 leading-relaxed">
-              {restaurant.description}
-            </p>
-          </div>
         </div>
 
-        {/* Menu Section */}
-        <section className="space-y-6 pt-4">
+        {/* ⭐ PRIMARY PRODUCT: FOOD & DRINKS MENU (FIRST VIEW) */}
+        <section className="space-y-6 pt-2">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-4">
             <div>
               <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2.5">
                 <UtensilsCrossed className="size-6 text-primary" />
-                Food & Drinks Menu
+                Food & Drinks Menu Catalog
               </h2>
               <p className="text-xs text-muted-foreground mt-0.5">
                 Freshly prepared local and international culinary offerings ({menuItems.length} items available).
               </p>
             </div>
+            <span className="text-xs font-semibold px-3 py-1 bg-primary/10 text-primary rounded-full w-fit">
+              {menuItems.length} Signature Dishes
+            </span>
           </div>
 
           {/* Public Menu Items Component */}
           <PublicRestaurantMenu items={menuItems} />
+        </section>
+
+        {/* About Restaurant */}
+        <section className="rounded-3xl border bg-card p-6 shadow-sm space-y-2">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+            <Utensils className="size-4 text-primary" />
+            About the Restaurant & Ambiance
+          </h3>
+          <p className="text-sm text-foreground/90 leading-relaxed">
+            {restaurant.description}
+          </p>
         </section>
 
         {/* Interactive Location & Navigation Map */}

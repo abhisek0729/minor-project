@@ -128,23 +128,12 @@ export default function DestinationDetailPage({ params }: DestinationDetailPageP
         <section className="grid gap-6 md:grid-cols-3">
           {/* Main Info Column */}
           <div className="md:col-span-2 space-y-8">
-            {/* Overview & Culture */}
-            <Card className="rounded-3xl border shadow-xs bg-card p-6 sm:p-8 space-y-4">
-              <div className="flex items-center gap-2">
-                <Compass className="size-5 text-primary" />
-                <h2 className="text-xl font-bold tracking-tight">History, Heritage & Culture</h2>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {destination.historyAndCulture || destination.shortDescription}
-              </p>
-            </Card>
-
-            {/* Key Highlights */}
+            {/* ⭐ PRIMARY PRODUCT: Key Highlights & Experiences First */}
             {destination.highlights && destination.highlights.length > 0 && (
               <Card className="rounded-3xl border shadow-xs bg-card p-6 sm:p-8 space-y-4">
                 <div className="flex items-center gap-2">
                   <Sparkles className="size-5 text-amber-500" />
-                  <h2 className="text-xl font-bold tracking-tight">Key Highlights & Experiences</h2>
+                  <h2 className="text-xl font-bold tracking-tight">Key Highlights & Travel Experiences</h2>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {destination.highlights.map((highlight, index) => (
@@ -162,10 +151,13 @@ export default function DestinationDetailPage({ params }: DestinationDetailPageP
               </Card>
             )}
 
-            {/* Activities */}
+            {/* Popular Activities & Adventure Tours */}
             {destination.activities && destination.activities.length > 0 && (
               <Card className="rounded-3xl border shadow-xs bg-card p-6 sm:p-8 space-y-4">
-                <h2 className="text-xl font-bold tracking-tight">Popular Activities & Tours</h2>
+                <div className="flex items-center gap-2">
+                  <Compass className="size-5 text-primary" />
+                  <h2 className="text-xl font-bold tracking-tight">Popular Activities & Adventures</h2>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {destination.activities.map((act) => (
                     <Badge key={act} variant="secondary" className="px-3 py-1.5 text-xs font-semibold rounded-xl">
@@ -175,6 +167,17 @@ export default function DestinationDetailPage({ params }: DestinationDetailPageP
                 </div>
               </Card>
             )}
+
+            {/* History, Heritage & Culture */}
+            <Card className="rounded-3xl border shadow-xs bg-card p-6 sm:p-8 space-y-4">
+              <div className="flex items-center gap-2">
+                <Info className="size-5 text-primary" />
+                <h2 className="text-xl font-bold tracking-tight">History, Heritage & Culture</h2>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {destination.historyAndCulture || destination.shortDescription}
+              </p>
+            </Card>
           </div>
 
           {/* Sidebar Column: Plan & Map */}

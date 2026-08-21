@@ -1,0 +1,3902 @@
+[
+  {
+    "name": "Pasang Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 15 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Dhanusha / Kathmandu",
+    "phoneNumber": "+977-9840850184",
+    "guideImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "experienceYears": 11,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 2938,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2021-5553",
+    "packages": [
+      {
+        "title": "Annapurna Circuit & Thorong La (6 Days)",
+        "destination": "Annapurna Circuit & Thorong La",
+        "durationDays": 11,
+        "price": 61899,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Annapurna Circuit & Thorong La featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Nima Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 11 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Bara / Kathmandu",
+    "phoneNumber": "+977-9858471387",
+    "guideImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "experienceYears": 4,
+    "languages": "Nepali, English, French",
+    "dailyRate": 5450,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-1906",
+    "packages": [
+      {
+        "title": "Everest Base Camp & Kala Patthar (10 Days)",
+        "destination": "Everest Base Camp & Kala Patthar",
+        "durationDays": 11,
+        "price": 33753,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Everest Base Camp & Kala Patthar featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Lakpa Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 5 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Darchula / Kathmandu",
+    "phoneNumber": "+977-9869387158",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "experienceYears": 4,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 4560,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2013-8476",
+    "packages": [
+      {
+        "title": "Langtang Valley & Kyanjin Gompa (12 Days)",
+        "destination": "Langtang Valley & Kyanjin Gompa",
+        "durationDays": 5,
+        "price": 54340,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Langtang Valley & Kyanjin Gompa featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dawa Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 9 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Manang / Kathmandu",
+    "phoneNumber": "+977-9845003884",
+    "guideImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 2654,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2015-8051",
+    "packages": [
+      {
+        "title": "Manaslu Larke Pass Trek (13 Days)",
+        "destination": "Manaslu Larke Pass Trek",
+        "durationDays": 13,
+        "price": 60091,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Manaslu Larke Pass Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Karma Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 15 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Chitwan / Kathmandu",
+    "phoneNumber": "+977-9841388040",
+    "guideImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "experienceYears": 14,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 5307,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2016-5916",
+    "packages": [
+      {
+        "title": "Mardi Himal Ridge Trail (7 Days)",
+        "destination": "Mardi Himal Ridge Trail",
+        "durationDays": 8,
+        "price": 52850,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Mardi Himal Ridge Trail featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Pemba Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 4 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Baitadi / Kathmandu",
+    "phoneNumber": "+977-9851975712",
+    "guideImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "experienceYears": 14,
+    "languages": "Nepali, English, German",
+    "dailyRate": 3017,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2021-2371",
+    "packages": [
+      {
+        "title": "Ghorepani Poon Hill Panorama (14 Days)",
+        "destination": "Ghorepani Poon Hill Panorama",
+        "durationDays": 9,
+        "price": 71429,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Ghorepani Poon Hill Panorama featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Tenzing Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 16 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Arghakhanchi / Kathmandu",
+    "phoneNumber": "+977-9841890979",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "experienceYears": 16,
+    "languages": "Nepali, English, Hindi",
+    "dailyRate": 3116,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-8184",
+    "packages": [
+      {
+        "title": "Upper Mustang Lo Manthang Circuit (11 Days)",
+        "destination": "Upper Mustang Lo Manthang Circuit",
+        "durationDays": 10,
+        "price": 70657,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Upper Mustang Lo Manthang Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Mingma Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Taplejung / Kathmandu",
+    "phoneNumber": "+977-9846327393",
+    "guideImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "experienceYears": 10,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 4320,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-5847",
+    "packages": [
+      {
+        "title": "Rara Lake Wilderness Expedition (14 Days)",
+        "destination": "Rara Lake Wilderness Expedition",
+        "durationDays": 9,
+        "price": 31342,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Rara Lake Wilderness Expedition featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Ang Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 4 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Parsa / Kathmandu",
+    "phoneNumber": "+977-9867859188",
+    "guideImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "experienceYears": 9,
+    "languages": "Nepali, English, Hindi",
+    "dailyRate": 2959,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2017-9315",
+    "packages": [
+      {
+        "title": "Kanchenjunga Circuit (8 Days)",
+        "destination": "Kanchenjunga Circuit",
+        "durationDays": 9,
+        "price": 48045,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Kanchenjunga Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dorje Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 9 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Dadeldhura / Kathmandu",
+    "phoneNumber": "+977-9855925361",
+    "guideImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "experienceYears": 11,
+    "languages": "Nepali, English, French",
+    "dailyRate": 2605,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2016-1753",
+    "packages": [
+      {
+        "title": "Gosaikunda Sacred Lakes Trek (6 Days)",
+        "destination": "Gosaikunda Sacred Lakes Trek",
+        "durationDays": 6,
+        "price": 70525,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Gosaikunda Sacred Lakes Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Ram Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 15 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Achham / Kathmandu",
+    "phoneNumber": "+977-9868982068",
+    "guideImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "experienceYears": 14,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 3757,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-8896",
+    "packages": [
+      {
+        "title": "Shey Phoksundo Dolpo Trek (8 Days)",
+        "destination": "Shey Phoksundo Dolpo Trek",
+        "durationDays": 8,
+        "price": 32357,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Shey Phoksundo Dolpo Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Hari Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Dang / Kathmandu",
+    "phoneNumber": "+977-9843890711",
+    "guideImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "experienceYears": 18,
+    "languages": "Nepali, English, German",
+    "dailyRate": 4632,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2022-3541",
+    "packages": [
+      {
+        "title": "Khumai Danda Machhapuchhre View (9 Days)",
+        "destination": "Khumai Danda Machhapuchhre View",
+        "durationDays": 11,
+        "price": 25912,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Khumai Danda Machhapuchhre View featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Shyam Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 7 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Makwanpur / Kathmandu",
+    "phoneNumber": "+977-9867526511",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, German",
+    "dailyRate": 2740,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2021-8499",
+    "packages": [
+      {
+        "title": "Annapurna Circuit & Thorong La (11 Days)",
+        "destination": "Annapurna Circuit & Thorong La",
+        "durationDays": 12,
+        "price": 30381,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Annapurna Circuit & Thorong La featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Krishna Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Surkhet / Kathmandu",
+    "phoneNumber": "+977-9866039864",
+    "guideImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "experienceYears": 15,
+    "languages": "Nepali, English, French",
+    "dailyRate": 3443,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2019-1423",
+    "packages": [
+      {
+        "title": "Everest Base Camp & Kala Patthar (11 Days)",
+        "destination": "Everest Base Camp & Kala Patthar",
+        "durationDays": 5,
+        "price": 64428,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Everest Base Camp & Kala Patthar featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Bibek Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 10 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Sarlahi / Kathmandu",
+    "phoneNumber": "+977-9852997977",
+    "guideImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "experienceYears": 16,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 3151,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2021-6440",
+    "packages": [
+      {
+        "title": "Langtang Valley & Kyanjin Gompa (6 Days)",
+        "destination": "Langtang Valley & Kyanjin Gompa",
+        "durationDays": 13,
+        "price": 38557,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Langtang Valley & Kyanjin Gompa featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Suman Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 14 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Gorkha / Kathmandu",
+    "phoneNumber": "+977-9848425192",
+    "guideImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "experienceYears": 18,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 3368,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-4039",
+    "packages": [
+      {
+        "title": "Manaslu Larke Pass Trek (9 Days)",
+        "destination": "Manaslu Larke Pass Trek",
+        "durationDays": 8,
+        "price": 45125,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Manaslu Larke Pass Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Manoj Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 4 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kaski / Kathmandu",
+    "phoneNumber": "+977-9858831605",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "experienceYears": 18,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 4666,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-3630",
+    "packages": [
+      {
+        "title": "Mardi Himal Ridge Trail (14 Days)",
+        "destination": "Mardi Himal Ridge Trail",
+        "durationDays": 10,
+        "price": 82557,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Mardi Himal Ridge Trail featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dipendra Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 18 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Sindhupalchok / Kathmandu",
+    "phoneNumber": "+977-9863359554",
+    "guideImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "experienceYears": 3,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 3010,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-3689",
+    "packages": [
+      {
+        "title": "Ghorepani Poon Hill Panorama (12 Days)",
+        "destination": "Ghorepani Poon Hill Panorama",
+        "durationDays": 10,
+        "price": 62493,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Ghorepani Poon Hill Panorama featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Bikram Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 12 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Saptari / Kathmandu",
+    "phoneNumber": "+977-9849934249",
+    "guideImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 3840,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2015-3500",
+    "packages": [
+      {
+        "title": "Upper Mustang Lo Manthang Circuit (10 Days)",
+        "destination": "Upper Mustang Lo Manthang Circuit",
+        "durationDays": 14,
+        "price": 59721,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Upper Mustang Lo Manthang Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Gautam Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 5 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Sarlahi / Kathmandu",
+    "phoneNumber": "+977-9868503632",
+    "guideImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, French",
+    "dailyRate": 5278,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2023-9486",
+    "packages": [
+      {
+        "title": "Rara Lake Wilderness Expedition (7 Days)",
+        "destination": "Rara Lake Wilderness Expedition",
+        "durationDays": 13,
+        "price": 68186,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Rara Lake Wilderness Expedition featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Sunita Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 7 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Mahottari / Kathmandu",
+    "phoneNumber": "+977-9858048306",
+    "guideImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "experienceYears": 11,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 3456,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2016-7145",
+    "packages": [
+      {
+        "title": "Kanchenjunga Circuit (7 Days)",
+        "destination": "Kanchenjunga Circuit",
+        "durationDays": 10,
+        "price": 58277,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Kanchenjunga Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Sita Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 6 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Darchula / Kathmandu",
+    "phoneNumber": "+977-9851464706",
+    "guideImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "experienceYears": 9,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 3681,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2017-8584",
+    "packages": [
+      {
+        "title": "Gosaikunda Sacred Lakes Trek (14 Days)",
+        "destination": "Gosaikunda Sacred Lakes Trek",
+        "durationDays": 13,
+        "price": 46503,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Gosaikunda Sacred Lakes Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Puja Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 12 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Parbat / Kathmandu",
+    "phoneNumber": "+977-9843177002",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "experienceYears": 16,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 4739,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2018-3004",
+    "packages": [
+      {
+        "title": "Shey Phoksundo Dolpo Trek (9 Days)",
+        "destination": "Shey Phoksundo Dolpo Trek",
+        "durationDays": 11,
+        "price": 29780,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Shey Phoksundo Dolpo Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Rasmita Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 13 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kavrepalanchok / Kathmandu",
+    "phoneNumber": "+977-9843674014",
+    "guideImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 2988,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2015-1548",
+    "packages": [
+      {
+        "title": "Khumai Danda Machhapuchhre View (5 Days)",
+        "destination": "Khumai Danda Machhapuchhre View",
+        "durationDays": 8,
+        "price": 80522,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Khumai Danda Machhapuchhre View featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Anita Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 4 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Achham / Kathmandu",
+    "phoneNumber": "+977-9843998250",
+    "guideImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 3976,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2012-7482",
+    "packages": [
+      {
+        "title": "Annapurna Circuit & Thorong La (14 Days)",
+        "destination": "Annapurna Circuit & Thorong La",
+        "durationDays": 5,
+        "price": 66473,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Annapurna Circuit & Thorong La featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Deepa Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 6 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kanchanpur / Kathmandu",
+    "phoneNumber": "+977-9854209182",
+    "guideImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "experienceYears": 7,
+    "languages": "Nepali, English, German",
+    "dailyRate": 3894,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2021-9026",
+    "packages": [
+      {
+        "title": "Everest Base Camp & Kala Patthar (8 Days)",
+        "destination": "Everest Base Camp & Kala Patthar",
+        "durationDays": 12,
+        "price": 46233,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Everest Base Camp & Kala Patthar featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Kabita Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 17 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Humla / Kathmandu",
+    "phoneNumber": "+977-9844993580",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "experienceYears": 4,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 5410,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2023-3362",
+    "packages": [
+      {
+        "title": "Langtang Valley & Kyanjin Gompa (6 Days)",
+        "destination": "Langtang Valley & Kyanjin Gompa",
+        "durationDays": 10,
+        "price": 45535,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Langtang Valley & Kyanjin Gompa featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Sarita Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 17 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Dhankuta / Kathmandu",
+    "phoneNumber": "+977-9858051616",
+    "guideImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "experienceYears": 5,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 3033,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2023-1104",
+    "packages": [
+      {
+        "title": "Manaslu Larke Pass Trek (5 Days)",
+        "destination": "Manaslu Larke Pass Trek",
+        "durationDays": 5,
+        "price": 64072,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Manaslu Larke Pass Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Manju Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Bardiya / Kathmandu",
+    "phoneNumber": "+977-9854238233",
+    "guideImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "experienceYears": 7,
+    "languages": "Nepali, English, French",
+    "dailyRate": 3885,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2015-5538",
+    "packages": [
+      {
+        "title": "Mardi Himal Ridge Trail (11 Days)",
+        "destination": "Mardi Himal Ridge Trail",
+        "durationDays": 11,
+        "price": 43076,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Mardi Himal Ridge Trail featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Anjali Sherpa",
+    "description": "Certified professional mountain and cultural tour guide with 10 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Chitwan / Kathmandu",
+    "phoneNumber": "+977-9855485867",
+    "guideImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "experienceYears": 12,
+    "languages": "Nepali, English, German",
+    "dailyRate": 2933,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2019-7152",
+    "packages": [
+      {
+        "title": "Ghorepani Poon Hill Panorama (7 Days)",
+        "destination": "Ghorepani Poon Hill Panorama",
+        "durationDays": 6,
+        "price": 78108,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Ghorepani Poon Hill Panorama featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Pasang Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Darchula / Kathmandu",
+    "phoneNumber": "+977-9846736155",
+    "guideImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "experienceYears": 12,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 4457,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2017-1371",
+    "packages": [
+      {
+        "title": "Upper Mustang Lo Manthang Circuit (5 Days)",
+        "destination": "Upper Mustang Lo Manthang Circuit",
+        "durationDays": 11,
+        "price": 70949,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Upper Mustang Lo Manthang Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Nima Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 11 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kanchanpur / Kathmandu",
+    "phoneNumber": "+977-9853268731",
+    "guideImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "experienceYears": 13,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 4136,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-7641",
+    "packages": [
+      {
+        "title": "Rara Lake Wilderness Expedition (9 Days)",
+        "destination": "Rara Lake Wilderness Expedition",
+        "durationDays": 6,
+        "price": 45914,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Rara Lake Wilderness Expedition featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Lakpa Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 10 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Dhanusha / Kathmandu",
+    "phoneNumber": "+977-9867455222",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "experienceYears": 5,
+    "languages": "Nepali, English, German",
+    "dailyRate": 5164,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2023-8139",
+    "packages": [
+      {
+        "title": "Kanchenjunga Circuit (11 Days)",
+        "destination": "Kanchenjunga Circuit",
+        "durationDays": 8,
+        "price": 73547,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Kanchenjunga Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dawa Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 12 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Solukhumbu / Kathmandu",
+    "phoneNumber": "+977-9850177465",
+    "guideImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "experienceYears": 7,
+    "languages": "Nepali, English, German",
+    "dailyRate": 4159,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2018-6674",
+    "packages": [
+      {
+        "title": "Gosaikunda Sacred Lakes Trek (9 Days)",
+        "destination": "Gosaikunda Sacred Lakes Trek",
+        "durationDays": 11,
+        "price": 64744,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Gosaikunda Sacred Lakes Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Karma Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 6 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kavrepalanchok / Kathmandu",
+    "phoneNumber": "+977-9854942937",
+    "guideImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "experienceYears": 9,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 3998,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2019-6441",
+    "packages": [
+      {
+        "title": "Shey Phoksundo Dolpo Trek (9 Days)",
+        "destination": "Shey Phoksundo Dolpo Trek",
+        "durationDays": 11,
+        "price": 77631,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Shey Phoksundo Dolpo Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Pemba Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 7 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Dhanusha / Kathmandu",
+    "phoneNumber": "+977-9857207231",
+    "guideImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "experienceYears": 9,
+    "languages": "Nepali, English, French",
+    "dailyRate": 5123,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2017-9055",
+    "packages": [
+      {
+        "title": "Khumai Danda Machhapuchhre View (5 Days)",
+        "destination": "Khumai Danda Machhapuchhre View",
+        "durationDays": 11,
+        "price": 60352,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Khumai Danda Machhapuchhre View featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Tenzing Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 4 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Taplejung / Kathmandu",
+    "phoneNumber": "+977-9852539085",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "experienceYears": 18,
+    "languages": "Nepali, English, French",
+    "dailyRate": 5349,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-2566",
+    "packages": [
+      {
+        "title": "Annapurna Circuit & Thorong La (7 Days)",
+        "destination": "Annapurna Circuit & Thorong La",
+        "durationDays": 10,
+        "price": 66891,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Annapurna Circuit & Thorong La featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Mingma Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 4 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Siraha / Kathmandu",
+    "phoneNumber": "+977-9851106774",
+    "guideImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "experienceYears": 8,
+    "languages": "Nepali, English, French",
+    "dailyRate": 4569,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-4467",
+    "packages": [
+      {
+        "title": "Everest Base Camp & Kala Patthar (12 Days)",
+        "destination": "Everest Base Camp & Kala Patthar",
+        "durationDays": 7,
+        "price": 65201,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Everest Base Camp & Kala Patthar featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Ang Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 16 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Taplejung / Kathmandu",
+    "phoneNumber": "+977-9840270610",
+    "guideImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "experienceYears": 9,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 4694,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2019-9804",
+    "packages": [
+      {
+        "title": "Langtang Valley & Kyanjin Gompa (13 Days)",
+        "destination": "Langtang Valley & Kyanjin Gompa",
+        "durationDays": 9,
+        "price": 50666,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Langtang Valley & Kyanjin Gompa featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dorje Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Chitwan / Kathmandu",
+    "phoneNumber": "+977-9860457853",
+    "guideImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "experienceYears": 8,
+    "languages": "Nepali, English, French",
+    "dailyRate": 4017,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2023-2430",
+    "packages": [
+      {
+        "title": "Manaslu Larke Pass Trek (9 Days)",
+        "destination": "Manaslu Larke Pass Trek",
+        "durationDays": 11,
+        "price": 71153,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Manaslu Larke Pass Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Ram Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Bhaktapur / Kathmandu",
+    "phoneNumber": "+977-9852299585",
+    "guideImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "experienceYears": 10,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 3100,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-6283",
+    "packages": [
+      {
+        "title": "Mardi Himal Ridge Trail (8 Days)",
+        "destination": "Mardi Himal Ridge Trail",
+        "durationDays": 11,
+        "price": 46270,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Mardi Himal Ridge Trail featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Hari Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 10 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Mugu / Kathmandu",
+    "phoneNumber": "+977-9869958653",
+    "guideImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "experienceYears": 9,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 3428,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2016-6375",
+    "packages": [
+      {
+        "title": "Ghorepani Poon Hill Panorama (7 Days)",
+        "destination": "Ghorepani Poon Hill Panorama",
+        "durationDays": 6,
+        "price": 40075,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Ghorepani Poon Hill Panorama featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Shyam Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 7 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Darchula / Kathmandu",
+    "phoneNumber": "+977-9869919244",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "experienceYears": 16,
+    "languages": "Nepali, English, French",
+    "dailyRate": 3583,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2018-6436",
+    "packages": [
+      {
+        "title": "Upper Mustang Lo Manthang Circuit (12 Days)",
+        "destination": "Upper Mustang Lo Manthang Circuit",
+        "durationDays": 5,
+        "price": 65723,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Upper Mustang Lo Manthang Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Krishna Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 10 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Saptari / Kathmandu",
+    "phoneNumber": "+977-9852110519",
+    "guideImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "experienceYears": 12,
+    "languages": "Nepali, English, German",
+    "dailyRate": 5394,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-1319",
+    "packages": [
+      {
+        "title": "Rara Lake Wilderness Expedition (5 Days)",
+        "destination": "Rara Lake Wilderness Expedition",
+        "durationDays": 5,
+        "price": 38154,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Rara Lake Wilderness Expedition featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Bibek Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 16 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Sarlahi / Kathmandu",
+    "phoneNumber": "+977-9849222740",
+    "guideImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "experienceYears": 3,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 5287,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2022-2230",
+    "packages": [
+      {
+        "title": "Kanchenjunga Circuit (8 Days)",
+        "destination": "Kanchenjunga Circuit",
+        "durationDays": 9,
+        "price": 27460,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Kanchenjunga Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Suman Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 5 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Lalitpur / Kathmandu",
+    "phoneNumber": "+977-9863188165",
+    "guideImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "experienceYears": 9,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 4882,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2022-7148",
+    "packages": [
+      {
+        "title": "Gosaikunda Sacred Lakes Trek (6 Days)",
+        "destination": "Gosaikunda Sacred Lakes Trek",
+        "durationDays": 13,
+        "price": 73975,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Gosaikunda Sacred Lakes Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Manoj Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 11 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Syangja / Kathmandu",
+    "phoneNumber": "+977-9849155259",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "experienceYears": 3,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 4964,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-7617",
+    "packages": [
+      {
+        "title": "Shey Phoksundo Dolpo Trek (6 Days)",
+        "destination": "Shey Phoksundo Dolpo Trek",
+        "durationDays": 6,
+        "price": 54423,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Shey Phoksundo Dolpo Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dipendra Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 18 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Mustang / Kathmandu",
+    "phoneNumber": "+977-9868939226",
+    "guideImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "experienceYears": 15,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 5305,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2012-2565",
+    "packages": [
+      {
+        "title": "Khumai Danda Machhapuchhre View (5 Days)",
+        "destination": "Khumai Danda Machhapuchhre View",
+        "durationDays": 14,
+        "price": 49432,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Khumai Danda Machhapuchhre View featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Bikram Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 4 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Surkhet / Kathmandu",
+    "phoneNumber": "+977-9846892305",
+    "guideImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "experienceYears": 15,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 3591,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2016-3301",
+    "packages": [
+      {
+        "title": "Annapurna Circuit & Thorong La (6 Days)",
+        "destination": "Annapurna Circuit & Thorong La",
+        "durationDays": 8,
+        "price": 45090,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Annapurna Circuit & Thorong La featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Gautam Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 9 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kapilvastu / Kathmandu",
+    "phoneNumber": "+977-9865475930",
+    "guideImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "experienceYears": 9,
+    "languages": "Nepali, English, Hindi",
+    "dailyRate": 4049,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2023-2372",
+    "packages": [
+      {
+        "title": "Everest Base Camp & Kala Patthar (5 Days)",
+        "destination": "Everest Base Camp & Kala Patthar",
+        "durationDays": 14,
+        "price": 51375,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Everest Base Camp & Kala Patthar featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Sunita Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 18 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Surkhet / Kathmandu",
+    "phoneNumber": "+977-9851795546",
+    "guideImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "experienceYears": 16,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 4307,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2023-9312",
+    "packages": [
+      {
+        "title": "Langtang Valley & Kyanjin Gompa (12 Days)",
+        "destination": "Langtang Valley & Kyanjin Gompa",
+        "durationDays": 10,
+        "price": 54789,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Langtang Valley & Kyanjin Gompa featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Sita Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 16 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Parsa / Kathmandu",
+    "phoneNumber": "+977-9841383490",
+    "guideImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "experienceYears": 9,
+    "languages": "Nepali, English, Hindi",
+    "dailyRate": 3204,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2023-9663",
+    "packages": [
+      {
+        "title": "Manaslu Larke Pass Trek (12 Days)",
+        "destination": "Manaslu Larke Pass Trek",
+        "durationDays": 6,
+        "price": 76947,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Manaslu Larke Pass Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Puja Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 11 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Dolpa / Kathmandu",
+    "phoneNumber": "+977-9865882716",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "experienceYears": 3,
+    "languages": "Nepali, English, German",
+    "dailyRate": 2556,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2022-1167",
+    "packages": [
+      {
+        "title": "Mardi Himal Ridge Trail (13 Days)",
+        "destination": "Mardi Himal Ridge Trail",
+        "durationDays": 5,
+        "price": 50391,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Mardi Himal Ridge Trail featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Rasmita Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 13 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kanchanpur / Kathmandu",
+    "phoneNumber": "+977-9866379348",
+    "guideImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "experienceYears": 12,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 2557,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2022-4958",
+    "packages": [
+      {
+        "title": "Ghorepani Poon Hill Panorama (10 Days)",
+        "destination": "Ghorepani Poon Hill Panorama",
+        "durationDays": 10,
+        "price": 59809,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Ghorepani Poon Hill Panorama featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Anita Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 13 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Bajhang / Kathmandu",
+    "phoneNumber": "+977-9857654326",
+    "guideImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, French",
+    "dailyRate": 2732,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2020-5153",
+    "packages": [
+      {
+        "title": "Upper Mustang Lo Manthang Circuit (5 Days)",
+        "destination": "Upper Mustang Lo Manthang Circuit",
+        "durationDays": 12,
+        "price": 81994,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Upper Mustang Lo Manthang Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Deepa Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 17 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Bara / Kathmandu",
+    "phoneNumber": "+977-9849334959",
+    "guideImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "experienceYears": 10,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 4597,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2023-3662",
+    "packages": [
+      {
+        "title": "Rara Lake Wilderness Expedition (13 Days)",
+        "destination": "Rara Lake Wilderness Expedition",
+        "durationDays": 9,
+        "price": 58871,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Rara Lake Wilderness Expedition featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Kabita Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 15 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Bardiya / Kathmandu",
+    "phoneNumber": "+977-9864458143",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "experienceYears": 6,
+    "languages": "Nepali, English, German",
+    "dailyRate": 4037,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2022-4881",
+    "packages": [
+      {
+        "title": "Kanchenjunga Circuit (10 Days)",
+        "destination": "Kanchenjunga Circuit",
+        "durationDays": 10,
+        "price": 50260,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Kanchenjunga Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Sarita Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 6 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Rautahat / Kathmandu",
+    "phoneNumber": "+977-9847948310",
+    "guideImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "experienceYears": 7,
+    "languages": "Nepali, English, German",
+    "dailyRate": 4235,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2023-3407",
+    "packages": [
+      {
+        "title": "Gosaikunda Sacred Lakes Trek (14 Days)",
+        "destination": "Gosaikunda Sacred Lakes Trek",
+        "durationDays": 5,
+        "price": 51193,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Gosaikunda Sacred Lakes Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Manju Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 16 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Gulmi / Kathmandu",
+    "phoneNumber": "+977-9841198014",
+    "guideImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "experienceYears": 12,
+    "languages": "Nepali, English, Hindi",
+    "dailyRate": 3061,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2016-7774",
+    "packages": [
+      {
+        "title": "Shey Phoksundo Dolpo Trek (8 Days)",
+        "destination": "Shey Phoksundo Dolpo Trek",
+        "durationDays": 11,
+        "price": 74989,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Shey Phoksundo Dolpo Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Anjali Gurung",
+    "description": "Certified professional mountain and cultural tour guide with 9 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Jhapa / Kathmandu",
+    "phoneNumber": "+977-9856698955",
+    "guideImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "experienceYears": 13,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 2657,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2019-9337",
+    "packages": [
+      {
+        "title": "Khumai Danda Machhapuchhre View (9 Days)",
+        "destination": "Khumai Danda Machhapuchhre View",
+        "durationDays": 8,
+        "price": 69584,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Khumai Danda Machhapuchhre View featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Pasang Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 9 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Gulmi / Kathmandu",
+    "phoneNumber": "+977-9850348691",
+    "guideImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "experienceYears": 5,
+    "languages": "Nepali, English, German",
+    "dailyRate": 4590,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2019-8735",
+    "packages": [
+      {
+        "title": "Annapurna Circuit & Thorong La (13 Days)",
+        "destination": "Annapurna Circuit & Thorong La",
+        "durationDays": 10,
+        "price": 76235,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Annapurna Circuit & Thorong La featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Nima Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 13 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Parsa / Kathmandu",
+    "phoneNumber": "+977-9867258490",
+    "guideImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "experienceYears": 10,
+    "languages": "Nepali, English, French",
+    "dailyRate": 2562,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2012-4242",
+    "packages": [
+      {
+        "title": "Everest Base Camp & Kala Patthar (13 Days)",
+        "destination": "Everest Base Camp & Kala Patthar",
+        "durationDays": 12,
+        "price": 58760,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Everest Base Camp & Kala Patthar featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Lakpa Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 16 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kaski / Kathmandu",
+    "phoneNumber": "+977-9865286615",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "experienceYears": 12,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 3741,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2016-3417",
+    "packages": [
+      {
+        "title": "Langtang Valley & Kyanjin Gompa (13 Days)",
+        "destination": "Langtang Valley & Kyanjin Gompa",
+        "durationDays": 8,
+        "price": 69601,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Langtang Valley & Kyanjin Gompa featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dawa Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 17 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Banke / Kathmandu",
+    "phoneNumber": "+977-9853182509",
+    "guideImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 5001,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2021-5882",
+    "packages": [
+      {
+        "title": "Manaslu Larke Pass Trek (14 Days)",
+        "destination": "Manaslu Larke Pass Trek",
+        "durationDays": 6,
+        "price": 65304,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Manaslu Larke Pass Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Karma Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kanchanpur / Kathmandu",
+    "phoneNumber": "+977-9841571021",
+    "guideImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "experienceYears": 14,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 4783,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-9046",
+    "packages": [
+      {
+        "title": "Mardi Himal Ridge Trail (5 Days)",
+        "destination": "Mardi Himal Ridge Trail",
+        "durationDays": 14,
+        "price": 40502,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Mardi Himal Ridge Trail featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Pemba Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 5 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Gorkha / Kathmandu",
+    "phoneNumber": "+977-9843827545",
+    "guideImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "experienceYears": 12,
+    "languages": "Nepali, English, French",
+    "dailyRate": 4404,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2019-7269",
+    "packages": [
+      {
+        "title": "Ghorepani Poon Hill Panorama (9 Days)",
+        "destination": "Ghorepani Poon Hill Panorama",
+        "durationDays": 9,
+        "price": 45466,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Ghorepani Poon Hill Panorama featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Tenzing Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 13 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Sarlahi / Kathmandu",
+    "phoneNumber": "+977-9854125192",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "experienceYears": 14,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 4707,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-6135",
+    "packages": [
+      {
+        "title": "Upper Mustang Lo Manthang Circuit (14 Days)",
+        "destination": "Upper Mustang Lo Manthang Circuit",
+        "durationDays": 8,
+        "price": 48449,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Upper Mustang Lo Manthang Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Mingma Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 14 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Saptari / Kathmandu",
+    "phoneNumber": "+977-9851314092",
+    "guideImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "experienceYears": 6,
+    "languages": "Nepali, English, French",
+    "dailyRate": 3160,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2013-4282",
+    "packages": [
+      {
+        "title": "Rara Lake Wilderness Expedition (8 Days)",
+        "destination": "Rara Lake Wilderness Expedition",
+        "durationDays": 12,
+        "price": 29291,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Rara Lake Wilderness Expedition featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Ang Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 10 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Jhapa / Kathmandu",
+    "phoneNumber": "+977-9861678440",
+    "guideImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "experienceYears": 8,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 2577,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-8281",
+    "packages": [
+      {
+        "title": "Kanchenjunga Circuit (7 Days)",
+        "destination": "Kanchenjunga Circuit",
+        "durationDays": 11,
+        "price": 74960,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Kanchenjunga Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dorje Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 18 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Doti / Kathmandu",
+    "phoneNumber": "+977-9847151222",
+    "guideImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "experienceYears": 15,
+    "languages": "Nepali, English, Hindi",
+    "dailyRate": 5205,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2017-8984",
+    "packages": [
+      {
+        "title": "Gosaikunda Sacred Lakes Trek (6 Days)",
+        "destination": "Gosaikunda Sacred Lakes Trek",
+        "durationDays": 9,
+        "price": 56544,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Gosaikunda Sacred Lakes Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Ram Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kavrepalanchok / Kathmandu",
+    "phoneNumber": "+977-9840969122",
+    "guideImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "experienceYears": 3,
+    "languages": "Nepali, English, German",
+    "dailyRate": 4047,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2013-1208",
+    "packages": [
+      {
+        "title": "Shey Phoksundo Dolpo Trek (9 Days)",
+        "destination": "Shey Phoksundo Dolpo Trek",
+        "durationDays": 11,
+        "price": 74695,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Shey Phoksundo Dolpo Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Hari Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 9 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Rasuwa / Kathmandu",
+    "phoneNumber": "+977-9842029103",
+    "guideImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "experienceYears": 13,
+    "languages": "Nepali, English, German",
+    "dailyRate": 3217,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2020-3308",
+    "packages": [
+      {
+        "title": "Khumai Danda Machhapuchhre View (8 Days)",
+        "destination": "Khumai Danda Machhapuchhre View",
+        "durationDays": 14,
+        "price": 68857,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Khumai Danda Machhapuchhre View featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Shyam Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 4 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Manang / Kathmandu",
+    "phoneNumber": "+977-9855946526",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "experienceYears": 16,
+    "languages": "Nepali, English, German",
+    "dailyRate": 5479,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-6545",
+    "packages": [
+      {
+        "title": "Annapurna Circuit & Thorong La (12 Days)",
+        "destination": "Annapurna Circuit & Thorong La",
+        "durationDays": 6,
+        "price": 27421,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Annapurna Circuit & Thorong La featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Krishna Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 11 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kailali / Kathmandu",
+    "phoneNumber": "+977-9862500519",
+    "guideImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "experienceYears": 4,
+    "languages": "Nepali, English, French",
+    "dailyRate": 5439,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2018-6423",
+    "packages": [
+      {
+        "title": "Everest Base Camp & Kala Patthar (6 Days)",
+        "destination": "Everest Base Camp & Kala Patthar",
+        "durationDays": 7,
+        "price": 82224,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Everest Base Camp & Kala Patthar featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Bibek Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 18 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Doti / Kathmandu",
+    "phoneNumber": "+977-9842727590",
+    "guideImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "experienceYears": 4,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 3233,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-7017",
+    "packages": [
+      {
+        "title": "Langtang Valley & Kyanjin Gompa (10 Days)",
+        "destination": "Langtang Valley & Kyanjin Gompa",
+        "durationDays": 12,
+        "price": 31142,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Langtang Valley & Kyanjin Gompa featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Suman Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 4 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Sankhuwasabha / Kathmandu",
+    "phoneNumber": "+977-9857320197",
+    "guideImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "experienceYears": 15,
+    "languages": "Nepali, English, German",
+    "dailyRate": 4706,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2013-5220",
+    "packages": [
+      {
+        "title": "Manaslu Larke Pass Trek (12 Days)",
+        "destination": "Manaslu Larke Pass Trek",
+        "durationDays": 6,
+        "price": 62252,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Manaslu Larke Pass Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Manoj Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 5 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Mahottari / Kathmandu",
+    "phoneNumber": "+977-9863725033",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "experienceYears": 5,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 5039,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-2406",
+    "packages": [
+      {
+        "title": "Mardi Himal Ridge Trail (13 Days)",
+        "destination": "Mardi Himal Ridge Trail",
+        "durationDays": 5,
+        "price": 76573,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Mardi Himal Ridge Trail featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dipendra Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 7 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Arghakhanchi / Kathmandu",
+    "phoneNumber": "+977-9863220967",
+    "guideImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "experienceYears": 8,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 4294,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2019-5080",
+    "packages": [
+      {
+        "title": "Ghorepani Poon Hill Panorama (11 Days)",
+        "destination": "Ghorepani Poon Hill Panorama",
+        "durationDays": 10,
+        "price": 80909,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Ghorepani Poon Hill Panorama featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Bikram Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Morang / Kathmandu",
+    "phoneNumber": "+977-9845983963",
+    "guideImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 4718,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-3421",
+    "packages": [
+      {
+        "title": "Upper Mustang Lo Manthang Circuit (14 Days)",
+        "destination": "Upper Mustang Lo Manthang Circuit",
+        "durationDays": 5,
+        "price": 64161,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Upper Mustang Lo Manthang Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Gautam Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 5 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Jajarkot / Kathmandu",
+    "phoneNumber": "+977-9856322488",
+    "guideImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "experienceYears": 12,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 3537,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-7521",
+    "packages": [
+      {
+        "title": "Rara Lake Wilderness Expedition (11 Days)",
+        "destination": "Rara Lake Wilderness Expedition",
+        "durationDays": 13,
+        "price": 79164,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Rara Lake Wilderness Expedition featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Sunita Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 14 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Bardiya / Kathmandu",
+    "phoneNumber": "+977-9869171429",
+    "guideImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "experienceYears": 13,
+    "languages": "Nepali, English, German",
+    "dailyRate": 5205,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2014-2593",
+    "packages": [
+      {
+        "title": "Kanchenjunga Circuit (12 Days)",
+        "destination": "Kanchenjunga Circuit",
+        "durationDays": 14,
+        "price": 82390,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Kanchenjunga Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Sita Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 18 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Sarlahi / Kathmandu",
+    "phoneNumber": "+977-9853946658",
+    "guideImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "experienceYears": 6,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 4100,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2015-9252",
+    "packages": [
+      {
+        "title": "Gosaikunda Sacred Lakes Trek (11 Days)",
+        "destination": "Gosaikunda Sacred Lakes Trek",
+        "durationDays": 5,
+        "price": 70926,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Gosaikunda Sacred Lakes Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Puja Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 16 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kapilvastu / Kathmandu",
+    "phoneNumber": "+977-9857350174",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, Hindi",
+    "dailyRate": 4354,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2013-8330",
+    "packages": [
+      {
+        "title": "Shey Phoksundo Dolpo Trek (11 Days)",
+        "destination": "Shey Phoksundo Dolpo Trek",
+        "durationDays": 10,
+        "price": 34602,
+        "maxGroupSize": 9,
+        "description": "Guided multi-day trek across Shey Phoksundo Dolpo Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Rasmita Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 12 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Rasuwa / Kathmandu",
+    "phoneNumber": "+977-9845713306",
+    "guideImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "experienceYears": 11,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 4219,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2017-2469",
+    "packages": [
+      {
+        "title": "Khumai Danda Machhapuchhre View (14 Days)",
+        "destination": "Khumai Danda Machhapuchhre View",
+        "durationDays": 7,
+        "price": 64204,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Khumai Danda Machhapuchhre View featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Anita Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 7 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kapilvastu / Kathmandu",
+    "phoneNumber": "+977-9848042361",
+    "guideImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, Hindi",
+    "dailyRate": 3482,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2021-2826",
+    "packages": [
+      {
+        "title": "Annapurna Circuit & Thorong La (12 Days)",
+        "destination": "Annapurna Circuit & Thorong La",
+        "durationDays": 12,
+        "price": 29162,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Annapurna Circuit & Thorong La featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Deepa Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 18 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Manang / Kathmandu",
+    "phoneNumber": "+977-9849144133",
+    "guideImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "experienceYears": 17,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 5123,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2019-9313",
+    "packages": [
+      {
+        "title": "Everest Base Camp & Kala Patthar (10 Days)",
+        "destination": "Everest Base Camp & Kala Patthar",
+        "durationDays": 12,
+        "price": 67072,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Everest Base Camp & Kala Patthar featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Kabita Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 6 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Palpa / Kathmandu",
+    "phoneNumber": "+977-9858798897",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "experienceYears": 4,
+    "languages": "Nepali, English, French",
+    "dailyRate": 3244,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2020-3977",
+    "packages": [
+      {
+        "title": "Langtang Valley & Kyanjin Gompa (5 Days)",
+        "destination": "Langtang Valley & Kyanjin Gompa",
+        "durationDays": 9,
+        "price": 73417,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Langtang Valley & Kyanjin Gompa featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Sarita Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 14 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Solukhumbu / Kathmandu",
+    "phoneNumber": "+977-9867167437",
+    "guideImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "experienceYears": 18,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 5006,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2020-9289",
+    "packages": [
+      {
+        "title": "Manaslu Larke Pass Trek (7 Days)",
+        "destination": "Manaslu Larke Pass Trek",
+        "durationDays": 11,
+        "price": 74743,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Manaslu Larke Pass Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Manju Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 15 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Dang / Kathmandu",
+    "phoneNumber": "+977-9850855783",
+    "guideImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "experienceYears": 10,
+    "languages": "Nepali, English, French",
+    "dailyRate": 3174,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2020-6987",
+    "packages": [
+      {
+        "title": "Mardi Himal Ridge Trail (6 Days)",
+        "destination": "Mardi Himal Ridge Trail",
+        "durationDays": 9,
+        "price": 53769,
+        "maxGroupSize": 4,
+        "description": "Guided multi-day trek across Mardi Himal Ridge Trail featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Anjali Tamang",
+    "description": "Certified professional mountain and cultural tour guide with 18 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Banke / Kathmandu",
+    "phoneNumber": "+977-9840017700",
+    "guideImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "experienceYears": 8,
+    "languages": "Nepali, English, French",
+    "dailyRate": 4396,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2020-6131",
+    "packages": [
+      {
+        "title": "Ghorepani Poon Hill Panorama (14 Days)",
+        "destination": "Ghorepani Poon Hill Panorama",
+        "durationDays": 5,
+        "price": 77428,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Ghorepani Poon Hill Panorama featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Pasang Rai",
+    "description": "Certified professional mountain and cultural tour guide with 6 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Mahottari / Kathmandu",
+    "phoneNumber": "+977-9848415985",
+    "guideImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "experienceYears": 6,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 5191,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2013-9080",
+    "packages": [
+      {
+        "title": "Upper Mustang Lo Manthang Circuit (13 Days)",
+        "destination": "Upper Mustang Lo Manthang Circuit",
+        "durationDays": 10,
+        "price": 32713,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Upper Mustang Lo Manthang Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Nima Rai",
+    "description": "Certified professional mountain and cultural tour guide with 15 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Morang / Kathmandu",
+    "phoneNumber": "+977-9844923876",
+    "guideImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "experienceYears": 8,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 3879,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2016-5381",
+    "packages": [
+      {
+        "title": "Rara Lake Wilderness Expedition (11 Days)",
+        "destination": "Rara Lake Wilderness Expedition",
+        "durationDays": 10,
+        "price": 32590,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Rara Lake Wilderness Expedition featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Lakpa Rai",
+    "description": "Certified professional mountain and cultural tour guide with 9 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Tanahun / Kathmandu",
+    "phoneNumber": "+977-9853916887",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "experienceYears": 13,
+    "languages": "Nepali, English, Japanese",
+    "dailyRate": 4037,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2018-9166",
+    "packages": [
+      {
+        "title": "Kanchenjunga Circuit (9 Days)",
+        "destination": "Kanchenjunga Circuit",
+        "durationDays": 8,
+        "price": 53258,
+        "maxGroupSize": 5,
+        "description": "Guided multi-day trek across Kanchenjunga Circuit featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dawa Rai",
+    "description": "Certified professional mountain and cultural tour guide with 9 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Jajarkot / Kathmandu",
+    "phoneNumber": "+977-9857636343",
+    "guideImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "experienceYears": 4,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 4632,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2022-6068",
+    "packages": [
+      {
+        "title": "Gosaikunda Sacred Lakes Trek (13 Days)",
+        "destination": "Gosaikunda Sacred Lakes Trek",
+        "durationDays": 13,
+        "price": 78068,
+        "maxGroupSize": 7,
+        "description": "Guided multi-day trek across Gosaikunda Sacred Lakes Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Karma Rai",
+    "description": "Certified professional mountain and cultural tour guide with 6 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Jumla / Kathmandu",
+    "phoneNumber": "+977-9858839326",
+    "guideImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "experienceYears": 5,
+    "languages": "Nepali, English, Hindi",
+    "dailyRate": 4765,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2011-5843",
+    "packages": [
+      {
+        "title": "Shey Phoksundo Dolpo Trek (11 Days)",
+        "destination": "Shey Phoksundo Dolpo Trek",
+        "durationDays": 12,
+        "price": 64373,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Shey Phoksundo Dolpo Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Pemba Rai",
+    "description": "Certified professional mountain and cultural tour guide with 13 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Mugu / Kathmandu",
+    "phoneNumber": "+977-9846571414",
+    "guideImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "experienceYears": 14,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 5177,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2019-9779",
+    "packages": [
+      {
+        "title": "Khumai Danda Machhapuchhre View (11 Days)",
+        "destination": "Khumai Danda Machhapuchhre View",
+        "durationDays": 5,
+        "price": 79531,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Khumai Danda Machhapuchhre View featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Tenzing Rai",
+    "description": "Certified professional mountain and cultural tour guide with 8 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Arghakhanchi / Kathmandu",
+    "phoneNumber": "+977-9860225752",
+    "guideImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "experienceYears": 11,
+    "languages": "Nepali, English, Hindi",
+    "dailyRate": 2575,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2015-2182",
+    "packages": [
+      {
+        "title": "Annapurna Circuit & Thorong La (10 Days)",
+        "destination": "Annapurna Circuit & Thorong La",
+        "durationDays": 10,
+        "price": 60276,
+        "maxGroupSize": 10,
+        "description": "Guided multi-day trek across Annapurna Circuit & Thorong La featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Mingma Rai",
+    "description": "Certified professional mountain and cultural tour guide with 10 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Manang / Kathmandu",
+    "phoneNumber": "+977-9849503471",
+    "guideImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "experienceYears": 13,
+    "languages": "Nepali, English, Sherpa",
+    "dailyRate": 2747,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2021-2717",
+    "packages": [
+      {
+        "title": "Everest Base Camp & Kala Patthar (10 Days)",
+        "destination": "Everest Base Camp & Kala Patthar",
+        "durationDays": 14,
+        "price": 49606,
+        "maxGroupSize": 8,
+        "description": "Guided multi-day trek across Everest Base Camp & Kala Patthar featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Ang Rai",
+    "description": "Certified professional mountain and cultural tour guide with 7 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Kalikot / Kathmandu",
+    "phoneNumber": "+977-9842353729",
+    "guideImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "experienceYears": 10,
+    "languages": "Nepali, English, Spanish",
+    "dailyRate": 2797,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2020-6521",
+    "packages": [
+      {
+        "title": "Langtang Valley & Kyanjin Gompa (6 Days)",
+        "destination": "Langtang Valley & Kyanjin Gompa",
+        "durationDays": 5,
+        "price": 76926,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Langtang Valley & Kyanjin Gompa featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  },
+  {
+    "name": "Dorje Rai",
+    "description": "Certified professional mountain and cultural tour guide with 12 years of leading Himalayan expeditions. Certified in Wilderness First Aid and NATHM mountain safety.",
+    "location": "Dadeldhura / Kathmandu",
+    "phoneNumber": "+977-9861656332",
+    "guideImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "experienceYears": 15,
+    "languages": "Nepali, English, Korean",
+    "dailyRate": 4828,
+    "isAvailable": true,
+    "licenseNumber": "NATHM-TG-2022-4714",
+    "packages": [
+      {
+        "title": "Manaslu Larke Pass Trek (12 Days)",
+        "destination": "Manaslu Larke Pass Trek",
+        "durationDays": 8,
+        "price": 73807,
+        "maxGroupSize": 6,
+        "description": "Guided multi-day trek across Manaslu Larke Pass Trek featuring scenic ridges, alpine rhododendron forests, and cultural teahouse stays.",
+        "itinerary": "Day 1: Drive to trailhead | Day 2-4: Acclimatization & ridge climbing | Day 5: Summit viewpoint | Day 6: Return descent",
+        "included": "Certified guide service, TIMS permit assistance, First Aid kit, Daily safety briefings",
+        "excluded": "Personal accommodation, meals, airfare, porter tips",
+        "packageImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        "isPublished": true
+      }
+    ],
+    "availability": [
+      {
+        "date": "2026-09-01",
+        "isAvailable": true,
+        "note": "Autumn Season Open"
+      },
+      {
+        "date": "2026-09-15",
+        "isAvailable": true,
+        "note": "Available for treks"
+      }
+    ]
+  }
+]
