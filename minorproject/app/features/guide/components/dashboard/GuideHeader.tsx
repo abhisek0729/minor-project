@@ -8,11 +8,14 @@ import { Button } from "@/components/ui/button";
 import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
 import NotificationBell from "@/app/components/dashboard/NotificationBell";
 
+import GuideMobileSidebar from "./GuideMobileSidebar";
+
 interface GuideHeaderProps {
   guideName: string;
   location: string;
   isAvailable: boolean;
   dailyRate: number;
+  approvalStatus?: "approved" | "pending" | "rejected" | "suspended";
 }
 
 export default function GuideHeader({
@@ -20,6 +23,7 @@ export default function GuideHeader({
   location,
   isAvailable,
   dailyRate,
+  approvalStatus = "pending",
 }: GuideHeaderProps) {
   const [isSignOutOpen, setIsSignOutOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -31,8 +35,13 @@ export default function GuideHeader({
 
   return (
     <>
-      <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b bg-background px-6">
+      <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b bg-background px-4 sm:px-6">
         <div className="flex items-center gap-3">
+          <GuideMobileSidebar
+            guideName={guideName}
+            approvalStatus={approvalStatus}
+          />
+
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
             <MapPin className="size-3.5 text-emerald-600" />
             <span>{location || "Nepal"}</span>

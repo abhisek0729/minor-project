@@ -20,6 +20,7 @@ import {
   LogOut,
   MapPin,
   MapPinned,
+  Menu,
   Package,
   Plus,
   Receipt,
@@ -42,6 +43,13 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
 import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
 import NotificationBell from "@/app/components/dashboard/NotificationBell";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 interface UnifiedDashboardViewProps {
   user: {
@@ -70,6 +78,7 @@ export default function UnifiedDashboardView({
 }: UnifiedDashboardViewProps) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<"overview" | "workspaces" | "bookings" | "itinerary" | "settings">("overview");
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   // Filter roles and statuses
   const hotelRole = roles.find((r) => r.name === "hotelOwner");
@@ -129,10 +138,138 @@ export default function UnifiedDashboardView({
     return b.status === bookingFilter || b.bookingType === bookingFilter;
   });
 
+  const renderNavButtons = (onSelect?: () => void) => (
+    <nav className="space-y-1.5">
+      {isAdminApproved && (
+        <Link
+          href="/dashboard/admin"
+          onClick={() => onSelect && onSelect()}
+          className="flex items-center gap-3 px-3.5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md hover:opacity-95 transition-all mb-3 cursor-pointer"
+        >
+          <ShieldCheck className="size-4 shrink-0" />
+          <span>Super Admin Console</span>
+          <ArrowRight className="size-3.5 ml-auto" />
+        </Link>
+      )}
+
+      <div className="px-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+        Portal Navigation
+      </div>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("overview");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "overview"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <LayoutDashboard className="size-4" />
+        <span>Overview & Summary</span>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("workspaces");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "workspaces"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <div className="flex items-center gap-3">
+          <Building2 className="size-4" />
+          <span>My Workspaces</span>
+        </div>
+        {roles.filter((r) => r.name !== "tourist").length > 0 && (
+          <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "workspaces" ? "border-white text-white" : ""}`}>
+            {roles.filter((r) => r.name !== "tourist").length}
+          </Badge>
+        )}
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("bookings");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "bookings"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <div className="flex items-center gap-3">
+          <Package className="size-4" />
+          <span>My Trips & Bookings</span>
+        </div>
+        {totalBookings > 0 && (
+          <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "bookings" ? "border-white text-white" : ""}`}>
+            {totalBookings}
+          </Badge>
+        )}
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("itinerary");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "itinerary"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <MapPinned className="size-4" />
+        <span>AI Trip Planner</span>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("settings");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "settings"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <Settings className="size-4" />
+        <span>Profile & Settings</span>
+      </button>
+
+      <Link
+        href="/emergency"
+        onClick={() => onSelect && onSelect()}
+        className="flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer bg-rose-500/10 text-rose-600 hover:bg-rose-500/20 border border-rose-500/30 mt-2"
+      >
+        <div className="flex items-center gap-3">
+          <Siren className="size-4 animate-pulse text-rose-600" />
+          <span>Emergency SOS Hub</span>
+        </div>
+        <Badge variant="destructive" className="text-[9px] px-1.5 py-0 bg-rose-600">
+          24/7
+        </Badge>
+      </Link>
+    </nav>
+  );
+
   return (
     <div className="flex h-screen overflow-hidden bg-muted/20 w-full">
-      {/* Left Sidebar Navigation (Pinned Full-Height Left Panel) */}
-      <aside className="w-72 shrink-0 border-r bg-card flex flex-col justify-between overflow-y-auto p-5 space-y-6 shadow-2xs">
+      {/* Desktop Left Sidebar (Pinned on large screens) */}
+      <aside className="hidden lg:flex w-72 shrink-0 border-r bg-card flex-col justify-between overflow-y-auto p-5 space-y-6 shadow-2xs">
         <div className="space-y-6">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 font-bold text-lg text-foreground hover:opacity-90 transition-opacity">
@@ -169,124 +306,20 @@ export default function UnifiedDashboardView({
           </Card>
 
           {/* Navigation Items */}
-          <nav className="space-y-1.5">
-            {isAdminApproved && (
-              <Link
-                href="/dashboard/admin"
-                className="flex items-center gap-3 px-3.5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md hover:opacity-95 transition-all mb-3 cursor-pointer"
-              >
-                <ShieldCheck className="size-4 shrink-0" />
-                <span>Super Admin Console</span>
-                <ArrowRight className="size-3.5 ml-auto" />
-              </Link>
-            )}
-
-            <div className="px-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
-              Portal Navigation
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("overview")}
-              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                activeTab === "overview"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <LayoutDashboard className="size-4" />
-              <span>Overview & Summary</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("workspaces")}
-              className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                activeTab === "workspaces"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <Building2 className="size-4" />
-                <span>My Workspaces</span>
-              </div>
-              {roles.filter((r) => r.name !== "tourist").length > 0 && (
-                <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "workspaces" ? "border-white text-white" : ""}`}>
-                  {roles.filter((r) => r.name !== "tourist").length}
-                </Badge>
-              )}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("bookings")}
-              className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                activeTab === "bookings"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <Package className="size-4" />
-                <span>My Trips & Bookings</span>
-              </div>
-              {totalBookings > 0 && (
-                <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "bookings" ? "border-white text-white" : ""}`}>
-                  {totalBookings}
-                </Badge>
-              )}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("itinerary")}
-              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                activeTab === "itinerary"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <MapPinned className="size-4" />
-              <span>AI Trip Planner</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("settings")}
-              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                activeTab === "settings"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <Settings className="size-4" />
-              <span>Profile & Settings</span>
-            </button>
-
-            <Link
-              href="/emergency"
-              className="flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer bg-rose-500/10 text-rose-600 hover:bg-rose-500/20 border border-rose-500/30"
-            >
-              <div className="flex items-center gap-3">
-                <Siren className="size-4 animate-pulse text-rose-600" />
-                <span>Emergency SOS Hub</span>
-              </div>
-              <Badge variant="destructive" className="text-[9px] px-1.5 py-0 bg-rose-600">
-                24/7
-              </Badge>
-            </Link>
-          </nav>
+          {renderNavButtons()}
         </div>
 
-        {/* Quick Partner CTA in sidebar footer */}
-        <Card className="p-3.5 border border-dashed bg-primary/5 text-center space-y-1.5">
-          <p className="font-semibold text-xs text-foreground">Want to list a business?</p>
-          <p className="text-[10px] text-muted-foreground leading-tight">
-            Register as a Hotel Owner, Restaurant Partner, or Tour Guide.
+        {/* Partner Upsell Card */}
+        <Card className="p-4 border border-primary/30 bg-primary/5 space-y-3">
+          <div className="flex items-center gap-2 text-primary font-bold text-xs">
+            <Sparkles className="size-4" />
+            <span>Join Partner Network</span>
+          </div>
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            Register your Hotel, Restaurant, or Tour Guide service on TravelNepal.
           </p>
-          <Link href="/partner/business-type" className="block pt-1">
-            <Button size="sm" variant="outline" className="w-full text-xs h-8 gap-1.5 border-primary/30 text-primary hover:bg-primary/10 cursor-pointer">
+          <Link href="/partner/business-type">
+            <Button size="sm" className="w-full text-xs font-semibold gap-1.5 cursor-pointer">
               <Plus className="size-3.5" /> Become a Partner
             </Button>
           </Link>
@@ -296,15 +329,51 @@ export default function UnifiedDashboardView({
       {/* Main Full-Width Right Workspace Panel */}
       <div className="flex-1 flex flex-col h-full overflow-hidden min-w-0">
         {/* Top Header Bar */}
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-6 sm:px-8 backdrop-blur-md shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-muted-foreground">Workspace View:</span>
-            <Badge variant="secondary" className="text-xs font-semibold capitalize">
-              {activeTab}
-            </Badge>
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 sm:px-8 backdrop-blur-md shrink-0">
+          <div className="flex items-center gap-3">
+            {/* Mobile Sheet Trigger */}
+            <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+              <SheetTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border/70 hover:bg-accent focus:outline-none lg:hidden cursor-pointer">
+                <Menu className="size-5" />
+              </SheetTrigger>
+              <SheetContent side="left" className="flex w-80 flex-col p-0">
+                <SheetHeader className="border-b px-6 py-5">
+                  <SheetTitle className="flex items-center gap-3">
+                    <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+                      <Building2 className="size-5" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-bold text-base text-foreground leading-none">TravelNepal</p>
+                      <p className="text-xs text-muted-foreground mt-1">Unified Workspace</p>
+                    </div>
+                  </SheetTitle>
+                </SheetHeader>
+                <div className="p-4 space-y-4 overflow-y-auto flex-1">
+                  <Card className="p-3 border shadow-2xs bg-muted/30">
+                    <div className="flex items-center gap-3">
+                      <div className="size-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-sm border border-primary/20 shrink-0">
+                        {user.initials}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-bold text-xs truncate">{user.name}</h3>
+                        <p className="text-[11px] text-muted-foreground truncate">{user.email}</p>
+                      </div>
+                    </div>
+                  </Card>
+                  {renderNavButtons(() => setMobileNavOpen(false))}
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-muted-foreground hidden sm:inline">Workspace View:</span>
+              <Badge variant="secondary" className="text-xs font-semibold capitalize">
+                {activeTab}
+              </Badge>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <GlobalWorkspaceSwitcher />
 
             <NotificationBell />
@@ -313,15 +382,75 @@ export default function UnifiedDashboardView({
               variant="ghost"
               size="sm"
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="text-xs text-destructive hover:bg-destructive/10 cursor-pointer"
+              className="text-xs text-destructive hover:bg-destructive/10 cursor-pointer h-9 px-2.5 sm:px-3"
             >
-              <LogOut className="size-3.5 mr-1" /> Sign Out
+              <LogOut className="size-3.5 sm:mr-1" />
+              <span className="hidden sm:inline">Sign Out</span>
             </Button>
           </div>
         </header>
 
+        {/* Quick Horizontal Scrollable Tabs Bar for Mobile Screens */}
+        <div className="lg:hidden flex items-center gap-1.5 px-4 py-2 border-b bg-background/80 backdrop-blur-sm overflow-x-auto shrink-0 scrollbar-none">
+          <button
+            type="button"
+            onClick={() => setActiveTab("overview")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "overview"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Overview
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("workspaces")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "workspaces"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Workspaces ({roles.filter((r) => r.name !== "tourist").length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("bookings")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "bookings"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Bookings ({totalBookings})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("itinerary")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "itinerary"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            AI Planner
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("settings")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "settings"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Settings
+          </button>
+        </div>
+
         {/* Scrollable Main Content Container Occupying Entire Width */}
-        <main className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
           {/* TAB 1: OVERVIEW & SUMMARY */}
           {activeTab === "overview" && (
             <div className="space-y-6 animate-in fade-in duration-200">

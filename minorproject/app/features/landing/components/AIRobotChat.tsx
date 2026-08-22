@@ -49,12 +49,14 @@ const starterReplies = [
 
 type Recommendation = {
   entity_type: string;
-  entity_id: number;
+  entity_id: number | string;
   name: string;
   reason: string;
   location?: string;
   map_url?: string;
   booking_note?: string;
+  url?: string;
+  source?: "database" | "web_search";
 };
 
 type MapCard = {
@@ -84,6 +86,53 @@ type ChatMessage = {
   steps_taken?: string[];
   tools_used?: string[];
 };
+
+function renderFormattedText(text: string) {
+  if (!text) return null;
+  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s\)]+|\/[^\s\)]+)\)/g;
+  const parts: (string | React.ReactNode)[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    const label = match[1];
+    const url = match[2];
+    if (url.startsWith("http")) {
+      parts.push(
+        <a
+          key={match.index}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary font-bold underline inline-flex items-center gap-0.5 hover:opacity-80 transition-opacity"
+        >
+          <span>{label}</span>
+          <ExternalLink className="size-3 inline-block" />
+        </a>
+      );
+    } else {
+      parts.push(
+        <Link
+          key={match.index}
+          href={url}
+          className="text-primary font-bold underline hover:opacity-80 transition-opacity"
+        >
+          {label}
+        </Link>
+      );
+    }
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts;
+}
 
 export default function AIRobotChat() {
   const { data: session, status } = useSession();
@@ -257,13 +306,13 @@ export default function AIRobotChat() {
 
   return (
     <>
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3 pointer-events-none">
+      <div className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-50 flex flex-col items-end gap-3 pointer-events-none">
         {isOpen && (
           <div
             className={`pointer-events-auto flex flex-col overflow-hidden rounded-[26px] border border-border bg-card shadow-[0_24px_90px_rgba(0,0,0,0.3)] transition-all duration-300 ease-in-out ${
               isExpanded
                 ? "w-[min(96vw,920px)] h-[min(90vh,760px)]"
-                : "w-[min(95vw,460px)] h-[min(85vh,600px)]"
+                : "w-[min(94vw,460px)] h-[min(85vh,600px)]"
             }`}
           >
             {/* Chat Window Header */}
@@ -386,7 +435,9 @@ export default function AIRobotChat() {
                           </div>
                         )}
 
-                        <div className="whitespace-pre-line">{message.text}</div>
+                        <div className="whitespace-pre-line leading-relaxed">
+                          {renderFormattedText(message.text)}
+                        </div>
 
                         {/* LIVE GOOGLE MAPS CARDS */}
                         {message.map_cards && message.map_cards.length > 0 && (
@@ -518,9 +569,14 @@ export default function AIRobotChat() {
                         {/* Structured Recommendations Cards */}
                         {message.recommendations && message.recommendations.length > 0 && (
                           <div className="mt-3.5 pt-2.5 border-t border-border/50 space-y-2">
-                            <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                              Platform Recommendations:
-                            </p>
+                            <div className="flex items-center justify-between">
+                              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                                Recommended Stays & Places:
+                              </p>
+                              <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-primary/30 text-primary">
+                                Verified RAG + Web Search
+                              </Badge>
+                            </div>
                             <div
                               className={`grid gap-2 ${
                                 isExpanded ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3" : "grid-cols-1"
@@ -529,9 +585,9 @@ export default function AIRobotChat() {
                               {message.recommendations.map((rec) => (
                                 <div
                                   key={`${rec.entity_type}-${rec.entity_id}`}
-                                  className="rounded-xl border bg-muted/40 p-2.5 text-xs space-y-1"
+                                  className="rounded-xl border bg-muted/40 p-3 text-xs space-y-1.5 hover:border-primary/40 transition-colors"
                                 >
-                                  <div className="flex items-center justify-between">
+                                  <div className="flex items-center justify-between gap-2">
                                     <span className="font-bold text-foreground truncate">
                                       {rec.entity_type === "hotel" ? "🏨 " : rec.entity_type === "restaurant" ? "🍽️ " : "🧭 "}
                                       {rec.name}
@@ -549,6 +605,28 @@ export default function AIRobotChat() {
                                     <p className="text-[10px] text-primary font-medium">
                                       {rec.booking_note}
                                     </p>
+                                  )}
+                                  {rec.url && (
+                                    <div className="pt-1">
+                                      {rec.url.startsWith("http") ? (
+                                        <a
+                                          href={rec.url}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:underline"
+                                        >
+                                          <span>Open Google Maps & Details</span>
+                                          <ExternalLink className="size-3" />
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          href={rec.url}
+                                          className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:underline"
+                                        >
+                                          <span>View Platform Listing →</span>
+                                        </Link>
+                                      )}
+                                    </div>
                                   )}
                                 </div>
                               ))}
