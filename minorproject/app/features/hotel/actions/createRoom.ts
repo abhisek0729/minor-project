@@ -38,8 +38,8 @@ export async function createRoom(data: RoomSchema) {
     .from(roomsTable)
     .where(
       and(
-        eq(roomsTable.hotel_id, hotel.id),
-        eq(roomsTable.room_number, data.roomNumber),
+        eq(roomsTable.hotelId, hotel.id),
+        eq(roomsTable.roomNumber, data.roomNumber),
       ),
     );
 
@@ -56,11 +56,11 @@ export async function createRoom(data: RoomSchema) {
     const [room] = await tx
       .insert(roomsTable)
       .values({
-        hotel_id: hotel.id,
-        room_number: data.roomNumber,
-        room_type: data.roomType,
+        hotelId: hotel.id,
+        roomNumber: data.roomNumber,
+        roomType: data.roomType,
         description: data.description,
-        price_per_night: data.pricePerNight.toString(),
+        pricePerNight: data.pricePerNight.toString(),
         capacity: data.capacity,
         status: data.status,
       })
@@ -71,9 +71,9 @@ export async function createRoom(data: RoomSchema) {
     if (data.imageUrls.length > 0) {
       await tx.insert(roomImagesTable).values(
         data.imageUrls.map((image) => ({
-          room_id: room.id,
-          image_url: image.imageUrl,
-          public_id: image.publicId,
+          roomId: room.id,
+          imageUrl: image.imageUrl,
+          publicId: image.publicId,
         })),
       );
     }
@@ -81,8 +81,8 @@ export async function createRoom(data: RoomSchema) {
     if (data.facilityIds.length > 0) {
       await tx.insert(roomFacilitiesTable).values(
         data.facilityIds.map((facilityId) => ({
-          room_id: room.id,
-          facility_id: facilityId,
+          roomId: room.id,
+          facilityId: facilityId,
         })),
       );
     }

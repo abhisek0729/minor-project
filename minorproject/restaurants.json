@@ -1,0 +1,4502 @@
+[
+  {
+    "name": "Moondance Restaurant & Bar",
+    "description": "A highly acclaimed culinary venue in Myagdi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-2-534271",
+    "establishedDate": "2000",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Myagdi, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Myagdi",
+    "municipality": "Myagdi City",
+    "ward": "15",
+    "street": "Riverside Road",
+    "latitude": 28.5407,
+    "longitude": 80.9857,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 508,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1305,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 445,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "OR2K Middle Eastern",
+    "description": "A highly acclaimed culinary venue in Sunsari celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-4-414607",
+    "establishedDate": "2015",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Sunsari, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Sunsari",
+    "municipality": "Sunsari City",
+    "ward": "1",
+    "street": "Central Market",
+    "latitude": 27.3857,
+    "longitude": 81.1097,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 508,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1113,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 451,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Bhojan Griha Heritage Dining",
+    "description": "A highly acclaimed culinary venue in Dhankuta celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-689523",
+    "establishedDate": "1999",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Dhankuta, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Dhankuta",
+    "municipality": "Dhankuta City",
+    "ward": "15",
+    "street": "Central Market",
+    "latitude": 28.9316,
+    "longitude": 82.7607,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 754,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1083,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 359,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Krishnarpan Traditional Newari",
+    "description": "A highly acclaimed culinary venue in Dhankuta celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-8-980731",
+    "establishedDate": "1998",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Dhankuta, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Dhankuta",
+    "municipality": "Dhankuta City",
+    "ward": "13",
+    "street": "Food Street",
+    "latitude": 27.9127,
+    "longitude": 83.4524,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 751,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 872,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 404,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Fire and Ice Pizzeria",
+    "description": "A highly acclaimed culinary venue in Dhankuta celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-401986",
+    "establishedDate": "2022",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Dhankuta, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Dhankuta",
+    "municipality": "Dhankuta City",
+    "ward": "2",
+    "street": "Central Market",
+    "latitude": 27.0175,
+    "longitude": 82.8868,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 491,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1184,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 519,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Roadhouse Cafe & Grill",
+    "description": "A highly acclaimed culinary venue in Kapilvastu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-4-677970",
+    "establishedDate": "2007",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Kapilvastu, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Kapilvastu",
+    "municipality": "Kapilvastu City",
+    "ward": "9",
+    "street": "Food Street",
+    "latitude": 28.8135,
+    "longitude": 85.1138,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 552,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1257,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 379,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Himalayan Java Coffee",
+    "description": "A highly acclaimed culinary venue in Darchula celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-966311",
+    "establishedDate": "2022",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Darchula, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Darchula",
+    "municipality": "Darchula City",
+    "ward": "13",
+    "street": "Food Street",
+    "latitude": 27.6653,
+    "longitude": 81.0738,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 652,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1009,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 461,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Rosemary Kitchen & Coffee",
+    "description": "A highly acclaimed culinary venue in Dolpa celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-816529",
+    "establishedDate": "2021",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Dolpa, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Dolpa",
+    "municipality": "Dolpa City",
+    "ward": "10",
+    "street": "Food Street",
+    "latitude": 27.6274,
+    "longitude": 82.6472,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 761,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 906,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 400,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Le Sherpa Organic Restaurant",
+    "description": "A highly acclaimed culinary venue in Baitadi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-418478",
+    "establishedDate": "2002",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Baitadi, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Baitadi",
+    "municipality": "Baitadi City",
+    "ward": "9",
+    "street": "Durbar Chowk",
+    "latitude": 27.1632,
+    "longitude": 82.417,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 740,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1371,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 538,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Kaiser Cafe Garden of Dreams",
+    "description": "A highly acclaimed culinary venue in Kanchanpur celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-460459",
+    "establishedDate": "2000",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Kanchanpur, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Kanchanpur",
+    "municipality": "Kanchanpur City",
+    "ward": "7",
+    "street": "Durbar Chowk",
+    "latitude": 28.66,
+    "longitude": 84.0184,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 674,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 838,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 390,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Thamel House Traditional Dining",
+    "description": "A highly acclaimed culinary venue in Bajhang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-1-501753",
+    "establishedDate": "1994",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Bajhang, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Bajhang",
+    "municipality": "Bajhang City",
+    "ward": "6",
+    "street": "Central Market",
+    "latitude": 27.3108,
+    "longitude": 85.0585,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 827,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 903,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 301,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Newa Lahana Kirtipur",
+    "description": "A highly acclaimed culinary venue in Kailali celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-642280",
+    "establishedDate": "1997",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Kailali, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Kailali",
+    "municipality": "Kailali City",
+    "ward": "2",
+    "street": "Riverside Road",
+    "latitude": 28.2127,
+    "longitude": 85.1304,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 553,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 934,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 314,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Utse Tibetan Restaurant",
+    "description": "A highly acclaimed culinary venue in Dailekh celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-621796",
+    "establishedDate": "2021",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Dailekh, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Dailekh",
+    "municipality": "Dailekh City",
+    "ward": "2",
+    "street": "Lakeside Marg",
+    "latitude": 28.6291,
+    "longitude": 84.9139,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 478,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1331,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 385,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Busy Bee Cafe & Lounge",
+    "description": "A highly acclaimed culinary venue in Kavrepalanchok celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-8-508082",
+    "establishedDate": "2010",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Kavrepalanchok, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Kavrepalanchok",
+    "municipality": "Kavrepalanchok City",
+    "ward": "6",
+    "street": "Central Market",
+    "latitude": 27.8374,
+    "longitude": 83.0208,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 623,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 924,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 410,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Caffe Concerto Lakeside",
+    "description": "A highly acclaimed culinary venue in Bardiya celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-4-744457",
+    "establishedDate": "2019",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Bardiya, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Bardiya",
+    "municipality": "Bardiya City",
+    "ward": "8",
+    "street": "Food Street",
+    "latitude": 28.1734,
+    "longitude": 86.5222,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 879,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1511,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 405,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Godfather Pizzeria Pokhara",
+    "description": "A highly acclaimed culinary venue in Baitadi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-1-722200",
+    "establishedDate": "2006",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Baitadi, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Baitadi",
+    "municipality": "Baitadi City",
+    "ward": "7",
+    "street": "Food Street",
+    "latitude": 27.5349,
+    "longitude": 87.7383,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 669,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1308,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 405,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Fresh Elements Restaurant",
+    "description": "A highly acclaimed culinary venue in Sindhupalchok celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-862055",
+    "establishedDate": "1995",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Sindhupalchok, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Sindhupalchok",
+    "municipality": "Sindhupalchok City",
+    "ward": "4",
+    "street": "Central Market",
+    "latitude": 29.1143,
+    "longitude": 84.6806,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 551,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 919,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 442,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Bamboole Green Garden",
+    "description": "A highly acclaimed culinary venue in Manang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-916871",
+    "establishedDate": "2020",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Manang, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Manang",
+    "municipality": "Manang City",
+    "ward": "11",
+    "street": "Lakeside Marg",
+    "latitude": 27.3427,
+    "longitude": 80.725,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 933,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 830,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 510,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Saigon Pho Vietnamese",
+    "description": "A highly acclaimed culinary venue in Surkhet celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-970948",
+    "establishedDate": "1993",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Surkhet, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Surkhet",
+    "municipality": "Surkhet City",
+    "ward": "5",
+    "street": "Riverside Road",
+    "latitude": 27.8316,
+    "longitude": 83.086,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 770,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1261,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 549,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Chilly Bar & Restaurant",
+    "description": "A highly acclaimed culinary venue in Kanchanpur celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-995845",
+    "establishedDate": "2023",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Kanchanpur, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Kanchanpur",
+    "municipality": "Kanchanpur City",
+    "ward": "15",
+    "street": "Durbar Chowk",
+    "latitude": 28.5712,
+    "longitude": 86.0081,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 821,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1546,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 318,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Third Eye Restaurant Thamel",
+    "description": "A highly acclaimed culinary venue in Saptari celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-599678",
+    "establishedDate": "2018",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Saptari, Madhesh Province",
+    "province": "Madhesh Province",
+    "district": "Saptari",
+    "municipality": "Saptari City",
+    "ward": "11",
+    "street": "Riverside Road",
+    "latitude": 27.5415,
+    "longitude": 86.0097,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 498,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1508,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 358,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "La Bella Italia Pokhara",
+    "description": "A highly acclaimed culinary venue in Humla celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-422578",
+    "establishedDate": "1999",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Humla, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Humla",
+    "municipality": "Humla City",
+    "ward": "1",
+    "street": "Riverside Road",
+    "latitude": 27.9579,
+    "longitude": 84.9665,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 652,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 852,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 537,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Little Italy Vegetarian",
+    "description": "A highly acclaimed culinary venue in Chitwan celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-546728",
+    "establishedDate": "2016",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Chitwan, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Chitwan",
+    "municipality": "Chitwan City",
+    "ward": "6",
+    "street": "Durbar Chowk",
+    "latitude": 26.8784,
+    "longitude": 87.5209,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 617,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 782,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 434,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Helena's Rooftop Bakery",
+    "description": "A highly acclaimed culinary venue in Parbat celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-909450",
+    "establishedDate": "2015",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Parbat, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Parbat",
+    "municipality": "Parbat City",
+    "ward": "15",
+    "street": "Durbar Chowk",
+    "latitude": 26.8099,
+    "longitude": 84.9056,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 522,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 807,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 546,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Mike's Breakfast & Cafe",
+    "description": "A highly acclaimed culinary venue in Sarlahi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-430329",
+    "establishedDate": "2011",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Sarlahi, Madhesh Province",
+    "province": "Madhesh Province",
+    "district": "Sarlahi",
+    "municipality": "Sarlahi City",
+    "ward": "5",
+    "street": "Food Street",
+    "latitude": 28.0253,
+    "longitude": 85.1331,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 525,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1058,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 320,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Mustang Thakali Kitchen",
+    "description": "A highly acclaimed culinary venue in Bajhang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-990116",
+    "establishedDate": "2001",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Bajhang, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Bajhang",
+    "municipality": "Bajhang City",
+    "ward": "4",
+    "street": "Riverside Road",
+    "latitude": 28.3062,
+    "longitude": 85.923,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 583,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 828,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 443,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Bhanchha Ghar Traditional",
+    "description": "A highly acclaimed culinary venue in Mugu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-1-941681",
+    "establishedDate": "2015",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Mugu, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Mugu",
+    "municipality": "Mugu City",
+    "ward": "7",
+    "street": "Central Market",
+    "latitude": 27.5753,
+    "longitude": 85.5829,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 896,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 909,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 409,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Honacha Newari Bhaktapur",
+    "description": "A highly acclaimed culinary venue in Kaski celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-878052",
+    "establishedDate": "2001",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Kaski, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Kaski",
+    "municipality": "Kaski City",
+    "ward": "10",
+    "street": "Durbar Chowk",
+    "latitude": 27.3292,
+    "longitude": 87.6815,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 863,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1288,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 399,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Chitwan Tharu Bhojanalaya",
+    "description": "A highly acclaimed culinary venue in Lalitpur celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-8-433229",
+    "establishedDate": "2003",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Lalitpur, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Lalitpur",
+    "municipality": "Lalitpur City",
+    "ward": "2",
+    "street": "Lakeside Marg",
+    "latitude": 26.8793,
+    "longitude": 87.2808,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 739,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1303,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 528,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Palpali Dhido & Sekuwa Corner",
+    "description": "A highly acclaimed culinary venue in Dang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-8-597317",
+    "establishedDate": "1997",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Dang, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Dang",
+    "municipality": "Dang City",
+    "ward": "13",
+    "street": "Riverside Road",
+    "latitude": 28.1041,
+    "longitude": 82.0469,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 466,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1127,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 305,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Moondance Restaurant & Bar (Arghakhanchi)",
+    "description": "A highly acclaimed culinary venue in Arghakhanchi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-472042",
+    "establishedDate": "2010",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Arghakhanchi, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Arghakhanchi",
+    "municipality": "Arghakhanchi City",
+    "ward": "6",
+    "street": "Central Market",
+    "latitude": 27.4414,
+    "longitude": 83.6673,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 507,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1042,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 369,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "OR2K Middle Eastern (Bajhang)",
+    "description": "A highly acclaimed culinary venue in Bajhang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-8-754297",
+    "establishedDate": "2013",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Bajhang, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Bajhang",
+    "municipality": "Bajhang City",
+    "ward": "13",
+    "street": "Riverside Road",
+    "latitude": 27.74,
+    "longitude": 86.2829,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 719,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1261,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 305,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Bhojan Griha Heritage Dining (Arghakhanchi)",
+    "description": "A highly acclaimed culinary venue in Arghakhanchi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-995361",
+    "establishedDate": "2013",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Arghakhanchi, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Arghakhanchi",
+    "municipality": "Arghakhanchi City",
+    "ward": "11",
+    "street": "Durbar Chowk",
+    "latitude": 27.482,
+    "longitude": 83.992,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 921,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1527,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 529,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Krishnarpan Traditional Newari (Jumla)",
+    "description": "A highly acclaimed culinary venue in Jumla celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-4-754640",
+    "establishedDate": "2004",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Jumla, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Jumla",
+    "municipality": "Jumla City",
+    "ward": "14",
+    "street": "Central Market",
+    "latitude": 27.8146,
+    "longitude": 82.2842,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 781,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1051,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 414,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Fire and Ice Pizzeria (Rasuwa)",
+    "description": "A highly acclaimed culinary venue in Rasuwa celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-4-678424",
+    "establishedDate": "2012",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Rasuwa, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Rasuwa",
+    "municipality": "Rasuwa City",
+    "ward": "8",
+    "street": "Lakeside Marg",
+    "latitude": 29.0358,
+    "longitude": 82.4826,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 848,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 844,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 384,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Roadhouse Cafe & Grill (Kavrepalanchok)",
+    "description": "A highly acclaimed culinary venue in Kavrepalanchok celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-724267",
+    "establishedDate": "2021",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Kavrepalanchok, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Kavrepalanchok",
+    "municipality": "Kavrepalanchok City",
+    "ward": "5",
+    "street": "Riverside Road",
+    "latitude": 27.2521,
+    "longitude": 82.924,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 925,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1136,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 435,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Himalayan Java Coffee (Rautahat)",
+    "description": "A highly acclaimed culinary venue in Rautahat celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-937673",
+    "establishedDate": "2010",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Rautahat, Madhesh Province",
+    "province": "Madhesh Province",
+    "district": "Rautahat",
+    "municipality": "Rautahat City",
+    "ward": "14",
+    "street": "Lakeside Marg",
+    "latitude": 27.0306,
+    "longitude": 84.0174,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 709,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 812,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 430,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Rosemary Kitchen & Coffee (Jhapa)",
+    "description": "A highly acclaimed culinary venue in Jhapa celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-2-770051",
+    "establishedDate": "2012",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Jhapa, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Jhapa",
+    "municipality": "Jhapa City",
+    "ward": "5",
+    "street": "Durbar Chowk",
+    "latitude": 29.0245,
+    "longitude": 83.4654,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 765,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1215,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 543,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Le Sherpa Organic Restaurant (Dang)",
+    "description": "A highly acclaimed culinary venue in Dang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-597066",
+    "establishedDate": "2005",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Dang, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Dang",
+    "municipality": "Dang City",
+    "ward": "7",
+    "street": "Central Market",
+    "latitude": 28.7966,
+    "longitude": 82.1386,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 811,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 788,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 418,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Kaiser Cafe Garden of Dreams (Rupandehi)",
+    "description": "A highly acclaimed culinary venue in Rupandehi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-891916",
+    "establishedDate": "2002",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Rupandehi, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Rupandehi",
+    "municipality": "Rupandehi City",
+    "ward": "14",
+    "street": "Central Market",
+    "latitude": 28.1858,
+    "longitude": 85.3548,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 808,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1371,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 319,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Thamel House Traditional Dining (Darchula)",
+    "description": "A highly acclaimed culinary venue in Darchula celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-8-676952",
+    "establishedDate": "2020",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Darchula, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Darchula",
+    "municipality": "Darchula City",
+    "ward": "7",
+    "street": "Food Street",
+    "latitude": 27.2585,
+    "longitude": 84.0994,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 602,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 909,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 547,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Newa Lahana Kirtipur (Kanchanpur)",
+    "description": "A highly acclaimed culinary venue in Kanchanpur celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-872044",
+    "establishedDate": "2009",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Kanchanpur, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Kanchanpur",
+    "municipality": "Kanchanpur City",
+    "ward": "3",
+    "street": "Riverside Road",
+    "latitude": 27.3458,
+    "longitude": 85.5287,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 706,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1440,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 515,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Utse Tibetan Restaurant (Lamjung)",
+    "description": "A highly acclaimed culinary venue in Lamjung celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-715105",
+    "establishedDate": "1997",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Lamjung, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Lamjung",
+    "municipality": "Lamjung City",
+    "ward": "9",
+    "street": "Food Street",
+    "latitude": 27.1393,
+    "longitude": 85.7102,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 688,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1218,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 359,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Busy Bee Cafe & Lounge (Kathmandu)",
+    "description": "A highly acclaimed culinary venue in Kathmandu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-593210",
+    "establishedDate": "2015",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Kathmandu, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Kathmandu",
+    "municipality": "Kathmandu City",
+    "ward": "7",
+    "street": "Lakeside Marg",
+    "latitude": 28.3517,
+    "longitude": 84.8748,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 886,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 785,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 373,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Caffe Concerto Lakeside (Bardiya)",
+    "description": "A highly acclaimed culinary venue in Bardiya celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-1-864828",
+    "establishedDate": "2014",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Bardiya, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Bardiya",
+    "municipality": "Bardiya City",
+    "ward": "8",
+    "street": "Food Street",
+    "latitude": 27.5659,
+    "longitude": 83.1741,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 674,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1238,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 544,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Godfather Pizzeria Pokhara (Achham)",
+    "description": "A highly acclaimed culinary venue in Achham celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-466055",
+    "establishedDate": "2021",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Achham, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Achham",
+    "municipality": "Achham City",
+    "ward": "7",
+    "street": "Lakeside Marg",
+    "latitude": 26.886,
+    "longitude": 86.1323,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 740,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1295,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 316,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Fresh Elements Restaurant (Palpa)",
+    "description": "A highly acclaimed culinary venue in Palpa celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-924181",
+    "establishedDate": "2011",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Palpa, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Palpa",
+    "municipality": "Palpa City",
+    "ward": "12",
+    "street": "Lakeside Marg",
+    "latitude": 27.2214,
+    "longitude": 84.082,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 674,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1273,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 432,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Bamboole Green Garden (Parbat)",
+    "description": "A highly acclaimed culinary venue in Parbat celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-928263",
+    "establishedDate": "1999",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Parbat, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Parbat",
+    "municipality": "Parbat City",
+    "ward": "9",
+    "street": "Central Market",
+    "latitude": 28.1149,
+    "longitude": 81.4827,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 775,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 950,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 506,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Saigon Pho Vietnamese (Saptari)",
+    "description": "A highly acclaimed culinary venue in Saptari celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-922384",
+    "establishedDate": "2020",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Saptari, Madhesh Province",
+    "province": "Madhesh Province",
+    "district": "Saptari",
+    "municipality": "Saptari City",
+    "ward": "8",
+    "street": "Riverside Road",
+    "latitude": 27.4239,
+    "longitude": 83.2769,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 669,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1138,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 462,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Chilly Bar & Restaurant (Dolpa)",
+    "description": "A highly acclaimed culinary venue in Dolpa celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-545420",
+    "establishedDate": "2002",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Dolpa, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Dolpa",
+    "municipality": "Dolpa City",
+    "ward": "14",
+    "street": "Lakeside Marg",
+    "latitude": 28.992,
+    "longitude": 86.1283,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 591,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1195,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 523,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Third Eye Restaurant Thamel (Rasuwa)",
+    "description": "A highly acclaimed culinary venue in Rasuwa celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-840245",
+    "establishedDate": "2016",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Rasuwa, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Rasuwa",
+    "municipality": "Rasuwa City",
+    "ward": "5",
+    "street": "Durbar Chowk",
+    "latitude": 28.4117,
+    "longitude": 80.6344,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 771,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1496,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 378,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "La Bella Italia Pokhara (Jajarkot)",
+    "description": "A highly acclaimed culinary venue in Jajarkot celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-705673",
+    "establishedDate": "2010",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Jajarkot, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Jajarkot",
+    "municipality": "Jajarkot City",
+    "ward": "13",
+    "street": "Food Street",
+    "latitude": 27.6792,
+    "longitude": 87.7843,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 608,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1291,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 458,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Little Italy Vegetarian (Banke)",
+    "description": "A highly acclaimed culinary venue in Banke celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-869744",
+    "establishedDate": "2020",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Banke, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Banke",
+    "municipality": "Banke City",
+    "ward": "2",
+    "street": "Central Market",
+    "latitude": 27.8262,
+    "longitude": 84.4377,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 549,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1238,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 383,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Helena's Rooftop Bakery (Sunsari)",
+    "description": "A highly acclaimed culinary venue in Sunsari celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-676221",
+    "establishedDate": "2010",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Sunsari, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Sunsari",
+    "municipality": "Sunsari City",
+    "ward": "10",
+    "street": "Central Market",
+    "latitude": 27.5666,
+    "longitude": 83.8081,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 797,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 872,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 491,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Mike's Breakfast & Cafe (Morang)",
+    "description": "A highly acclaimed culinary venue in Morang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-815786",
+    "establishedDate": "2000",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Morang, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Morang",
+    "municipality": "Morang City",
+    "ward": "5",
+    "street": "Food Street",
+    "latitude": 28.883,
+    "longitude": 81.2261,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 904,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1455,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 441,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Mustang Thakali Kitchen (Mugu)",
+    "description": "A highly acclaimed culinary venue in Mugu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-682171",
+    "establishedDate": "1992",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Mugu, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Mugu",
+    "municipality": "Mugu City",
+    "ward": "5",
+    "street": "Food Street",
+    "latitude": 28.9821,
+    "longitude": 84.8321,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 841,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1189,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 306,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Bhanchha Ghar Traditional (Ilam)",
+    "description": "A highly acclaimed culinary venue in Ilam celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-422777",
+    "establishedDate": "2012",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Ilam, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Ilam",
+    "municipality": "Ilam City",
+    "ward": "4",
+    "street": "Riverside Road",
+    "latitude": 26.8166,
+    "longitude": 81.8203,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 687,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 855,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 314,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Honacha Newari Bhaktapur (Tanahun)",
+    "description": "A highly acclaimed culinary venue in Tanahun celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-486085",
+    "establishedDate": "2000",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Tanahun, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Tanahun",
+    "municipality": "Tanahun City",
+    "ward": "13",
+    "street": "Central Market",
+    "latitude": 27.3955,
+    "longitude": 81.289,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 600,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 994,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 475,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Chitwan Tharu Bhojanalaya (Solukhumbu)",
+    "description": "A highly acclaimed culinary venue in Solukhumbu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-905434",
+    "establishedDate": "1999",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Solukhumbu, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Solukhumbu",
+    "municipality": "Solukhumbu City",
+    "ward": "11",
+    "street": "Central Market",
+    "latitude": 27.0602,
+    "longitude": 86.7519,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 907,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1247,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 447,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Palpali Dhido & Sekuwa Corner (Kalikot)",
+    "description": "A highly acclaimed culinary venue in Kalikot celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-990793",
+    "establishedDate": "2019",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Kalikot, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Kalikot",
+    "municipality": "Kalikot City",
+    "ward": "14",
+    "street": "Durbar Chowk",
+    "latitude": 28.9464,
+    "longitude": 83.8144,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 944,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1456,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 284,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Moondance Restaurant & Bar (Kailali)",
+    "description": "A highly acclaimed culinary venue in Kailali celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-2-417319",
+    "establishedDate": "1996",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Kailali, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Kailali",
+    "municipality": "Kailali City",
+    "ward": "2",
+    "street": "Lakeside Marg",
+    "latitude": 28.4407,
+    "longitude": 81.515,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 875,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 938,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 442,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "OR2K Middle Eastern (Mugu)",
+    "description": "A highly acclaimed culinary venue in Mugu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-8-804561",
+    "establishedDate": "2004",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Mugu, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Mugu",
+    "municipality": "Mugu City",
+    "ward": "5",
+    "street": "Riverside Road",
+    "latitude": 29.0717,
+    "longitude": 82.9064,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 815,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1244,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 466,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Bhojan Griha Heritage Dining (Kapilvastu)",
+    "description": "A highly acclaimed culinary venue in Kapilvastu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-841882",
+    "establishedDate": "2017",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Kapilvastu, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Kapilvastu",
+    "municipality": "Kapilvastu City",
+    "ward": "8",
+    "street": "Central Market",
+    "latitude": 28.436,
+    "longitude": 81.3313,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 451,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1321,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 373,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Krishnarpan Traditional Newari (Dang)",
+    "description": "A highly acclaimed culinary venue in Dang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-472908",
+    "establishedDate": "2010",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Dang, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Dang",
+    "municipality": "Dang City",
+    "ward": "13",
+    "street": "Lakeside Marg",
+    "latitude": 26.8117,
+    "longitude": 85.7359,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 800,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 979,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 458,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Fire and Ice Pizzeria (Lamjung)",
+    "description": "A highly acclaimed culinary venue in Lamjung celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-2-972312",
+    "establishedDate": "1995",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Lamjung, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Lamjung",
+    "municipality": "Lamjung City",
+    "ward": "10",
+    "street": "Lakeside Marg",
+    "latitude": 28.8344,
+    "longitude": 82.5341,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 925,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1250,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 511,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Roadhouse Cafe & Grill (Kapilvastu)",
+    "description": "A highly acclaimed culinary venue in Kapilvastu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-882333",
+    "establishedDate": "2010",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Kapilvastu, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Kapilvastu",
+    "municipality": "Kapilvastu City",
+    "ward": "8",
+    "street": "Durbar Chowk",
+    "latitude": 27.4936,
+    "longitude": 86.9811,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 932,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 793,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 363,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Himalayan Java Coffee (Lamjung)",
+    "description": "A highly acclaimed culinary venue in Lamjung celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-8-902487",
+    "establishedDate": "1993",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Lamjung, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Lamjung",
+    "municipality": "Lamjung City",
+    "ward": "11",
+    "street": "Lakeside Marg",
+    "latitude": 29.0242,
+    "longitude": 83.5565,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 643,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1226,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 478,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Rosemary Kitchen & Coffee (Sarlahi)",
+    "description": "A highly acclaimed culinary venue in Sarlahi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-1-881040",
+    "establishedDate": "1996",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Sarlahi, Madhesh Province",
+    "province": "Madhesh Province",
+    "district": "Sarlahi",
+    "municipality": "Sarlahi City",
+    "ward": "6",
+    "street": "Riverside Road",
+    "latitude": 28.3275,
+    "longitude": 86.5201,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 587,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1065,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 385,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Le Sherpa Organic Restaurant (Arghakhanchi)",
+    "description": "A highly acclaimed culinary venue in Arghakhanchi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-699311",
+    "establishedDate": "1995",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Arghakhanchi, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Arghakhanchi",
+    "municipality": "Arghakhanchi City",
+    "ward": "13",
+    "street": "Central Market",
+    "latitude": 28.058,
+    "longitude": 84.7126,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 637,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1310,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 317,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Kaiser Cafe Garden of Dreams (Jumla)",
+    "description": "A highly acclaimed culinary venue in Jumla celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-699124",
+    "establishedDate": "2002",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Jumla, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Jumla",
+    "municipality": "Jumla City",
+    "ward": "9",
+    "street": "Lakeside Marg",
+    "latitude": 27.6769,
+    "longitude": 87.5846,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 571,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1031,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 282,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Thamel House Traditional Dining (Sarlahi)",
+    "description": "A highly acclaimed culinary venue in Sarlahi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-466376",
+    "establishedDate": "2021",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Sarlahi, Madhesh Province",
+    "province": "Madhesh Province",
+    "district": "Sarlahi",
+    "municipality": "Sarlahi City",
+    "ward": "4",
+    "street": "Central Market",
+    "latitude": 28.4146,
+    "longitude": 83.6216,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 640,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1148,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 534,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Newa Lahana Kirtipur (Morang)",
+    "description": "A highly acclaimed culinary venue in Morang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-6-597836",
+    "establishedDate": "2020",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Morang, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Morang",
+    "municipality": "Morang City",
+    "ward": "7",
+    "street": "Riverside Road",
+    "latitude": 28.9122,
+    "longitude": 82.7105,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 473,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 813,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 338,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Utse Tibetan Restaurant (Sankhuwasabha)",
+    "description": "A highly acclaimed culinary venue in Sankhuwasabha celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-716405",
+    "establishedDate": "1994",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Sankhuwasabha, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Sankhuwasabha",
+    "municipality": "Sankhuwasabha City",
+    "ward": "14",
+    "street": "Lakeside Marg",
+    "latitude": 29.005,
+    "longitude": 87.3892,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 461,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1506,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 459,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Busy Bee Cafe & Lounge (Lalitpur)",
+    "description": "A highly acclaimed culinary venue in Lalitpur celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-514499",
+    "establishedDate": "2008",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Lalitpur, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Lalitpur",
+    "municipality": "Lalitpur City",
+    "ward": "15",
+    "street": "Central Market",
+    "latitude": 28.013,
+    "longitude": 86.7822,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 740,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1299,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 415,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Caffe Concerto Lakeside (Arghakhanchi)",
+    "description": "A highly acclaimed culinary venue in Arghakhanchi celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-650992",
+    "establishedDate": "1996",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Arghakhanchi, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Arghakhanchi",
+    "municipality": "Arghakhanchi City",
+    "ward": "5",
+    "street": "Riverside Road",
+    "latitude": 27.8083,
+    "longitude": 86.4864,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 626,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 885,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 296,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Godfather Pizzeria Pokhara (Dang)",
+    "description": "A highly acclaimed culinary venue in Dang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-4-914074",
+    "establishedDate": "2020",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Dang, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Dang",
+    "municipality": "Dang City",
+    "ward": "10",
+    "street": "Food Street",
+    "latitude": 28.1254,
+    "longitude": 85.2265,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 689,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1075,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 499,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Fresh Elements Restaurant (Jhapa)",
+    "description": "A highly acclaimed culinary venue in Jhapa celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-4-825547",
+    "establishedDate": "1994",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Jhapa, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Jhapa",
+    "municipality": "Jhapa City",
+    "ward": "12",
+    "street": "Riverside Road",
+    "latitude": 29.0218,
+    "longitude": 85.7895,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 946,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 805,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 315,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Bamboole Green Garden (Dailekh)",
+    "description": "A highly acclaimed culinary venue in Dailekh celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-4-482352",
+    "establishedDate": "2004",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Dailekh, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Dailekh",
+    "municipality": "Dailekh City",
+    "ward": "6",
+    "street": "Food Street",
+    "latitude": 27.3868,
+    "longitude": 86.6283,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 663,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1515,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 293,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Saigon Pho Vietnamese (Banke)",
+    "description": "A highly acclaimed culinary venue in Banke celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-670742",
+    "establishedDate": "2022",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Banke, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Banke",
+    "municipality": "Banke City",
+    "ward": "10",
+    "street": "Food Street",
+    "latitude": 27.2533,
+    "longitude": 83.2423,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 616,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 890,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 445,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Chilly Bar & Restaurant (Jajarkot)",
+    "description": "A highly acclaimed culinary venue in Jajarkot celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-4-728648",
+    "establishedDate": "2000",
+    "cuisine": "Authentic Traditional Newari & Nepali",
+    "location": "Jajarkot, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Jajarkot",
+    "municipality": "Jajarkot City",
+    "ward": "1",
+    "street": "Central Market",
+    "latitude": 29.1898,
+    "longitude": 86.5001,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 627,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 799,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 382,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Third Eye Restaurant Thamel (Sankhuwasabha)",
+    "description": "A highly acclaimed culinary venue in Sankhuwasabha celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-8-593099",
+    "establishedDate": "2019",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Sankhuwasabha, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Sankhuwasabha",
+    "municipality": "Sankhuwasabha City",
+    "ward": "1",
+    "street": "Riverside Road",
+    "latitude": 28.6897,
+    "longitude": 86.435,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 900,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 874,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 353,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "La Bella Italia Pokhara (Humla)",
+    "description": "A highly acclaimed culinary venue in Humla celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-587142",
+    "establishedDate": "2022",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Humla, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Humla",
+    "municipality": "Humla City",
+    "ward": "4",
+    "street": "Durbar Chowk",
+    "latitude": 29.0803,
+    "longitude": 82.5632,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 924,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 789,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 425,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Little Italy Vegetarian (Sankhuwasabha)",
+    "description": "A highly acclaimed culinary venue in Sankhuwasabha celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-485857",
+    "establishedDate": "2008",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Sankhuwasabha, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Sankhuwasabha",
+    "municipality": "Sankhuwasabha City",
+    "ward": "6",
+    "street": "Durbar Chowk",
+    "latitude": 28.3573,
+    "longitude": 84.5558,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 618,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1529,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 372,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Helena's Rooftop Bakery (Bardiya)",
+    "description": "A highly acclaimed culinary venue in Bardiya celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-430670",
+    "establishedDate": "2023",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Bardiya, Lumbini Province",
+    "province": "Lumbini Province",
+    "district": "Bardiya",
+    "municipality": "Bardiya City",
+    "ward": "3",
+    "street": "Central Market",
+    "latitude": 28.5481,
+    "longitude": 83.9149,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 876,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1209,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 372,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Mike's Breakfast & Cafe (Makwanpur)",
+    "description": "A highly acclaimed culinary venue in Makwanpur celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-815501",
+    "establishedDate": "2017",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Makwanpur, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Makwanpur",
+    "municipality": "Makwanpur City",
+    "ward": "10",
+    "street": "Central Market",
+    "latitude": 27.1573,
+    "longitude": 83.1199,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 921,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 810,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 334,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Mustang Thakali Kitchen (Achham)",
+    "description": "A highly acclaimed culinary venue in Achham celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-451243",
+    "establishedDate": "2008",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Achham, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Achham",
+    "municipality": "Achham City",
+    "ward": "3",
+    "street": "Riverside Road",
+    "latitude": 28.1024,
+    "longitude": 86.4805,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 493,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1271,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 463,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Bhanchha Ghar Traditional (Bajhang)",
+    "description": "A highly acclaimed culinary venue in Bajhang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-1-861581",
+    "establishedDate": "2011",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Bajhang, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Bajhang",
+    "municipality": "Bajhang City",
+    "ward": "15",
+    "street": "Lakeside Marg",
+    "latitude": 26.8207,
+    "longitude": 83.4415,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 945,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1203,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 384,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Honacha Newari Bhaktapur (Parbat)",
+    "description": "A highly acclaimed culinary venue in Parbat celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-1-687266",
+    "establishedDate": "2018",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Parbat, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Parbat",
+    "municipality": "Parbat City",
+    "ward": "12",
+    "street": "Durbar Chowk",
+    "latitude": 27.7337,
+    "longitude": 86.2878,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 647,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 798,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 542,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Chitwan Tharu Bhojanalaya (Bajhang)",
+    "description": "A highly acclaimed culinary venue in Bajhang celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-610759",
+    "establishedDate": "2020",
+    "cuisine": "Continental, Italian & Nepali",
+    "location": "Bajhang, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Bajhang",
+    "municipality": "Bajhang City",
+    "ward": "4",
+    "street": "Central Market",
+    "latitude": 27.2918,
+    "longitude": 81.9673,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 802,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 840,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 548,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Palpali Dhido & Sekuwa Corner (Solukhumbu)",
+    "description": "A highly acclaimed culinary venue in Solukhumbu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-673787",
+    "establishedDate": "2020",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Solukhumbu, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Solukhumbu",
+    "municipality": "Solukhumbu City",
+    "ward": "4",
+    "street": "Riverside Road",
+    "latitude": 27.3717,
+    "longitude": 81.5919,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 705,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1021,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 309,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Moondance Restaurant & Bar (Bhaktapur)",
+    "description": "A highly acclaimed culinary venue in Bhaktapur celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-5-470416",
+    "establishedDate": "1999",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Bhaktapur, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Bhaktapur",
+    "municipality": "Bhaktapur City",
+    "ward": "11",
+    "street": "Riverside Road",
+    "latitude": 29.077,
+    "longitude": 83.8898,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 531,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 840,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 357,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "OR2K Middle Eastern (Tanahun)",
+    "description": "A highly acclaimed culinary venue in Tanahun celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-7-899770",
+    "establishedDate": "2000",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Tanahun, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Tanahun",
+    "municipality": "Tanahun City",
+    "ward": "15",
+    "street": "Riverside Road",
+    "latitude": 27.1474,
+    "longitude": 86.5185,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 728,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1396,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 344,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Bhojan Griha Heritage Dining (Kanchanpur)",
+    "description": "A highly acclaimed culinary venue in Kanchanpur celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-1-927551",
+    "establishedDate": "2015",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Kanchanpur, Sudurpashchim Province",
+    "province": "Sudurpashchim Province",
+    "district": "Kanchanpur",
+    "municipality": "Kanchanpur City",
+    "ward": "3",
+    "street": "Riverside Road",
+    "latitude": 28.2589,
+    "longitude": 85.6004,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 859,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1130,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 457,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Krishnarpan Traditional Newari (Dolpa)",
+    "description": "A highly acclaimed culinary venue in Dolpa celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-9-500580",
+    "establishedDate": "2008",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Dolpa, Karnali Province",
+    "province": "Karnali Province",
+    "district": "Dolpa",
+    "municipality": "Dolpa City",
+    "ward": "12",
+    "street": "Lakeside Marg",
+    "latitude": 27.2675,
+    "longitude": 85.0916,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 615,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1411,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 444,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Fire and Ice Pizzeria (Chitwan)",
+    "description": "A highly acclaimed culinary venue in Chitwan celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-742279",
+    "establishedDate": "2011",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Chitwan, Bagmati Province",
+    "province": "Bagmati Province",
+    "district": "Chitwan",
+    "municipality": "Chitwan City",
+    "ward": "4",
+    "street": "Central Market",
+    "latitude": 28.8345,
+    "longitude": 84.0838,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1623880840102-530b135efbd1?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 781,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1547,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 382,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Roadhouse Cafe & Grill (Solukhumbu)",
+    "description": "A highly acclaimed culinary venue in Solukhumbu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-8-405667",
+    "establishedDate": "2012",
+    "cuisine": "Middle Eastern, Vegan & Organic",
+    "location": "Solukhumbu, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Solukhumbu",
+    "municipality": "Solukhumbu City",
+    "ward": "15",
+    "street": "Lakeside Marg",
+    "latitude": 27.8004,
+    "longitude": 83.8536,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 915,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 919,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 343,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Himalayan Java Coffee (Syangja)",
+    "description": "A highly acclaimed culinary venue in Syangja celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-2-416311",
+    "establishedDate": "2013",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Syangja, Gandaki Province",
+    "province": "Gandaki Province",
+    "district": "Syangja",
+    "municipality": "Syangja City",
+    "ward": "12",
+    "street": "Food Street",
+    "latitude": 26.8643,
+    "longitude": 86.8954,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 806,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1210,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 460,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Rosemary Kitchen & Coffee (Parsa)",
+    "description": "A highly acclaimed culinary venue in Parsa celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-3-585662",
+    "establishedDate": "2016",
+    "cuisine": "Wood-Fired Pizza & Grill",
+    "location": "Parsa, Madhesh Province",
+    "province": "Madhesh Province",
+    "district": "Parsa",
+    "municipality": "Parsa City",
+    "ward": "8",
+    "street": "Lakeside Marg",
+    "latitude": 28.864,
+    "longitude": 82.7944,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 892,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 937,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 322,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Le Sherpa Organic Restaurant (Dhanusha)",
+    "description": "A highly acclaimed culinary venue in Dhanusha celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-1-918222",
+    "establishedDate": "2014",
+    "cuisine": "Tibetan, Himalayan & Bakery",
+    "location": "Dhanusha, Madhesh Province",
+    "province": "Madhesh Province",
+    "district": "Dhanusha",
+    "municipality": "Dhanusha City",
+    "ward": "8",
+    "street": "Lakeside Marg",
+    "latitude": 29.1215,
+    "longitude": 85.7976,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 857,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1462,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 497,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  },
+  {
+    "name": "Kaiser Cafe Garden of Dreams (Solukhumbu)",
+    "description": "A highly acclaimed culinary venue in Solukhumbu celebrated for freshly prepared signature dishes, cozy ambiance, and authentic regional flavours.",
+    "phoneNumber": "+977-1-726184",
+    "establishedDate": "2008",
+    "cuisine": "Thakali Khana Set Special",
+    "location": "Solukhumbu, Koshi Province",
+    "province": "Koshi Province",
+    "district": "Solukhumbu",
+    "municipality": "Solukhumbu City",
+    "ward": "9",
+    "street": "Durbar Chowk",
+    "latitude": 28.9802,
+    "longitude": 84.7527,
+    "isOpen": true,
+    "openingTime": "08:00 AM",
+    "closingTime": "10:30 PM",
+    "restaurantImageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+    "menus": [
+      {
+        "name": "Authentic Thakali / Newari Platter",
+        "description": "Locally sourced traditional set with organic grains, seasonal curries, and house-made dips.",
+        "price": 801,
+        "category": "Main Course",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800"
+      },
+      {
+        "name": "Fresh Himalayan Trout / Wood-Fired Pizza",
+        "description": "Freshly prepared signature delicacy with herbs and organic toppings.",
+        "price": 1448,
+        "category": "Chef Special",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800"
+      },
+      {
+        "name": "Steamed Artisan Momo Platter",
+        "description": "Handcrafted dumplings served with spicy tomato sesame chutney.",
+        "price": 311,
+        "category": "Starters",
+        "isAvailable": true,
+        "menusImageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800"
+      }
+    ]
+  }
+]

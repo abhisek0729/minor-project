@@ -1,49 +1,47 @@
 import Link from "next/link";
-import { ShieldX } from "lucide-react";
-
+import { ArrowLeft, Lock, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function UnauthorizedPage() {
   return (
-    <main className="flex min-h-dvh items-center justify-center bg-muted/30 px-6 py-12">
-      <Card className="w-full max-w-lg shadow-lg">
-        <CardHeader className="items-center text-center space-y-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
-            <ShieldX className="h-8 w-8 text-destructive" />
+    <div className="min-h-screen bg-muted/20 flex items-center justify-center p-4">
+      <Card className="max-w-md w-full border shadow-xl rounded-3xl overflow-hidden text-center p-8 space-y-5 bg-card">
+        <div className="size-16 rounded-2xl bg-rose-500/10 text-rose-600 flex items-center justify-center mx-auto ring-8 ring-rose-500/5">
+          <ShieldAlert className="size-8" />
+        </div>
+
+        <div className="space-y-1.5">
+          <h1 className="text-2xl font-extrabold tracking-tight text-foreground">
+            Access Restricted
+          </h1>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            You do not have permission to access the <strong>Super Administrator Dashboard</strong>. This area is reserved exclusively for verified platform owners and authorized system administrators.
+          </p>
+        </div>
+
+        <div className="rounded-2xl bg-muted/40 p-4 border text-xs text-muted-foreground space-y-1 text-left">
+          <div className="flex items-center gap-1.5 font-bold text-foreground">
+            <Lock className="size-3.5 text-primary" /> Security Policy
           </div>
+          <p>
+            Role-Based Access Control (RBAC) is enforced. Only users with the <code className="font-mono text-primary font-bold">admin</code> role approved by the platform database administrator can view this console.
+          </p>
+        </div>
 
-          <div className="space-y-2">
-            <p className="text-sm font-semibold uppercase tracking-wider text-destructive">
-              Error 403
-            </p>
-
-            <CardTitle className="text-3xl">
-              Access Denied
-            </CardTitle>
-
-            <CardDescription className="text-base">
-              You don't have permission to access this page. If you believe this
-              is a mistake, please contact an administrator or return to your
-              dashboard.
-            </CardDescription>
-          </div>
-        </CardHeader>
-
-        <CardContent className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <Button variant="outline">
-            <Link href="/">
-              Back to Home
-            </Link>
-          </Button>
-        </CardContent>
+        <div className="pt-2 flex flex-col gap-2">
+          <Link href="/dashboard" className="block w-full">
+            <Button className="w-full font-bold gap-1.5 rounded-xl h-11 cursor-pointer">
+              <ArrowLeft className="size-4" /> Return to My Dashboard
+            </Button>
+          </Link>
+          <Link href="/" className="block w-full">
+            <Button variant="ghost" className="w-full text-xs rounded-xl cursor-pointer">
+              Go to Homepage
+            </Button>
+          </Link>
+        </div>
       </Card>
-    </main>
+    </div>
   );
 }

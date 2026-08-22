@@ -1,0 +1,346 @@
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  ArrowLeft,
+  BedDouble,
+  Building2,
+  Calendar,
+  CheckCircle2,
+  Clock,
+  Coffee,
+  ExternalLink,
+  Hotel,
+  MapPin,
+  Mountain,
+  Navigation,
+  Phone,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Users,
+  Utensils,
+  Wifi,
+} from "lucide-react";
+
+import Navbar from "@/app/features/landing/components/Navbar";
+import Footer from "@/app/features/landing/components/Footer";
+import { db } from "@/app/lib/db";
+import { hotelsTable, roomsTable } from "@/app/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import HotelBookingModal from "./components/HotelBookingModal";
+
+interface HotelDetailPageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+const mockHotels: Record<number, any> = {
+  1: {
+    id: 1,
+    name: "Lakeside Mountain Resort",
+    description: "Boutique lakefront stay with private balconies, panoramic Annapurna mountain views, an in-house organic restaurant, and peaceful gardens.",
+    district: "Pokhara",
+    province: "Gandaki Province",
+    street: "Lakeside Marg-6",
+    phoneNumber: "+977 61-462345",
+    rating: 4.9,
+    coverImage: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop",
+    rooms: [
+      { id: 101, roomNumber: "101", type: "Deluxe Mountain View", price: 5200, capacity: 2, description: "King size bed with private balcony facing Phewa lake and mountain peaks." },
+      { id: 102, roomNumber: "102", type: "Executive Lake Suite", price: 8400, capacity: 4, description: "Spacious master bedroom with living area, jacuzzi tub, and sunset terrace." },
+    ],
+    facilities: ["High-Speed WiFi", "Mountain Views", "24/7 Room Service", "Restaurant & Bar", "Free Parking", "Airport Pickup"],
+  },
+  2: {
+    id: 2,
+    name: "Everest Heights Lodge",
+    description: "Cozy alpine lodge in the heart of Namche Bazaar featuring traditional Himalayan stone architecture, heated rooms, and warm Sherpa hospitality.",
+    district: "Namche Bazaar",
+    province: "Koshi Province",
+    street: "Tenzing Norgay Trail",
+    phoneNumber: "+977 38-540123",
+    rating: 5.0,
+    coverImage: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200&auto=format&fit=crop",
+    rooms: [
+      { id: 201, roomNumber: "201", type: "Alpine Pine Room", price: 7800, capacity: 2, description: "Heated wooden room with thermal blankets and panoramic views of Kongde Ri." },
+      { id: 202, roomNumber: "202", type: "Himalayan Family Suite", price: 11200, capacity: 4, description: "Two interconnected heated rooms perfect for trekking groups and families." },
+    ],
+    facilities: ["Heated Rooms", "Sherpa Dining", "Hot Showers", "WiFi Access", "Oxygen Support", "Luggage Storage"],
+  },
+  3: {
+    id: 3,
+    name: "Heritage Courtyard Hotel",
+    description: "Restored historic Newari architecture in the heart of old Patan with rooftop garden, carved wooden windows, and authentic cultural ambiance.",
+    district: "Lalitpur",
+    province: "Bagmati Province",
+    street: "Patan Durbar Square Road",
+    phoneNumber: "+977 1-5521980",
+    rating: 4.8,
+    coverImage: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop",
+    rooms: [
+      { id: 301, roomNumber: "301", type: "Newari Heritage Deluxe", price: 6500, capacity: 2, description: "Traditional brick walls with hand-carved woodwork and modern luxury bath." },
+      { id: 302, roomNumber: "302", type: "Courtyard Garden Suite", price: 9200, capacity: 3, description: "Overlooks the 200-year-old stone courtyard and private rooftop terrace." },
+    ],
+    facilities: ["Free Breakfast", "Courtyard Dining", "High-Speed WiFi", "Heritage Walking Tours", "AC & Heating"],
+  },
+};
+
+export default async function HotelDetailPage({ params }: HotelDetailPageProps) {
+  const { id } = await params;
+  const hotelId = parseInt(id, 10);
+
+  if (isNaN(hotelId)) {
+    notFound();
+  }
+
+  let hotel = mockHotels[hotelId] || mockHotels[1];
+
+  try {
+    const [dbHotel] = await db.select().from(hotelsTable).where(eq(hotelsTable.id, hotelId));
+    if (dbHotel) {
+      const dbRooms = await db.select().from(roomsTable).where(eq(roomsTable.hotelId, hotelId));
+      hotel = {
+        ...dbHotel,
+        rating: 4.9,
+        coverImage: dbHotel.coverImageUrl || hotel.coverImage,
+        rooms: dbRooms.length > 0 ? dbRooms.map(r => {
+          const rawType = (r.roomType || (r as any).type || "Deluxe Room").toLowerCase();
+          const displayType = rawType.includes("suite")
+            ? "Executive Luxury Suite"
+            : rawType.includes("family")
+            ? "Family Mountain Room"
+            : rawType.includes("twin")
+            ? "Twin Deluxe Room"
+            : rawType.includes("single")
+            ? "Cozy Single Room"
+            : "Deluxe Mountain View Room";
+
+          return {
+            id: r.id,
+            roomNumber: r.roomNumber,
+            type: displayType,
+            price: Number(r.pricePerNight),
+            capacity: r.capacity || 2,
+            description: r.description || "Comfortable guest room with modern amenities, clean linen, and mountain views.",
+          };
+        }) : hotel.rooms,
+        facilities: hotel.facilities || ["Free High-Speed WiFi", "Mountain View Balcony", "Restaurant & Bar", "24/7 Room Service", "Airport Shuttle"],
+      };
+    }
+  } catch (error) {
+    console.error("Failed to query hotel detail:", error);
+  }
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col justify-between">
+      <Navbar />
+
+      <main className="mx-auto max-w-7xl px-4 pb-20 pt-24 sm:px-6 lg:px-8 w-full flex-1 space-y-8">
+        {/* Back Link */}
+        <div>
+          <Link
+            href="/hotels"
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="size-4" />
+            <span>Back to All Hotels</span>
+          </Link>
+        </div>
+
+        {/* Hero Section */}
+        <div className="relative rounded-3xl overflow-hidden border bg-card shadow-sm">
+          <div className="relative h-72 sm:h-96 w-full bg-muted">
+            <Image
+              src={hotel.coverImage}
+              alt={hotel.name}
+              fill
+              className="object-cover"
+              unoptimized
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+
+            {/* Top Badges */}
+            <div className="absolute top-4 right-4 flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-500/90 text-white backdrop-blur-md shadow-md">
+                <ShieldCheck className="size-3.5" /> Verified Hotel
+              </span>
+            </div>
+
+            {/* Bottom Title on Hero */}
+            <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs font-semibold backdrop-blur-md">
+                  <Star className="size-3.5 fill-yellow-400 text-yellow-400" />
+                  {hotel.rating} / 5.0
+                </div>
+                <Badge variant="secondary" className="bg-white/20 text-white text-xs backdrop-blur-md border-0">
+                  {hotel.district}, {hotel.province || "Nepal"}
+                </Badge>
+              </div>
+
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight drop-shadow-sm">
+                {hotel.name}
+              </h1>
+
+              <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-white/90">
+                <div className="flex items-center gap-1.5">
+                  <MapPin className="size-4 text-primary shrink-0" />
+                  <span>{hotel.street || hotel.district}, {hotel.district}, {hotel.province || "Nepal"}</span>
+                </div>
+                {hotel.phoneNumber && (
+                  <div className="flex items-center gap-1.5">
+                    <Phone className="size-4 text-primary shrink-0" />
+                    <span>{hotel.phoneNumber}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ⭐ PRIMARY CORE OFFERING: ROOM INVENTORY & DIRECT BOOKING (FIRST VIEW) */}
+        <section className="space-y-4 pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-3">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+                <BedDouble className="size-6 text-primary" /> Available Room Inventory & Suites
+              </h2>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Select your room type and reserve instantly with instant booking confirmation.
+              </p>
+            </div>
+            <span className="text-xs font-semibold px-3 py-1 bg-primary/10 text-primary rounded-full w-fit">
+              {hotel.rooms.length} Room Categories Available
+            </span>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {hotel.rooms.map((room: any) => (
+              <Card key={room.id} className="p-6 border hover:border-primary/50 transition-all shadow-xs flex flex-col justify-between bg-card">
+                <div className="space-y-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h3 className="font-bold text-lg text-foreground flex items-center gap-2">
+                        {room.type}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-0.5 font-mono">Room Unit #{room.roomNumber}</p>
+                    </div>
+                    <Badge variant="secondary" className="text-xs font-semibold">
+                      Up to {room.capacity} Guests
+                    </Badge>
+                  </div>
+
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {room.description}
+                  </p>
+
+                  <div className="flex items-center gap-3 text-xs text-foreground/80 font-medium">
+                    <span className="flex items-center gap-1"><Wifi className="size-3.5 text-primary" /> Free WiFi</span>
+                    <span className="flex items-center gap-1"><Coffee className="size-3.5 text-primary" /> Breakfast Included</span>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-4 border-t flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-muted-foreground block leading-none">Price per night</span>
+                    <span className="text-xl font-extrabold text-foreground">
+                      NPR {room.price.toLocaleString()}
+                    </span>
+                  </div>
+
+                  <HotelBookingModal
+                    hotelId={hotel.id}
+                    hotelName={hotel.name}
+                    roomId={room.id}
+                    roomType={room.type}
+                    pricePerNight={room.price}
+                  />
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Description & Key Amenities */}
+        <section className="rounded-3xl border bg-card p-6 shadow-sm space-y-4">
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="md:col-span-2 space-y-2">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                <Hotel className="size-4 text-primary" />
+                About the Hotel Property
+              </h3>
+              <p className="text-sm text-foreground/90 leading-relaxed">
+                {hotel.description}
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                <Sparkles className="size-4 text-primary" />
+                Key Amenities & Services
+              </h3>
+              <div className="flex flex-wrap gap-1.5">
+                {(hotel.facilities || ["Free High-Speed WiFi", "Mountain View Balcony", "Restaurant & Bar", "24/7 Room Service", "Airport Shuttle"]).map((f: string) => (
+                  <Badge key={f} variant="outline" className="text-[11px] py-1 px-2">
+                    {f}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Interactive Location & Navigation Map */}
+        <section className="rounded-3xl border bg-card p-6 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4">
+            <div>
+              <h3 className="text-lg font-bold flex items-center gap-2">
+                <MapPin className="size-5 text-primary" />
+                Hotel Location & Navigation
+              </h3>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {hotel.street || hotel.district}, {hotel.district}, {hotel.province || "Nepal"}
+              </p>
+            </div>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                hotel.latitude && hotel.longitude
+                  ? `${hotel.latitude},${hotel.longitude}`
+                  : `${hotel.name}, ${hotel.district}, Nepal`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold shadow-xs hover:opacity-90 transition-all shrink-0"
+            >
+              <Navigation className="size-3.5" />
+              <span>Get Driving Directions</span>
+              <ExternalLink className="size-3 ml-0.5" />
+            </a>
+          </div>
+
+          <div className="relative w-full h-72 rounded-2xl overflow-hidden border shadow-inner bg-muted/40">
+            <iframe
+              title={`Map for ${hotel.name}`}
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                hotel.latitude && hotel.longitude
+                  ? `${hotel.latitude},${hotel.longitude}`
+                  : `${hotel.name}, ${hotel.district}, Nepal`
+              )}&z=15&output=embed`}
+              className="w-full h-full border-0"
+              loading="lazy"
+              allowFullScreen
+            />
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}

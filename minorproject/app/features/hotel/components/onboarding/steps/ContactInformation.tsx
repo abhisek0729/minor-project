@@ -4,7 +4,7 @@ import { Globe, Mail, Phone, Sparkles } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useFormContext } from "react-hook-form";
 
-import { HotelSchema } from "../../schemas/hotel.schema";
+import { HotelSchema } from "../../../schemas/hotel.schema";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,10 +34,7 @@ export default function ContactInformationStep({
   } = useFormContext<HotelSchema>();
 
   async function handleNext() {
-    const valid = await trigger([
-      "phone",
-      "website",
-    ]);
+    const valid = await trigger(["phone", "website"]);
 
     if (valid) {
       next();
@@ -46,7 +43,6 @@ export default function ContactInformationStep({
 
   return (
     <div className="mx-auto px-4 sm:px-6 w-full max-w-4xl animate-in fade-in slide-in-from-bottom-2 duration-500">
-
       {/* Heading */}
 
       <div className="mb-10">
@@ -67,7 +63,6 @@ export default function ContactInformationStep({
       {/* Card */}
 
       <div className="overflow-hidden rounded-3xl border bg-card shadow-sm transition-shadow hover:shadow-md">
-
         {/* Card Header */}
 
         <div className="border-b bg-muted/30 px-8 py-6">
@@ -77,9 +72,7 @@ export default function ContactInformationStep({
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold">
-                Contact Details
-              </h2>
+              <h2 className="text-xl font-semibold">Contact Details</h2>
 
               <p className="text-sm text-muted-foreground">
                 Guests will use these details to communicate with your hotel.
@@ -92,7 +85,6 @@ export default function ContactInformationStep({
 
         <div className="space-y-8 p-5 sm:p-8 lg:p-10">
           <FieldGroup className="gap-8">
-
             {/* Account Email */}
 
             <Field className="gap-3">
@@ -116,10 +108,7 @@ export default function ContactInformationStep({
 
             {/* Phone */}
 
-            <Field
-              className="gap-3"
-              data-invalid={!!errors.phone}
-            >
+            <Field className="gap-3" data-invalid={!!errors.phone}>
               <FieldLabel className="flex items-center gap-2">
                 <Phone className="size-4 text-primary" />
                 Phone Number
@@ -143,10 +132,7 @@ export default function ContactInformationStep({
 
             {/* Website */}
 
-            <Field
-              className="gap-3"
-              data-invalid={!!errors.website}
-            >
+            <Field className="gap-3" data-invalid={!!errors.website}>
               <FieldLabel className="flex items-center gap-2">
                 <Globe className="size-4 text-primary" />
                 Website
@@ -169,7 +155,6 @@ export default function ContactInformationStep({
 
               <FieldError errors={[errors.website]} />
             </Field>
-
           </FieldGroup>
 
           {/* Footer */}

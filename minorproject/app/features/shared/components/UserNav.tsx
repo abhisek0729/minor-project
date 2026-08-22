@@ -60,21 +60,9 @@ export function UserNav({ name, email }: UserNavProps) {
 
           <div className="border-t" />
 
-          <Button variant="ghost" className="w-full justify-start" disabled>
-            <User className="mr-2 h-4 w-4" />
-            Profile
-          </Button>
-
-          <Button variant="ghost" className="w-full justify-start" disabled>
-            <Settings className="mr-2 h-4 w-4" />
-            Account Settings
-          </Button>
-
-          <div className="border-t" />
-
           <Button
             variant="ghost"
-            className="w-full justify-start text-destructive hover:text-destructive"
+            className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10 cursor-pointer"
             onClick={handleLogout}
           >
             <LogOut className="mr-2 h-4 w-4" />

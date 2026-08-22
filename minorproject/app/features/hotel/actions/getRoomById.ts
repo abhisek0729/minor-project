@@ -32,10 +32,10 @@ export async function getRoomById(roomId: number) {
   // Verify hotel ownership
   const [hotel] = await db
     .select({
-      ownerId: hotelsTable.user_id,
+      ownerId: hotelsTable.userId,
     })
     .from(hotelsTable)
-    .where(eq(hotelsTable.id, room.hotel_id));
+    .where(eq(hotelsTable.id, room.hotelId));
 
   if (!hotel || hotel.ownerId !== Number(session.user.id)) {
     return null;
@@ -44,25 +44,25 @@ export async function getRoomById(roomId: number) {
   // Room images
   const images = await db
     .select({
-      imageUrl: roomImagesTable.image_url,
-      publicId: roomImagesTable.public_id,
+      imageUrl: roomImagesTable.imageUrl,
+      publicId: roomImagesTable.publicId,
     })
     .from(roomImagesTable)
-    .where(eq(roomImagesTable.room_id, roomId));
+    .where(eq(roomImagesTable.roomId, roomId));
 
   // Selected facilities
   const facilities = await db
     .select({
-      facilityId: roomFacilitiesTable.facility_id,
+      facilityId: roomFacilitiesTable.facilityId,
     })
     .from(roomFacilitiesTable)
-    .where(eq(roomFacilitiesTable.room_id, roomId));
+    .where(eq(roomFacilitiesTable.roomId, roomId));
 
  return {
-  roomNumber: room.room_number,
-  roomType: room.room_type,
+  roomNumber: room.roomNumber,
+  roomType: room.roomType,
   description: room.description,
-  pricePerNight: Number(room.price_per_night),
+  pricePerNight: Number(room.pricePerNight),
   capacity: room.capacity,
   status: room.status,
 

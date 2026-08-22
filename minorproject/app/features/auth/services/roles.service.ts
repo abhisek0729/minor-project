@@ -12,14 +12,30 @@ export type UserRoleWithStatus = {
   approvalStatus: ApprovalStatus;
 };
 
-export async function getRoleByName(role: UserRole) {
-  const [dbRole] = await db
+export async function getRoleByName(role: UserRole | "admin") {
+  let [dbRole] = await db
     .select()
     .from(rolesTable)
     .where(eq(rolesTable.name, role));
 
   if (!dbRole) {
-    throw new Error("Role not found");
+    try {
+      [dbRole] = await db
+        .insert(rolesTable)
+        .values({ name: role as any })
+        .returning();
+    } catch (e) {
+      // If concurrent insert occurred, select again
+      const [existing] = await db
+        .select()
+        .from(rolesTable)
+        .where(eq(rolesTable.name, role));
+      dbRole = existing;
+    }
+  }
+
+  if (!dbRole) {
+    throw new Error(`Role ${role} could not be retrieved or initialized`);
   }
 
   return dbRole;
@@ -40,7 +56,7 @@ export async function getUserRoles(
 
 export async function assignRoleIfMissing(
   userId: number,
-  role: UserRole,
+  role: UserRole | "admin",
 ): Promise<UserRoleWithStatus[]> {
   const dbRole = await getRoleByName(role);
 

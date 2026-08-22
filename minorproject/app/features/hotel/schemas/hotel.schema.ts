@@ -49,6 +49,10 @@ export const hotelSchema = z.object({
       publicId: z.string().min(1),
     }),
   ),
+
+  // Step 6 - Verification
+  registrationCertificate: z.string().optional(),
+  panCertificate: z.string().optional(),
 });
 
 export type HotelSchema = z.infer<typeof hotelSchema>;

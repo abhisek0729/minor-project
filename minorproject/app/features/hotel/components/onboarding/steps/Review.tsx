@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
-import { HotelSchema } from "../../schemas/hotel.schema";
+import { HotelSchema } from "../../../schemas/hotel.schema";
 
 import { Button } from "@/components/ui/button";
 import { FacilityIconKey } from "./Facilities";

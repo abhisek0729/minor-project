@@ -18,10 +18,10 @@ import {
 
 interface Room {
   id: number;
-  room_number: string;
-  room_type: string;
+  roomNumber: string;
+  roomType: string;
   capacity: number;
-  price_per_night: string;
+  pricePerNight: string;
   status: string;
 }
 
@@ -84,7 +84,7 @@ export default function RoomsTable({
 
                     <div>
                       <p className="font-semibold">
-                        Room {room.room_number}
+                        Room {room.roomNumber}
                       </p>
                     </div>
                   </div>
@@ -94,7 +94,7 @@ export default function RoomsTable({
 
                 <TableCell>
                   <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium">
-                    {formatRoomType(room.room_type)}
+                    {formatRoomType(room.roomType)}
                   </span>
                 </TableCell>
 
@@ -116,7 +116,7 @@ export default function RoomsTable({
                   <div className="font-semibold">
                     NPR{" "}
                     {Number(
-                      room.price_per_night,
+                      room.pricePerNight,
                     ).toLocaleString()}
                   </div>
 

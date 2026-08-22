@@ -32,6 +32,7 @@ const VerifyEmailForm = ({
   const router = useRouter();
 
   const [isVerifyingCode, setIsVerifyingCode] = useState(false);
+  const [isResendingCode, setIsResendingCode] = useState(false);
 
   const form = useForm<z.infer<typeof verifySchema>>({
     resolver: zodResolver(verifySchema),
@@ -64,6 +65,30 @@ const VerifyEmailForm = ({
       }
     } finally {
       setIsVerifyingCode(false);
+    }
+  };
+
+  const handleResendCode = async () => {
+    try {
+      setIsResendingCode(true);
+
+      const res = await axios.post("/api/auth/verify-email/resend", {
+        email,
+      });
+
+      if (res.data.success) {
+        toast.success(res.data.message || "Verification code sent to your email");
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message || "Failed to resend code");
+      } else {
+        toast.error("Failed to resend verification code");
+      }
+    } finally {
+      setIsResendingCode(false);
     }
   };
 
@@ -119,7 +144,16 @@ const VerifyEmailForm = ({
         </form>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
-          Didn't receive the code? Check your spam folder or request a new one.
+          Didn't receive the code? Check your spam folder or{" "}
+          <button
+            type="button"
+            onClick={handleResendCode}
+            disabled={isResendingCode}
+            className="text-primary hover:underline disabled:opacity-50"
+          >
+            {isResendingCode ? "Sending..." : "request a new one"}
+          </button>
+          .
         </p>
       </div>
     </div>

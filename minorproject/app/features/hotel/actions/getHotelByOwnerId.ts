@@ -6,7 +6,7 @@ export async function getHotelByOwnerId(userId: number) {
   const [hotel] = await db
     .select()
     .from(hotelsTable)
-    .where(eq(hotelsTable.user_id, userId));
+    .where(eq(hotelsTable.userId, userId));
 
   return hotel ?? null;
 }
@@ -16,7 +16,7 @@ export async function hasHotel(userId: number) {
   const [hotel] = await db
     .select({ id: hotelsTable.id })
     .from(hotelsTable)
-    .where(eq(hotelsTable.user_id, userId));
+    .where(eq(hotelsTable.userId, userId));
 
   return !!hotel;
 }

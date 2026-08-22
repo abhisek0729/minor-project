@@ -5,18 +5,14 @@ import {
   usersTable,
   rolesTable,
   userRolesTable,
-  approvalStatusEnum,
 } from "@/app/lib/db/schema";
 import bcrypt from "bcryptjs";
 import { db } from "@/app/lib/db";
 import { eq } from "drizzle-orm";
-import { LoginCredentials } from "@/app/features/auth/types/register";
+import { LoginCredentials, UserRole } from "@/app/features/auth/types/register";
 import { User } from "next-auth";
 import { cookies } from "next/headers";
-import { UserRole } from "@/app/features/auth/types/register";
-import { ApprovalStatus } from "@/app/types/next-auth";
 import {
-  getRoleByName,
   getUserRoles,
   assignRoleIfMissing,
 } from "@/app/features/auth/services/roles.service";
@@ -45,57 +41,87 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          const userWithRoles = await db
+          console.log("[AUTH] Attempting login for:", credentials.identifier);
+
+          // Query user first (without requiring roles to exist)
+          const users = await db
             .select()
             .from(usersTable)
-            .innerJoin(userRolesTable, eq(usersTable.id, userRolesTable.userId))
-            .innerJoin(rolesTable, eq(userRolesTable.roleId, rolesTable.id))
             .where(eq(usersTable.email, credentials.identifier.toLowerCase()));
 
-          const user = userWithRoles[0]?.users;
-
-          const roles = userWithRoles.map((row) => ({
-            name: row.roles.name,
-            approvalStatus: row.user_roles.approvalStatus,
-          }));
+          const user = users[0];
 
           if (!user) {
+            console.log("[AUTH] No user found for:", credentials.identifier);
             throw new Error("Invalid email or password");
           }
 
-          if (user.provider === "google") {
-            throw new Error("Please sign in with Google");
+          console.log("[AUTH] User found:", { id: user.id, email: user.email, isVerified: user.isVerified, provider: user.provider, hasPassword: !!user.passwordHash });
+
+          if (!user.passwordHash && user.provider === "google") {
+            throw new Error("This account was created with Google. Please add GOOGLE_CLIENT_ID to .env or sign in with password.");
           }
 
-          if (!user.is_verified) {
+          if (!user.isVerified) {
+            console.log("[AUTH] User NOT verified:", user.email);
             throw new Error("Please verify your email first");
+          }
+
+          if (!user.passwordHash) {
+            console.log("[AUTH] No password hash for:", user.email);
+            throw new Error("Password not set for this account.");
           }
 
           const isPasswordValid = await bcrypt.compare(
             credentials.password,
-            user.password_hash!,
+            user.passwordHash,
           );
 
           if (!isPasswordValid) {
+            console.log("[AUTH] Invalid password for:", user.email);
             throw new Error("Invalid email or password");
-          } else {
-            return {
-              id: user.id.toString(),
-              name: user.name,
-              email: user.email,
-              is_verified: user.is_verified,
-              roles,
-            };
           }
+
+          console.log("[AUTH] Password valid for:", user.email);
+
+          // Query roles separately (user may not have roles yet)
+          const userWithRoles = await db
+            .select()
+            .from(usersTable)
+            .leftJoin(userRolesTable, eq(usersTable.id, userRolesTable.userId))
+            .leftJoin(rolesTable, eq(userRolesTable.roleId, rolesTable.id))
+            .where(eq(usersTable.id, user.id));
+
+          const roles = userWithRoles
+            .filter((row) => row.roles !== null)
+            .map((row) => ({
+              name: row.roles!.name,
+              approvalStatus: row.user_roles!.approvalStatus,
+            }));
+
+          console.log("[AUTH] Login success for:", user.email, "roles:", roles);
+
+          return {
+            id: user.id.toString(),
+            name: user.name,
+            email: user.email,
+            is_verified: user.isVerified,
+            roles,
+          };
         } catch (error: any) {
+          console.error("[AUTH] Login error:", error.message);
           throw new Error(error.message);
         }
       },
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
   ],
   pages: {
     signIn: "/sign-in",
@@ -110,7 +136,22 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, trigger, session: updateData }) {
+      // HANDLE SESSION UPDATE TRIGGER
+      if (trigger === "update") {
+        if (updateData?.roles) token.roles = updateData.roles;
+        if (updateData?.name) token.name = updateData.name;
+        if (token.id) {
+          try {
+            const freshRoles = await getUserRoles(Number(token.id));
+            token.roles = freshRoles;
+          } catch {
+            // Keep existing roles if fetch fails
+          }
+        }
+        return token;
+      }
+
       // GOOGLE LOGIN
       if (account?.provider === "google") {
         let [dbUser] = await db
@@ -133,7 +174,7 @@ export const authOptions: NextAuthOptions = {
             .values({
               email: token.email!,
               name: user.name ?? token.email!.split("@")[0],
-              is_verified: true,
+              isVerified: true,
               provider: "google",
             })
             .returning();
@@ -144,7 +185,7 @@ export const authOptions: NextAuthOptions = {
         token.id = dbUser.id.toString();
         token.name = dbUser.name;
         token.email = dbUser.email;
-        token.is_verified = dbUser.is_verified!;
+        token.is_verified = dbUser.isVerified!;
         token.roles = userRoles;
       }
 
@@ -153,8 +194,8 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id?.toString();
         token.name = user.name;
         token.email = user.email;
-        token.is_verified = user.is_verified;
-        token.roles = user.roles;
+        token.is_verified = user.is_verified || false;
+        token.roles = user.roles || [];
       }
       return token;
     },
@@ -164,7 +205,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.is_verified = token.is_verified;
-        session.user.roles = token.roles;
+        session.user.roles = token.roles || [];
       }
 
       return session;

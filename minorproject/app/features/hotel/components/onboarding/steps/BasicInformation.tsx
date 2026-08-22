@@ -3,7 +3,7 @@
 import { Building2, Calendar } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
-import { HotelSchema } from "../../schemas/hotel.schema";
+import { HotelSchema } from "../../../schemas/hotel.schema";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -87,10 +87,7 @@ export default function BasicInformationStep({
           <FieldGroup className="gap-8">
             {/* Hotel Name */}
 
-            <Field
-              className="gap-3"
-              data-invalid={!!errors.hotelName}
-            >
+            <Field className="gap-3" data-invalid={!!errors.hotelName}>
               <FieldLabel>Hotel Name</FieldLabel>
 
               <Input
@@ -108,10 +105,7 @@ export default function BasicInformationStep({
 
             {/* Description */}
 
-            <Field
-              className="gap-3"
-              data-invalid={!!errors.description}
-            >
+            <Field className="gap-3" data-invalid={!!errors.description}>
               <FieldLabel>Hotel Description</FieldLabel>
 
               <Textarea
@@ -131,10 +125,7 @@ export default function BasicInformationStep({
 
             {/* Established Year */}
 
-            <Field
-              className="gap-3"
-              data-invalid={!!errors.establishedYear}
-            >
+            <Field className="gap-3" data-invalid={!!errors.establishedYear}>
               <FieldLabel className="flex items-center gap-2">
                 <Calendar className="size-4 text-primary" />
                 Established Year

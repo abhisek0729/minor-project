@@ -1,11 +1,5 @@
-import React from 'react'
+import { redirect } from "next/navigation";
 
-const page = () => {
-  return (
-    <div>
-      This is profile page
-    </div>
-  )
+export default function ProfilePage() {
+  redirect("/dashboard");
 }
-
-export default page

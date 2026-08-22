@@ -5,7 +5,7 @@ import { FileCheck2, Upload, Trash2, ShieldCheck } from "lucide-react";
 import { useRef } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { HotelSchema } from "../../schemas/hotel.schema";
+import { HotelSchema } from "../../../schemas/hotel.schema";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -37,9 +37,7 @@ export default function VerificationStep({
   const registrationInputRef = useRef<HTMLInputElement>(null);
   const panInputRef = useRef<HTMLInputElement>(null);
 
-  function handleRegistrationUpload(
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) {
+  function handleRegistrationUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
 
     if (!file) return;
@@ -52,9 +50,7 @@ export default function VerificationStep({
     });
   }
 
-  function handlePanUpload(
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) {
+  function handlePanUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
 
     if (!file) return;
@@ -68,10 +64,7 @@ export default function VerificationStep({
   }
 
   async function handleNext() {
-    const valid = await trigger([
-      "registrationCertificate",
-      "panCertificate",
-    ]);
+    const valid = await trigger(["registrationCertificate", "panCertificate"]);
 
     if (valid) {
       next();
@@ -147,18 +140,15 @@ export default function VerificationStep({
       {/* Header */}
 
       <div className="mb-10">
-        <p className="text-sm font-medium text-primary">
-          Step 6 of 7
-        </p>
+        <p className="text-sm font-medium text-primary">Step 6 of 7</p>
 
         <h1 className="mt-2 text-3xl font-bold tracking-tight">
           Business Verification
         </h1>
 
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          Upload your legal business documents. These documents are only
-          visible to administrators and are required before your hotel can be
-          approved.
+          Upload your legal business documents. These documents are only visible
+          to administrators and are required before your hotel can be approved.
         </p>
       </div>
 
@@ -172,9 +162,7 @@ export default function VerificationStep({
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold">
-                Verification Documents
-              </h2>
+              <h2 className="text-lg font-semibold">Verification Documents</h2>
 
               <p className="text-sm text-muted-foreground">
                 Upload clear images or PDF copies of your legal documents.
@@ -208,17 +196,13 @@ export default function VerificationStep({
                   }
                 />
 
-                <FieldError
-                  errors={[errors.registrationCertificate]}
-                />
+                <FieldError errors={[errors.registrationCertificate]} />
               </Field>
 
               {/* PAN Certificate */}
 
               <Field data-invalid={!!errors.panCertificate}>
-                <FieldLabel className="mb-4">
-                  PAN Certificate
-                </FieldLabel>
+                <FieldLabel className="mb-4">PAN Certificate</FieldLabel>
 
                 <UploadCard
                   title="Upload PAN Certificate"
@@ -233,9 +217,7 @@ export default function VerificationStep({
                   }
                 />
 
-                <FieldError
-                  errors={[errors.panCertificate]}
-                />
+                <FieldError errors={[errors.panCertificate]} />
               </Field>
             </div>
 
