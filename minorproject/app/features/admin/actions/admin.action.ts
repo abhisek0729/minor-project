@@ -289,6 +289,50 @@ export async function updatePartnerApprovalStatus(
         )
       );
 
+    // Fetch user and business details to send approval notification email
+    const [targetUser] = await db
+      .select({ name: usersTable.name, email: usersTable.email })
+      .from(usersTable)
+      .where(eq(usersTable.id, userId));
+
+    let businessName = "Workspace Listing";
+    let businessType: "Hotel" | "Restaurant" | "Tour Guide" = "Hotel";
+
+    if (roleName === "hotelOwner") {
+      businessType = "Hotel";
+      const [h] = await db
+        .select({ name: hotelsTable.name })
+        .from(hotelsTable)
+        .where(eq(hotelsTable.userId, userId));
+      if (h?.name) businessName = h.name;
+    } else if (roleName === "restaurantOwner") {
+      businessType = "Restaurant";
+      const [r] = await db
+        .select({ name: restaurantsTable.name })
+        .from(restaurantsTable)
+        .where(eq(restaurantsTable.userId, userId));
+      if (r?.name) businessName = r.name;
+    } else if (roleName === "guide") {
+      businessType = "Tour Guide";
+      const [g] = await db
+        .select({ name: guidesTable.name })
+        .from(guidesTable)
+        .where(eq(guidesTable.userId, userId));
+      businessName = g?.name || targetUser?.name || "Tour Guide Profile";
+    }
+
+    if (targetUser?.email && (status === "approved" || status === "rejected")) {
+      const { sendApprovalNotificationEmail } = await import("@/app/email/send-email");
+      await sendApprovalNotificationEmail({
+        email: targetUser.email,
+        ownerName: targetUser.name || "Partner",
+        businessName,
+        businessType,
+        status,
+      });
+    }
+
+    revalidatePath("/dashboard");
     revalidatePath("/dashboard/admin");
     revalidatePath("/dashboard/admin/approvals");
     revalidatePath("/dashboard/admin/companies");
@@ -301,10 +345,11 @@ export async function updatePartnerApprovalStatus(
     revalidatePath("/restaurants");
     revalidatePath("/hotels");
     revalidatePath("/guides");
+    revalidatePath("/workspace");
 
     return {
       success: true,
-      message: `Partner request has been ${status.toUpperCase()} successfully!`,
+      message: `Partner request has been ${status.toUpperCase()} successfully! Notification email dispatched.`,
     };
   } catch (error: any) {
     console.error("Error updating partner approval status:", error);

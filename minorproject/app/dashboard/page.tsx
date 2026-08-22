@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { db } from "@/app/lib/db";
 import { usersTable } from "@/app/lib/db/schema";
+import { getUserRoles } from "@/app/features/auth/services/roles.service";
 import { getRestaurantByOwnerId } from "@/app/features/restaurant/services/restaurant.service";
 import { getHotelByOwnerId } from "@/app/features/hotel/actions/getHotelByOwnerId";
 import { getGuideByUserId } from "@/app/features/guide/services/guide.service";
@@ -22,7 +23,8 @@ export default async function MainDashboardPage() {
 
   const userId = Number(session.user.id);
 
-  const roles = session.user.roles ?? [];
+  // Fetch fresh, live roles from database directly (eliminates stale JWT issue without signing out)
+  const roles = await getUserRoles(userId);
   const isAdmin = roles.some((r) => r.name === "admin" && r.approvalStatus === "approved");
 
   if (isAdmin) {

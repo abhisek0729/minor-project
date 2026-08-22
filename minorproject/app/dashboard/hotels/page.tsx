@@ -44,11 +44,11 @@ export default async function HotelDashboardPage() {
     redirect("/onboarding/hotel");
   }
 
-  const hotelRole = session.user.roles!.find(
-    (role) => role.name === "hotelOwner",
-  );
+  const { getUserRoles } = await import("@/app/features/auth/services/roles.service");
+  const userRoles = await getUserRoles(Number(session.user.id));
+  const hotelRole = userRoles.find((role) => role.name === "hotelOwner");
 
-  const approvalStatus = hotelRole?.approvalStatus;
+  const approvalStatus = hotelRole?.approvalStatus ?? "pending";
 
   if (approvalStatus === "pending") {
     redirect("/dashboard/hotels/pending");

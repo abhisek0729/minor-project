@@ -31,7 +31,9 @@ export default async function GuideDashboardPage() {
     redirect("/onboarding/guide");
   }
 
-  const guideRole = session?.user?.roles?.find((r) => r.name === "guide");
+  const { getUserRoles } = await import("@/app/features/auth/services/roles.service");
+  const userRoles = await getUserRoles(Number(session?.user?.id));
+  const guideRole = userRoles.find((r) => r.name === "guide");
   const approvalStatus = guideRole?.approvalStatus ?? "pending";
 
   if (approvalStatus === "pending") {

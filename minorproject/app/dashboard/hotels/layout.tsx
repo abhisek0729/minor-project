@@ -8,10 +8,11 @@ import { getHotelByOwnerId } from "@/app/features/hotel/actions/getHotelByOwnerI
 import { Header } from "@/app/features/hotel/components/dashboard/Header";
 import { Sidebar } from "@/app/features/hotel/components/dashboard/Sidebar";
 
+import { getUserRoles } from "@/app/features/auth/services/roles.service";
+
 interface HotelDashboardLayoutProps {
   children: ReactNode;
 }
-
 
 export default async function HotelDashboardLayout({
   children,
@@ -22,12 +23,10 @@ export default async function HotelDashboardLayout({
     redirect("/sign-in");
   }
 
-  const isHotelOwner = session?.user?.roles!.some(
-    (role) => role.name === "hotelOwner"
-  );
+  const userRoles = await getUserRoles(Number(session.user.id));
+  const hotelRole = userRoles.find((role) => role.name === "hotelOwner");
 
-
-  if (!isHotelOwner) {
+  if (!hotelRole) {
     redirect("/unauthorized");
   }
 
@@ -37,11 +36,7 @@ export default async function HotelDashboardLayout({
     redirect("/onboarding/hotel");
   }
 
-  const hotelRole = session.user.roles!.find(
-    (role) => role.name === "hotelOwner"
-  );
-
-  const approvalStatus = hotelRole!.approvalStatus;
+  const approvalStatus = hotelRole.approvalStatus ?? "pending";
 
 return (
   <div className="flex h-dvh overflow-hidden bg-muted/30">
