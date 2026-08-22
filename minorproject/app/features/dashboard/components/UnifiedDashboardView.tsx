@@ -792,22 +792,16 @@ export default function UnifiedDashboardView({
                       <div className="mt-4 pt-3 border-t flex items-center justify-between">
                         <span className="text-[11px] text-muted-foreground">Tour Guide Partner</span>
                         {guideStatus === "pending" ? (
-                          !guide ? (
+                          <div className="flex items-center gap-2">
                             <Link href="/onboarding/guide">
-                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10 cursor-pointer">
                                 Complete Onboarding <ArrowRight className="size-3" />
                               </Button>
                             </Link>
-                          ) : (
-                            <Link href="/dashboard/guide/pending">
-                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
-                                View Pending Status <ArrowRight className="size-3" />
-                              </Button>
-                            </Link>
-                          )
+                          </div>
                         ) : (
                           <Link href="/dashboard/guide">
-                            <Button size="sm" className="text-xs gap-1.5 h-8">
+                            <Button size="sm" className="text-xs gap-1.5 h-8 cursor-pointer">
                               Open Guide Portal <ArrowRight className="size-3" />
                             </Button>
                           </Link>
@@ -1096,22 +1090,16 @@ export default function UnifiedDashboardView({
                     <div className="pt-2 border-t flex items-center justify-between">
                       <span className="text-xs text-muted-foreground font-medium">Guide Workspace</span>
                       {guideStatus === "pending" ? (
-                        !guide ? (
+                        <div className="flex items-center gap-2">
                           <Link href="/onboarding/guide">
-                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10 cursor-pointer">
                               Complete Guide Onboarding <ArrowRight className="size-3.5" />
                             </Button>
                           </Link>
-                        ) : (
-                          <Link href="/dashboard/guide/pending">
-                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
-                              View Pending Status <ArrowRight className="size-3.5" />
-                            </Button>
-                          </Link>
-                        )
+                        </div>
                       ) : (
                         <Link href="/dashboard/guide">
-                          <Button size="sm" className="text-xs gap-1.5">
+                          <Button size="sm" className="text-xs gap-1.5 cursor-pointer">
                             Open Guide Portal <ArrowRight className="size-3.5" />
                           </Button>
                         </Link>

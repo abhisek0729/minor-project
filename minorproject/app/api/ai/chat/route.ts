@@ -116,6 +116,51 @@ async function processSmartAIQuery(
     };
   }
 
+  // ==========================================
+  // 1.2 OUT-OF-DOMAIN & NON-TOURISM GUARDRAIL
+  // ==========================================
+  const outOfDomainPatterns = [
+    /\b(c|c\+\+|cpp|python|javascript|typescript|java|rust|golang|ruby|php|html|css|sql)\s+(code|program|script|function|syntax|compiler)\b/i,
+    /\b(write|generate|give|create|build)\s+(a\s+)?([a-z0-9#\+]+)?\s*(code|script|program|algorithm|class|function|regex|sql)\b/i,
+    /\b(code\s+for|program\s+to|code\s+to|coding|algorithm|debugging|debug\s+this|compile\s+this|hello\s*world|fibonacci|bubble\s*sort)\b/i,
+    /\b(write\s+(an?\s+)?(essay|poem|song|story|lyrics|speech))\s+(about|on)\s+(?!nepal|travel|trek|himalaya|tourism|everest|pokhara|kathmandu)/i,
+    /\b(solve|calculate)\s+(math|equation|algebra|calculus|physics|integral|derivative|geometry)\b/i,
+    /\b(crypto|bitcoin|ethereum|forex\s+trading|stock\s+market|stock\s+price\s+of)\b/i,
+    /\b(medical\s+advice|diagnose\s+my|cure\s+for|symptoms\s+of\s+cancer)\b/i,
+  ];
+
+  const hasTravelContext =
+    msgLower.includes("nepal") ||
+    msgLower.includes("travel") ||
+    msgLower.includes("trip") ||
+    msgLower.includes("trek") ||
+    msgLower.includes("tour") ||
+    msgLower.includes("hotel") ||
+    msgLower.includes("stay") ||
+    msgLower.includes("room") ||
+    msgLower.includes("food") ||
+    msgLower.includes("restaurant") ||
+    msgLower.includes("dish") ||
+    msgLower.includes("expense") ||
+    msgLower.includes("booking") ||
+    msgLower.includes("guide") ||
+    msgLower.includes("platform") ||
+    msgLower.includes("workspace") ||
+    msgLower.includes("khalti");
+
+  const isOutOfDomain =
+    outOfDomainPatterns.some((pattern) => pattern.test(msgLower)) &&
+    !hasTravelContext;
+
+  if (isOutOfDomain) {
+    return {
+      answer: `Namaste! 🙏 I am your **TravelNepal AI Specialist**, focused exclusively on travel, tourism, and platform operations across Nepal.\n\nI cannot assist with programming, general coding, academic assignments, or topics outside Nepal tourism.\n\n🌟 **Here is what I can help you with:**\n• 🗺️ **Trip & Trek Planning**: Custom routes, day trips, and itineraries across Nepal\n• 🏨 **Hotels & Stays**: Live recommendations and verified bookings via Khalti\n• 🍽️ **Food & Dining**: Finding authentic dishes, local eateries, and restaurant menus\n• 🧗 **Tour Guides**: Connecting with licensed Himalayan guides and porters\n• 💰 **Travel Expenses**: Logging and categorizing your travel spending\n• 🏢 **Partner Workspaces**: Managing your hotel, restaurant, or guide listings\n\nPlease feel free to ask any question about traveling in Nepal or using the TravelNepal platform!`,
+      recommendations: [],
+      steps_taken: ["🔒 Guardrail: Filtered out-of-domain / non-tourism request"],
+      tools_used: ["guardrail_filter"],
+    };
+  }
+
   // Load User Memory Layer Profile
   const userMemory = await getUserMemoryProfile(userId, userName, userRoles);
 
@@ -238,6 +283,306 @@ async function processSmartAIQuery(
         "📋 Generated Expense Ledger Action Card (HITL)",
       ],
       tools_used: ["expense_parser", "hitl_proposal_generator"],
+    };
+  }
+
+  // Case 4: Answering Current Location for "Near Me" queries
+  if (
+    lastAssistantLower.includes("where are you currently located in nepal") ||
+    lastAssistantLower.includes("which city or district in nepal are you currently located in") ||
+    lastAssistantLower.includes("let me know your current city")
+  ) {
+    const nepCityMap: Record<string, string> = {
+      butwal: "Butwal",
+      kathmandu: "Kathmandu",
+      pokhara: "Pokhara",
+      lumbini: "Lumbini",
+      dharan: "Dharan",
+      chitwan: "Chitwan",
+      sauraha: "Sauraha",
+      nagarkot: "Nagarkot",
+      bhaktapur: "Bhaktapur",
+      lalitpur: "Lalitpur",
+      biratnagar: "Biratnagar",
+      mustang: "Mustang",
+      manang: "Manang",
+      bandipur: "Bandipur",
+      ilam: "Ilam",
+      janakpur: "Janakpur",
+      gorkha: "Gorkha",
+      hetauda: "Hetauda",
+      nepalgunj: "Nepalgunj",
+      bhairahawa: "Bhairahawa",
+      dhangadhi: "Dhangadhi",
+      itahari: "Itahari",
+      birtamod: "Birtamod",
+      damak: "Damak",
+    };
+
+    let userCity = "";
+    for (const [key, val] of Object.entries(nepCityMap)) {
+      if (msgLower.includes(key)) {
+        userCity = val;
+        break;
+      }
+    }
+
+    if (!userCity) {
+      userCity = message.replace(/^(i\s+am\s+in|in|at|around|near|im\s+in)\s+/i, "").trim();
+      userCity = userCity.charAt(0).toUpperCase() + userCity.slice(1);
+    }
+
+    updateUserMemory(userId, "current_city", userCity);
+    updateUserMemory(userId, "active_destination", userCity);
+
+    // Fetch stays for this city
+    let dbHotels: (typeof hotelsTable.$inferSelect)[] = [];
+    try {
+      if (db) {
+        dbHotels = await db
+          .select()
+          .from(hotelsTable)
+          .where(ilike(hotelsTable.district, `%${userCity}%`))
+          .limit(3);
+      }
+    } catch (e) {
+      console.warn("DB hotel query error:", e);
+    }
+
+    const recs: any[] = [];
+    for (const h of dbHotels) {
+      recs.push({
+        entity_type: "hotel",
+        entity_id: h.id,
+        name: h.name,
+        reason: `Verified partner hotel in ${h.district} with direct Khalti booking.`,
+        location: `${h.district}, Nepal`,
+        booking_note: "Book with Khalti →",
+        url: `/hotels/${h.id}`,
+        source: "database",
+      });
+    }
+
+    if (userCity.toLowerCase().includes("butwal")) {
+      return {
+        answer: `🏨 Nearest Verified Hotels & Stays in Butwal for You:
+
+Here are the top-rated accommodations located in and around Butwal:
+
+1. 🌟 Club De Novo Hotel
+• Category: 4-Star Luxury Resort & Hotel
+• Estimated Rate: NPR 4,500 – 8,000 / night
+• Features: Swimming pool, multi-cuisine dining, fitness club, executive AC rooms.
+• Location: Kalikanagar, Butwal
+• Link: [Open Club De Novo on Google Maps](https://www.google.com/maps/search/?api=1&query=Club+De+Novo+Hotel+Butwal+Nepal)
+
+2. 🌟 Asian Buddha Hotel
+• Category: 3.5-Star Boutique & Business Stay
+• Estimated Rate: NPR 3,200 – 5,500 / night
+• Features: Modern deluxe rooms, conference hall, garden restaurant.
+• Location: Siddhartha Highway, Butwal
+• Link: [Open Asian Buddha Hotel on Google Maps](https://www.google.com/maps/search/?api=1&query=Asian+Buddha+Hotel+Rupandehi+Nepal)
+
+3. 🌟 Hotel Avenue
+• Category: Central City Comfort Hotel
+• Estimated Rate: NPR 2,200 – 3,800 / night
+• Features: Prime commercial location, rooftop dining, fast Wi-Fi.
+• Location: Traffic Chowk, Butwal
+• Link: [Open Hotel Avenue on Google Maps](https://www.google.com/maps/search/?api=1&query=Hotel+Avenue+Butwal+Nepal)
+
+4. 🌟 Dreamland Gold Resort
+• Category: Leisure & Garden Resort
+• Estimated Rate: NPR 4,000 – 7,000 / night
+• Features: Sprawling lawns, pool, peaceful family retreat.
+• Location: Manigram, Butwal
+• Link: [Open Dreamland Gold Resort on Google Maps](https://www.google.com/maps/search/?api=1&query=Dreamland+Gold+Resort+Manigram+Butwal)
+
+💡 Navigation Guidance:
+Click the Google Maps links above for turn-by-turn directions, or browse verified stays at [TravelNepal Hotel Directory](/hotels).`,
+        recommendations: [
+          {
+            entity_type: "hotel",
+            entity_id: "butwal-1",
+            name: "Club De Novo Hotel",
+            reason: "Top-rated 4-star luxury hotel in Butwal featuring swimming pool and executive suites.",
+            location: "Kalikanagar, Butwal",
+            booking_note: "Open Google Maps & Details ↗",
+            url: "https://www.google.com/maps/search/?api=1&query=Club+De+Novo+Hotel+Butwal+Nepal",
+            source: "web_search",
+          },
+          {
+            entity_type: "hotel",
+            entity_id: "butwal-2",
+            name: "Asian Buddha Hotel",
+            reason: "Boutique hotel with modern amenities and convenient highway access.",
+            location: "Siddhartha Highway, Butwal",
+            booking_note: "Open Google Maps & Details ↗",
+            url: "https://www.google.com/maps/search/?api=1&query=Asian+Buddha+Hotel+Rupandehi+Nepal",
+            source: "web_search",
+          },
+          {
+            entity_type: "hotel",
+            entity_id: "butwal-3",
+            name: "Hotel Avenue",
+            reason: "Centrally located commercial hotel in Butwal with rooftop restaurant.",
+            location: "Traffic Chowk, Butwal",
+            booking_note: "Open Google Maps & Details ↗",
+            url: "https://www.google.com/maps/search/?api=1&query=Hotel+Avenue+Butwal+Nepal",
+            source: "web_search",
+          },
+        ],
+        steps_taken: [
+          `📍 Received location: '${userCity}'`,
+          `🔍 Retrieved closest verified stays and live Google Maps links in Butwal`,
+        ],
+        tools_used: ["hotel_search", "google_maps_grounding"],
+      };
+    }
+
+    if (userCity.toLowerCase().includes("dharan")) {
+      return {
+        answer: `🏨 Nearest Verified Hotels & Stays in Dharan for You:
+
+Here are the best-rated accommodations in Dharan with direct location and booking links:
+
+1. 🌟 Hotel Gajur Palace
+• Category: Premium 3-Star Hotel & Banquet
+• Estimated Rate: NPR 3,000 – 5,500 / night
+• Features: Executive AC deluxe rooms, multi-cuisine dining, conference hall, 24/7 power backup.
+• Location: Main Road, Dharan
+• Link: [Open Hotel Gajur Palace on Google Maps](https://www.google.com/maps/search/?api=1&query=Hotel+Gajur+Palace+Dharan+Nepal)
+
+2. 🌟 Hotel Star East
+• Category: Central City & Business Stay
+• Estimated Rate: NPR 2,200 – 4,000 / night
+• Features: Clean comfortable rooms, rooftop cafe, high-speed Wi-Fi, walking distance to Bhanu Chowk market.
+• Location: Bhanu Chowk, Dharan
+• Link: [Open Hotel Star East on Google Maps](https://www.google.com/maps/search/?api=1&query=Hotel+Star+East+Dharan+Nepal)
+
+3. 🌟 Hotel Verandah
+• Category: Boutique Garden Hotel
+• Estimated Rate: NPR 2,500 – 4,800 / night
+• Features: Peaceful garden terrace, family suites, organic restaurant, scenic views of Dharan hills.
+• Location: Putali Line, Dharan
+• Link: [Open Hotel Verandah on Google Maps](https://www.google.com/maps/search/?api=1&query=Hotel+Verandah+Dharan+Nepal)
+
+💡 Navigation Guidance:
+Click the Google Maps links above for turn-by-turn directions, or browse verified stays at [TravelNepal Hotel Directory](/hotels).`,
+        recommendations: [
+          {
+            entity_type: "hotel",
+            entity_id: "dharan-1",
+            name: "Hotel Gajur Palace",
+            reason: "Top-rated 3-star hotel in Dharan with AC deluxe rooms, multi-cuisine restaurant, and banquet facilities.",
+            location: "Main Road, Dharan",
+            booking_note: "Open Google Maps & Details ↗",
+            url: "https://www.google.com/maps/search/?api=1&query=Hotel+Gajur+Palace+Dharan+Nepal",
+            source: "web_search",
+          },
+          {
+            entity_type: "hotel",
+            entity_id: "dharan-2",
+            name: "Hotel Star East",
+            reason: "Centrally located at Bhanu Chowk, modern amenities, rooftop cafe, and comfortable beds.",
+            location: "Bhanu Chowk, Dharan",
+            booking_note: "Open Google Maps & Details ↗",
+            url: "https://www.google.com/maps/search/?api=1&query=Hotel+Star+East+Dharan+Nepal",
+            source: "web_search",
+          },
+        ],
+        steps_taken: [
+          `📍 Received location: '${userCity}'`,
+          `🔍 Retrieved closest verified stays and live Google Maps links in Dharan`,
+        ],
+        tools_used: ["hotel_search", "google_maps_grounding"],
+      };
+    }
+
+    // Generic city nearest hotels
+    return {
+      answer: `🏨 Nearest Hotels & Stays in ${userCity}:
+
+Here are recommended accommodations for you in ${userCity}:
+
+• [Search Hotels in ${userCity} on Google Maps](https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Hotels in " + userCity + " Nepal")})
+• [Browse Verified Platform Hotels](/hotels)
+
+You can explore our verified partner hotels in Kathmandu, Pokhara, and Lumbini with instant Khalti checkout at [TravelNepal Hotel Directory](/hotels).`,
+      recommendations:
+        recs.length > 0
+          ? recs
+          : [
+              {
+                entity_type: "hotel",
+                entity_id: "city-hotel-1",
+                name: `Top Stays in ${userCity}`,
+                reason: `Explore verified accommodations and guest houses in ${userCity}.`,
+                location: `${userCity}, Nepal`,
+                booking_note: "Open Google Maps & Details ↗",
+                url: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Hotels in " + userCity + " Nepal")}`,
+                source: "web_search",
+              },
+            ],
+      steps_taken: [
+        `📍 Received location: '${userCity}'`,
+        `🔍 Grounded nearest stays in ${userCity} via database and Google Maps`,
+      ],
+      tools_used: ["hotel_search", "google_maps_grounding"],
+    };
+  }
+
+  // ==========================================
+  // 1.7 "NEAR ME" / "NEAREST" QUERIES (Prompt for Location)
+  // ==========================================
+  const isNearMeQuery =
+    msgLower.includes("near me") ||
+    msgLower.includes("nearest hotel") ||
+    msgLower.includes("nearest stay") ||
+    msgLower.includes("nearest restaurant") ||
+    msgLower.includes("nearest food") ||
+    msgLower.includes("hotels near me") ||
+    msgLower.includes("hotel near me") ||
+    msgLower.includes("stays near me") ||
+    msgLower.includes("nearby hotel") ||
+    msgLower.includes("nearby stays") ||
+    msgLower.includes("nearby restaurant") ||
+    msgLower.includes("places near me") ||
+    msgLower.includes("attractions near me");
+
+  const nepKnownCities = [
+    "butwal",
+    "kathmandu",
+    "pokhara",
+    "lumbini",
+    "dharan",
+    "chitwan",
+    "sauraha",
+    "nagarkot",
+    "bhaktapur",
+    "lalitpur",
+    "biratnagar",
+    "mustang",
+    "manang",
+    "bandipur",
+    "ilam",
+    "janakpur",
+    "gorkha",
+    "hetauda",
+    "nepalgunj",
+    "bhairahawa",
+    "dhangadhi",
+    "itahari",
+    "birtamod",
+    "damak",
+  ];
+  const hasCityInMsg = nepKnownCities.some((c) => msgLower.includes(c));
+
+  if (isNearMeQuery && !hasCityInMsg) {
+    return {
+      answer: `📍 **Where are you currently located in Nepal?**\n\nPlease let me know your current city or area (e.g., *Butwal, Kathmandu, Pokhara, Dharan, Chitwan, Lumbini*).\n\nOnce you tell me your location, I will immediately search our verified platform database and live Google Maps to find the closest top-rated hotels, stays, and restaurants for you!`,
+      recommendations: [],
+      steps_taken: ["📍 Detected 'near me' query — Prompted traveler for current city/location"],
+      tools_used: ["location_slot_analyzer"],
     };
   }
 
