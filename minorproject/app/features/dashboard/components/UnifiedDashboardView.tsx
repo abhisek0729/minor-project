@@ -51,6 +51,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { addExpenseAction } from "@/app/features/expenses/actions/expense.action";
+
 interface UnifiedDashboardViewProps {
   user: {
     id: string;
@@ -66,6 +68,7 @@ interface UnifiedDashboardViewProps {
   hotel: any;
   guide: any;
   bookings: any[];
+  expenses?: any[];
 }
 
 export default function UnifiedDashboardView({
@@ -75,9 +78,10 @@ export default function UnifiedDashboardView({
   hotel,
   guide,
   bookings,
+  expenses = [],
 }: UnifiedDashboardViewProps) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<"overview" | "workspaces" | "bookings" | "itinerary" | "settings">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "workspaces" | "bookings" | "expenses" | "itinerary" | "settings">("overview");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   // Filter roles and statuses
@@ -105,6 +109,76 @@ export default function UnifiedDashboardView({
 
   const [bookingFilter, setBookingFilter] = useState<string>("all");
   const [payingBookingId, setPayingBookingId] = useState<number | null>(null);
+
+  // Expense State & Filtering
+  const [expensesList, setExpensesList] = useState<any[]>(expenses || []);
+  const [expenseSearch, setExpenseSearch] = useState("");
+  const [expenseCategoryFilter, setExpenseCategoryFilter] = useState("all");
+  const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false);
+  const [isSubmittingExpense, setIsSubmittingExpense] = useState(false);
+  const [newExpense, setNewExpense] = useState({
+    name: "",
+    amount: "",
+    location: "Nepal",
+    type: "food",
+  });
+
+  const handleAddExpense = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newExpense.name.trim() || !newExpense.amount || Number(newExpense.amount) <= 0) {
+      toast.error("Please enter a valid expense name and amount.");
+      return;
+    }
+    setIsSubmittingExpense(true);
+    try {
+      const res = await addExpenseAction({
+        name: newExpense.name.trim(),
+        amount: Number(newExpense.amount),
+        location: newExpense.location.trim() || "Nepal",
+        type: newExpense.type || "other",
+      });
+      if (res.success && res.data) {
+        toast.success(res.message);
+        setExpensesList((prev) => [res.data, ...prev]);
+        setIsAddExpenseOpen(false);
+        setNewExpense({ name: "", amount: "", location: "Nepal", type: "food" });
+      } else {
+        toast.error(res.message || "Failed to log expense");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Error logging expense");
+    } finally {
+      setIsSubmittingExpense(false);
+    }
+  };
+
+  const totalExpenseSum = expensesList.reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+  const foodExpenseSum = expensesList
+    .filter((e) => e.type === "food" || e.type === "dining" || e.type === "meal")
+    .reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+  const lodgingExpenseSum = expensesList
+    .filter((e) => e.type === "lodging" || e.type === "hotel" || e.type === "stay")
+    .reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+  const transitExpenseSum = expensesList
+    .filter((e) => e.type === "transportation" || e.type === "transport" || e.type === "activities" || e.type === "travel")
+    .reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+
+  const filteredExpenses = expensesList.filter((e) => {
+    const matchesCategory =
+      expenseCategoryFilter === "all" ||
+      e.type === expenseCategoryFilter ||
+      (expenseCategoryFilter === "food" && (e.type === "dining" || e.type === "meal")) ||
+      (expenseCategoryFilter === "lodging" && (e.type === "hotel" || e.type === "stay")) ||
+      (expenseCategoryFilter === "transportation" && (e.type === "transport" || e.type === "bus" || e.type === "flight"));
+
+    const matchesSearch =
+      !expenseSearch.trim() ||
+      e.name?.toLowerCase().includes(expenseSearch.toLowerCase()) ||
+      e.location?.toLowerCase().includes(expenseSearch.toLowerCase()) ||
+      e.type?.toLowerCase().includes(expenseSearch.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
 
   const handlePayKhalti = async (booking: any) => {
     try {
@@ -214,6 +288,29 @@ export default function UnifiedDashboardView({
         {totalBookings > 0 && (
           <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "bookings" ? "border-white text-white" : ""}`}>
             {totalBookings}
+          </Badge>
+        )}
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("expenses");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "expenses"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <div className="flex items-center gap-3">
+          <Receipt className="size-4" />
+          <span>Expense Tracker</span>
+        </div>
+        {expensesList.length > 0 && (
+          <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "expenses" ? "border-white text-white" : ""}`}>
+            {expensesList.length}
           </Badge>
         )}
       </button>
@@ -427,6 +524,17 @@ export default function UnifiedDashboardView({
           </button>
           <button
             type="button"
+            onClick={() => setActiveTab("expenses")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "expenses"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Expenses ({expensesList.length})
+          </button>
+          <button
+            type="button"
             onClick={() => setActiveTab("itinerary")}
             className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
               activeTab === "itinerary"
@@ -462,7 +570,7 @@ export default function UnifiedDashboardView({
               </div>
 
               {/* Stats Summary Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <Card className="p-5 border shadow-xs">
                   <div className="flex items-center justify-between">
                     <div>
@@ -496,7 +604,7 @@ export default function UnifiedDashboardView({
                 <Card className="p-5 border shadow-xs">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-xs text-muted-foreground font-medium">Total Travel Spend</p>
+                      <p className="text-xs text-muted-foreground font-medium">Digital Bookings Spend</p>
                       <p className="text-2xl font-extrabold mt-1">NPR {totalSpent.toLocaleString()}</p>
                     </div>
                     <div className="p-3 rounded-xl bg-violet-500/10 text-violet-600">
@@ -504,7 +612,28 @@ export default function UnifiedDashboardView({
                     </div>
                   </div>
                   <p className="text-[11px] text-muted-foreground mt-2">
-                    Verified digital transactions
+                    Verified Khalti checkout payments
+                  </p>
+                </Card>
+
+                <Card
+                  onClick={() => setActiveTab("expenses")}
+                  className="p-5 border shadow-xs hover:border-primary/50 transition-colors cursor-pointer group"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium group-hover:text-primary transition-colors">
+                        Logged Expenses
+                      </p>
+                      <p className="text-2xl font-extrabold mt-1">NPR {totalExpenseSum.toLocaleString()}</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-amber-500/10 text-amber-600 group-hover:scale-105 transition-transform">
+                      <Receipt className="size-6" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2 flex items-center justify-between">
+                    <span>{expensesList.length} items logged</span>
+                    <span className="text-primary font-bold group-hover:underline">View Tracker →</span>
                   </p>
                 </Card>
               </div>
@@ -1152,7 +1281,352 @@ export default function UnifiedDashboardView({
             </div>
           )}
 
-          {/* TAB 4: AI ITINERARY */}
+          {/* TAB 4: EXPENSE TRACKER */}
+          {activeTab === "expenses" && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h1 className="text-2xl font-bold tracking-tight">Travel Expense Tracker</h1>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    Log and categorize your daily travel costs (meals, hotels, transportation, activities) in NPR.
+                  </p>
+                </div>
+
+                <Button
+                  onClick={() => setIsAddExpenseOpen(true)}
+                  className="font-semibold text-xs gap-1.5 rounded-xl shadow-xs cursor-pointer"
+                >
+                  <Plus className="size-4" /> Log New Expense
+                </Button>
+              </div>
+
+              {/* Expense Stats Summary Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Card className="p-4 border shadow-xs bg-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Total Spent</p>
+                      <p className="text-xl font-extrabold mt-1 text-foreground">NPR {totalExpenseSum.toLocaleString()}</p>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
+                      <Receipt className="size-5" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    {expensesList.length} logged expense record{expensesList.length === 1 ? "" : "s"}
+                  </p>
+                </Card>
+
+                <Card className="p-4 border shadow-xs bg-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Food & Meals</p>
+                      <p className="text-xl font-extrabold mt-1 text-amber-600 dark:text-amber-400">NPR {foodExpenseSum.toLocaleString()}</p>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600">
+                      <UtensilsCrossed className="size-5" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    Dining, snacks & cafes
+                  </p>
+                </Card>
+
+                <Card className="p-4 border shadow-xs bg-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Lodging & Stays</p>
+                      <p className="text-xl font-extrabold mt-1 text-blue-600 dark:text-blue-400">NPR {lodgingExpenseSum.toLocaleString()}</p>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-600">
+                      <Hotel className="size-5" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    Hotels, resorts & homestays
+                  </p>
+                </Card>
+
+                <Card className="p-4 border shadow-xs bg-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Transit & Activities</p>
+                      <p className="text-xl font-extrabold mt-1 text-emerald-600 dark:text-emerald-400">NPR {transitExpenseSum.toLocaleString()}</p>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600">
+                      <Compass className="size-5" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    Cabs, buses & permits
+                  </p>
+                </Card>
+              </div>
+
+              {/* Filters & Search Bar */}
+              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+                <div className="relative flex-1 max-w-md">
+                  <Input
+                    placeholder="Search expenses by title, city, or tag..."
+                    value={expenseSearch}
+                    onChange={(e) => setExpenseSearch(e.target.value)}
+                    className="pl-3 bg-card rounded-xl text-xs"
+                  />
+                </div>
+
+                {/* Category Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+                  {[
+                    { id: "all", label: "All" },
+                    { id: "food", label: "Food & Meals" },
+                    { id: "lodging", label: "Lodging" },
+                    { id: "transportation", label: "Transit" },
+                    { id: "activities", label: "Activities" },
+                    { id: "other", label: "Other" },
+                  ].map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setExpenseCategoryFilter(cat.id)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+                        expenseCategoryFilter === cat.id
+                          ? "bg-primary text-primary-foreground shadow-xs"
+                          : "bg-card border text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Expenses List */}
+              {filteredExpenses.length === 0 ? (
+                <Card className="border-dashed p-12 text-center bg-muted/15">
+                  <Receipt className="size-10 text-muted-foreground mx-auto mb-3" />
+                  <h3 className="font-bold text-base">No expenses found</h3>
+                  <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto">
+                    {expenseSearch || expenseCategoryFilter !== "all"
+                      ? "No expenses matched your search or category filter."
+                      : "You haven't logged any travel expenses yet. Start tracking your meals, stays, and transit!"}
+                  </p>
+                  <div className="mt-4 flex justify-center">
+                    <Button size="sm" onClick={() => setIsAddExpenseOpen(true)} className="text-xs gap-1.5">
+                      <Plus className="size-3.5" /> Log First Expense
+                    </Button>
+                  </div>
+                </Card>
+              ) : (
+                <div className="space-y-3">
+                  {filteredExpenses.map((exp, idx) => {
+                    const typeLower = (exp.type || "other").toLowerCase();
+                    const isFood = typeLower.includes("food") || typeLower.includes("dining") || typeLower.includes("meal");
+                    const isLodging = typeLower.includes("lodging") || typeLower.includes("hotel") || typeLower.includes("stay");
+                    const isTransit = typeLower.includes("transport") || typeLower.includes("bus") || typeLower.includes("taxi");
+                    const isActivity = typeLower.includes("activit") || typeLower.includes("guide") || typeLower.includes("trek");
+
+                    const dateStr = exp.createdAt
+                      ? new Date(exp.createdAt).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })
+                      : "Today";
+
+                    return (
+                      <Card
+                        key={exp.id || idx}
+                        className="p-4 border shadow-xs bg-card hover:border-primary/40 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div
+                            className={`p-3 rounded-2xl shrink-0 ${
+                              isFood
+                                ? "bg-amber-500/10 text-amber-600"
+                                : isLodging
+                                ? "bg-blue-500/10 text-blue-600"
+                                : isTransit
+                                ? "bg-emerald-500/10 text-emerald-600"
+                                : isActivity
+                                ? "bg-purple-500/10 text-purple-600"
+                                : "bg-slate-500/10 text-slate-600"
+                            }`}
+                          >
+                            {isFood ? (
+                              <UtensilsCrossed className="size-5" />
+                            ) : isLodging ? (
+                              <Hotel className="size-5" />
+                            ) : isTransit ? (
+                              <MapPin className="size-5" />
+                            ) : isActivity ? (
+                              <Compass className="size-5" />
+                            ) : (
+                              <Receipt className="size-5" />
+                            )}
+                          </div>
+
+                          <div>
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <h3 className="font-bold text-sm text-foreground">{exp.name}</h3>
+                              <Badge
+                                variant="outline"
+                                className={`text-[10px] capitalize px-2 py-0.5 ${
+                                  isFood
+                                    ? "border-amber-500/30 text-amber-600 bg-amber-500/5"
+                                    : isLodging
+                                    ? "border-blue-500/30 text-blue-600 bg-blue-500/5"
+                                    : isTransit
+                                    ? "border-emerald-500/30 text-emerald-600 bg-emerald-500/5"
+                                    : "border-purple-500/30 text-purple-600 bg-purple-500/5"
+                                }`}
+                              >
+                                {exp.type}
+                              </Badge>
+                            </div>
+
+                            <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
+                              <span className="flex items-center gap-1">
+                                <MapPin className="size-3 text-primary" /> {exp.location || "Nepal"}
+                              </span>
+                              <span>•</span>
+                              <span className="flex items-center gap-1">
+                                <Calendar className="size-3" /> {dateStr}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="text-right shrink-0">
+                          <p className="text-base font-extrabold text-foreground">
+                            NPR {Number(exp.amount).toLocaleString()}
+                          </p>
+                          <p className="text-[10px] text-muted-foreground">Recorded in ledger</p>
+                        </div>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* IN-PLACE ADD EXPENSE MODAL */}
+              {isAddExpenseOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200">
+                  <div className="relative w-full max-w-md bg-card border rounded-3xl p-6 shadow-2xl space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
+                          <Receipt className="size-5" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-base text-foreground">Log Travel Expense</h3>
+                          <p className="text-xs text-muted-foreground">Record your trip spending</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setIsAddExpenseOpen(false)}
+                        className="text-muted-foreground hover:text-foreground cursor-pointer p-1"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    <form onSubmit={handleAddExpense} className="space-y-3.5 pt-1">
+                      <Field>
+                        <FieldLabel>Expense Name / Description</FieldLabel>
+                        <Input
+                          required
+                          placeholder="e.g. Thakali Thali dinner in Pokhara"
+                          value={newExpense.name}
+                          onChange={(e) => setNewExpense({ ...newExpense, name: e.target.value })}
+                        />
+                      </Field>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <Field>
+                          <FieldLabel>Amount (NPR)</FieldLabel>
+                          <Input
+                            required
+                            type="number"
+                            min="1"
+                            placeholder="1500"
+                            value={newExpense.amount}
+                            onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
+                          />
+                        </Field>
+
+                        <Field>
+                          <FieldLabel>City / Location</FieldLabel>
+                          <Input
+                            required
+                            placeholder="Pokhara / Kathmandu"
+                            value={newExpense.location}
+                            onChange={(e) => setNewExpense({ ...newExpense, location: e.target.value })}
+                          />
+                        </Field>
+                      </div>
+
+                      <Field>
+                        <FieldLabel>Category</FieldLabel>
+                        <div className="grid grid-cols-3 gap-2 pt-1">
+                          {[
+                            { id: "food", label: "Food & Meals" },
+                            { id: "lodging", label: "Lodging" },
+                            { id: "transportation", label: "Transit" },
+                            { id: "activities", label: "Activities" },
+                            { id: "other", label: "Other" },
+                          ].map((cat) => (
+                            <button
+                              key={cat.id}
+                              type="button"
+                              onClick={() => setNewExpense({ ...newExpense, type: cat.id })}
+                              className={`py-2 px-2 text-xs rounded-xl border font-semibold text-center transition-all cursor-pointer ${
+                                newExpense.type === cat.id
+                                  ? "border-primary bg-primary/10 text-primary font-bold shadow-xs"
+                                  : "border-border text-muted-foreground hover:bg-muted"
+                              }`}
+                            >
+                              {cat.label}
+                            </button>
+                          ))}
+                        </div>
+                      </Field>
+
+                      <div className="flex items-center justify-end gap-2 pt-3">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          disabled={isSubmittingExpense}
+                          onClick={() => setIsAddExpenseOpen(false)}
+                          className="rounded-xl"
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          type="submit"
+                          size="sm"
+                          disabled={isSubmittingExpense}
+                          className="rounded-xl font-bold gap-1.5 shadow-xs"
+                        >
+                          {isSubmittingExpense ? (
+                            <>
+                              <Loader2 className="size-3.5 animate-spin" /> Saving...
+                            </>
+                          ) : (
+                            <>
+                              <Plus className="size-3.5" /> Save Expense
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 5: AI ITINERARY */}
           {activeTab === "itinerary" && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <div>
