@@ -23,7 +23,7 @@ export async function submitGuideOnboarding(
     }
 
     const roles = session.user.roles ?? [];
-    const isGuide = roles.some((role) => role.name === "guide");
+    const isGuide = roles.some((role) => role.name === "guide" || role.name === "admin");
 
     if (!isGuide) {
       return { success: false, message: "Forbidden: Not a tour guide account" };

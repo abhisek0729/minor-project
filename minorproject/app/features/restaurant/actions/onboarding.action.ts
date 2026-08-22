@@ -17,7 +17,7 @@ export async function submitRestaurantOnboarding(
     }
 
     const roles = session.user.roles ?? [];
-    const isOwner = roles.some((role) => role.name === "restaurantOwner");
+    const isOwner = roles.some((role) => role.name === "restaurantOwner" || role.name === "admin");
     
     if (!isOwner) {
       return { success: false, message: "Forbidden: Not a restaurant owner" };

@@ -24,6 +24,12 @@ export const locationSchema = z.object({
 export const imagesSchema = z.object({
   restaurantImageUrl: z.string().url("Restaurant cover image is required"),
   publicId: z.string().optional(),
+  galleryImages: z.array(
+    z.object({
+      imageUrl: z.string().url(),
+      publicId: z.string().optional().default(""),
+    })
+  ).optional().default([]),
 });
 
 export const restaurantOnboardingSchema = z.object({
