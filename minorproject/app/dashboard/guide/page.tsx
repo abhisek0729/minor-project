@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import {
   Calendar,
@@ -27,7 +28,14 @@ export default async function GuideDashboardPage() {
   const guide = await getGuideByUserId(Number(session?.user?.id));
 
   if (!guide) {
-    return <div>Guide not initialized</div>;
+    redirect("/onboarding/guide");
+  }
+
+  const guideRole = session?.user?.roles?.find((r) => r.name === "guide");
+  const approvalStatus = guideRole?.approvalStatus ?? "pending";
+
+  if (approvalStatus === "pending") {
+    redirect("/dashboard/guide/pending");
   }
 
   const stats = await getGuideStats(guide.id);

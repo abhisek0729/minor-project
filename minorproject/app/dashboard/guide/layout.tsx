@@ -25,27 +25,10 @@ export default async function GuideDashboardLayout({ children }: GuideLayoutProp
     redirect("/unauthorized");
   }
 
-  let guide = await getGuideByUserId(Number(session.user.id));
+  const guide = await getGuideByUserId(Number(session.user.id));
 
   if (!guide) {
-    // Auto-create guide entry if missing
-    const [newGuide] = await db
-      .insert(guidesTable)
-      .values({
-        userId: Number(session.user.id),
-        name: session.user.name || "Tour Guide",
-        description: "Certified mountain and cultural tour guide in Nepal.",
-        location: "Kathmandu, Nepal",
-        phoneNumber: "9800000000",
-        guideImageUrl: "",
-        experienceYears: 2,
-        languages: "Nepali, English",
-        dailyRate: 2500,
-        isAvailable: true,
-      })
-      .returning();
-
-    guide = newGuide;
+    redirect("/onboarding/guide");
   }
 
   const guideRole = session.user.roles?.find((r) => r.name === "guide");
