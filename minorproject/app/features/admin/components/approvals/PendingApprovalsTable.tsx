@@ -183,9 +183,9 @@ export default function PendingApprovalsTable({
         </Card>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filteredItems.map((item) => (
+          {filteredItems.map((item, index) => (
             <Card
-              key={`${item.itemType}-${item.userId}`}
+              key={`${item.itemType}-${item.userId}-${item.businessName || ""}-${index}`}
               className="overflow-hidden border shadow-xs hover:border-primary/40 transition-all flex flex-col justify-between rounded-3xl bg-card"
             >
               <div>
