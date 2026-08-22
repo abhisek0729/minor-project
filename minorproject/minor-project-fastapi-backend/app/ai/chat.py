@@ -46,6 +46,47 @@ async def chat(db, req):
     destination = req.destination or ""
     user_roles = req.user_roles or []
     steps_taken = []
+    msg_lower = user_msg.lower().strip()
+
+    # 0. OUT-OF-DOMAIN & NON-TOURISM GUARDRAIL
+    out_of_domain_patterns = [
+        r"\b(c|c\+\+|cpp|python|javascript|typescript|java|rust|golang|ruby|php|html|css|sql)\s+(code|program|script|function|syntax|compiler)\b",
+        r"\b(write|generate|give|create|build)\s+(a\s+)?([a-z0-9#\+]+)?\s*(code|script|program|algorithm|class|function|regex|sql)\b",
+        r"\b(code\s+for|program\s+to|code\s+to|coding|algorithm|debugging|debug\s+this|compile\s+this|hello\s*world|fibonacci|bubble\s*sort)\b",
+        r"\b(write\s+(an?\s+)?(essay|poem|song|story|lyrics|speech))\s+(about|on)\s+(?!nepal|travel|trek|himalaya|tourism|everest|pokhara|kathmandu)",
+        r"\b(solve|calculate)\s+(math|equation|algebra|calculus|physics|integral|derivative|geometry)\b",
+        r"\b(crypto|bitcoin|ethereum|forex\s+trading|stock\s+market|stock\s+price\s+of)\b",
+        r"\b(medical\s+advice|diagnose\s+my|cure\s+for|symptoms\s+of\s+cancer)\b",
+    ]
+
+    has_travel_context = any(
+        k in msg_lower for k in [
+            "nepal", "travel", "trip", "trek", "tour", "hotel", "stay", "room",
+            "food", "restaurant", "dish", "expense", "booking", "guide",
+            "platform", "workspace", "khalti"
+        ]
+    )
+
+    is_out_of_domain = any(re.search(p, msg_lower) for p in out_of_domain_patterns) and not has_travel_context
+
+    if is_out_of_domain:
+        steps_taken.append("🔒 Guardrail: Filtered out-of-domain / non-tourism request")
+        return ChatResponse(
+            answer=(
+                "Namaste! 🙏 I am your **TravelNepal AI Specialist**, focused exclusively on travel, tourism, and platform operations across Nepal.\n\n"
+                "I cannot assist with programming, general coding, academic assignments, or topics outside Nepal tourism.\n\n"
+                "🌟 **Here is what I can help you with:**\n"
+                "• 🗺️ **Trip & Trek Planning**: Custom routes, day trips, and itineraries across Nepal\n"
+                "• 🏨 **Hotels & Stays**: Live recommendations and verified bookings via Khalti\n"
+                "• 🍽️ **Food & Dining**: Finding authentic dishes, local eateries, and restaurant menus\n"
+                "• 🧗 **Tour Guides**: Connecting with licensed Himalayan guides and porters\n"
+                "• 💰 **Travel Expenses**: Logging and categorizing your travel spending\n"
+                "• 🏢 **Partner Workspaces**: Managing your hotel, restaurant, or guide listings\n\n"
+                "Please feel free to ask any question about traveling in Nepal or using the TravelNepal platform!"
+            ),
+            steps_taken=steps_taken,
+            tools_used=["guardrail_filter"],
+        )
 
     # 1. ACTION & FORM ASSISTANT (HITL)
     action_result = await process_action_request(user_msg, user_roles, req.history or [])
@@ -76,6 +117,59 @@ async def chat(db, req):
                 steps_taken=steps_taken,
                 tools_used=["action_intent_compiler", "hitl_proposal_generator"],
             )
+
+    # 1.5 NEARBY / NEAR ME LOCATION INTENT
+    is_near_me = any(
+        k in msg_lower for k in [
+            "near me", "nearest hotel", "nearest stay", "nearest restaurant", "nearest food",
+            "hotels near me", "hotel near me", "stays near me", "nearby hotel",
+            "nearby stays", "nearby restaurant", "places near me"
+        ]
+    )
+    nep_cities = [
+        "butwal", "kathmandu", "pokhara", "lumbini", "dharan", "chitwan", "sauraha",
+        "nagarkot", "bhaktapur", "lalitpur", "biratnagar", "mustang", "manang",
+        "bandipur", "ilam", "janakpur", "gorkha", "hetauda", "nepalgunj",
+        "bhairahawa", "dhangadhi", "itahari", "birtamod", "damak"
+    ]
+    has_city_in_msg = any(c in msg_lower for c in nep_cities)
+
+    # Check if user is replying to previous location question
+    last_assistant_text = ""
+    if req.history:
+        for prev in reversed(req.history):
+            role = getattr(prev, "role", None) or (prev.get("role") if isinstance(prev, dict) else "")
+            if role in ["assistant", "model"]:
+                last_assistant_text = str(
+                    getattr(prev, "content", None) or getattr(prev, "text", None) or (prev.get("text", "") if isinstance(prev, dict) else "")
+                ).lower()
+                break
+
+    is_answering_location = (
+        "where are you currently located in nepal" in last_assistant_text or
+        "let me know your current city" in last_assistant_text
+    )
+
+    if is_answering_location:
+        for c in nep_cities:
+            if c in msg_lower:
+                destination = c.capitalize()
+                steps_taken.append(f"📍 Received traveler location: '{destination}'")
+                break
+        if not destination:
+            destination = user_msg.replace("i am in", "").replace("in", "").strip().capitalize()
+
+    elif is_near_me and not has_city_in_msg:
+        steps_taken.append("📍 Detected 'near me' query — Prompted traveler for current city/location")
+        return ChatResponse(
+            answer=(
+                "📍 **Where are you currently located in Nepal?**\n\n"
+                "Please let me know your current city or area (e.g., *Butwal, Kathmandu, Pokhara, Dharan, Chitwan, Lumbini*).\n\n"
+                "Once you tell me your location, I will immediately search our verified platform database and live Google Maps to find the closest top-rated hotels, stays, and restaurants for you!"
+            ),
+            steps_taken=steps_taken,
+            tools_used=["location_slot_analyzer"],
+        )
 
     # 2. QUERY & INFORMATION RETRIEVAL
     keywords = extract_query_keywords(user_msg)

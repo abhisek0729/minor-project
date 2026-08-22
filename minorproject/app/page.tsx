@@ -17,10 +17,10 @@ export default async function Home() {
 
   try {
     const [dbHotels, dbRestaurants, dbDestinations, dbGuides] = await Promise.all([
-      db.select().from(hotelsTable).limit(3),
-      db.select().from(restaurantsTable).limit(3),
-      db.select().from(destinationsTable).limit(3),
-      db.select().from(guidesTable).limit(3),
+      db.select().from(hotelsTable).limit(12),
+      db.select().from(restaurantsTable).limit(12),
+      db.select().from(destinationsTable).limit(12),
+      db.select().from(guidesTable).limit(12),
     ]);
 
     featuredHotels = await Promise.all(

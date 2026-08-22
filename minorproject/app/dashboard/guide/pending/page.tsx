@@ -51,6 +51,11 @@ export default function GuidePendingPage() {
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-center pt-2">
+            <Link href="/onboarding/guide">
+              <Button className="w-full sm:w-auto text-xs gap-1.5 rounded-xl bg-primary text-primary-foreground shadow-sm hover:opacity-90 cursor-pointer">
+                <Compass className="size-3.5" /> Complete / Edit Onboarding Profile
+              </Button>
+            </Link>
             <Link href="/dashboard">
               <Button variant="outline" className="w-full sm:w-auto text-xs gap-1.5 rounded-xl cursor-pointer">
                 <ArrowLeft className="size-3.5" /> Back to My Dashboard
