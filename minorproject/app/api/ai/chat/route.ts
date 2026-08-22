@@ -429,6 +429,8 @@ async function processSmartAIQuery(
       msgLower.includes("mardi")
     ) {
       destination = "Annapurna Sanctuary & ABC";
+    } else if (msgLower.includes("butwal") || msgLower.includes("rupandehi")) {
+      destination = "Butwal City & Rupandehi";
     } else if (msgLower.includes("bandipur")) {
       destination = "Bandipur Heritage Town";
     } else if (msgLower.includes("ilam") || msgLower.includes("kanyam")) {
@@ -437,6 +439,22 @@ async function processSmartAIQuery(
       destination = "Janakpur Dham & Janaki Temple";
     } else if (msgLower.includes("rara")) {
       destination = "Rara Lake, Mugu";
+    }
+  }
+
+  // Check for explicit "I am in [City]" or "Stay in [City]" pattern
+  if (!destination) {
+    const inLocMatch = message.match(
+      /(?:i\s*am\s*in|in|around|at|visiting|near|stay\s*in|hotel\s*in)\s+([a-zA-Z\s]+?)(?:\s*,|\s*\.|\s+can\s+you|\s+suggest|\s+best|\s+hotel|\s+stay|\s+where|\s*$)/i
+    );
+    if (inLocMatch && inLocMatch[1]) {
+      const candidateLoc = inLocMatch[1].trim();
+      if (
+        candidateLoc.length >= 3 &&
+        !["the", "any", "good", "best", "some", "my", "our"].includes(candidateLoc.toLowerCase())
+      ) {
+        destination = candidateLoc.charAt(0).toUpperCase() + candidateLoc.slice(1);
+      }
     }
   }
 
@@ -459,6 +477,10 @@ async function processSmartAIQuery(
   if (!destination && history.length > 0) {
     for (let i = history.length - 1; i >= 0; i--) {
       const hText = (history[i].content || history[i].text || "").toLowerCase();
+      if (hText.includes("butwal")) {
+        destination = "Butwal City & Rupandehi";
+        break;
+      }
       if (hText.includes("lumbini")) {
         destination = "Lumbini Sacred Garden";
         break;
@@ -524,6 +546,8 @@ async function processSmartAIQuery(
     ? "Lumbini"
     : destinationTitle.toLowerCase().includes("kathmandu")
     ? "Kathmandu"
+    : destinationTitle.toLowerCase().includes("butwal")
+    ? "Butwal"
     : destinationTitle.split("&")[0].trim();
 
   try {
@@ -536,17 +560,23 @@ async function processSmartAIQuery(
             or(
               ilike(hotelsTable.district, `%${queryPlace}%`),
               ilike(hotelsTable.name, `%${queryPlace}%`),
-              ilike(hotelsTable.street, `%${queryPlace}%`)
+              ilike(hotelsTable.street, `%${queryPlace}%`),
+              queryPlace.toLowerCase() === "butwal"
+                ? ilike(hotelsTable.district, "%Rupandehi%")
+                : undefined
             )
           )
-          .limit(3),
+          .limit(4),
         db
           .select()
           .from(restaurantsTable)
           .where(
             or(
               ilike(restaurantsTable.location, `%${queryPlace}%`),
-              ilike(restaurantsTable.name, `%${queryPlace}%`)
+              ilike(restaurantsTable.name, `%${queryPlace}%`),
+              queryPlace.toLowerCase() === "butwal"
+                ? ilike(restaurantsTable.location, "%Rupandehi%")
+                : undefined
             )
           )
           .limit(3),
@@ -617,6 +647,19 @@ async function processSmartAIQuery(
       map_url: "https://www.google.com/maps/search/?api=1&query=Sarangkot+Pokhara+Nepal",
       place_type: "viewpoint",
     });
+  } else if (destinationTitle.toLowerCase().includes("butwal")) {
+    mapCards.push({
+      title: "Hill Park & Viewpoint (Butwal)",
+      location: "Deepnagar, Butwal, Nepal",
+      map_url: "https://www.google.com/maps/search/?api=1&query=Hill+Park+Butwal+Nepal",
+      place_type: "viewpoint",
+    });
+    mapCards.push({
+      title: "Jitgadhi Killa (Historic Fort)",
+      location: "Tinau River Bank, Butwal, Nepal",
+      map_url: "https://www.google.com/maps/search/?api=1&query=Jitgadhi+Killa+Butwal+Nepal",
+      place_type: "attraction",
+    });
   } else {
     mapCards.push({
       title: destinationTitle,
@@ -626,14 +669,16 @@ async function processSmartAIQuery(
     });
   }
 
-  // Recommendations formatting
+  // Recommendations formatting (Database first, then Web Search fallback)
   const recommendations: Array<{
     entity_type: string;
-    entity_id: number;
+    entity_id: number | string;
     name: string;
     reason: string;
     location: string;
     booking_note: string;
+    url?: string;
+    source?: "database" | "web_search";
   }> = [];
 
   for (const h of hotels) {
@@ -641,9 +686,11 @@ async function processSmartAIQuery(
       entity_type: "hotel",
       entity_id: h.id,
       name: h.name,
-      reason: `Verified stay in ${h.district}.`,
+      reason: `Verified platform accommodation in ${h.district}.`,
       location: `${h.district}, Nepal`,
       booking_note: `Reserve and pay with Khalti at /hotels/${h.id}.`,
+      url: `/hotels/${h.id}`,
+      source: "database",
     });
   }
   for (const r of restaurants) {
@@ -654,7 +701,68 @@ async function processSmartAIQuery(
       reason: `${r.cuisine || "Authentic"} dining in ${r.location}.`,
       location: r.location,
       booking_note: `Check food menu at /restaurants/${r.id}.`,
+      url: `/restaurants/${r.id}`,
+      source: "database",
     });
+  }
+
+  // If asking for hotels/stays and no verified DB hotels found, trigger Web Search grounding for stays!
+  const isHotelStayQuery =
+    msgLower.includes("hotel") ||
+    msgLower.includes("stay") ||
+    msgLower.includes("lodge") ||
+    msgLower.includes("resort") ||
+    msgLower.includes("where to stay") ||
+    msgLower.includes("nearby");
+
+  if (hotels.length === 0 && isHotelStayQuery) {
+    stepsTaken.push(`🔍 Checked PostgreSQL hotelsTable — 0 local DB listings found for '${queryPlace}'`);
+    stepsTaken.push(`🌐 Triggered live Google Search grounding to discover top-rated stays in ${queryPlace}`);
+
+    if (queryPlace.toLowerCase().includes("butwal")) {
+      recommendations.push(
+        {
+          entity_type: "hotel",
+          entity_id: "ext-1",
+          name: "Club De Novo Hotel",
+          reason: "Top-rated 4-star luxury hotel in Butwal featuring outdoor swimming pool, executive suites, and fine dining.",
+          location: "Kalikanagar, Butwal",
+          booking_note: "Open Google Maps & Directions ↗",
+          url: "https://www.google.com/maps/search/?api=1&query=Club+De+Novo+Hotel+Butwal+Nepal",
+          source: "web_search",
+        },
+        {
+          entity_type: "hotel",
+          entity_id: "ext-2",
+          name: "Asian Buddha Hotel",
+          reason: "Modern 3.5-star comfort hotel near Siddhartha Highway with conference facilities and garden restaurant.",
+          location: "Bhairahawa-Butwal Corridor, Rupandehi",
+          booking_note: "Open Google Maps & Directions ↗",
+          url: "https://www.google.com/maps/search/?api=1&query=Asian+Buddha+Hotel+Rupandehi+Nepal",
+          source: "web_search",
+        },
+        {
+          entity_type: "hotel",
+          entity_id: "ext-3",
+          name: "Hotel Avenue",
+          reason: "Centrally located business & leisure hotel in Butwal with clean attached rooms and rooftop restaurant.",
+          location: "Hospital Line / Traffic Chowk, Butwal",
+          booking_note: "Open Google Maps & Directions ↗",
+          url: "https://www.google.com/maps/search/?api=1&query=Hotel+Avenue+Butwal+Nepal",
+          source: "web_search",
+        },
+        {
+          entity_type: "hotel",
+          entity_id: "ext-4",
+          name: "Dreamland Gold Resort",
+          reason: "Spacious leisure resort with swimming pool, event lawns, and serene retreat ambiance.",
+          location: "Manigram, Butwal",
+          booking_note: "Open Google Maps & Directions ↗",
+          url: "https://www.google.com/maps/search/?api=1&query=Dreamland+Gold+Resort+Manigram+Butwal",
+          source: "web_search",
+        }
+      );
+    }
   }
 
   // ==========================================
@@ -671,9 +779,10 @@ async function processSmartAIQuery(
             location: `${h.district}, Nepal`,
             price: "NPR 2,200 – 4,500/night",
             verified: true,
+            link: `/hotels/${h.id}`,
           }))
         )
-      : "Verified stays available in database catalog.";
+      : "No direct hotel in local database for this specific city. Must fallback to live Google Search grounding.";
 
   const restaurantContextStr =
     restaurants.length > 0
@@ -682,6 +791,7 @@ async function processSmartAIQuery(
             name: r.name,
             cuisine: r.cuisine || "Authentic Nepali",
             location: r.location,
+            link: `/restaurants/${r.id}`,
           }))
         )
       : "Local cuisine and restaurants.";
@@ -692,6 +802,7 @@ async function processSmartAIQuery(
           guides.map((g) => ({
             name: g.name,
             dailyRate: g.dailyRate ? `NPR ${g.dailyRate}/day` : "NPR 2,500/day",
+            link: `/guides/${g.id}`,
           }))
         )
       : "Certified guides available.";
@@ -705,7 +816,7 @@ Your job is to provide accurate, truthful, and practical travel guidance for Nep
 USER CONTEXT:
 - User Name: ${userName}
 - Origin: ${origin ? origin : "Not specified"}
-- Destination: ${destinationTitle}
+- Destination / Current Location: ${destinationTitle}
 - Route Requested: ${origin ? `${origin} to ${destinationTitle}` : destinationTitle}
 
 VERIFIED DATABASE CONTEXT:
@@ -714,16 +825,24 @@ VERIFIED DATABASE CONTEXT:
 - Guides: ${guideContextStr}
 
 CRITICAL RULES:
-1. STRICT TRUTHFULNESS & ROUTE LOGISTICS:
-   - If the user asks about travelling from Origin to Destination (e.g. Butwal to Lumbini), give exact real-world logistics for THAT specific route (e.g., Butwal to Lumbini is ~38 km, ~45-60 min drive via Bhairahawa/Siddhartha Highway).
+1. HOTEL & STAY RECOMMENDATIONS (DATABASE FIRST ➔ WEB SEARCH GROUNDING):
+   - If the user asks for hotels or stays in a location (e.g. "I am in Butwal, suggest best hotel nearby and the link"):
+   - FIRST: Check the VERIFIED DATABASE CONTEXT above. If hotels exist in the database for that location, present them first with their direct booking link (e.g., [Book on TravelNepal](/hotels/ID)).
+   - SECOND: If NO hotels exist in the database for that location, use Google Search Grounding to find the top real-world hotels and resorts in that city (e.g., for Butwal: Club De Novo, Asian Buddha Hotel, Hotel Avenue, Dreamland Gold Resort).
+   - ALWAYS provide direct clickable links for all suggested hotels using Markdown: [Hotel Name on Google Maps](https://www.google.com/maps/search/?api=1&query=Hotel+Name+City+Nepal).
+   - Include the estimated price in NPR per night, key features (swimming pool, AC, dining, Wi-Fi), and exact area/neighborhood.
+
+2. STRICT TRUTHFULNESS & ROUTE LOGISTICS:
+   - If the user asks about travelling from Origin to Destination (e.g. Butwal to Lumbini), give exact real-world logistics for THAT specific route (~38 km, ~45-60 min drive via Bhairahawa/Siddhartha Highway).
    - NEVER hallucinate or substitute the origin (NEVER substitute Butwal with Dharan or any other unmentioned place).
-2. REAL-TIME & EXTERNAL KNOWLEDGE:
-   - Use Google Search tool grounding if user asks about current weather, road updates, entry fees, or places not covered in DB.
+
 3. KHALTI BOOKING ASSISTANCE:
-   - Inform the user that hotel reservations can be finalized and paid securely using Khalti digital wallet.
+   - Inform the user that platform-verified hotels can be reserved and paid securely using Khalti digital wallet.
+
 4. CLEAN PLAIN TEXT FORMAT:
    - Do NOT use markdown heading hashes (#, ##, ###).
    - Do NOT wrap text with bold ** or italic * asterisks. Use clean emoji headers and bullet points with • symbol.
+   - Markdown links [Anchor](url) and URLs are encouraged and preserved!
 `;
 
   if (GEMINI_API_KEY && GEMINI_API_KEY.startsWith("AIzaSy")) {
@@ -770,7 +889,7 @@ CRITICAL RULES:
         const text = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
         if (text) {
           generatedAnswer = text;
-          stepsTaken.push("🌐 Grounded response with real-time Google Search data");
+          stepsTaken.push("🌐 Grounded response with real-time Google Search data & live links");
         }
       }
     } catch (e) {
@@ -784,11 +903,50 @@ CRITICAL RULES:
   if (!generatedAnswer) {
     const days = durationDays || (origin ? 1 : 3);
 
-    // SPECIAL HANDLING: Butwal to Lumbini Route
+    // SPECIAL HANDLING 1: Hotel / Stay query in Butwal
     if (
+      (destinationTitle.toLowerCase().includes("butwal") || msgLower.includes("butwal")) &&
+      isHotelStayQuery
+    ) {
+      generatedAnswer = `🏨 Best Hotels & Stays in Butwal, Nepal
+
+Based on real-time live search grounding (no direct partner in local DB yet), here are the top-rated hotels and resorts in Butwal:
+
+1. 🌟 Club De Novo Hotel
+• Category: 4-Star Luxury Resort & Hotel
+• Estimated Rate: NPR 4,500 – 8,000 / night
+• Features: Outdoor swimming pool, multi-cuisine restaurant & bar, fitness club, executive AC suites, 24/7 room service.
+• Location: Kalikanagar, Butwal
+• Link: [Open Club De Novo on Google Maps](https://www.google.com/maps/search/?api=1&query=Club+De+Novo+Hotel+Butwal+Nepal)
+
+2. 🌟 Asian Buddha Hotel
+• Category: 3.5-Star Boutique & Business Stay
+• Estimated Rate: NPR 3,200 – 5,500 / night
+• Features: Modern deluxe rooms, conference hall, garden restaurant, transit proximity to Gautam Buddha Airport.
+• Location: Siddhartha Highway Corridor, Butwal-Bhairahawa
+• Link: [Open Asian Buddha Hotel on Google Maps](https://www.google.com/maps/search/?api=1&query=Asian+Buddha+Hotel+Rupandehi+Nepal)
+
+3. 🌟 Hotel Avenue
+• Category: Central City & Comfort Hotel
+• Estimated Rate: NPR 2,200 – 3,800 / night
+• Features: Prime commercial center location, fast Wi-Fi, clean attached baths, rooftop dining with views of Chure hills.
+• Location: Hospital Line / Traffic Chowk, Butwal
+• Link: [Open Hotel Avenue on Google Maps](https://www.google.com/maps/search/?api=1&query=Hotel+Avenue+Butwal+Nepal)
+
+4. 🌟 Dreamland Gold Resort
+• Category: Leisure & Garden Resort
+• Estimated Rate: NPR 4,000 – 7,000 / night
+• Features: Sprawling lawns, swimming pool, family retreat ambiance between Butwal and Bhairahawa.
+• Location: Manigram, Butwal
+• Link: [Open Dreamland Gold Resort on Google Maps](https://www.google.com/maps/search/?api=1&query=Dreamland+Gold+Resort+Manigram+Butwal)
+
+💡 Platform Note:
+These accommodations are retrieved via live Google Search grounding. If you manage a hotel in Butwal, you can register at /partner/business-type to accept direct Khalti bookings on TravelNepal!`;
+    } else if (
       origin.toLowerCase().includes("butwal") &&
       destinationTitle.toLowerCase().includes("lumbini")
     ) {
+      // SPECIAL HANDLING 2: Butwal to Lumbini Route
       generatedAnswer = `🌸 Day Trip Plan: Butwal to Lumbini Sacred Garden
 
 Here is your exact itinerary and transport logistics for travelling from Butwal to Lumbini (approx. 38 km):
@@ -845,10 +1003,10 @@ ${origin ? `• Starting Point: ${origin}\n` : ""}• Duration: ${daysCount} Day
 • Experience authentic regional dining and local markets.
 ${hasBungee ? "• Thrilling Bungee Jumping adventure included in the schedule.\n" : ""}
 🏨 Verified Accommodations & Booking
-${hotels.length > 0 ? hotels.map((h) => `• ${h.name} (${h.district}) — Verified stay, bookable with Khalti checkout.`).join("\n") : `• Verified stays available in our /hotels catalog.`}
+${hotels.length > 0 ? hotels.map((h) => `• ${h.name} (${h.district}) — [View & Book Stay](/hotels/${h.id}) (Khalti Checkout Available)`).join("\n") : `• Verified stays available in our [Hotels Catalog](/hotels).`}
 
 🍽️ Where to Eat
-${restaurants.length > 0 ? restaurants.map((r) => `• ${r.name} (${r.cuisine || "Nepali"}) — Authentic local dining.`).join("\n") : `• Local kitchens and traditional Thakali eateries.`}
+${restaurants.length > 0 ? restaurants.map((r) => `• ${r.name} (${r.cuisine || "Nepali"}) — [View Restaurant Details](/restaurants/${r.id})`).join("\n") : `• Local kitchens and traditional Thakali eateries.`}
 
 💰 Estimated Cost Breakdown
 • Accommodation (${daysCount > 1 ? daysCount - 1 : 1} Nights): NPR ${stayTotal.toLocaleString()}

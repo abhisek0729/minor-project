@@ -10,12 +10,15 @@ import { toggleRestaurantOpenStatus } from "../../actions/availability.action";
 import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
 import NotificationBell from "@/app/components/dashboard/NotificationBell";
 
+import RestaurantMobileSidebar from "./RestaurantMobileSidebar";
+
 interface RestaurantHeaderProps {
   restaurantName: string;
   userName: string;
   userEmail: string;
   isOpen: boolean;
   approvalStatus: string;
+  restaurantId?: number;
 }
 
 export default function RestaurantHeader({
@@ -24,6 +27,7 @@ export default function RestaurantHeader({
   userEmail,
   isOpen,
   approvalStatus,
+  restaurantId = 1,
 }: RestaurantHeaderProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -39,8 +43,13 @@ export default function RestaurantHeader({
   };
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 sm:px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex items-center gap-3">
+        <RestaurantMobileSidebar
+          restaurant={{ id: restaurantId, name: restaurantName }}
+          approvalStatus={approvalStatus as any}
+        />
+
         <div className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <Utensils className="size-4" />
         </div>

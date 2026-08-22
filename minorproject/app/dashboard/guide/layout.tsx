@@ -46,6 +46,7 @@ export default async function GuideDashboardLayout({ children }: GuideLayoutProp
           location={guide.location}
           isAvailable={guide.isAvailable ?? true}
           dailyRate={guide.dailyRate ?? 2500}
+          approvalStatus={approvalStatus}
         />
 
         {approvalStatus === "pending" && (
