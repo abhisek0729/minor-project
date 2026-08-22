@@ -1816,13 +1816,11 @@ You can explore our verified restaurant partners and view their digital food men
     }
   }
 
-  // If still no destination, default to Pokhara for general travel questions
-  if (!destination) {
-    destination = "Pokhara Valley & Phewa Lake";
+  // Only set destination title if explicitly matched
+  const destinationTitle = destination || "";
+  if (destinationTitle) {
+    updateUserMemory(userId, "active_destination", destinationTitle);
   }
-
-  const destinationTitle = destination;
-  updateUserMemory(userId, "active_destination", destinationTitle);
 
   // Detect activities
   const hasBungee =
@@ -2179,7 +2177,7 @@ CRITICAL RULES:
         ],
       });
 
-      const geminiRes = await fetch(
+      let geminiRes = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
         {
           method: "POST",
@@ -2195,12 +2193,30 @@ CRITICAL RULES:
         }
       );
 
+      // Fallback without search tool if search tool fails
+      if (!geminiRes.ok) {
+        geminiRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents,
+              generationConfig: {
+                temperature: 0.6,
+                maxOutputTokens: 1600,
+              },
+            }),
+          }
+        );
+      }
+
       if (geminiRes.ok) {
         const geminiData = await geminiRes.json();
         const text = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
         if (text) {
           generatedAnswer = text;
-          stepsTaken.push("🌐 Grounded response with real-time Google Search data & live links");
+          stepsTaken.push("🤖 Generated contextual AI response for user query");
         }
       }
     } catch (e) {
@@ -2212,14 +2228,29 @@ CRITICAL RULES:
   // 7. DYNAMIC ACCURATE LOCAL GENERATOR (FALLBACK)
   // ==========================================
   if (!generatedAnswer) {
-    const days = durationDays || (origin ? 1 : 3);
+    if (!destinationTitle) {
+      // User message is unrelated or lacking any Nepal tourism destination
+      generatedAnswer = `Namaste! 🙏 I am your TravelNepal AI Specialist, dedicated to assisting you with travel, tourism, and platform features across Nepal.
 
-    // SPECIAL HANDLING 1: Hotel / Stay query in Butwal
-    if (
-      (destinationTitle.toLowerCase().includes("butwal") || msgLower.includes("butwal")) &&
-      isHotelStayQuery
-    ) {
-      generatedAnswer = `🏨 Best Hotels & Stays in Butwal, Nepal
+I couldn't identify a specific destination or travel request in your message. Please feel free to ask me about:
+• 🗺️ Trip & Trek Planning: Itineraries, routes, and day trips across Nepal
+• 🏨 Hotels & Stays: Verified partner listings with instant Khalti booking
+• 🍽️ Food & Dining: Finding authentic local Nepali dishes & restaurants
+• 🧗 Tour Guides: Connecting with licensed Himalayan guides & porters
+• 💰 Travel Expenses: Logging and categorizing your travel spending
+• 🏢 Partner Workspaces: Managing your hotel, restaurant, or guide listing
+
+How can I help you explore Nepal today?`;
+      stepsTaken.push("ℹ️ Guided user toward Nepal tourism & platform queries");
+    } else {
+      const days = durationDays || (origin ? 1 : 3);
+
+      // SPECIAL HANDLING 1: Hotel / Stay query in Butwal
+      if (
+        (destinationTitle.toLowerCase().includes("butwal") || msgLower.includes("butwal")) &&
+        isHotelStayQuery
+      ) {
+        generatedAnswer = `🏨 Best Hotels & Stays in Butwal, Nepal
 
 Based on real-time live search grounding (no direct partner in local DB yet), here are the top-rated hotels and resorts in Butwal:
 
@@ -2238,34 +2269,34 @@ Based on real-time live search grounding (no direct partner in local DB yet), he
 • Link: [Open Asian Buddha Hotel on Google Maps](https://www.google.com/maps/search/?api=1&query=Asian+Buddha+Hotel+Rupandehi+Nepal)
 
 3. 🌟 Hotel Avenue
-• Category: Central City & Comfort Hotel
+• Category: Central City Comfort Hotel
 • Estimated Rate: NPR 2,200 – 3,800 / night
-• Features: Prime commercial center location, fast Wi-Fi, clean attached baths, rooftop dining with views of Chure hills.
-• Location: Hospital Line / Traffic Chowk, Butwal
+• Features: Prime commercial location in Traffic Chowk, rooftop multi-cuisine dining, fast Wi-Fi, easy highway access.
+• Location: Traffic Chowk, Butwal
 • Link: [Open Hotel Avenue on Google Maps](https://www.google.com/maps/search/?api=1&query=Hotel+Avenue+Butwal+Nepal)
 
 4. 🌟 Dreamland Gold Resort
-• Category: Leisure & Garden Resort
+• Category: 4-Star Leisure & Garden Resort
 • Estimated Rate: NPR 4,000 – 7,000 / night
-• Features: Sprawling lawns, swimming pool, family retreat ambiance between Butwal and Bhairahawa.
-• Location: Manigram, Butwal
+• Features: Sprawling landscaped gardens, large swimming pool, peaceful family retreat, deluxe private cottages.
+• Location: Manigram, Butwal-Bhairahawa Highway
 • Link: [Open Dreamland Gold Resort on Google Maps](https://www.google.com/maps/search/?api=1&query=Dreamland+Gold+Resort+Manigram+Butwal)
 
-💡 Platform Note:
-These accommodations are retrieved via live Google Search grounding. If you manage a hotel in Butwal, you can register at /partner/business-type to accept direct Khalti bookings on TravelNepal!`;
-    } else if (
-      (destinationTitle.toLowerCase().includes("dharan") || msgLower.includes("dharan")) &&
-      isHotelStayQuery
-    ) {
-      // SPECIAL HANDLING: Hotel / Stay query in Dharan
-      generatedAnswer = `🏨 Best Hotels & Stays in Dharan, Nepal
+💡 Note:
+Click any Google Maps link above for turn-by-turn navigation, or browse verified partner hotels in Kathmandu, Pokhara, and Lumbini with instant Khalti checkout at [TravelNepal Hotel Directory](/hotels).`;
+      } else if (
+        (destinationTitle.toLowerCase().includes("dharan") || msgLower.includes("dharan")) &&
+        isHotelStayQuery
+      ) {
+        // SPECIAL HANDLING: Hotel / Stay query in Dharan
+        generatedAnswer = `🏨 Best Hotels & Stays in Dharan, Nepal
 
-Based on real-time live search grounding (no direct partner in local DB yet), here are the top-rated hotels and stays in Dharan:
+Here are the top-rated hotels and lodges in Dharan with direct links and live location details:
 
 1. 🌟 Hotel Gajur Palace
 • Category: Premium 3-Star Hotel & Banquet
 • Estimated Rate: NPR 3,000 – 5,500 / night
-• Features: Executive AC deluxe rooms, multi-cuisine dining, conference hall, 24/7 power backup, secure parking.
+• Features: Executive AC deluxe rooms, multi-cuisine dining, conference hall, 24/7 power backup.
 • Location: Main Road, Dharan
 • Link: [Open Hotel Gajur Palace on Google Maps](https://www.google.com/maps/search/?api=1&query=Hotel+Gajur+Palace+Dharan+Nepal)
 
@@ -2283,21 +2314,14 @@ Based on real-time live search grounding (no direct partner in local DB yet), he
 • Location: Putali Line, Dharan
 • Link: [Open Hotel Verandah on Google Maps](https://www.google.com/maps/search/?api=1&query=Hotel+Verandah+Dharan+Nepal)
 
-4. 🌟 Hotel Navayug
-• Category: Budget-Friendly Family Lodge
-• Estimated Rate: NPR 1,500 – 2,800 / night
-• Features: Cozy attached baths, traditional local dining, proximity to BPKIHS and central transit.
-• Location: College Road, Dharan
-• Link: [Open Hotel Navayug on Google Maps](https://www.google.com/maps/search/?api=1&query=Hotel+Navayug+Dharan+Nepal)
-
-💡 Booking Guidance:
-You can navigate directly or contact these hotels using the Google Maps links above. You can also view all verified platform hotels across Nepal at [Browse Platform Hotels](/hotels).`;
-    } else if (
-      origin.toLowerCase().includes("butwal") &&
-      destinationTitle.toLowerCase().includes("lumbini")
-    ) {
-      // SPECIAL HANDLING 2: Butwal to Lumbini Route
-      generatedAnswer = `🌸 Day Trip Plan: Butwal to Lumbini Sacred Garden
+💡 Note:
+Click any Google Maps link above for turn-by-turn navigation, or browse verified partner hotels with instant Khalti checkout at [TravelNepal Hotel Directory](/hotels).`;
+      } else if (
+        origin?.toLowerCase().includes("butwal") &&
+        destinationTitle.toLowerCase().includes("lumbini")
+      ) {
+        // SPECIAL HANDLING 2: Butwal to Lumbini Route
+        generatedAnswer = `🌸 Day Trip Plan: Butwal to Lumbini Sacred Garden
 
 Here is your exact itinerary and transport logistics for travelling from Butwal to Lumbini (approx. 38 km):
 
@@ -2327,15 +2351,15 @@ Here is your exact itinerary and transport logistics for travelling from Butwal 
 1. Lumbini gets warm during midday; wear lightweight cotton clothes and carry drinking water.
 2. Shoes must be removed before entering the inner Maya Devi Temple sanctum.
 3. Electric rickshaws and bicycles are available at the entrance gate for easy campus touring.`;
-    } else {
-      // General dynamic generator
-      const daysCount = durationDays || 3;
-      const stayTotal = 2800 * (daysCount > 1 ? daysCount - 1 : 1);
-      const foodTotal = 1200 * daysCount;
-      const transitEst = origin ? 2500 : 1500;
-      const totalEst = stayTotal + foodTotal + transitEst + (hasBungee ? 7500 : 2000);
+      } else {
+        // General dynamic generator
+        const daysCount = durationDays || 3;
+        const stayTotal = 2800 * (daysCount > 1 ? daysCount - 1 : 1);
+        const foodTotal = 1200 * daysCount;
+        const transitEst = origin ? 2500 : 1500;
+        const totalEst = stayTotal + foodTotal + transitEst + (hasBungee ? 7500 : 2000);
 
-      generatedAnswer = `🌄 ${origin ? `${daysCount}-Day Trip Plan: ${origin} to ${destinationTitle}` : `${daysCount}-Day Travel Plan: ${destinationTitle}`}
+        generatedAnswer = `🌄 ${origin ? `${daysCount}-Day Trip Plan: ${origin} to ${destinationTitle}` : `${daysCount}-Day Travel Plan: ${destinationTitle}`}
 
 Here is your customized travel itinerary for ${destinationTitle}${origin ? ` departing from ${origin}` : ""}:
 
@@ -2366,6 +2390,7 @@ ${restaurants.length > 0 ? restaurants.map((r) => `• ${r.name} (${r.cuisine ||
 • Total Estimated Budget: NPR ${totalEst.toLocaleString()}
 
 Would you like me to initiate a verified hotel reservation or provide specific directions?`;
+      }
     }
   }
 

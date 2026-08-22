@@ -762,6 +762,15 @@ export default function ModuleExplorer({
                                 Explore Details →
                               </Button>
                             </Link>
+                          ) : activeModule.id === "food" ? (
+                            <Link href={detailHref}>
+                              <Button
+                                size="sm"
+                                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold cursor-pointer"
+                              >
+                                View Menu & Details →
+                              </Button>
+                            </Link>
                           ) : (
                             <Button
                               size="sm"
