@@ -117,6 +117,41 @@ async function processSmartAIQuery(
   }
 
   // ==========================================
+  // ==========================================
+  // 1.1 GREETING & CAPABILITIES INTENT
+  // ==========================================
+  const isCapabilitiesQuery =
+    msgLower.includes("what can you do") ||
+    msgLower.includes("your capabilities") ||
+    msgLower.includes("what are your capabilities") ||
+    msgLower.includes("what are your features") ||
+    msgLower.includes("how can you help") ||
+    msgLower.includes("what do you do") ||
+    msgLower.includes("who are you") ||
+    msgLower.includes("what are you") ||
+    msgLower === "help" ||
+    msgLower === "help me";
+
+  if (isCapabilitiesQuery) {
+    return {
+      answer: `Namaste! 🙏 I am your **TravelNepal AI Specialist**, an intelligent travel planning and platform operations agent for Nepal.
+
+🌟 **Here is what I can do for you:**
+
+• 🗺️ **Intelligent Trip Planning**: Generate custom multi-day itineraries, transit routes, and budget breakdowns for any destination in Nepal (Pokhara, Mustang, Everest, Chitwan, Lumbini, etc.).
+• 🏨 **Hotels & Stays**: Search verified platform hotels, check real-time pricing in NPR, and initiate instant bookings with secure **Khalti** checkout.
+• 🍽️ **Food & Dining Discovery**: Find authentic local cuisines (Thakali, Newari, Dharan Sekuwa, Momo) and local eatery locations with live Google Maps directions.
+• 🧗 **Licensed Tour Guides**: Connect with verified mountain trekking guides and cultural experts.
+• 💰 **Expense Tracking**: Log, categorize, and monitor your travel expenditures in NPR.
+• 🏢 **Partner Workspace Management**: Hotel and restaurant owners can manage listings, add rooms, and update menus using interactive action cards.
+
+💬 *Ask me anything about traveling in Nepal or managing your TravelNepal listings!*`,
+      recommendations: [],
+      steps_taken: ["🤖 Provided TravelNepal AI capabilities and platform features overview"],
+      tools_used: ["agent_capabilities_provider"],
+    };
+  }
+
   // 1.2 OUT-OF-DOMAIN & NON-TOURISM GUARDRAIL
   // ==========================================
   const outOfDomainPatterns = [
@@ -1728,42 +1763,18 @@ You can explore our verified restaurant partners and view their digital food men
   // Check for explicit "I am in [City]" or "Stay in [City]" pattern
   if (!destination) {
     const inLocMatch = message.match(
-      /(?:i\s*am\s*in|in|around|at|visiting|near|stay\s*in|hotel\s*in)\s+([a-zA-Z\s]+?)(?:\s*,|\s*\.|\s+can\s+you|\s+suggest|\s+best|\s+hotel|\s+stay|\s+where|\s*$)/i
+      /\b(?:i\s*am\s*in|staying\s*in|visiting|stay\s*in|hotel\s*in)\s+([a-zA-Z\s]+?)(?:\s*,|\s*\.|\s+can\s+you|\s+suggest|\s+best|\s+hotel|\s+stay|\s+where|\s*$)/i
     );
     if (inLocMatch && inLocMatch[1]) {
-      const candidateLoc = inLocMatch[1].trim();
-      const nonLocationWords = [
-        "the",
-        "any",
-        "good",
-        "best",
-        "some",
-        "my",
-        "our",
-        "pork",
-        "food",
-        "foods",
-        "momo",
-        "momos",
-        "thakali",
-        "sekuwa",
-        "sukuti",
-        "lunch",
-        "dinner",
-        "breakfast",
-        "eat",
-        "eating",
-        "buff",
-        "chicken",
-        "mutton",
-        "dish",
-        "dishes",
-        "taste",
+      const candidateLoc = inLocMatch[1].trim().toLowerCase();
+      const nepaliCities = [
+        "butwal", "kathmandu", "pokhara", "lumbini", "dharan", "chitwan", "sauraha",
+        "nagarkot", "bhaktapur", "lalitpur", "biratnagar", "mustang", "manang",
+        "bandipur", "ilam", "janakpur", "gorkha", "hetauda", "nepalgunj",
+        "bhairahawa", "dhangadhi", "itahari", "birtamod", "damak", "namche",
+        "solukhumbu", "kaski", "rupandehi", "sunsari", "jhapa", "morang"
       ];
-      if (
-        candidateLoc.length >= 3 &&
-        !nonLocationWords.includes(candidateLoc.toLowerCase())
-      ) {
+      if (nepaliCities.some((c) => candidateLoc.includes(c))) {
         destination = candidateLoc.charAt(0).toUpperCase() + candidateLoc.slice(1);
       }
     }

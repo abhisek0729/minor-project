@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   ArrowLeft,
   Calendar,
+  Clock3,
   Compass,
   DollarSign,
   LayoutDashboard,
@@ -27,11 +28,16 @@ interface GuideSidebarProps {
   approvalStatus: string;
 }
 
-const sidebarLinks = [
+const approvedLinks = [
   { name: "Overview", href: "/dashboard/guide", icon: LayoutDashboard },
   { name: "Tour Packages", href: "/dashboard/guide/packages", icon: Package },
   { name: "Availability", href: "/dashboard/guide/availability", icon: Calendar },
   { name: "Customer Bookings", href: "/dashboard/guide/bookings", icon: Users },
+  { name: "Profile & Settings", href: "/dashboard/guide/settings", icon: Settings },
+];
+
+const pendingLinks = [
+  { name: "Pending Approval", href: "/dashboard/guide/pending", icon: Clock3 },
   { name: "Profile & Settings", href: "/dashboard/guide/settings", icon: Settings },
 ];
 
@@ -40,12 +46,17 @@ export default function GuideSidebar({
   approvalStatus,
 }: GuideSidebarProps) {
   const pathname = usePathname();
+  const isApproved = approvalStatus === "approved";
+  const links = isApproved ? approvedLinks : pendingLinks;
 
   return (
     <aside className="hidden w-72 flex-col border-r bg-background lg:flex">
       {/* Brand Header */}
       <div className="border-b px-6 py-6">
-        <Link href="/dashboard/guide" className="flex items-center gap-3 group">
+        <Link
+          href={isApproved ? "/dashboard/guide" : "/dashboard/guide/pending"}
+          className="flex items-center gap-3 group"
+        >
           <div className="flex size-11 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md transition-transform group-hover:scale-105">
             <Compass className="size-6" />
           </div>
@@ -62,14 +73,15 @@ export default function GuideSidebar({
       {/* Navigation */}
       <nav className="flex-1 space-y-1.5 p-4">
         <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          Guide Operations
+          {isApproved ? "Guide Operations" : "Account Status"}
         </div>
 
-        {sidebarLinks.map((item) => {
+        {links.map((item) => {
           const Icon = item.icon;
           const isActive =
             pathname === item.href ||
             (item.href !== "/dashboard/guide" &&
+              item.href !== "/dashboard/guide/pending" &&
               pathname.startsWith(`${item.href}/`));
 
           return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -12,6 +12,7 @@ import {
   Loader2,
   MapPin,
   Sparkles,
+  Award,
 } from "lucide-react";
 import { ZodError } from "zod";
 
@@ -20,13 +21,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import ImageUpload from "@/components/ui/image-upload";
+import { provinces } from "@/app/features/shared/data/nepal-location";
 import { submitGuideOnboarding } from "../../actions/onboarding.action";
 import {
   GuideOnboardingData,
   guideOnboardingSchema,
 } from "../../schemas/guide.schema";
 
-const STEPS = ["Personal Info", "Experience & Pricing", "Photo & Bio", "Review"];
+const STEPS = ["Personal Info", "Location & Base", "Experience & Pricing", "Photo & Bio", "Review"];
 
 export default function GuideOnboardingForm({
   userEmail,
@@ -40,10 +42,15 @@ export default function GuideOnboardingForm({
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  // Location state for cascading dropdowns
+  const [province, setProvince] = useState("Gandaki");
+  const [district, setDistrict] = useState("Kaski");
+  const [municipality, setMunicipality] = useState("Pokhara Metropolitan City");
+
   const [formData, setFormData] = useState<Partial<GuideOnboardingData>>({
     name: defaultName || "",
     phoneNumber: "",
-    location: "Kathmandu, Nepal",
+    location: "Pokhara Metropolitan City, Kaski, Gandaki",
     experienceYears: 3,
     languages: "Nepali, English",
     dailyRate: 2500,
@@ -51,6 +58,47 @@ export default function GuideOnboardingForm({
     description: "",
     guideImageUrl: "",
   });
+
+  const selectedProvince = useMemo(
+    () => provinces.find((p) => p.name === province),
+    [province]
+  );
+
+  const selectedDistrict = useMemo(
+    () => selectedProvince?.districts.find((d) => d.name === district),
+    [selectedProvince, district]
+  );
+
+  const handleLocationChange = (type: "province" | "district" | "municipality", val: string) => {
+    let p = province;
+    let d = district;
+    let m = municipality;
+
+    if (type === "province") {
+      p = val;
+      const foundProv = provinces.find((item) => item.name === val);
+      d = foundProv?.districts[0]?.name || "";
+      m = foundProv?.districts[0]?.municipalities[0] || "";
+      setProvince(p);
+      setDistrict(d);
+      setMunicipality(m);
+    } else if (type === "district") {
+      d = val;
+      const foundDist = selectedProvince?.districts.find((item) => item.name === val);
+      m = foundDist?.municipalities[0] || "";
+      setDistrict(d);
+      setMunicipality(m);
+    } else if (type === "municipality") {
+      m = val;
+      setMunicipality(m);
+    }
+
+    const fullLocation = `${m || ""}, ${d || ""}, ${p || ""}`.replace(/^,\s*/, "").replace(/,\s*$/, "");
+    setFormData((prev) => ({ ...prev, location: fullLocation }));
+    if (errors.location) {
+      setErrors((prev) => ({ ...prev, location: "" }));
+    }
+  };
 
   const handleChange = (
     field: keyof GuideOnboardingData,
@@ -73,13 +121,16 @@ export default function GuideOnboardingForm({
           setErrors({ phoneNumber: "Valid phone number (10+ digits) is required" });
           return false;
         }
+      }
+
+      if (currentStep === 1) {
         if (!formData.location) {
-          setErrors({ location: "Base location is required" });
+          setErrors({ location: "Please select your base province, district, and city" });
           return false;
         }
       }
 
-      if (currentStep === 1) {
+      if (currentStep === 2) {
         if (!formData.languages) {
           setErrors({ languages: "Please enter spoken languages" });
           return false;
@@ -90,7 +141,7 @@ export default function GuideOnboardingForm({
         }
       }
 
-      if (currentStep === 2) {
+      if (currentStep === 3) {
         if (!formData.guideImageUrl) {
           setErrors({ guideImageUrl: "Guide profile photo is required" });
           return false;
@@ -191,40 +242,99 @@ export default function GuideOnboardingForm({
                 <p className="text-xs text-muted-foreground">Linked to your registered login.</p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Phone Number *</label>
-                  <Input
-                    placeholder="e.g. 9841000000"
-                    value={formData.phoneNumber}
-                    onChange={(e) => handleChange("phoneNumber", e.target.value)}
-                  />
-                  {errors.phoneNumber && (
-                    <p className="text-sm text-destructive">{errors.phoneNumber}</p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Base Location / City *</label>
-                  <Input
-                    placeholder="e.g. Pokhara / Kathmandu"
-                    value={formData.location}
-                    onChange={(e) => handleChange("location", e.target.value)}
-                  />
-                  {errors.location && (
-                    <p className="text-sm text-destructive">{errors.location}</p>
-                  )}
-                </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Phone Number / WhatsApp *</label>
+                <Input
+                  placeholder="e.g. 9841000000"
+                  value={formData.phoneNumber}
+                  onChange={(e) => handleChange("phoneNumber", e.target.value)}
+                />
+                {errors.phoneNumber && (
+                  <p className="text-sm text-destructive">{errors.phoneNumber}</p>
+                )}
               </div>
             </div>
           )}
 
-          {/* STEP 2: EXPERIENCE & PRICING */}
+          {/* STEP 2: CASCADING LOCATION & BASE STATION */}
           {currentStep === 1 && (
+            <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
+              <div className="space-y-1">
+                <h3 className="text-sm font-semibold flex items-center gap-1.5 text-foreground">
+                  <MapPin className="size-4 text-primary" /> Base Operating Station (All 7 Provinces)
+                </h3>
+                <p className="text-xs text-muted-foreground">
+                  Select your primary region so travelers can find and book you for local treks and tours.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {/* Province */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium">Province *</label>
+                  <select
+                    aria-label="Province"
+                    value={province}
+                    onChange={(e) => handleLocationChange("province", e.target.value)}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {provinces.map((p) => (
+                      <option key={p.id} value={p.name}>
+                        {p.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* District */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium">District *</label>
+                  <select
+                    aria-label="District"
+                    value={district}
+                    onChange={(e) => handleLocationChange("district", e.target.value)}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {selectedProvince?.districts.map((d) => (
+                      <option key={d.name} value={d.name}>
+                        {d.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Municipality / Base City */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium">Municipality / Base Station *</label>
+                  <select
+                    aria-label="Municipality / Base Station"
+                    value={municipality}
+                    onChange={(e) => handleLocationChange("municipality", e.target.value)}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {selectedDistrict?.municipalities.map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Formatted Location Display */}
+              <div className="p-3 bg-muted/30 border rounded-lg">
+                <span className="text-xs text-muted-foreground">Selected Operating Location:</span>
+                <p className="text-sm font-semibold text-primary mt-0.5">{formData.location}</p>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 3: EXPERIENCE & PRICING */}
+          {currentStep === 2 && (
             <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Years of Experience *</label>
+                  <label className="text-sm font-medium">Years of Guiding Experience *</label>
                   <Input
                     type="number"
                     min={0}
@@ -252,7 +362,7 @@ export default function GuideOnboardingForm({
               <div className="space-y-2">
                 <label className="text-sm font-medium">Spoken Languages *</label>
                 <Input
-                  placeholder="e.g. Nepali, English, Hindi, French"
+                  placeholder="e.g. Nepali, English, Hindi, French, German"
                   value={formData.languages}
                   onChange={(e) => handleChange("languages", e.target.value)}
                 />
@@ -262,9 +372,9 @@ export default function GuideOnboardingForm({
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Government License / Trekking ID (Optional)</label>
+                <label className="text-sm font-medium">Nepal Tourism Board License Number (Optional)</label>
                 <Input
-                  placeholder="e.g. NATHM-G-4089"
+                  placeholder="e.g. NTB-TG-2024-8891"
                   value={formData.licenseNumber}
                   onChange={(e) => handleChange("licenseNumber", e.target.value)}
                 />
@@ -272,11 +382,11 @@ export default function GuideOnboardingForm({
             </div>
           )}
 
-          {/* STEP 3: PHOTO & BIO */}
-          {currentStep === 2 && (
+          {/* STEP 4: PHOTO & BIO */}
+          {currentStep === 3 && (
             <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Guide Profile Photo *</label>
+                <label className="text-sm font-medium">Profile Photo *</label>
                 <ImageUpload
                   folder="tourism/guides"
                   value={formData.guideImageUrl ? [formData.guideImageUrl] : []}
@@ -289,10 +399,10 @@ export default function GuideOnboardingForm({
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">About / Guide Bio *</label>
+                <label className="text-sm font-medium">Professional Bio & Mountain Experience *</label>
                 <Textarea
-                  placeholder="Tell travelers about your trekking experience, routes you specialize in (e.g. Annapurna Circuit, Everest Base Camp), and personal highlights..."
-                  className="min-h-[100px]"
+                  rows={4}
+                  placeholder="Tell travelers about your Himalayan expeditions, certifications, first aid training, and favorite trails..."
                   value={formData.description}
                   onChange={(e) => handleChange("description", e.target.value)}
                 />
@@ -303,77 +413,72 @@ export default function GuideOnboardingForm({
             </div>
           )}
 
-          {/* STEP 4: REVIEW */}
-          {currentStep === 3 && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
-              <div className="rounded-xl border bg-muted/20 p-5 space-y-4">
-                <div className="flex items-start gap-4">
+          {/* STEP 5: REVIEW */}
+          {currentStep === 4 && (
+            <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
+              <div className="p-4 rounded-xl border bg-muted/20 space-y-3">
+                <div className="flex items-center gap-4">
                   {formData.guideImageUrl && (
-                    <Image
-                      src={formData.guideImageUrl}
-                      alt="Guide Preview"
-                      width={80}
-                      height={80}
-                      className="size-20 object-cover rounded-xl border shadow-sm shrink-0"
-                    />
+                    <div className="relative size-16 rounded-full overflow-hidden border">
+                      <Image
+                        src={formData.guideImageUrl}
+                        alt="Profile Preview"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   )}
                   <div>
                     <h3 className="font-bold text-lg">{formData.name}</h3>
-                    <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                    <p className="text-xs text-muted-foreground flex items-center gap-1">
                       <MapPin className="size-3 text-primary" /> {formData.location}
-                    </p>
-                    <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mt-1">
-                      NPR {formData.dailyRate?.toLocaleString()} / Day • {formData.experienceYears} Years Exp.
                     </p>
                   </div>
                 </div>
 
-                <hr className="border-border" />
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-muted-foreground">
-                  <p><strong>Languages:</strong> {formData.languages}</p>
+                <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground pt-2 border-t">
                   <p><strong>Phone:</strong> {formData.phoneNumber}</p>
+                  <p><strong>Daily Rate:</strong> NPR {formData.dailyRate?.toLocaleString()}/day</p>
+                  <p><strong>Experience:</strong> {formData.experienceYears} years</p>
+                  <p><strong>Languages:</strong> {formData.languages}</p>
                   {formData.licenseNumber && (
-                    <p><strong>License:</strong> {formData.licenseNumber}</p>
+                    <p className="col-span-2"><strong>License:</strong> {formData.licenseNumber}</p>
                   )}
                 </div>
 
-                <div className="pt-1">
-                  <p className="text-xs text-muted-foreground italic">"{formData.description}"</p>
+                <div className="pt-2 border-t">
+                  <p className="text-xs font-semibold text-foreground mb-1">Bio Summary:</p>
+                  <p className="text-xs text-muted-foreground line-clamp-3">{formData.description}</p>
                 </div>
               </div>
             </div>
           )}
         </div>
 
-        {/* Buttons */}
+        {/* BOTTOM NAVIGATION ACTIONS */}
         <div className="mt-8 flex justify-between border-t pt-4">
           <Button
-            type="button"
             variant="outline"
             onClick={prevStep}
             disabled={currentStep === 0 || isLoading}
           >
-            <ArrowLeft className="mr-2 size-4" /> Previous
+            <ArrowLeft className="mr-2 h-4 w-4" /> Back
           </Button>
 
           {currentStep < STEPS.length - 1 ? (
-            <Button type="button" onClick={nextStep}>
-              Next <ArrowRight className="ml-2 size-4" />
+            <Button onClick={nextStep}>
+              Next Step <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           ) : (
             <Button
-              type="button"
               onClick={handleSubmit}
               disabled={isLoading}
-              className="font-semibold"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium"
             >
               {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 size-4 animate-spin" /> Submitting Profile...
-                </>
+                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Registering Profile...</>
               ) : (
-                "Complete Guide Profile →"
+                "Submit Guide Application"
               )}
             </Button>
           )}

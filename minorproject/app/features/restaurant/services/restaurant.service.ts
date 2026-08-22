@@ -1,5 +1,5 @@
 import { db } from "@/app/lib/db";
-import { menusTable, restaurantsTable } from "@/app/lib/db/schema";
+import { menusTable, restaurantImagesTable, restaurantsTable } from "@/app/lib/db/schema";
 import { eq } from "drizzle-orm";
 
 type RestaurantOnboardingData = {
@@ -14,6 +14,7 @@ type RestaurantOnboardingData = {
   ward: string;
   street: string;
   restaurantImageUrl: string;
+  galleryImages?: { imageUrl: string; publicId?: string }[];
 };
 
 export const checkHasRestaurant = async (userId: number): Promise<boolean> => {
@@ -29,21 +30,33 @@ export const createRestaurant = async (
   userId: number,
   data: RestaurantOnboardingData
 ) => {
-  const [newRestaurant] = await db
-    .insert(restaurantsTable)
-    .values({
-      userId: userId,
-      name: data.name,
-      description: data.description,
-      establishedDate: data.establishedDate || null,
-      cuisine: data.cuisine || "Multi-Cuisine",
-      phoneNumber: data.phoneNumber,
-      location: `${data.street}, ${data.ward}, ${data.municipality}, ${data.district}, ${data.province}`,
-      restaurantImageUrl: data.restaurantImageUrl,
-    })
-    .returning();
+  return await db.transaction(async (tx) => {
+    const [newRestaurant] = await tx
+      .insert(restaurantsTable)
+      .values({
+        userId: userId,
+        name: data.name,
+        description: data.description,
+        establishedDate: data.establishedDate || null,
+        cuisine: data.cuisine || "Multi-Cuisine",
+        phoneNumber: data.phoneNumber,
+        location: `${data.street}, Ward ${data.ward}, ${data.municipality}, ${data.district}, ${data.province}`,
+        restaurantImageUrl: data.restaurantImageUrl,
+      })
+      .returning();
 
-  return newRestaurant;
+    if (data.galleryImages && data.galleryImages.length > 0) {
+      await tx.insert(restaurantImagesTable).values(
+        data.galleryImages.map((img) => ({
+          restaurantId: newRestaurant.id,
+          imageUrl: img.imageUrl,
+          publicId: img.publicId || "",
+        }))
+      );
+    }
+
+    return newRestaurant;
+  });
 };
 
 export const getRestaurantByOwnerId = async (userId: number) => {

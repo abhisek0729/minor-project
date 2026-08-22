@@ -1,4 +1,6 @@
 import re
+from langchain_core.messages import HumanMessage, AIMessage
+from app.ai.workflow import travel_agent_app
 from app.ai.gemini import GeminiService
 from app.ai.prompts import CHAT_SYSTEM, AGENT_SYSTEM
 from app.services.catalog_service import (
@@ -45,8 +47,85 @@ async def chat(db, req):
     user_msg = req.message or ""
     destination = req.destination or ""
     user_roles = req.user_roles or []
-    steps_taken = []
-    msg_lower = user_msg.lower().strip()
+    
+    # Execute LangGraph Multi-Agent State Workflow
+    try:
+        messages = []
+        if req.history:
+            for item in req.history:
+                role = getattr(item, "role", None) or (item.get("role") if isinstance(item, dict) else "user")
+                content = getattr(item, "content", None) or getattr(item, "text", None) or (item.get("text", "") if isinstance(item, dict) else "") or (item.get("content", "") if isinstance(item, dict) else "")
+                if role in ["user", "human"]:
+                    messages.append(HumanMessage(content=str(content)))
+                elif role in ["assistant", "model"]:
+                    messages.append(AIMessage(content=str(content)))
+        messages.append(HumanMessage(content=user_msg))
+
+        graph_input = {
+            "messages": messages,
+            "user_id": getattr(req, "user_id", None),
+            "user_name": getattr(req, "user_name", "Traveler"),
+            "user_roles": user_roles,
+            "intent": "",
+            "destination": destination or None,
+            "slots": {},
+            "action_proposal": None,
+            "recommendations": [],
+            "map_cards": [],
+            "steps_taken": ["🚀 LangGraph Multi-Agent Workflow: Initialized state graph"],
+            "tools_used": ["langgraph_orchestrator"],
+            "final_answer": "",
+            "is_terminal": False,
+        }
+
+        config = {"configurable": {"thread_id": str(getattr(req, "user_id", "guest_session"))}}
+        graph_output = await travel_agent_app.ainvoke(graph_input, config=config)
+
+        recs = [
+            Recommendation(
+                name=r.get("name", "Recommendation"),
+                type=r.get("type", "place"),
+                description=r.get("description", ""),
+                price=r.get("price"),
+                rating=r.get("rating"),
+                location=r.get("location"),
+                action_url=r.get("action_url"),
+            )
+            for r in graph_output.get("recommendations", [])
+        ]
+
+        action_prop = None
+        if graph_output.get("action_proposal"):
+            ap_data = graph_output["action_proposal"]
+            action_prop = ActionProposal(
+                action_type=ap_data.get("action_type", "CUSTOM"),
+                title=ap_data.get("title", "Action Proposal"),
+                description=ap_data.get("description", ""),
+                payload=ap_data.get("payload", {}),
+                status="requires_approval",
+            )
+
+        map_cards_list = [
+            MapCard(
+                title=m.get("title", "Map Location"),
+                location=m.get("location", "Nepal"),
+                map_url=m.get("map_url", ""),
+                description=m.get("description", ""),
+            )
+            for m in graph_output.get("map_cards", [])
+        ]
+
+        return ChatResponse(
+            answer=graph_output.get("final_answer", "Here is the travel plan and recommendations."),
+            recommendations=recs,
+            action_proposal=action_prop,
+            map_cards=map_cards_list,
+            steps_taken=graph_output.get("steps_taken", []),
+            tools_used=graph_output.get("tools_used", []),
+        )
+    except Exception as e:
+        # Fallback to direct Gemini generation if graph execution encounters an unhandled runtime error
+        pass
 
     # 0. OUT-OF-DOMAIN & NON-TOURISM GUARDRAIL
     out_of_domain_patterns = [
