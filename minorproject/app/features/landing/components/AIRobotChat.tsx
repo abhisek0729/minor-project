@@ -427,7 +427,7 @@ export default function AIRobotChat() {
                           <div className="mt-3.5 pt-3 border-t border-border/60">
                             {message.action_proposal.status === "executed" ? (
                               /* Executed State */
-                              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 space-y-1.5 text-emerald-800 dark:text-emerald-300">
+                              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 space-y-2 text-emerald-800 dark:text-emerald-300">
                                 <div className="flex items-center gap-1.5 font-bold text-xs">
                                   <CheckCircle2 className="size-4 text-emerald-600 dark:text-emerald-400" />
                                   <span>Action Executed Successfully!</span>
@@ -436,6 +436,15 @@ export default function AIRobotChat() {
                                   {message.action_proposal.resultMessage ||
                                     "Changes have been committed to the platform."}
                                 </p>
+                                {message.action_proposal.action_type === "CREATE_BOOKING" && (
+                                  <div className="pt-1">
+                                    <Link href="/dashboard">
+                                      <Button size="sm" className="text-xs bg-purple-600 hover:bg-purple-700 text-white gap-1.5 h-8 font-semibold shadow-xs">
+                                        <CreditCard className="size-3.5" /> Pay with Khalti on Dashboard →
+                                      </Button>
+                                    </Link>
+                                  </div>
+                                )}
                               </div>
                             ) : message.action_proposal.status === "cancelled" ? (
                               /* Cancelled State */
