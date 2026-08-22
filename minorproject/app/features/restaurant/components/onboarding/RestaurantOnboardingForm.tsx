@@ -4,7 +4,28 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { toast } from "sonner";
-import { Loader2, ArrowRight, ArrowLeft, CheckCircle2, Image as ImageIcon, MapPin, X } from "lucide-react";
+import {
+  Loader2,
+  ArrowRight,
+  ArrowLeft,
+  CheckCircle2,
+  Image as ImageIcon,
+  MapPin,
+  X,
+  Wifi,
+  Wind,
+  Sun,
+  Users,
+  Music,
+  Wine,
+  Utensils,
+  Car,
+  CreditCard,
+  Sparkles,
+  Dog,
+  ShoppingBag,
+  Check,
+} from "lucide-react";
 import { ZodError } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +34,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import ImageUpload from "../../../../../components/ui/image-upload";
 import LocationMapPicker from "@/components/maps/LocationMapPicker";
 import { provinces } from "@/app/features/shared/data/nepal-location";
+import { RESTAURANT_PREDEFINED_FACILITIES } from "../../data/restaurant-facilities";
 
 import { submitRestaurantOnboarding } from "../../actions/onboarding.action";
 import {
@@ -20,10 +42,27 @@ import {
   basicInfoSchema,
   contactInfoSchema,
   locationSchema,
+  facilitiesSchema,
   imagesSchema,
 } from "../../schemas/restaurant.schema";
 
-const STEPS = ["Basic Info", "Contact", "Location", "Photos & Gallery", "Review"];
+const STEPS = ["Basic Info", "Contact", "Location", "Facilities", "Photos & Gallery", "Review"];
+
+// Icon lookup dictionary
+const FACILITY_ICONS: Record<string, any> = {
+  Wifi,
+  Wind,
+  Sun,
+  Users,
+  Music,
+  Wine,
+  Utensils,
+  Car,
+  CreditCard,
+  Sparkles,
+  Dog,
+  ShoppingBag,
+};
 
 export default function RestaurantOnboardingForm({ userEmail }: { userEmail: string }) {
   const router = useRouter();
@@ -31,7 +70,7 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const [formData, setFormData] = useState<Partial<RestaurantOnboardingData> & { galleryImages?: { imageUrl: string; publicId?: string }[] }>({
+  const [formData, setFormData] = useState<Partial<RestaurantOnboardingData>>({
     name: "",
     description: "",
     establishedDate: "",
@@ -42,6 +81,12 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
     municipality: "",
     ward: "",
     street: "",
+    facilities: [
+      "High-Speed Wi-Fi",
+      "Air Conditioning",
+      "Digital Payments & Cards",
+      "Pure Veg & Halal Options",
+    ],
     restaurantImageUrl: "",
     galleryImages: [],
   });
@@ -57,10 +102,7 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
     [selectedProvince, formData.district]
   );
 
-  const handleChange = (
-    field: string,
-    value: any
-  ) => {
+  const handleChange = (field: string, value: any) => {
     setFormData((prev) => {
       const updated = { ...prev, [field]: value };
       if (field === "province") {
@@ -77,12 +119,22 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
     }
   };
 
+  const toggleFacility = (facilityName: string) => {
+    const current = formData.facilities || [];
+    const exists = current.includes(facilityName);
+    const updated = exists
+      ? current.filter((f) => f !== facilityName)
+      : [...current, facilityName];
+    setFormData((prev) => ({ ...prev, facilities: updated }));
+  };
+
   const validateStep = () => {
     try {
       if (currentStep === 0) basicInfoSchema.parse(formData);
       if (currentStep === 1) contactInfoSchema.parse(formData);
       if (currentStep === 2) locationSchema.parse(formData);
-      if (currentStep === 3) imagesSchema.parse(formData);
+      if (currentStep === 3) facilitiesSchema.parse(formData);
+      if (currentStep === 4) imagesSchema.parse(formData);
       setErrors({});
       return true;
     } catch (error: unknown) {
@@ -175,7 +227,7 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
       </CardHeader>
 
       <CardContent>
-        <div className="min-h-[340px]">
+        <div className="min-h-[350px]">
           {/* STEP 1: BASIC INFO */}
           {currentStep === 0 && (
             <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
@@ -244,7 +296,7 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
             </div>
           )}
 
-          {/* STEP 3: CASCADING LOCATION (ALL 7 PROVINCES & 77 DISTRICTS) */}
+          {/* STEP 3: CASCADING LOCATION */}
           {currentStep === 2 && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-right-4">
               {/* Province Select */}
@@ -344,8 +396,79 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
             </div>
           )}
 
-          {/* STEP 4: COVER IMAGE & MULTIPLE GALLERY PHOTOS */}
+          {/* STEP 4: RESTAURANT FACILITIES & AMENITIES */}
           {currentStep === 3 && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
+              <div>
+                <h3 className="text-base font-semibold flex items-center gap-2">
+                  <Utensils className="size-5 text-primary" /> Dining Facilities & Amenities
+                </h3>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Select all the amenities and features your restaurant offers to diners and tourists.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {RESTAURANT_PREDEFINED_FACILITIES.map((fac) => {
+                  const isSelected = (formData.facilities || []).includes(fac.name);
+                  const Icon = FACILITY_ICONS[fac.iconName] || Utensils;
+
+                  return (
+                    <button
+                      key={fac.id}
+                      type="button"
+                      onClick={() => toggleFacility(fac.name)}
+                      className={`relative flex items-start gap-3 p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
+                        isSelected
+                          ? "bg-primary/10 border-primary shadow-xs ring-1 ring-primary"
+                          : "bg-card hover:bg-muted/50 border-border"
+                      }`}
+                    >
+                      <div
+                        className={`p-2 rounded-lg shrink-0 transition-colors ${
+                          isSelected
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-muted text-muted-foreground"
+                        }`}
+                      >
+                        <Icon className="size-4.5" />
+                      </div>
+
+                      <div className="flex-1 pr-5">
+                        <div className="text-sm font-semibold text-foreground leading-tight">
+                          {fac.name}
+                        </div>
+                        <div className="text-[11px] text-muted-foreground mt-0.5 leading-snug">
+                          {fac.description}
+                        </div>
+                      </div>
+
+                      {/* Selection Check Indicator */}
+                      <div
+                        className={`absolute top-3 right-3 size-5 rounded-full flex items-center justify-center border text-[10px] transition-colors ${
+                          isSelected
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "border-muted-foreground/30 text-transparent"
+                        }`}
+                      >
+                        <Check className="size-3 stroke-[3]" />
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="p-3 bg-muted/40 rounded-xl border flex items-center justify-between text-xs">
+                <span className="text-muted-foreground">Selected Amenities:</span>
+                <span className="font-semibold text-primary">
+                  {formData.facilities?.length || 0} amenities enabled
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 5: COVER IMAGE & MULTIPLE GALLERY PHOTOS */}
+          {currentStep === 4 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
               {/* Cover Image */}
               <div className="space-y-2">
@@ -391,7 +514,7 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
                         <button
                           type="button"
                           onClick={() => removeGalleryImage(idx)}
-                          className="absolute top-1.5 right-1.5 p-1 rounded-full bg-destructive text-destructive-foreground opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+                          className="absolute top-1.5 right-1.5 p-1 rounded-full bg-destructive text-destructive-foreground opacity-0 group-hover:opacity-100 transition-opacity shadow-sm cursor-pointer"
                           title="Remove image"
                         >
                           <X className="size-3.5" />
@@ -404,8 +527,8 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
             </div>
           )}
 
-          {/* STEP 5: REVIEW */}
-          {currentStep === 4 && (
+          {/* STEP 6: REVIEW */}
+          {currentStep === 5 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
               <div className="rounded-xl border bg-muted/20 p-5 space-y-5">
                 <div>
@@ -436,6 +559,28 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
                     <p><strong>District:</strong> {formData.district}</p>
                     <p><strong>Municipality:</strong> {formData.municipality}, Ward {formData.ward}</p>
                     <p className="col-span-2"><strong>Street / Landmark:</strong> {formData.street}</p>
+                  </div>
+                </div>
+
+                <hr className="border-border" />
+
+                <div>
+                  <h3 className="font-semibold text-base flex items-center gap-2 text-foreground">
+                    <Utensils className="size-4 text-emerald-500" /> Selected Amenities ({formData.facilities?.length || 0})
+                  </h3>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {formData.facilities && formData.facilities.length > 0 ? (
+                      formData.facilities.map((fac) => (
+                        <span
+                          key={fac}
+                          className="text-xs bg-primary/10 text-primary px-2.5 py-1 rounded-full font-medium border border-primary/20"
+                        >
+                          ✓ {fac}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-xs text-muted-foreground">No specific facilities selected</span>
+                    )}
                   </div>
                 </div>
 
@@ -492,7 +637,11 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
               Next Step <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           ) : (
-            <Button onClick={handleSubmit} disabled={isLoading} className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium">
+            <Button
+              onClick={handleSubmit}
+              disabled={isLoading}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium cursor-pointer"
+            >
               {isLoading ? (
                 <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Launching Restaurant...</>
               ) : (

@@ -32,10 +32,15 @@ export const imagesSchema = z.object({
   ).optional().default([]),
 });
 
+export const facilitiesSchema = z.object({
+  facilities: z.array(z.string()).optional().default([]),
+});
+
 export const restaurantOnboardingSchema = z.object({
   ...basicInfoSchema.shape,
   ...contactInfoSchema.shape,
   ...locationSchema.shape,
+  ...facilitiesSchema.shape,
   ...imagesSchema.shape,
 });
 

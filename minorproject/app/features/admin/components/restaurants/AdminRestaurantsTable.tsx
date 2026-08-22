@@ -40,21 +40,54 @@ interface AdminRestaurantsTableProps {
   initialRestaurants: any[];
 }
 
+const PROVINCES = [
+  "all",
+  "Koshi",
+  "Madhesh",
+  "Bagmati",
+  "Gandaki",
+  "Lumbini",
+  "Karnali",
+  "Sudurpashchim",
+];
+
+const STATUSES = [
+  { id: "all", label: "All Statuses" },
+  { id: "approved", label: "Approved" },
+  { id: "pending", label: "Pending" },
+  { id: "rejected", label: "Rejected" },
+  { id: "suspended", label: "Suspended" },
+];
+
 export default function AdminRestaurantsTable({
   initialRestaurants,
 }: AdminRestaurantsTableProps) {
   const [restaurants, setRestaurants] = useState(initialRestaurants || []);
   const [search, setSearch] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
   const [selectedRestaurant, setSelectedRestaurant] = useState<any | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const filtered = restaurants.filter(
-    (r) =>
-      r.name.toLowerCase().includes(search.toLowerCase()) ||
-      r.ownerName.toLowerCase().includes(search.toLowerCase()) ||
-      r.ownerEmail.toLowerCase().includes(search.toLowerCase()) ||
-      r.cuisine.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = restaurants.filter((r) => {
+    const q = search.toLowerCase();
+    const matchesSearch =
+      (r.name && r.name.toLowerCase().includes(q)) ||
+      (r.ownerName && r.ownerName.toLowerCase().includes(q)) ||
+      (r.ownerEmail && r.ownerEmail.toLowerCase().includes(q)) ||
+      (r.cuisine && r.cuisine.toLowerCase().includes(q)) ||
+      (r.location && r.location.toLowerCase().includes(q));
+
+    const matchesProvince =
+      selectedProvince === "all" ||
+      (r.location && r.location.toLowerCase().includes(selectedProvince.toLowerCase()));
+
+    const matchesStatus =
+      selectedStatus === "all" ||
+      (r.approvalStatus && r.approvalStatus.toLowerCase() === selectedStatus.toLowerCase());
+
+    return matchesSearch && matchesProvince && matchesStatus;
+  });
 
   const handleStatusChange = (
     userId: number,
@@ -89,7 +122,8 @@ export default function AdminRestaurantsTable({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      {/* Search Header */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         <div className="relative w-full max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
           <Input
@@ -99,9 +133,52 @@ export default function AdminRestaurantsTable({
             className="pl-9 h-10"
           />
         </div>
-        <p className="text-xs text-muted-foreground font-medium">
-          Total: {filtered.length} restaurant{filtered.length === 1 ? "" : "s"}
+        <p className="text-xs text-muted-foreground font-medium shrink-0">
+          Showing {filtered.length} of {restaurants.length} restaurants
         </p>
+      </div>
+
+      {/* Filter Chips: Province & Status */}
+      <div className="space-y-2">
+        {/* Province Filter Chips */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none]">
+          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider shrink-0 mr-1">
+            Province:
+          </span>
+          {PROVINCES.map((prov) => (
+            <button
+              key={prov}
+              onClick={() => setSelectedProvince(prov)}
+              className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border ${
+                selectedProvince === prov
+                  ? "bg-foreground text-background border-foreground shadow-xs"
+                  : "bg-card text-muted-foreground hover:text-foreground border-border"
+              }`}
+            >
+              {prov === "all" ? "All Provinces" : `${prov} Province`}
+            </button>
+          ))}
+        </div>
+
+        {/* Status Filter Chips */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none]">
+          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider shrink-0 mr-1">
+            Status:
+          </span>
+          {STATUSES.map((st) => (
+            <button
+              key={st.id}
+              onClick={() => setSelectedStatus(st.id)}
+              className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border ${
+                selectedStatus === st.id
+                  ? "bg-primary text-primary-foreground border-primary shadow-xs"
+                  : "bg-muted/60 text-muted-foreground hover:text-foreground border-border"
+              }`}
+            >
+              {st.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="overflow-hidden rounded-xl border bg-card shadow-xs">

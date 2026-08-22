@@ -42,21 +42,54 @@ interface AdminHotelsTableProps {
   initialHotels: any[];
 }
 
+const PROVINCES = [
+  "all",
+  "Koshi",
+  "Madhesh",
+  "Bagmati",
+  "Gandaki",
+  "Lumbini",
+  "Karnali",
+  "Sudurpashchim",
+];
+
+const STATUSES = [
+  { id: "all", label: "All Statuses" },
+  { id: "approved", label: "Approved" },
+  { id: "pending", label: "Pending" },
+  { id: "rejected", label: "Rejected" },
+  { id: "suspended", label: "Suspended" },
+];
+
 export default function AdminHotelsTable({
   initialHotels,
 }: AdminHotelsTableProps) {
   const [hotels, setHotels] = useState(initialHotels || []);
   const [search, setSearch] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
   const [selectedHotel, setSelectedHotel] = useState<any | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const filtered = hotels.filter(
-    (h) =>
-      h.name.toLowerCase().includes(search.toLowerCase()) ||
-      h.ownerName.toLowerCase().includes(search.toLowerCase()) ||
-      h.ownerEmail.toLowerCase().includes(search.toLowerCase()) ||
-      h.district.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = hotels.filter((h) => {
+    const q = search.toLowerCase();
+    const matchesSearch =
+      (h.name && h.name.toLowerCase().includes(q)) ||
+      (h.ownerName && h.ownerName.toLowerCase().includes(q)) ||
+      (h.ownerEmail && h.ownerEmail.toLowerCase().includes(q)) ||
+      (h.district && h.district.toLowerCase().includes(q)) ||
+      (h.municipality && h.municipality.toLowerCase().includes(q));
+
+    const matchesProvince =
+      selectedProvince === "all" ||
+      (h.province && h.province.toLowerCase().includes(selectedProvince.toLowerCase()));
+
+    const matchesStatus =
+      selectedStatus === "all" ||
+      (h.approvalStatus && h.approvalStatus.toLowerCase() === selectedStatus.toLowerCase());
+
+    return matchesSearch && matchesProvince && matchesStatus;
+  });
 
   const handleStatusChange = (
     userId: number,
@@ -91,7 +124,8 @@ export default function AdminHotelsTable({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      {/* Search Header */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         <div className="relative w-full max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
           <Input
@@ -101,9 +135,52 @@ export default function AdminHotelsTable({
             className="pl-9 h-10"
           />
         </div>
-        <p className="text-xs text-muted-foreground font-medium">
-          Total: {filtered.length} hotel{filtered.length === 1 ? "" : "s"}
+        <p className="text-xs text-muted-foreground font-medium shrink-0">
+          Showing {filtered.length} of {hotels.length} hotels
         </p>
+      </div>
+
+      {/* Filter Chips: Province & Status */}
+      <div className="space-y-2">
+        {/* Province Filter Chips */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none]">
+          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider shrink-0 mr-1">
+            Province:
+          </span>
+          {PROVINCES.map((prov) => (
+            <button
+              key={prov}
+              onClick={() => setSelectedProvince(prov)}
+              className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border ${
+                selectedProvince === prov
+                  ? "bg-foreground text-background border-foreground shadow-xs"
+                  : "bg-card text-muted-foreground hover:text-foreground border-border"
+              }`}
+            >
+              {prov === "all" ? "All Provinces" : `${prov} Province`}
+            </button>
+          ))}
+        </div>
+
+        {/* Status Filter Chips */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none]">
+          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider shrink-0 mr-1">
+            Status:
+          </span>
+          {STATUSES.map((st) => (
+            <button
+              key={st.id}
+              onClick={() => setSelectedStatus(st.id)}
+              className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border ${
+                selectedStatus === st.id
+                  ? "bg-primary text-primary-foreground border-primary shadow-xs"
+                  : "bg-muted/60 text-muted-foreground hover:text-foreground border-border"
+              }`}
+            >
+              {st.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="overflow-hidden rounded-xl border bg-card shadow-xs">
