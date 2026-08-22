@@ -1,10 +1,13 @@
 "use server";
 
+import { and, eq } from "drizzle-orm";
 import { db } from "@/app/lib/db";
 import {
   hotelFacilitiesTable,
   hotelImagesTable,
   hotelsTable,
+  rolesTable,
+  userRolesTable,
 } from "@/app/lib/db/schema";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
@@ -60,6 +63,45 @@ export async function createHotel(data: HotelSchema) {
           facilityId,
         })),
       );
+    }
+
+    // Ensure user has hotelOwner role recorded and approved if admin
+    const [role] = await tx
+      .select({ id: rolesTable.id })
+      .from(rolesTable)
+      .where(eq(rolesTable.name, "hotelOwner"));
+
+    if (role) {
+      const [existingUserRole] = await tx
+        .select()
+        .from(userRolesTable)
+        .where(
+          and(
+            eq(userRolesTable.userId, Number(session.user.id)),
+            eq(userRolesTable.roleId, role.id)
+          )
+        );
+
+      const isAdmin = session.user.roles?.some((r: any) => r.name === "admin");
+      const status = isAdmin ? "approved" : (existingUserRole?.approvalStatus || "approved");
+
+      if (!existingUserRole) {
+        await tx.insert(userRolesTable).values({
+          userId: Number(session.user.id),
+          roleId: role.id,
+          approvalStatus: status,
+        });
+      } else if (isAdmin && existingUserRole.approvalStatus !== "approved") {
+        await tx
+          .update(userRolesTable)
+          .set({ approvalStatus: "approved" })
+          .where(
+            and(
+              eq(userRolesTable.userId, Number(session.user.id)),
+              eq(userRolesTable.roleId, role.id)
+            )
+          );
+      }
     }
   });
 

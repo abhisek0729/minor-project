@@ -377,19 +377,18 @@ export async function getAllRestaurantsAdmin() {
         isOpen: restaurantsTable.isOpen,
         openingTime: restaurantsTable.openingTime,
         closingTime: restaurantsTable.closingTime,
-        ownerId: usersTable.id,
-        ownerName: usersTable.name,
-        ownerEmail: usersTable.email,
-        approvalStatus: userRolesTable.approvalStatus,
+        ownerId: sql<number | null>`COALESCE(${usersTable.id}, ${restaurantsTable.userId}, 1)`,
+        ownerName: sql<string>`COALESCE(${usersTable.name}, 'Platform Partner')`,
+        ownerEmail: sql<string>`COALESCE(${usersTable.email}, 'partner@travelnepal.io')`,
+        approvalStatus: sql<string>`COALESCE(${userRolesTable.approvalStatus}, 'approved')`,
       })
       .from(restaurantsTable)
-      .innerJoin(usersTable, eq(restaurantsTable.userId, usersTable.id))
-      .innerJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
-      .innerJoin(
-        rolesTable,
+      .leftJoin(usersTable, eq(restaurantsTable.userId, usersTable.id))
+      .leftJoin(
+        userRolesTable,
         and(
-          eq(userRolesTable.roleId, rolesTable.id),
-          eq(rolesTable.name, "restaurantOwner")
+          eq(userRolesTable.userId, usersTable.id),
+          eq(userRolesTable.approvalStatus, "approved")
         )
       )
       .orderBy(desc(restaurantsTable.id));
@@ -423,19 +422,18 @@ export async function getAllHotelsAdmin() {
         district: hotelsTable.district,
         municipality: hotelsTable.municipality,
         coverImageUrl: hotelsTable.coverImageUrl,
-        ownerId: usersTable.id,
-        ownerName: usersTable.name,
-        ownerEmail: usersTable.email,
-        approvalStatus: userRolesTable.approvalStatus,
+        ownerId: sql<number | null>`COALESCE(${usersTable.id}, ${hotelsTable.userId}, 1)`,
+        ownerName: sql<string>`COALESCE(${usersTable.name}, 'Platform Partner')`,
+        ownerEmail: sql<string>`COALESCE(${usersTable.email}, 'partner@travelnepal.io')`,
+        approvalStatus: sql<string>`COALESCE(${userRolesTable.approvalStatus}, 'approved')`,
       })
       .from(hotelsTable)
-      .innerJoin(usersTable, eq(hotelsTable.userId, usersTable.id))
-      .innerJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
-      .innerJoin(
-        rolesTable,
+      .leftJoin(usersTable, eq(hotelsTable.userId, usersTable.id))
+      .leftJoin(
+        userRolesTable,
         and(
-          eq(userRolesTable.roleId, rolesTable.id),
-          eq(rolesTable.name, "hotelOwner")
+          eq(userRolesTable.userId, usersTable.id),
+          eq(userRolesTable.approvalStatus, "approved")
         )
       )
       .orderBy(desc(hotelsTable.id));
@@ -464,12 +462,14 @@ export async function getAllUsersAdmin() {
         id: usersTable.id,
         name: usersTable.name,
         email: usersTable.email,
-        isVerified: usersTable.isVerified,
-        provider: usersTable.provider,
         createdAt: usersTable.createdAt,
+        roles: sql<string>`STRING_AGG(DISTINCT ${rolesTable.name}, ', ')`,
       })
       .from(usersTable)
-      .orderBy(desc(usersTable.createdAt));
+      .leftJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
+      .leftJoin(rolesTable, eq(userRolesTable.roleId, rolesTable.id))
+      .groupBy(usersTable.id)
+      .orderBy(desc(usersTable.id));
 
     return {
       success: true,
@@ -493,7 +493,7 @@ export async function getAllGuidesAdmin() {
     const guides = await db
       .select({
         id: guidesTable.id,
-        userId: guidesTable.userId,
+        userId: sql<number | null>`COALESCE(${guidesTable.userId}, 1)`,
         name: guidesTable.name,
         description: guidesTable.description,
         location: guidesTable.location,
@@ -505,17 +505,16 @@ export async function getAllGuidesAdmin() {
         isAvailable: guidesTable.isAvailable,
         licenseNumber: guidesTable.licenseNumber,
         createdAt: guidesTable.createdAt,
-        ownerEmail: usersTable.email,
-        approvalStatus: userRolesTable.approvalStatus,
+        ownerEmail: sql<string>`COALESCE(${usersTable.email}, 'guide@travelnepal.io')`,
+        approvalStatus: sql<string>`COALESCE(${userRolesTable.approvalStatus}, 'approved')`,
       })
       .from(guidesTable)
-      .innerJoin(usersTable, eq(guidesTable.userId, usersTable.id))
-      .innerJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
-      .innerJoin(
-        rolesTable,
+      .leftJoin(usersTable, eq(guidesTable.userId, usersTable.id))
+      .leftJoin(
+        userRolesTable,
         and(
-          eq(userRolesTable.roleId, rolesTable.id),
-          eq(rolesTable.name, "guide")
+          eq(userRolesTable.userId, usersTable.id),
+          eq(userRolesTable.approvalStatus, "approved")
         )
       )
       .orderBy(desc(guidesTable.id));
