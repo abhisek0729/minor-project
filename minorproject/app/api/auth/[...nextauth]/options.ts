@@ -197,6 +197,19 @@ export const authOptions: NextAuthOptions = {
         token.is_verified = user.is_verified || false;
         token.roles = user.roles || [];
       }
+
+      // Always ensure token has latest live roles from database
+      if (token.id) {
+        try {
+          const freshRoles = await getUserRoles(Number(token.id));
+          if (freshRoles && freshRoles.length > 0) {
+            token.roles = freshRoles;
+          }
+        } catch {
+          // Keep existing roles if query fails
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {

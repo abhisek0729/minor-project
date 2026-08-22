@@ -71,12 +71,20 @@ export default function UnifiedDashboardView({
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<"overview" | "workspaces" | "bookings" | "itinerary" | "settings">("overview");
 
-  // Filter roles
-  const hasRestaurant = roles.some((r) => r.name === "restaurantOwner");
-  const hasHotel = roles.some((r) => r.name === "hotelOwner");
-  const hasGuide = roles.some((r) => r.name === "guide");
+  // Filter roles and statuses
+  const hotelRole = roles.find((r) => r.name === "hotelOwner");
+  const restaurantRole = roles.find((r) => r.name === "restaurantOwner");
+  const guideRole = roles.find((r) => r.name === "guide");
   const adminRole = roles.find((r) => r.name === "admin");
+
+  const hasHotel = !!hotelRole;
+  const hasRestaurant = !!restaurantRole;
+  const hasGuide = !!guideRole;
   const hasAdmin = !!adminRole;
+
+  const hotelStatus = hotelRole?.approvalStatus ?? "pending";
+  const restaurantStatus = restaurantRole?.approvalStatus ?? "pending";
+  const guideStatus = guideRole?.approvalStatus ?? "pending";
   const isAdminApproved = adminRole?.approvalStatus === "approved";
 
   // Booking stats
@@ -392,20 +400,48 @@ export default function UnifiedDashboardView({
                           </div>
                           <div>
                             <h3 className="font-bold text-sm">{hotel?.name || "Hotel Management"}</h3>
-                            <p className="text-xs text-muted-foreground">Manage rooms, rates & guest check-ins</p>
+                            <p className="text-xs text-muted-foreground">
+                              {hotelStatus === "pending"
+                                ? !hotel
+                                  ? "Registration submitted • Onboarding needed"
+                                  : "Application under administrator review"
+                                : "Manage rooms, rates & guest check-ins"}
+                            </p>
                           </div>
                         </div>
-                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px]">
-                          Approved
-                        </Badge>
+                        {hotelStatus === "pending" ? (
+                          <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-[10px] gap-1">
+                            <Clock3 className="size-2.5" /> Verification Pending
+                          </Badge>
+                        ) : (
+                          <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px] gap-1">
+                            <CheckCircle2 className="size-2.5" /> Approved
+                          </Badge>
+                        )}
                       </div>
                       <div className="mt-4 pt-3 border-t flex items-center justify-between">
                         <span className="text-[11px] text-muted-foreground">Hotel Partner</span>
-                        <Link href="/dashboard/hotels">
-                          <Button size="sm" className="text-xs gap-1.5 h-8">
-                            Open Hotel Dashboard <ArrowRight className="size-3" />
-                          </Button>
-                        </Link>
+                        {hotelStatus === "pending" ? (
+                          !hotel ? (
+                            <Link href="/onboarding/hotel">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                                Complete Onboarding <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          ) : (
+                            <Link href="/dashboard/hotels/pending">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                                View Pending Status <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          )
+                        ) : (
+                          <Link href="/dashboard/hotels">
+                            <Button size="sm" className="text-xs gap-1.5 h-8">
+                              Open Hotel Dashboard <ArrowRight className="size-3" />
+                            </Button>
+                          </Link>
+                        )}
                       </div>
                     </Card>
                   ) : null}
@@ -420,20 +456,48 @@ export default function UnifiedDashboardView({
                           </div>
                           <div>
                             <h3 className="font-bold text-sm">{restaurant?.name || "Restaurant Management"}</h3>
-                            <p className="text-xs text-muted-foreground">Food menus, live orders & table bookings</p>
+                            <p className="text-xs text-muted-foreground">
+                              {restaurantStatus === "pending"
+                                ? !restaurant
+                                  ? "Registration submitted • Onboarding needed"
+                                  : "Application under administrator review"
+                                : "Food menus, live orders & table bookings"}
+                            </p>
                           </div>
                         </div>
-                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px]">
-                          Approved
-                        </Badge>
+                        {restaurantStatus === "pending" ? (
+                          <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-[10px] gap-1">
+                            <Clock3 className="size-2.5" /> Verification Pending
+                          </Badge>
+                        ) : (
+                          <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px] gap-1">
+                            <CheckCircle2 className="size-2.5" /> Approved
+                          </Badge>
+                        )}
                       </div>
                       <div className="mt-4 pt-3 border-t flex items-center justify-between">
                         <span className="text-[11px] text-muted-foreground">Dining Partner</span>
-                        <Link href="/dashboard/restaurant">
-                          <Button size="sm" className="text-xs gap-1.5 h-8">
-                            Open Restaurant Panel <ArrowRight className="size-3" />
-                          </Button>
-                        </Link>
+                        {restaurantStatus === "pending" ? (
+                          !restaurant ? (
+                            <Link href="/onboarding/restaurant">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                                Complete Onboarding <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          ) : (
+                            <Link href="/dashboard/restaurant/pending">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                                View Pending Status <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          )
+                        ) : (
+                          <Link href="/dashboard/restaurant">
+                            <Button size="sm" className="text-xs gap-1.5 h-8">
+                              Open Restaurant Panel <ArrowRight className="size-3" />
+                            </Button>
+                          </Link>
+                        )}
                       </div>
                     </Card>
                   ) : null}
@@ -448,20 +512,48 @@ export default function UnifiedDashboardView({
                           </div>
                           <div>
                             <h3 className="font-bold text-sm">{guide?.name || "Tour Guide Portal"}</h3>
-                            <p className="text-xs text-muted-foreground">Tour packages, guiding calendar & requests</p>
+                            <p className="text-xs text-muted-foreground">
+                              {guideStatus === "pending"
+                                ? !guide
+                                  ? "Registration submitted • Onboarding needed"
+                                  : "Application under administrator review"
+                                : "Tour packages, guiding calendar & requests"}
+                            </p>
                           </div>
                         </div>
-                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px]">
-                          Active Guide
-                        </Badge>
+                        {guideStatus === "pending" ? (
+                          <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-[10px] gap-1">
+                            <Clock3 className="size-2.5" /> Verification Pending
+                          </Badge>
+                        ) : (
+                          <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px] gap-1">
+                            <CheckCircle2 className="size-2.5" /> Active Guide
+                          </Badge>
+                        )}
                       </div>
                       <div className="mt-4 pt-3 border-t flex items-center justify-between">
                         <span className="text-[11px] text-muted-foreground">Tour Guide Partner</span>
-                        <Link href="/dashboard/guide">
-                          <Button size="sm" className="text-xs gap-1.5 h-8">
-                            Open Guide Portal <ArrowRight className="size-3" />
-                          </Button>
-                        </Link>
+                        {guideStatus === "pending" ? (
+                          !guide ? (
+                            <Link href="/onboarding/guide">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                                Complete Onboarding <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          ) : (
+                            <Link href="/dashboard/guide/pending">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                                View Pending Status <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          )
+                        ) : (
+                          <Link href="/dashboard/guide">
+                            <Button size="sm" className="text-xs gap-1.5 h-8">
+                              Open Guide Portal <ArrowRight className="size-3" />
+                            </Button>
+                          </Link>
+                        )}
                       </div>
                     </Card>
                   ) : null}
@@ -591,25 +683,55 @@ export default function UnifiedDashboardView({
                         </div>
                         <div>
                           <h3 className="font-bold text-base">{hotel?.name || "Hotel Owner Portal"}</h3>
-                          <p className="text-xs text-muted-foreground">Hotel Accommodation & Rooms</p>
+                          <p className="text-xs text-muted-foreground">
+                            {hotelStatus === "pending"
+                              ? !hotel
+                                ? "Registration submitted • Onboarding needed"
+                                : "Application under administrator review"
+                              : "Hotel Accommodation & Rooms"}
+                          </p>
                         </div>
                       </div>
-                      <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs">
-                        Active
-                      </Badge>
+                      {hotelStatus === "pending" ? (
+                        <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-xs gap-1">
+                          <Clock3 className="size-3" /> Verification Pending
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs gap-1">
+                          <CheckCircle2 className="size-3" /> Approved & Active
+                        </Badge>
+                      )}
                     </div>
 
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Manage room listings, gallery photos, pricing per night, availability calendar, and guest check-ins.
+                      {hotelStatus === "pending"
+                        ? "Your hotel owner application is currently under verification. Once approved, you can manage inventory, room categories, pricing, and guest check-ins."
+                        : "Manage room listings, gallery photos, pricing per night, availability calendar, and guest check-ins."}
                     </p>
 
                     <div className="pt-2 border-t flex items-center justify-between">
                       <span className="text-xs text-muted-foreground font-medium">Hotel Workspace</span>
-                      <Link href="/dashboard/hotels">
-                        <Button size="sm" className="text-xs gap-1.5">
-                          Open Hotel Dashboard <ArrowRight className="size-3.5" />
-                        </Button>
-                      </Link>
+                      {hotelStatus === "pending" ? (
+                        !hotel ? (
+                          <Link href="/onboarding/hotel">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              Complete Hotel Onboarding <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        ) : (
+                          <Link href="/dashboard/hotels/pending">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              View Pending Status <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        )
+                      ) : (
+                        <Link href="/dashboard/hotels">
+                          <Button size="sm" className="text-xs gap-1.5">
+                            Open Hotel Dashboard <ArrowRight className="size-3.5" />
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </Card>
                 )}
@@ -624,25 +746,55 @@ export default function UnifiedDashboardView({
                         </div>
                         <div>
                           <h3 className="font-bold text-base">{restaurant?.name || "Restaurant Panel"}</h3>
-                          <p className="text-xs text-muted-foreground">Dining & Kitchen Management</p>
+                          <p className="text-xs text-muted-foreground">
+                            {restaurantStatus === "pending"
+                              ? !restaurant
+                                ? "Registration submitted • Onboarding needed"
+                                : "Application under administrator review"
+                              : "Dining & Kitchen Management"}
+                          </p>
                         </div>
                       </div>
-                      <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs">
-                        Active
-                      </Badge>
+                      {restaurantStatus === "pending" ? (
+                        <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-xs gap-1">
+                          <Clock3 className="size-3" /> Verification Pending
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs gap-1">
+                          <CheckCircle2 className="size-3" /> Approved & Active
+                        </Badge>
+                      )}
                     </div>
 
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Update menu items, set open/closed status, receive live orders, and handle table reservations.
+                      {restaurantStatus === "pending"
+                        ? "Your dining partner registration is awaiting administrator review. Once verified, you can manage food menus, operating hours, and live customer orders."
+                        : "Update menu items, set open/closed status, receive live orders, and handle table reservations."}
                     </p>
 
                     <div className="pt-2 border-t flex items-center justify-between">
                       <span className="text-xs text-muted-foreground font-medium">Restaurant Workspace</span>
-                      <Link href="/dashboard/restaurant">
-                        <Button size="sm" className="text-xs gap-1.5">
-                          Open Restaurant Panel <ArrowRight className="size-3.5" />
-                        </Button>
-                      </Link>
+                      {restaurantStatus === "pending" ? (
+                        !restaurant ? (
+                          <Link href="/onboarding/restaurant">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              Complete Dining Onboarding <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        ) : (
+                          <Link href="/dashboard/restaurant/pending">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              View Pending Status <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        )
+                      ) : (
+                        <Link href="/dashboard/restaurant">
+                          <Button size="sm" className="text-xs gap-1.5">
+                            Open Restaurant Panel <ArrowRight className="size-3.5" />
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </Card>
                 )}
@@ -657,25 +809,55 @@ export default function UnifiedDashboardView({
                         </div>
                         <div>
                           <h3 className="font-bold text-base">{guide?.name || "Tour Guide Portal"}</h3>
-                          <p className="text-xs text-muted-foreground">Trekking & Guiding Services</p>
+                          <p className="text-xs text-muted-foreground">
+                            {guideStatus === "pending"
+                              ? !guide
+                                ? "Registration submitted • Onboarding needed"
+                                : "Application under administrator review"
+                              : "Trekking & Guiding Services"}
+                          </p>
                         </div>
                       </div>
-                      <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs">
-                        Active Guide
-                      </Badge>
+                      {guideStatus === "pending" ? (
+                        <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-xs gap-1">
+                          <Clock3 className="size-3" /> Verification Pending
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs gap-1">
+                          <CheckCircle2 className="size-3" /> Approved & Active
+                        </Badge>
+                      )}
                     </div>
 
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Publish tour packages, manage your working calendar, and coordinate directly with traveler requests.
+                      {guideStatus === "pending"
+                        ? "Your tour guide profile and credentials are being reviewed by administrators. Once approved, your profile will be published live in the public Tour Guides catalog."
+                        : "Publish tour packages, manage your working calendar, and coordinate directly with traveler requests."}
                     </p>
 
                     <div className="pt-2 border-t flex items-center justify-between">
                       <span className="text-xs text-muted-foreground font-medium">Guide Workspace</span>
-                      <Link href="/dashboard/guide">
-                        <Button size="sm" className="text-xs gap-1.5">
-                          Open Guide Portal <ArrowRight className="size-3.5" />
-                        </Button>
-                      </Link>
+                      {guideStatus === "pending" ? (
+                        !guide ? (
+                          <Link href="/onboarding/guide">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              Complete Guide Onboarding <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        ) : (
+                          <Link href="/dashboard/guide/pending">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              View Pending Status <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        )
+                      ) : (
+                        <Link href="/dashboard/guide">
+                          <Button size="sm" className="text-xs gap-1.5">
+                            Open Guide Portal <ArrowRight className="size-3.5" />
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </Card>
                 )}

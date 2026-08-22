@@ -28,7 +28,9 @@ export default async function RestaurantDashboardPage() {
     redirect("/sign-in");
   }
 
-  const ownerRole = session.user.roles?.find(
+  const { getUserRoles } = await import("@/app/features/auth/services/roles.service");
+  const userRoles = await getUserRoles(Number(session.user.id));
+  const ownerRole = userRoles.find(
     (role) => role.name === "restaurantOwner"
   );
 

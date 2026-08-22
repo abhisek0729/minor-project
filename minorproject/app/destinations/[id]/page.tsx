@@ -271,44 +271,67 @@ export default function DestinationDetailPage({ params }: DestinationDetailPageP
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {destination.nearbyAttractions.map((attraction: any, idx: number) => (
-                <Card
-                  key={idx}
-                  className="overflow-hidden border rounded-3xl shadow-xs hover:border-primary/40 transition-all flex flex-col justify-between bg-card"
-                >
-                  <div>
-                    <div className="relative h-44 w-full bg-muted overflow-hidden">
-                      <Image
-                        src={attraction.image || "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=800&auto=format&fit=crop"}
-                        alt={attraction.name}
-                        fill
-                        className="object-cover"
-                        unoptimized
-                      />
-                    </div>
-                    <CardContent className="p-5 space-y-2">
-                      <h3 className="font-bold text-base line-clamp-1">{attraction.name}</h3>
-                      <span className="text-[11px] font-semibold text-primary block">
-                        {attraction.distance}
-                      </span>
-                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
-                        {attraction.description}
-                      </p>
-                    </CardContent>
-                  </div>
+              {destination.nearbyAttractions.map((attraction: any, idx: number) => {
+                const attractionName =
+                  typeof attraction === "string"
+                    ? attraction
+                    : attraction?.name || `Attraction ${idx + 1}`;
+                const attractionImage =
+                  typeof attraction === "object" && attraction?.image
+                    ? attraction.image
+                    : "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=800&auto=format&fit=crop";
+                const attractionDistance =
+                  typeof attraction === "object" && attraction?.distance
+                    ? attraction.distance
+                    : "Nearby sight";
+                const attractionDesc =
+                  typeof attraction === "object" && attraction?.description
+                    ? attraction.description
+                    : `Scenic point located near ${destination.name}.`;
+                const attractionMapQuery =
+                  typeof attraction === "object" && attraction?.mapQuery
+                    ? attraction.mapQuery
+                    : `${attractionName}, Nepal`;
 
-                  <div className="p-5 pt-0 border-t">
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(attraction.mapQuery || `${attraction.name}, Nepal`)}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs text-primary font-semibold hover:underline pt-2"
-                    >
-                      <Navigation className="size-3.5" /> View on Map →
-                    </a>
-                  </div>
-                </Card>
-              ))}
+                return (
+                  <Card
+                    key={idx}
+                    className="overflow-hidden border rounded-3xl shadow-xs hover:border-primary/40 transition-all flex flex-col justify-between bg-card"
+                  >
+                    <div>
+                      <div className="relative h-44 w-full bg-muted overflow-hidden">
+                        <Image
+                          src={attractionImage}
+                          alt={attractionName || "Nearby Attraction"}
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                      </div>
+                      <CardContent className="p-5 space-y-2">
+                        <h3 className="font-bold text-base line-clamp-1">{attractionName}</h3>
+                        <span className="text-[11px] font-semibold text-primary block">
+                          {attractionDistance}
+                        </span>
+                        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                          {attractionDesc}
+                        </p>
+                      </CardContent>
+                    </div>
+
+                    <div className="p-5 pt-0 border-t">
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(attractionMapQuery)}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs text-primary font-semibold hover:underline pt-2"
+                      >
+                        <Navigation className="size-3.5" /> View on Map →
+                      </a>
+                    </div>
+                  </Card>
+                );
+              })}
             </div>
           </section>
         )}

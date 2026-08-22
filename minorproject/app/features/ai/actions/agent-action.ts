@@ -426,7 +426,7 @@ export async function executeAgentAction(proposal: AgentProposalPayload) {
 
         return {
           success: true,
-          message: `Booking request for "${booking.itemName}" (NPR ${booking.totalAmount.toLocaleString()}) submitted!`,
+          message: `Booking #${booking.id} created for "${booking.itemName}" (NPR ${booking.totalAmount.toLocaleString()}). Proceed to Khalti payment checkout to finalize reservation!`,
           data: booking,
         };
       }
