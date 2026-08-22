@@ -244,6 +244,20 @@ export const restaurantImagesTable = pgTable("restaurant_images", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const restaurantFacilitiesTable = pgTable(
+  "restaurant_facilities",
+  {
+    restaurantId: integer("restaurant_id")
+      .references(() => restaurantsTable.id, { onDelete: "cascade" })
+      .notNull(),
+    facilityName: varchar("facility_name", { length: 100 }).notNull(),
+    icon: varchar("icon", { length: 50 }).default("Utensils"),
+  },
+  (table) => [
+    primaryKey({ columns: [table.restaurantId, table.facilityName] }),
+  ]
+);
+
 export const menusTable = pgTable("menus", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   restaurantId: integer("restaurant_id")
@@ -423,6 +437,7 @@ export const restaurantsRelations = relations(restaurantsTable, ({ one, many }) 
     references: [usersTable.id],
   }),
   images: many(restaurantImagesTable),
+  facilities: many(restaurantFacilitiesTable),
   menus: many(menusTable),
   orders: many(restaurantOrdersTable),
 }));
@@ -430,6 +445,13 @@ export const restaurantsRelations = relations(restaurantsTable, ({ one, many }) 
 export const restaurantImagesRelations = relations(restaurantImagesTable, ({ one }) => ({
   restaurant: one(restaurantsTable, {
     fields: [restaurantImagesTable.restaurantId],
+    references: [restaurantsTable.id],
+  }),
+}));
+
+export const restaurantFacilitiesRelations = relations(restaurantFacilitiesTable, ({ one }) => ({
+  restaurant: one(restaurantsTable, {
+    fields: [restaurantFacilitiesTable.restaurantId],
     references: [restaurantsTable.id],
   }),
 }));

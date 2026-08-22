@@ -365,6 +365,11 @@ export async function getAllRestaurantsAdmin() {
   try {
     await requireAdmin();
 
+    const [restaurantOwnerRole] = await db
+      .select({ id: rolesTable.id })
+      .from(rolesTable)
+      .where(eq(rolesTable.name, "restaurantOwner"));
+
     const restaurants = await db
       .select({
         id: restaurantsTable.id,
@@ -388,7 +393,7 @@ export async function getAllRestaurantsAdmin() {
         userRolesTable,
         and(
           eq(userRolesTable.userId, usersTable.id),
-          eq(userRolesTable.approvalStatus, "approved")
+          restaurantOwnerRole?.id ? eq(userRolesTable.roleId, restaurantOwnerRole.id) : undefined
         )
       )
       .orderBy(desc(restaurantsTable.id));
@@ -412,6 +417,11 @@ export async function getAllHotelsAdmin() {
   try {
     await requireAdmin();
 
+    const [hotelOwnerRole] = await db
+      .select({ id: rolesTable.id })
+      .from(rolesTable)
+      .where(eq(rolesTable.name, "hotelOwner"));
+
     const hotels = await db
       .select({
         id: hotelsTable.id,
@@ -433,7 +443,7 @@ export async function getAllHotelsAdmin() {
         userRolesTable,
         and(
           eq(userRolesTable.userId, usersTable.id),
-          eq(userRolesTable.approvalStatus, "approved")
+          hotelOwnerRole?.id ? eq(userRolesTable.roleId, hotelOwnerRole.id) : undefined
         )
       )
       .orderBy(desc(hotelsTable.id));
@@ -490,6 +500,11 @@ export async function getAllGuidesAdmin() {
   try {
     await requireAdmin();
 
+    const [guideRole] = await db
+      .select({ id: rolesTable.id })
+      .from(rolesTable)
+      .where(eq(rolesTable.name, "guide"));
+
     const guides = await db
       .select({
         id: guidesTable.id,
@@ -514,7 +529,7 @@ export async function getAllGuidesAdmin() {
         userRolesTable,
         and(
           eq(userRolesTable.userId, usersTable.id),
-          eq(userRolesTable.approvalStatus, "approved")
+          guideRole?.id ? eq(userRolesTable.roleId, guideRole.id) : undefined
         )
       )
       .orderBy(desc(guidesTable.id));

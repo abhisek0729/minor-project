@@ -1,5 +1,5 @@
 import { db } from "@/app/lib/db";
-import { menusTable, restaurantImagesTable, restaurantsTable } from "@/app/lib/db/schema";
+import { menusTable, restaurantFacilitiesTable, restaurantImagesTable, restaurantsTable } from "@/app/lib/db/schema";
 import { eq } from "drizzle-orm";
 
 type RestaurantOnboardingData = {
@@ -15,6 +15,7 @@ type RestaurantOnboardingData = {
   street: string;
   restaurantImageUrl: string;
   galleryImages?: { imageUrl: string; publicId?: string }[];
+  facilities?: string[];
 };
 
 export const checkHasRestaurant = async (userId: number): Promise<boolean> => {
@@ -51,6 +52,16 @@ export const createRestaurant = async (
           restaurantId: newRestaurant.id,
           imageUrl: img.imageUrl,
           publicId: img.publicId || "",
+        }))
+      );
+    }
+
+    if (data.facilities && data.facilities.length > 0) {
+      await tx.insert(restaurantFacilitiesTable).values(
+        data.facilities.map((facName) => ({
+          restaurantId: newRestaurant.id,
+          facilityName: facName,
+          icon: "Utensils",
         }))
       );
     }
