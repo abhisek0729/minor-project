@@ -31,7 +31,13 @@ def extract_query_keywords(text: str) -> list[str]:
     
     if not found:
         words = re.findall(r"\b[A-Za-z]{3,}\b", text)
-        stopwords = {"the", "and", "for", "with", "show", "tell", "what", "where", "how", "can", "you", "plan", "trip", "find", "best", "some", "good", "hotel", "hotels", "stay", "stays", "food", "restaurant", "restaurants", "guide", "guides", "trek", "place", "places", "budget"}
+        stopwords = {
+            "the", "and", "for", "with", "show", "tell", "what", "where", "how", "can", "you",
+            "plan", "trip", "find", "best", "some", "good", "hotel", "hotels", "stay", "stays",
+            "food", "foods", "restaurant", "restaurants", "guide", "guides", "trek", "place", "places",
+            "budget", "eat", "eating", "pork", "momo", "momos", "thakali", "sekuwa", "sukuti",
+            "buff", "chicken", "mutton", "dish", "dishes", "lunch", "dinner", "breakfast", "cafe"
+        }
         found = [w for w in words if w.lower() not in stopwords]
     return found
 

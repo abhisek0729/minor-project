@@ -67,17 +67,97 @@ def extract_numbers(text: str) -> list[int]:
     matches = re.findall(r"\b\d+\b", text)
     return [int(m) for m in matches]
 
-def heuristic_action_parse(msg: str, user_roles: list[str]) -> dict[str, Any] | None:
-    msg_lower = msg.lower()
+def heuristic_action_parse(msg: str, user_roles: list[str], history: list[Any] = []) -> dict[str, Any] | None:
+    msg_lower = msg.lower().strip()
+    numbers = extract_numbers(msg)
     
-    # 1. Log Expense Intent
+    # 0. Check Multi-turn Slot-Filling (If user is responding to previous clarification question)
+    last_assistant_msg = ""
+    if history:
+        for prev in reversed(history):
+            role = getattr(prev, "role", None) or (prev.get("role") if isinstance(prev, dict) else "")
+            if role in ["assistant", "model"]:
+                last_assistant_msg = getattr(prev, "content", None) or getattr(prev, "text", None) or (prev.get("text", "") if isinstance(prev, dict) else "") or (prev.get("content", "") if isinstance(prev, dict) else "")
+                break
+
+    last_assistant_lower = str(last_assistant_msg).lower()
+
+    # Slot Fill A: Response to Hotel Room Price Question
+    if "price per night" in last_assistant_lower or "price (in npr) for this room" in last_assistant_lower:
+        if "hotelOwner" not in user_roles and "admin" not in user_roles:
+            return {
+                "is_action": True,
+                "action_type": "ACCESS_DENIED",
+                "is_complete": False,
+                "clarification_question": "⚠️ Access Restricted: You must be an approved Hotel Owner to add hotel rooms to the platform. You can register your hotel at /partner/business-type.",
+            }
+        price = numbers[0] if numbers else 1500
+        return {
+            "is_action": True,
+            "action_type": "ADD_HOTEL_ROOM",
+            "is_complete": True,
+            "missing_fields": [],
+            "extracted_payload": {
+                "room_number": "101",
+                "room_type": "single",
+                "price_per_night": price,
+                "capacity": 2,
+                "description": "Comfortable room with modern amenities.",
+            },
+            "proposal_title": "Add Hotel Room",
+            "proposal_summary": f"Add Single Room #101 at NPR {price:,}/night to your room inventory.",
+        }
+
+    # Slot Fill B: Response to Dish Price Question
+    if "price in npr for" in last_assistant_lower or "price for this dish" in last_assistant_lower:
+        if "restaurantOwner" not in user_roles and "admin" not in user_roles:
+            return {
+                "is_action": True,
+                "action_type": "ACCESS_DENIED",
+                "is_complete": False,
+                "clarification_question": "⚠️ Access Restricted: You must be an approved Restaurant Owner to add menu items to the platform.",
+            }
+        price = numbers[0] if numbers else 250
+        return {
+            "is_action": True,
+            "action_type": "ADD_RESTAURANT_DISH",
+            "is_complete": True,
+            "missing_fields": [],
+            "extracted_payload": {
+                "name": "Special Dish",
+                "price": price,
+                "description": "Freshly prepared authentic local dish.",
+                "category": "Main Course",
+            },
+            "proposal_title": "Add Restaurant Menu Item",
+            "proposal_summary": f"Add Special Dish to menu for NPR {price:,}.",
+        }
+
+    # Slot Fill C: Response to Expense Amount Question
+    if "expense amount in npr" in last_assistant_lower or "how much was the expense" in last_assistant_lower:
+        amount = numbers[0] if numbers else 500
+        return {
+            "is_action": True,
+            "action_type": "LOG_EXPENSE",
+            "is_complete": True,
+            "missing_fields": [],
+            "extracted_payload": {
+                "name": "Trip Expense",
+                "amount": amount,
+                "location": "Nepal",
+                "type": "food",
+            },
+            "proposal_title": "Record Travel Expense",
+            "proposal_summary": f"Log Trip Expense of NPR {amount:,} in Nepal.",
+        }
+
+    # 1. Log Expense Intent (All users)
     if any(k in msg_lower for k in ["expense", "spent", "spend", "cost me", "paid", "log expense", "add expense", "track expense"]):
-        numbers = extract_numbers(msg)
         amount = numbers[0] if numbers else None
         
         # Location detection
         location = "Kathmandu"
-        for loc in ["pokhara", "kathmandu", "chitwan", "lumbini", "bhaktapur", "patan", "namche", "nagarkot", "mustang", "itahari", "dharan"]:
+        for loc in ["pokhara", "kathmandu", "chitwan", "lumbini", "bhaktapur", "patan", "namche", "nagarkot", "mustang", "itahari", "dharan", "butwal"]:
             if loc in msg_lower:
                 location = loc.capitalize()
                 break
@@ -93,7 +173,7 @@ def heuristic_action_parse(msg: str, user_roles: list[str]) -> dict[str, Any] | 
         elif any(w in msg_lower for w in ["trek", "tour", "ticket", "guide", "entry", "rafting", "activity"]):
             exp_type = "activity"
 
-        name_match = re.sub(r"(log|add|track|record)\s+(an\s+)?expense\s+(for|of)?", "", msg, flags=re.IGNORECASE).strip()
+        name_match = re.sub(r"(log|add|track|record)\s+(an\s+|the\s+)?expense\s+(for|of)?", "", msg, flags=re.IGNORECASE).strip()
         name = name_match if len(name_match) > 2 else "Trip Expense"
 
         is_complete = amount is not None and amount > 0
@@ -115,9 +195,16 @@ def heuristic_action_parse(msg: str, user_roles: list[str]) -> dict[str, Any] | 
             "proposal_summary": f"Log {name} of NPR {amount or 0:,} in {location} ({exp_type}).",
         }
 
-    # 2. Add Room Intent (Hotel Owners)
-    if any(k in msg_lower for k in ["add room", "create room", "new room", "add a room", "room 1", "room 2", "room 3"]):
-        numbers = extract_numbers(msg)
+    # 2. Add Room Intent (RBAC: Hotel Owners & Super Admins)
+    if any(k in msg_lower for k in ["add room", "create room", "new room", "add a room", "list room"]):
+        if "hotelOwner" not in user_roles and "admin" not in user_roles:
+            return {
+                "is_action": True,
+                "action_type": "ACCESS_DENIED",
+                "is_complete": False,
+                "clarification_question": "⚠️ Access Restricted: You must be an approved Hotel Owner to add hotel rooms to the platform. You can register your hotel at /partner/business-type.",
+            }
+
         room_num = str(numbers[0]) if numbers else "101"
         price = numbers[1] if len(numbers) > 1 else (numbers[0] if numbers and numbers[0] > 500 else None)
         
@@ -145,9 +232,16 @@ def heuristic_action_parse(msg: str, user_roles: list[str]) -> dict[str, Any] | 
             "proposal_summary": f"Add {room_type.capitalize()} Room #{room_num} at NPR {price or 0:,}/night.",
         }
 
-    # 3. Add Dish Intent (Restaurant Owners)
+    # 3. Add Dish Intent (RBAC: Restaurant Owners & Super Admins)
     if any(k in msg_lower for k in ["add dish", "add food", "add menu", "new dish", "add item", "menu item"]):
-        numbers = extract_numbers(msg)
+        if "restaurantOwner" not in user_roles and "admin" not in user_roles:
+            return {
+                "is_action": True,
+                "action_type": "ACCESS_DENIED",
+                "is_complete": False,
+                "clarification_question": "⚠️ Access Restricted: You must be an approved Restaurant Owner to add menu dishes to the platform.",
+            }
+
         price = numbers[0] if numbers else None
         dish_name = re.sub(r"(add|create|new)\s+(dish|food|menu item|item)\s*(called|named)?", "", msg, flags=re.IGNORECASE).strip()
         dish_name = re.sub(r"\b(for|price|npr|rs|\d+)\b.*", "", dish_name, flags=re.IGNORECASE).strip() or "Special Dish"
@@ -192,4 +286,4 @@ async def process_action_request(msg: str, user_roles: list[str], history: list[
             print("Gemini Action Parser Error:", err)
 
     # 2. Heuristic rule-based fallback
-    return heuristic_action_parse(msg, user_roles)
+    return heuristic_action_parse(msg, user_roles, history)
