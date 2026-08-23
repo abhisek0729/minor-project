@@ -1,6 +1,6 @@
 from sqlalchemy import select, or_, desc
 from sqlalchemy.orm import selectinload
-from app.models.base import Hotel, Room, Restaurant, Menu, Guide, Place, Booking
+from app.models.base import Hotel, Room, Restaurant, Menu, Guide, Place, Booking, Expense
 
 DISTRICT_ALIASES = {
     "pokhara": ["Kaski", "Pokhara", "Lakeside"],
@@ -120,3 +120,10 @@ async def get_rooms(db, hotel_id):
 
 async def get_restaurant_menus(db, restaurant_id):
     return list((await db.scalars(select(Menu).where(Menu.restaurant_id == restaurant_id))).all())
+
+async def search_user_expenses(db, user_id: int, limit=50):
+    if not user_id:
+        return []
+    q = select(Expense).where(Expense.user_id == user_id).order_by(desc(Expense.created_at)).limit(limit)
+    return list((await db.scalars(q)).all())
+

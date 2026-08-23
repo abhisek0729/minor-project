@@ -16,6 +16,7 @@ from app.services.catalog_service import (
     search_restaurants,
     search_places,
     search_guides,
+    search_user_expenses,
 )
 from app.services.maps_service import GoogleMapsService
 from app.services.web_search_service import WebSearchService
@@ -410,15 +411,15 @@ Respond ONLY with valid JSON."""
             "steps_taken": steps + ["🏢 Supervisor: Delegated to Partner RBAC Agent (LLM NLU)"],
         }
 
-    # B. Expense Logging
-    if nlu_intent == "expense_tracking" or any(phrase in msg_lower for phrase in ["log expense", "spent", "spent rs", "spent npr", "record expense", "add expense"]):
+    # B. Expense Querying & Logging
+    if nlu_intent == "expense_tracking" or any(phrase in msg_lower for phrase in ["expense", "expenses", "spent", "spent rs", "spent npr", "record expense", "add expense", "log expense", "how much did i spend"]):
         return {
             "intent": "expense_tracking",
             "destination": destination,
             "language": lang,
             "extracted_data": extracted_data,
             "is_terminal": False,
-            "steps_taken": steps + ["💰 Supervisor: Delegated to Expense Tracking Agent"],
+            "steps_taken": steps + ["💰 Supervisor: Delegated to Expense Tracking & Ledger Agent"],
         }
 
     # C. Transit & Intercity Routing
@@ -1011,16 +1012,84 @@ You are currently signed in as a traveler. Adding menu items requires an approve
 
     return {"is_terminal": False}
 
-# SUB-AGENT 7: EXPENSE TRACKING AGENT
-def expense_tracking_agent(state: TourismAgentState) -> dict[str, Any]:
+# SUB-AGENT 7: EXPENSE TRACKING & LEDGER QUERY AGENT
+async def expense_tracking_agent(state: TourismAgentState) -> dict[str, Any]:
     last_msg = state["messages"][-1].content if state["messages"] else ""
     msg_lower = last_msg.lower()
     steps = list(state.get("steps_taken", []))
     tools = list(state.get("tools_used", []))
+    user_id = state.get("user_id")
 
+    is_querying = any(k in msg_lower for k in [
+        "my expense", "my expenses", "current expense", "current expenses",
+        "show expense", "list expense", "how much did i spend", "what are my expenses",
+        "my spending", "total expense", "total spent", "view expenses", "check expense",
+        "see expense", "what did i spend", "expense ledger", "expense history"
+    ]) or (not any(w in msg_lower for w in ["log", "record", "add expense", "spent", "spent rs", "spent npr"]) and "expense" in msg_lower)
+
+    if is_querying:
+        steps.append("📊 Expense Ledger: Querying user travel expense records")
+        tools.append("expense_ledger_query")
+        expenses = []
+        try:
+            if user_id:
+                async with SessionLocal() as db:
+                    expenses = await search_user_expenses(db, int(user_id), limit=30)
+        except Exception as e:
+            print("Expense Query Error:", e)
+
+        if expenses:
+            total_spent = sum(e.amount for e in expenses)
+            by_cat: dict[str, int] = {}
+            for e in expenses:
+                c = (e.type or "other").capitalize()
+                by_cat[c] = by_cat.get(c, 0) + int(e.amount or 0)
+
+            cat_lines = "\n".join([f"• **{cat}:** NPR {amt:,}" for cat, amt in sorted(by_cat.items(), key=lambda x: x[1], reverse=True)])
+            recent_lines = "\n".join([f"• **{e.name}** — NPR {e.amount:,} ({e.type.capitalize() if e.type else 'General'}) | 📍 {e.location or 'Nepal'}" for e in expenses[:5]])
+
+            ans = f"""### 📊 Your Travel Expense Summary
+
+* 💰 **Total Logged Spent:** **NPR {total_spent:,}** ({len(expenses)} recorded transactions)
+
+---
+
+#### 📈 Breakdown by Category:
+{cat_lines}
+
+---
+
+#### 📋 Recent Logged Expenses:
+{recent_lines}
+
+---
+
+💡 *You can view and filter all records in your [Expense Tracker](/dashboard) or log new expenses anytime by saying: **"Log expense NPR 800 for lunch"** or **"Spent 1,500 on taxi"**!*"""
+        else:
+            ans = """### 📊 Travel Expense Ledger
+
+You currently have **0 recorded expenses** in your personal travel ledger.
+
+---
+
+#### 💡 How to log an expense instantly with AI:
+• *"Log expense NPR 1,200 for lunch in Pokhara"*
+• *"Spent 2,500 on taxi from Kathmandu to Bhaktapur"*
+• *"Record 4,000 for hotel stay in Sauraha"*
+
+Whenever you state an expense, I will prepare a verified Human-In-The-Loop card to confirm and store it in your ledger!"""
+
+        return {
+            "is_terminal": True,
+            "final_answer": ans,
+            "steps_taken": steps,
+            "tools_used": tools,
+        }
+
+    # LOGGING INTENT
     num_match = re.findall(r"\b\d+\b", msg_lower)
     amount = int(num_match[0]) if num_match else 1500
-    category = "food" if any(f in msg_lower for f in ["food", "dinner", "lunch", "breakfast", "momo", "cafe"]) else "transport"
+    category = "food" if any(f in msg_lower for f in ["food", "dinner", "lunch", "breakfast", "momo", "cafe", "restaurant", "snack"]) else "transport" if any(t in msg_lower for t in ["taxi", "bus", "cab", "flight", "jeep", "transport", "micro"]) else "accommodation" if any(h in msg_lower for h in ["hotel", "room", "stay", "resort", "lodge"]) else "general"
 
     action_payload = {
         "name": "Trip Expense",
