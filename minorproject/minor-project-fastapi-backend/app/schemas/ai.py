@@ -12,17 +12,18 @@ class RecommendationRequest(BaseModel):
 
 class Recommendation(BaseModel):
     name: str
-    type: str = "place"
+    type: str = "hotel"
     description: str = ""
     price: str | None = None
     rating: float | None = None
     location: str | None = None
     action_url: str | None = None
+    url: str | None = None
     map_url: str | None = None
-    # Optional backward compatibility fields
-    entity_type: str | None = "place"
-    entity_id: int | None = 1
-    reason: str | None = ""
+    # Backward compatibility fields
+    entity_type: str | None = None
+    entity_id: int | None = None
+    reason: str | None = None
     estimated_cost: Decimal | None = None
     booking_note: str | None = None
 

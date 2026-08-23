@@ -104,12 +104,16 @@ async def chat(db, req):
         recs = [
             Recommendation(
                 name=r.get("name", "Recommendation"),
-                type=r.get("type", "place"),
+                type=r.get("type", "hotel"),
                 description=r.get("description", ""),
                 price=r.get("price"),
-                rating=r.get("rating"),
+                rating=r.get("rating", 4.8),
                 location=r.get("location"),
-                action_url=r.get("action_url"),
+                action_url=r.get("action_url") or r.get("url"),
+                url=r.get("action_url") or r.get("url"),
+                entity_type=r.get("type", "hotel"),
+                entity_id=r.get("entity_id") or r.get("id"),
+                reason=r.get("description") or r.get("reason", ""),
             )
             for r in graph_output.get("recommendations", [])
         ]

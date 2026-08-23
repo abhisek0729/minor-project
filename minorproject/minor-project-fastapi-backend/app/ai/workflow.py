@@ -656,11 +656,15 @@ Tell me your location (and your budget per night if you have one), and I will se
                     recommendations.append({
                         "name": h.name,
                         "type": "hotel",
+                        "entity_type": "hotel",
+                        "entity_id": h.id,
                         "description": h.description or f"Top rated accommodation in {h.district or dest}.",
+                        "reason": h.description or f"Top rated accommodation in {h.district or dest}.",
                         "price": f"NPR {getattr(h, 'min_price', 2500):,}/night",
                         "rating": 4.8,
                         "location": f"{h.district or dest}, Nepal",
                         "action_url": f"/hotels/{h.id}",
+                        "url": f"/hotels/{h.id}",
                     })
             else:
                 # Web Search Grounding Fallback for stays
@@ -756,11 +760,15 @@ Let me know your city, and I will find verified local restaurants, famous eateri
                     recommendations.append({
                         "name": r.name,
                         "type": "restaurant",
+                        "entity_type": "restaurant",
+                        "entity_id": r.id,
                         "description": r.description or f"Authentic dining in {r.location or dest}.",
+                        "reason": r.description or f"Authentic dining in {r.location or dest}.",
                         "price": "NPR 350 - 1,400",
                         "rating": 4.7,
                         "location": f"{r.location or dest}, Nepal",
                         "action_url": f"/restaurants/{r.id}",
+                        "url": f"/restaurants/{r.id}",
                     })
             else:
                 # Web Search Grounding for dining
@@ -771,11 +779,14 @@ Let me know your city, and I will find verified local restaurants, famous eateri
                     recommendations.append({
                         "name": w.get("title", f"Local Dining in {dest}"),
                         "type": "restaurant",
+                        "entity_type": "restaurant",
                         "description": w.get("snippet", f"Authentic regional cuisine in {dest}."),
+                        "reason": w.get("snippet", f"Authentic regional cuisine in {dest}."),
                         "price": "NPR 300 – 900",
                         "rating": 4.7,
                         "location": f"{dest}, Nepal",
                         "action_url": w.get("url", GoogleMapsService.build_search_url(f"Restaurants in {dest} Nepal")),
+                        "url": w.get("url", GoogleMapsService.build_search_url(f"Restaurants in {dest} Nepal")),
                     })
     except Exception as e:
         print("Dining DB Error:", e)
@@ -814,11 +825,15 @@ async def itinerary_planning_agent(state: TourismAgentState) -> dict[str, Any]:
                     recommendations.append({
                         "name": h.name,
                         "type": "hotel",
+                        "entity_type": "hotel",
+                        "entity_id": h.id,
                         "description": h.description or f"Recommended platform accommodation in {dest}.",
+                        "reason": h.description or f"Recommended platform accommodation in {dest}.",
                         "price": f"NPR {getattr(h, 'min_price', 2500):,}/night",
                         "rating": 4.8,
                         "location": f"{h.district or dest}, Nepal",
                         "action_url": f"/hotels/{h.id}",
+                        "url": f"/hotels/{h.id}",
                     })
             else:
                 steps.append(f"🌐 Web Search Grounding: Discovering top sights and stays in {dest}")

@@ -78,13 +78,18 @@ function cleanSpokenTTS(text: string, actionProposal?: ActionProposal): string {
 }
 
 type Recommendation = {
-  entity_type: string;
-  entity_id: number | string;
   name: string;
-  reason: string;
+  type?: string;
+  entity_type?: string;
+  entity_id?: number | string;
+  description?: string;
+  reason?: string;
+  price?: string;
+  rating?: number;
   location?: string;
   map_url?: string;
   booking_note?: string;
+  action_url?: string;
   url?: string;
   source?: "database" | "web_search";
 };
@@ -1694,58 +1699,74 @@ export default function AIRobotChat() {
                               {message.recommendations.map((rec, idx) => (
                                 <div
                                   key={idx}
-                                  className="rounded-xl border bg-background/90 p-2.5 space-y-1.5 text-xs transition hover:border-primary/50 shadow-2xs"
+                                  className="rounded-xl border bg-background/90 p-3 space-y-2 text-xs transition hover:border-primary/50 shadow-2xs"
                                 >
                                   <div className="flex items-center justify-between gap-1">
-                                    <p className="font-bold text-foreground truncate">
+                                    <p className="font-bold text-foreground truncate text-sm">
                                       {rec.name}
                                     </p>
                                     <Badge
                                       variant="secondary"
-                                      className="text-[9px] px-1.5 py-0 capitalize"
+                                      className="text-[10px] px-2 py-0.5 capitalize font-semibold bg-primary/10 text-primary border-primary/20"
                                     >
-                                      {rec.entity_type}
+                                      {rec.type || rec.entity_type || "hotel"}
                                     </Badge>
                                   </div>
 
-                                  <p className="text-[11px] text-muted-foreground line-clamp-2">
-                                    {rec.reason}
-                                  </p>
-
-                                  {rec.location && (
-                                    <p className="text-[10px] text-muted-foreground flex items-center gap-1">
-                                      <MapPin className="size-3 shrink-0 text-primary" />
-                                      <span className="truncate">{rec.location}</span>
+                                  {(rec.reason || rec.description) && (
+                                    <p className="text-[11px] text-muted-foreground line-clamp-2 leading-relaxed">
+                                      {rec.reason || rec.description}
                                     </p>
                                   )}
 
+                                  <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-0.5">
+                                    {rec.location && (
+                                      <p className="flex items-center gap-1 truncate max-w-[65%]">
+                                        <MapPin className="size-3 shrink-0 text-primary" />
+                                        <span className="truncate">{rec.location}</span>
+                                      </p>
+                                    )}
+                                    {rec.price && (
+                                      <span className="font-semibold text-foreground text-[11px] ml-auto shrink-0">
+                                        {rec.price}
+                                      </span>
+                                    )}
+                                  </div>
+
                                   {(() => {
+                                    const cat = (rec.type || rec.entity_type || "hotel").toLowerCase();
                                     const targetUrl =
                                       rec.url ||
-                                      (rec.entity_type === "hotel" && rec.entity_id
-                                        ? `/hotels/${rec.entity_id}`
-                                        : rec.entity_type === "restaurant" && rec.entity_id
-                                        ? `/restaurants/${rec.entity_id}`
-                                        : rec.map_url);
+                                      rec.action_url ||
+                                      (rec.entity_id
+                                        ? `/${cat === "restaurant" ? "restaurants" : "hotels"}/${rec.entity_id}`
+                                        : undefined) ||
+                                      rec.map_url;
+
                                     if (!targetUrl) return null;
+
+                                    const isExternal = targetUrl.startsWith("http");
                                     return (
-                                      <div className="pt-1">
-                                        {targetUrl.startsWith("http") ? (
+                                      <div className="pt-1.5 border-t border-border/40 flex items-center justify-between">
+                                        {isExternal ? (
                                           <a
                                             href={targetUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:underline"
+                                            className="w-full inline-flex items-center justify-center gap-1.5 text-xs font-bold text-primary bg-primary/10 hover:bg-primary/20 border border-primary/30 px-3 py-1.5 rounded-lg transition-all shadow-2xs hover:shadow-xs"
                                           >
-                                            <span>Open Google Maps & Details</span>
-                                            <ExternalLink className="size-3" />
+                                            <span>Open Live Map & Directions</span>
+                                            <ExternalLink className="size-3.5" />
                                           </a>
                                         ) : (
                                           <Link
                                             href={targetUrl}
-                                            className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:underline"
+                                            className="w-full inline-flex items-center justify-center gap-1.5 text-xs font-bold text-primary bg-primary/10 hover:bg-primary/20 border border-primary/30 px-3 py-1.5 rounded-lg transition-all shadow-2xs hover:shadow-xs"
                                           >
-                                            <span>View Platform Listing →</span>
+                                            <span>
+                                              View {cat === "restaurant" ? "Menu" : "Hotel"} Details
+                                            </span>
+                                            <ArrowRight className="size-3.5" />
                                           </Link>
                                         )}
                                       </div>
