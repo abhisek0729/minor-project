@@ -247,7 +247,7 @@ export default function LocationMapPicker({
       </div>
 
       {/* Address / Landmark Search Bar */}
-      <form onSubmit={handleSearchLocation} className="flex gap-2">
+      <div className="flex gap-2">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
           <Input
@@ -255,18 +255,26 @@ export default function LocationMapPicker({
             placeholder="Search landmark (e.g. Bhanu Chowk Dharan, Lakeside Pokhara, Thamel)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                e.stopPropagation();
+                handleSearchLocation();
+              }
+            }}
             className="pl-9 text-xs h-9"
           />
         </div>
         <Button
-          type="submit"
+          type="button"
+          onClick={() => handleSearchLocation()}
           size="sm"
           disabled={isSearching || !searchQuery.trim()}
           className="h-9 px-4 text-xs font-semibold"
         >
           {isSearching ? <Loader2 className="size-3.5 animate-spin" /> : "Search & Pin"}
         </Button>
-      </form>
+      </div>
 
       {/* Popular Nepal Presets */}
       <div className="space-y-1.5">
