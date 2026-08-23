@@ -42,6 +42,9 @@ backend/*/*/__pycache__/
 backend/.env
 frontend/.env
 frontend/.env*.local
+!.env.example
+!frontend/.env.example
+!backend/.env.example
 
 # Logs
 *.log
