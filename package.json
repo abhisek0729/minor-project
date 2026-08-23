@@ -1,0 +1,16 @@
+{
+  "name": "travelnepal-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TravelNepal - Next.js AI Tourism Platform & FastAPI Backend Monorepo",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "cd backend && uvicorn app.main:app --reload",
+    "build:frontend": "npm --prefix frontend run build",
+    "lint:frontend": "npm --prefix frontend run lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
