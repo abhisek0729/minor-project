@@ -141,6 +141,28 @@ async def supervisor_orchestrator_node(state: TourismAgentState) -> dict[str, An
     lang = detect_language(last_msg)
     days, budget = parse_duration_and_budget(last_msg)
 
+    # 0. MEANINGLESS / PUNCTUATION-ONLY / VAGUE INPUT GUARDRAIL
+    alphanumeric_chars = re.sub(r"[^\w\d]", "", msg_lower)
+    if len(alphanumeric_chars) < 2:
+        steps.append("⚠️ Supervisor Guardrail: Detected empty/punctuation-only input")
+        return {
+            "intent": "clarification_needed",
+            "language": lang,
+            "is_terminal": True,
+            "final_answer": (
+                "Namaste! 🙏 I am your **TravelNepal AI Travel Specialist**.\n\n"
+                "How can I assist you with your Nepal travel plans today?\n\n"
+                "🌟 **Here are some things you can ask me:**\n"
+                "• 🗺️ *'Plan a 3-day trip to Pokhara under NPR 20,000'*\n"
+                "• 🏨 *'Find luxury or budget hotels in Pokhara or Kathmandu'*\n"
+                "• 🍽️ *'Find authentic Thakali food in Kathmandu'*\n"
+                "• 🚌 *'How to travel from Kathmandu to Chitwan by bus?'*\n"
+                "• 💰 *'Log an expense of NPR 1,500 for taxi'*",
+            ),
+            "steps_taken": steps,
+            "tools_used": tools + ["input_validator"],
+        }
+
     # 1. IMMEDIATE SECURITY & PROMPT INJECTION GUARDRAIL
     for pat in SECURITY_INJECTION_PATTERNS:
         if re.search(pat, msg_lower):

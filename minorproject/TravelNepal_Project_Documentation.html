@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelNepal — Complete Project Working Guide & Architecture Summary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-light: #ecfdf5;
+      --accent: #f59e0b;
+      --dark: #0f172a;
+      --slate-700: #334155;
+      --slate-500: #64748b;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --border: #e2e8f0;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+      padding: 30px 15px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 48px;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.06), 0 4px 6px -2px rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+    }
+
+    .print-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 14px 20px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+    }
+
+    .print-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .print-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    header {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .badge-tag {
+      display: inline-block;
+      background: #fef3c7;
+      color: #b45309;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      background: var(--slate-50);
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      margin-top: 20px;
+    }
+
+    .meta-item {
+      font-size: 13px;
+    }
+
+    .meta-item strong {
+      color: var(--dark);
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--dark);
+      margin: 32px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 20px 0 8px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #334155;
+      margin-bottom: 12px;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      font-size: 13.5px;
+      margin-bottom: 8px;
+      color: #334155;
+    }
+
+    li strong {
+      color: var(--dark);
+    }
+
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .feature-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--dark);
+      color: white;
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) {
+      background: var(--slate-50);
+    }
+
+    .qa-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 14px;
+    }
+
+    .qa-q {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .qa-a {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: #e2e8f0;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #0f172a;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .container {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .print-bar {
+        display: none !important;
+      }
+      h2 {
+        page-break-after: avoid;
+      }
+      .feature-card, .qa-box, table {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <div class="print-bar">
+      <div>
+        <strong style="color: #065f46; font-size: 14px;">📄 TravelNepal Project Presentation Summary</strong>
+        <p style="font-size: 12px; color: #047857; margin: 0;">You can view this directly or print / save as PDF using your browser.</p>
+      </div>
+      <button class="print-btn" onclick="window.print()">
+        🖨️ Print / Save as PDF
+      </button>
+    </div>
+
+    <header>
+      <div class="badge-tag">Minor Project Documentation</div>
+      <h1>TravelNepal — Intelligent AI Tourism Platform</h1>
+      <div class="subtitle">Complete Technical Architecture, Multi-Agent Workflow & Working Guide</div>
+
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Platform:</strong> TravelNepal (Full Stack Web App)</div>
+        <div class="meta-item"><strong>Core Stack:</strong> Next.js 16 + FastAPI + LangGraph</div>
+        <div class="meta-item"><strong>Database:</strong> PostgreSQL (Neon DB) + Drizzle ORM</div>
+        <div class="meta-item"><strong>Payment Gateway:</strong> Khalti & eSewa Digital Wallets</div>
+        <div class="meta-item"><strong>AI Engine:</strong> Google Gemini 2.5 + Edge TTS Voice</div>
+        <div class="meta-item"><strong>Safety Protocol:</strong> 1-Click SOS with Offline SMS Relay</div>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Executive Summary — What is TravelNepal?</h2>
+      <p>
+        <strong>TravelNepal</strong> is an all-in-one digital tourism ecosystem designed for both tourists exploring Nepal and local tourism businesses (Hotels, Restaurants, Tour Guides).
+      </p>
+      <p>
+        Unlike standard static travel websites, TravelNepal provides:
+      </p>
+      <ul>
+        <li><strong>Autonomous Multi-Agent AI Assistant:</strong> A voice-enabled assistant powered by LangGraph and Google Gemini that understands natural speech, plans itineraries, and queries live databases.</li>
+        <li><strong>Verified Database Grounding:</strong> Hotel, room, dining, and tour recommendations are linked directly to real database entries with live pricing in NPR and Google Maps integration.</li>
+        <li><strong>Human-In-The-Loop (HITL) Safety:</strong> Actions like adding rooms, posting menu dishes, or paying for stays generate interactive proposal cards before altering the database.</li>
+        <li><strong>Role-Based Partner Workspaces:</strong> Custom dashboards for Hotel Owners, Restaurant Owners, Tour Guides, and Super Administrators.</li>
+        <li><strong>Voice Expense Ledger:</strong> Natural voice logging of trip expenses with automated category breakdowns.</li>
+        <li><strong>Offline 1-Click SOS Panic System:</strong> Zero-internet emergency cellular SMS transmission for high-altitude trekking rescue.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>2. High-Level System Architecture</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Architecture Layer</th>
+            <th>Technology Used</th>
+            <th>Primary Responsibility</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Frontend & Client UI</strong></td>
+            <td>Next.js 16 (App Router), TypeScript, Tailwind CSS, Web Speech API</td>
+            <td>Renders responsive pages, handles continuous voice recognition, and manages digital payments.</td>
+          </tr>
+          <tr>
+            <td><strong>AI & Multi-Agent Backend</strong></td>
+            <td>FastAPI, Python, LangGraph StateGraph, Gemini 2.5</td>
+            <td>Supervisor-directed agent workflow routing user intents (Hotels, Dining, Itinerary, Expenses).</td>
+          </tr>
+          <tr>
+            <td><strong>Database & Storage</strong></td>
+            <td>PostgreSQL (Neon), Drizzle ORM, Cloudinary</td>
+            <td>Type-safe transactional data storage for listings, orders, bookings, and Cloudinary media uploads.</td>
+          </tr>
+          <tr>
+            <td><strong>Voice & Speech Synthesis</strong></td>
+            <td>Edge TTS (Christopher Neural), Web Audio API</td>
+            <td>Produces natural studio voice guidance and emergency warning tones.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>3. How the Core Features Work (Step-by-Step)</h2>
+
+      <div class="feature-card">
+        <h4>🤖 A. Autonomous Voice AI & Multi-Agent Assistant</h4>
+        <p>When a user speaks <em>"Find verified hotels in Dharan for 4 guests"</em>:</p>
+        <ul>
+          <li><strong>Continuous Voice Input:</strong> The browser's Web Speech API captures voice with a 3-second silence debounce timer so the user is not cut off mid-speech.</li>
+          <li><strong>Supervisor Routing:</strong> FastAPI's LangGraph supervisor classifies the request and routes it to the specialized <code>hotel_search_node</code>.</li>
+          <li><strong>PostgreSQL Querying:</strong> Real verified hotel records (e.g. <em>Hotel Pindeshwari</em>, <em>Everest Hotel</em>) are retrieved and returned with <code>/hotels/[id]</code> action URLs.</li>
+          <li><strong>Audio Voice Guide:</strong> Natural neural TTS generates audio explaining the amenities.</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h4>🛡️ B. Human-In-The-Loop (HITL) Action Proposals</h4>
+        <p>AI does not execute database writes autonomously. When an action is detected:</p>
+        <ul>
+          <li><strong>Add Hotel Room (<code>ADD_HOTEL_ROOM</code>):</strong> Displays an editable card with Room Number, Category, Price/Night, and photo upload.</li>
+          <li><strong>Add Restaurant Dish (<code>ADD_RESTAURANT_DISH</code>):</strong> Displays an editable card with Dish Name, Category dropdown, Price in NPR, and Cloudinary picture upload.</li>
+          <li><strong>Log Expense (<code>LOG_EXPENSE</code>):</strong> Displays parsed item name, amount, and category before saving.</li>
+          <li><strong>Booking Confirmation (<code>CREATE_BOOKING</code>):</strong> Confirms guests, dates, and amount before redirecting to Khalti.</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h4>💼 C. Multi-Role Business Workspaces</h4>
+        <ul>
+          <li><strong>Hotel Portal (<code>/dashboard/hotels</code>):</strong> Room catalog, real-time occupancy, price editing, and reservation logs.</li>
+          <li><strong>Restaurant Portal (<code>/dashboard/restaurant</code>):</strong> Digital food menus, dish prices, store OPEN/CLOSED switch, and dining orders.</li>
+          <li><strong>Tour Guide Portal (<code>/dashboard/guide</code>):</strong> Trekking tour packages, duration, pricing, and verified license credentials.</li>
+          <li><strong>Admin Portal (<code>/dashboard/admin</code>):</strong> Super Admin KYC verification queue, platform metrics, and chronological activity alerts.</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h4>💰 D. Voice-Powered Expense Tracker</h4>
+        <p>Saying <em>"Add 20 rupees in expense for a drink"</em>:</p>
+        <ul>
+          <li>The NLU engine extracts numeric cost (<code>NPR 20</code>) and item name (<code>Drink</code>).</li>
+          <li>Automatically classifies it as <code>Food & Dining</code> and prompts a confirmation card.</li>
+          <li>Aggregates total spent and displays category budget distribution charts.</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h4>🚨 E. 1-Click Offline SOS Emergency Protocol (<code>/emergency</code>)</h4>
+        <ul>
+          <li><strong>1-Click Panic Button:</strong> Acquires device GPS coordinates instantly with one tap.</li>
+          <li><strong>Zero-Internet SMS Relay:</strong> In remote mountain regions with no mobile data, it pre-addresses a cellular SMS with live Google Maps coordinates to the Tourist Police (1144) or Nepal Police (100).</li>
+          <li><strong>Hotline Directory:</strong> One-tap phone dialers for Flood Rescue (1155), Red Cross Ambulance (102), and Himalayan Mountain Rescue (+977 1-4444555).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Presentation & Viva Q&A Guide (FAQ)</h2>
+      
+      <div class="qa-box">
+        <div class="qa-q">Q1: Why did you choose LangGraph instead of a simple single prompt LLM call?</div>
+        <div class="qa-a">LangGraph allows multi-agent separation of concerns. Instead of one large prompt handling everything, we have specialized sub-agents (Supervisor, Hotel, Restaurant, Itinerary, Expense) that query specific databases and maintain state deterministically.</div>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-q">Q2: How does the system handle hallucinations?</div>
+        <div class="qa-a">We use database-grounded RAG. Recommendations are fetched directly from our PostgreSQL database with real IDs and verified listings, ensuring links and pricing are 100% accurate.</div>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-q">Q3: How does the SOS system operate without internet?</div>
+        <div class="qa-a">It uses the browser Geolocation API offline to obtain device GPS coordinates and triggers the native <code>sms:</code> protocol with pre-formatted coordinates addressed to Tourist Police (1144) over standard cellular GSM networks.</div>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-q">Q4: How are payments handled safely?</div>
+        <div class="qa-a">We integrate Khalti and eSewa digital wallet gateways. Bookings are initialized in a <code>pending</code> state and only marked <code>confirmed</code> after server-side cryptographic transaction verification.</div>
+      </div>
+    </section>
+
+    <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--slate-500);">
+      <strong>TravelNepal</strong> — Autonomous AI Tourism Ecosystem &copy; 2026. All rights reserved.
+    </footer>
+  </div>
+
+</body>
+</html>

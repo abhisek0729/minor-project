@@ -472,13 +472,22 @@ export async function getAllUsersAdmin() {
         id: usersTable.id,
         name: usersTable.name,
         email: usersTable.email,
+        isVerified: usersTable.isVerified,
+        provider: usersTable.provider,
         createdAt: usersTable.createdAt,
-        roles: sql<string>`STRING_AGG(DISTINCT ${rolesTable.name}, ', ')`,
+        roles: sql<string>`COALESCE(STRING_AGG(DISTINCT CAST(${rolesTable.name} AS TEXT), ', '), 'tourist')`,
       })
       .from(usersTable)
       .leftJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
       .leftJoin(rolesTable, eq(userRolesTable.roleId, rolesTable.id))
-      .groupBy(usersTable.id)
+      .groupBy(
+        usersTable.id,
+        usersTable.name,
+        usersTable.email,
+        usersTable.isVerified,
+        usersTable.provider,
+        usersTable.createdAt
+      )
       .orderBy(desc(usersTable.id));
 
     return {

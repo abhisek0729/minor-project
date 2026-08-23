@@ -35,55 +35,7 @@ interface GuideDetailPageProps {
   }>;
 }
 
-const mockGuides: Record<number, any> = {
-  1: {
-    id: 1,
-    name: "Aarav Sharma",
-    description: "Specialized in Kathmandu Valley heritage, sacred courtyards, ancient Newari architecture, and folklore with over 7 years of professional storytelling experience.",
-    location: "Kathmandu & Patan",
-    experienceYears: 7,
-    languages: "Nepali, English, Hindi",
-    dailyRate: 3200,
-    licenseNumber: "NTA-GUIDE-4812",
-    specialty: "Heritage & Cultural Walking Tours",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
-    packages: [
-      { id: 11, title: "Patan & Bhaktapur Ancient Courtyards", duration: "1 Day", price: 3500, description: "Deep cultural walking tour visiting medieval palaces, woodcarving ateliers, and living goddess courtyards." },
-      { id: 12, title: "Sacred Temples & Monasteries of Valley", duration: "2 Days", price: 6800, description: "Boudhanath, Swayambhunath, Pashupatinath, and Kopan Monastery spiritual walk." },
-    ],
-  },
-  2: {
-    id: 2,
-    name: "Bikram Rai",
-    description: "Certified mountain trekking leader with 10 years of experience navigating Annapurna Circuit, Mardi Himal, Poon Hill, and Dhaulagiri high alpine trails.",
-    location: "Pokhara & Annapurna",
-    experienceYears: 10,
-    languages: "Nepali, English, Gurung",
-    dailyRate: 4600,
-    licenseNumber: "NTA-TREK-1092",
-    specialty: "High Altitude Alpine Trekking",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
-    packages: [
-      { id: 21, title: "Poon Hill Sunrise Himalayan Trek", duration: "3 Days", price: 12500, description: "Famous rhododendron forest trail with 360-degree panoramic sunrise over Annapurna and Dhaulagiri." },
-      { id: 22, title: "Mardi Himal High Camp Expedition", duration: "5 Days", price: 21000, description: "Ridge-line trek taking you right under the sacred Machapuchare (Fishtail) peak." },
-    ],
-  },
-  3: {
-    id: 3,
-    name: "Sunita Tamang",
-    description: "Subtropical jungle and eco-tourism naturalist guiding wildlife safaris, bird-watching walks, and Tharu community homestays in Chitwan National Park.",
-    location: "Chitwan & Sauraha",
-    experienceYears: 6,
-    languages: "Nepali, English, Tharu",
-    dailyRate: 3800,
-    licenseNumber: "NTA-WILD-3301",
-    specialty: "Wildlife Safari & Nature",
-    image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200&auto=format&fit=crop",
-    packages: [
-      { id: 31, title: "Chitwan Jungle Safari & Elephant Breeding Walk", duration: "2 Days", price: 8500, description: "One-horned rhino spotting, canoe ride on Rapti River, and Tharu cultural evening dance." },
-    ],
-  },
-};
+import { guidesMap } from "../guidesData";
 
 export default async function GuideDetailPage({ params }: GuideDetailPageProps) {
   const { id } = await params;
@@ -93,23 +45,26 @@ export default async function GuideDetailPage({ params }: GuideDetailPageProps) 
     notFound();
   }
 
-  let guide = mockGuides[guideId] || mockGuides[1];
+  const fallbackGuide = guidesMap[guideId] || guidesMap[1];
+  let guide = fallbackGuide;
 
   try {
     const [dbGuide] = await db.select().from(guidesTable).where(eq(guidesTable.id, guideId));
     if (dbGuide) {
       const dbPackages = await db.select().from(packagesTable).where(eq(packagesTable.guideId, guideId));
       guide = {
+        ...fallbackGuide,
         ...dbGuide,
-        specialty: guide.specialty,
-        image: dbGuide.guideImageUrl || guide.image,
+        name: dbGuide.name || fallbackGuide?.name,
+        specialty: fallbackGuide?.specialty || "Certified Guide",
+        image: dbGuide.guideImageUrl || fallbackGuide?.image,
         packages: dbPackages.length > 0 ? dbPackages.map(p => ({
           id: p.id,
           title: p.title,
           duration: `${p.durationDays} Day/s`,
           price: p.price,
           description: p.description,
-        })) : guide.packages,
+        })) : fallbackGuide?.packages || [],
       };
     }
   } catch (error) {

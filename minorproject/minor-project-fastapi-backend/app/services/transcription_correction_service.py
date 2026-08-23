@@ -65,6 +65,10 @@ class TranscriptionCorrectionService:
 
         cleaned_raw = raw_text.strip()
 
+        # Fast-path bypass for empty, punctuation-only, or ultra-short non-words
+        if not re.search(r"\w", cleaned_raw) or len(cleaned_raw) <= 1:
+            return cleaned_raw, False
+
         # Fast-path bypass for ultra-short simple greetings to minimize latency
         if len(cleaned_raw.split()) <= 2 and cleaned_raw.lower() in [
             "hi", "hello", "hey", "namaste", "good morning", "good evening", "help", "thanks", "thank you"
