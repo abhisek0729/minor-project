@@ -1,10 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import dynamic from "next/dynamic";
 import { Toaster } from "@/components/ui/sonner";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { ThemeProvider } from "@/components/theme-provider";
-import AIRobotChat from "./features/landing/components/AIRobotChat";
+
+// Lazy-load heavy AI Chat assistant to eliminate main-thread Total Blocking Time (TBT)
+const AIRobotChat = dynamic(
+  () => import("./features/landing/components/AIRobotChat"),
+  { ssr: false }
+);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -132,6 +138,16 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link
+          rel="preload"
+          as="image"
+          href="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=75&w=1920&auto=format&fit=crop"
+          fetchPriority="high"
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <script
           type="application/ld+json"

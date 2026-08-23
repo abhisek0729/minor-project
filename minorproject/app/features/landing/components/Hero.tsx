@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -9,7 +7,6 @@ import {
   Sparkles,
   Utensils,
 } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 
 interface HeroProps {
@@ -17,17 +14,18 @@ interface HeroProps {
 }
 
 export default function Hero({
-  backgroundImage = "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2000&auto=format&fit=crop",
+  backgroundImage = "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=75&w=1920&auto=format&fit=crop",
 }: HeroProps) {
   return (
     <section className="relative min-h-[420px] overflow-hidden bg-background md:min-h-[480px]">
       <div className="absolute inset-0 h-full w-full">
         <Image
           src={backgroundImage}
-          alt="Nepal Mountains"
+          alt="Himalayan Mountain Range in Nepal"
           fill
           priority
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
+          quality={75}
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/40" />
@@ -49,7 +47,7 @@ export default function Hero({
             trip in Nepal.
           </h1>
 
-          <p className="mt-3 max-w-xl text-xs leading-5 text-white/85 md:text-sm md:leading-6">
+          <p className="mt-3 max-w-xl text-xs leading-5 text-white/90 md:text-sm md:leading-6">
             Explore handpicked hotels, food spots, destinations, local guides,
             smart travel routes, and trip expense tracking in one seamless flow.
           </p>
@@ -58,6 +56,7 @@ export default function Hero({
             <Link href="/destinations">
               <Button
                 size="lg"
+                aria-label="Explore verified stays and destinations"
                 className="h-9 gap-2 rounded-full bg-primary px-4 text-xs text-primary-foreground hover:bg-primary/90 md:h-10 md:px-5 md:text-sm"
               >
                 Explore stays
@@ -68,6 +67,7 @@ export default function Hero({
               <Button
                 size="lg"
                 variant="secondary"
+                aria-label="Plan custom trip with AI"
                 className="h-9 rounded-full border border-white/20 bg-white/10 px-4 text-xs text-white hover:bg-white/15 md:h-10 md:px-5 md:text-sm"
               >
                 Plan with AI
@@ -79,19 +79,19 @@ export default function Hero({
             <div className="rounded-xl border border-white/15 bg-white/10 p-2.5 backdrop-blur-md">
               <MapPin className="mb-2 h-3.5 w-3.5 text-primary" />
               <p className="text-lg font-bold text-white md:text-xl">100+</p>
-              <p className="text-[10px] text-white/75 md:text-xs">
+              <p className="text-[10px] text-white/80 md:text-xs">
                 destinations
               </p>
             </div>
             <div className="rounded-xl border border-white/15 bg-white/10 p-2.5 backdrop-blur-md">
               <BedDouble className="mb-2 h-3.5 w-3.5 text-primary" />
               <p className="text-lg font-bold text-white md:text-xl">500+</p>
-              <p className="text-[10px] text-white/75 md:text-xs">stays</p>
+              <p className="text-[10px] text-white/80 md:text-xs">stays</p>
             </div>
             <div className="rounded-xl border border-white/15 bg-white/10 p-2.5 backdrop-blur-md">
               <Utensils className="mb-2 h-3.5 w-3.5 text-primary" />
               <p className="text-lg font-bold text-white md:text-xl">300+</p>
-              <p className="text-[10px] text-white/75 md:text-xs">food spots</p>
+              <p className="text-[10px] text-white/80 md:text-xs">food spots</p>
             </div>
           </div>
         </div>
