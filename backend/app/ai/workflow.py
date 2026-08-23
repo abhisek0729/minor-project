@@ -1495,21 +1495,48 @@ def route_from_supervisor(state: TourismAgentState) -> str:
         return "expense_tracking_agent"
     return "itinerary_planning_agent"
 
-workflow.add_conditional_edges("supervisor", route_from_supervisor)
+workflow.add_conditional_edges(
+    "supervisor",
+    route_from_supervisor,
+    {
+        "destination_discovery_agent": "destination_discovery_agent",
+        "emergency_sos_agent": "emergency_sos_agent",
+        "transit_route_agent": "transit_route_agent",
+        "hotel_booking_agent": "hotel_booking_agent",
+        "dining_discovery_agent": "dining_discovery_agent",
+        "itinerary_planning_agent": "itinerary_planning_agent",
+        "partner_rbac_agent": "partner_rbac_agent",
+        "expense_tracking_agent": "expense_tracking_agent",
+        END: END,
+    },
+)
 
 def route_after_agent(state: TourismAgentState) -> str:
     if state.get("is_terminal"):
         return END
     return "synthesis"
 
-workflow.add_conditional_edges("destination_discovery_agent", route_after_agent)
-workflow.add_conditional_edges("emergency_sos_agent", route_after_agent)
-workflow.add_conditional_edges("transit_route_agent", route_after_agent)
-workflow.add_conditional_edges("hotel_booking_agent", route_after_agent)
-workflow.add_conditional_edges("dining_discovery_agent", route_after_agent)
-workflow.add_conditional_edges("itinerary_planning_agent", route_after_agent)
-workflow.add_conditional_edges("partner_rbac_agent", route_after_agent)
-workflow.add_conditional_edges("expense_tracking_agent", route_after_agent)
+agent_nodes = [
+    "destination_discovery_agent",
+    "emergency_sos_agent",
+    "transit_route_agent",
+    "hotel_booking_agent",
+    "dining_discovery_agent",
+    "itinerary_planning_agent",
+    "partner_rbac_agent",
+    "expense_tracking_agent",
+]
+
+for node in agent_nodes:
+    workflow.add_conditional_edges(
+        node,
+        route_after_agent,
+        {
+            "synthesis": "synthesis",
+            END: END,
+        },
+    )
+
 workflow.add_edge("synthesis", END)
 
 checkpointer = MemorySaver()
