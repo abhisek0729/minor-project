@@ -118,8 +118,8 @@ type ChatMessage = {
 
 function renderInlineMarkdown(content: string): React.ReactNode {
   if (!content) return null;
-  // Parse links [label](url) and bold **text**
-  const tokenRegex = /(\[([^\]]+)\]\((https?:\/\/[^\s\)]+|\/[^\s\)]+)\)|\*\*([^*]+)\*\*)/g;
+  // Parse links [label](url) with optional whitespace and bold **text**
+  const tokenRegex = /(\[([^\]]+)\]\(\s*([^\)\s]+)\s*\)|\*\*([^*]+)\*\*)/g;
   const nodes: React.ReactNode[] = [];
   let lastIdx = 0;
   let match: RegExpExecArray | null;
@@ -132,7 +132,7 @@ function renderInlineMarkdown(content: string): React.ReactNode {
     if (match[2] && match[3]) {
       // Link match
       const label = match[2];
-      const url = match[3];
+      const url = match[3].trim();
       if (url.startsWith("http")) {
         nodes.push(
           <a
@@ -140,7 +140,7 @@ function renderInlineMarkdown(content: string): React.ReactNode {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary font-bold underline inline-flex items-center gap-0.5 hover:opacity-80 transition-opacity"
+            className="text-primary font-bold underline inline-flex items-center gap-1 hover:opacity-80 transition-opacity"
           >
             <span>{label}</span>
             <ExternalLink className="size-3 inline-block" />
@@ -151,9 +151,10 @@ function renderInlineMarkdown(content: string): React.ReactNode {
           <Link
             key={`link-${match.index}`}
             href={url}
-            className="text-primary font-bold underline hover:opacity-80 transition-opacity"
+            className="text-primary font-bold underline inline-flex items-center gap-0.5 hover:opacity-80 transition-opacity"
           >
-            {label}
+            <span>{label}</span>
+            <ArrowRight className="size-3 inline-block" />
           </Link>
         );
       }

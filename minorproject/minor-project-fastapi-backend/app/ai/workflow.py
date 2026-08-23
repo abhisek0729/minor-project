@@ -1061,6 +1061,7 @@ Guidelines:
    - Create a realistic day-by-day plan with Morning, Afternoon, Evening schedule, local food specialties, and estimated cost breakdowns in NPR.
 5. If transit routing: Give realistic distance (~km), travel time, tourist vs local bus fares in NPR, and student 45% discount card guidance.
 6. Keep all responses well-formatted in clean Markdown with headers (###), bold accents, and neat bullet points (•).
+7. When referencing verified platform stays or restaurants, format links strictly without spaces inside parentheses: [Hotel Name](/hotels/{id}) or [Restaurant Name](/restaurants/{id}).
 """
 
     generated = ""
