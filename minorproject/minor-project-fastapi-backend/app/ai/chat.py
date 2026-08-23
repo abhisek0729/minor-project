@@ -148,6 +148,9 @@ async def chat(db, req):
         print("[chat.py] LangGraph execution error:", e)
         traceback.print_exc()
 
+    steps_taken = list(correction_steps)
+    tools_used = list(correction_tools)
+
     # 0. OUT-OF-DOMAIN & NON-TOURISM GUARDRAIL
     out_of_domain_patterns = [
         r"\b(c|c\+\+|cpp|python|javascript|typescript|java|rust|golang|ruby|php|html|css|sql)\s+(code|program|script|function|syntax|compiler)\b",

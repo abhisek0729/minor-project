@@ -251,6 +251,7 @@ I cannot assist with programming, general coding, or non-tourism subjects. How c
     origin = None
     destination = state.get("destination")
     secondary_dest = None
+    messages = state.get("messages", [])
 
     # Build recent dialogue history for conversational context continuity
     recent_history = []
