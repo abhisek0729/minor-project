@@ -50,9 +50,14 @@ export default function RestaurantMobileSidebar({
       ? sidebarLinks
       : [
           {
-            name: "Dashboard",
+            name: "Pending Approval",
             href: "/dashboard/restaurant/pending",
             icon: Clock3,
+          },
+          {
+            name: "Profile & Settings",
+            href: "/dashboard/restaurant/settings",
+            icon: Settings,
           },
         ];
 

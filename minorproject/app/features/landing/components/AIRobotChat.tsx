@@ -4,48 +4,74 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import {
-  AlertCircle,
-  Building2,
   CheckCircle2,
   ChevronDown,
   ChevronUp,
-  Compass,
   CreditCard,
   ExternalLink,
-  Globe,
-  Hotel,
   ListOrdered,
   Loader2,
   Lock,
   LogIn,
-  Map,
   MapPin,
   Maximize2,
-  MessageCircleMore,
+  Mic,
+  MicOff,
   Minimize2,
-  PlusCircle,
-  Search,
+  Radio,
   SendHorizonal,
-  ShieldAlert,
   Sparkles,
-  UtensilsCrossed,
+  Square,
+  Volume2,
+  VolumeX,
   X,
 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  executeAgentAction,
-  type AgentProposalPayload,
-} from "@/app/features/ai/actions/agent-action";
+import { executeAgentAction } from "@/app/features/ai/actions/agent-action";
 
 const starterReplies = [
+  "Book a hotel room in Pokhara for tomorrow",
+  "Reserve a table for 4 at Thakali kitchen in Thamel",
+  "Emergency SOS: tourist police & mountain rescue",
   "Log an expense of NPR 2500 for dinner in Pokhara",
-  "What are budget hotels and places to visit in Pokhara?",
-  "Find top Thakali restaurants with Google Maps location",
-  "Add a Deluxe Room 302 with price 4000 to my hotel",
 ];
+
+// Clean text specifically for Text-to-Speech (TTS) natural spoken playback
+function cleanSpokenTTS(text: string, actionProposal?: ActionProposal): string {
+  if (!text) return "";
+  
+  let spoken = text;
+  // Remove markdown links [Title](url) -> Title
+  spoken = spoken.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+  // Remove markdown formatting: bold, italic, headers, backticks, tildes
+  spoken = spoken.replace(/[*#`_~]/g, "");
+  // Remove bullet points and dashes at beginning of lines
+  spoken = spoken.replace(/^[-•*]\s+/gm, "");
+  // Remove emojis
+  spoken = spoken.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}]/gu, "");
+  // Replace currency and units with natural spoken terms
+  spoken = spoken.replace(/\bNPR\b|\bRs\.?\b/gi, "rupees");
+  spoken = spoken.replace(/\b(\d+)\s*m\b/gi, "$1 meters");
+  spoken = spoken.replace(/\b(\d+)\s*km\b/gi, "$1 kilometers");
+  // Clean whitespace & newlines
+  spoken = spoken.replace(/\n+/g, " ").replace(/\s+/g, " ").trim();
+
+  // If there is an action proposal for booking, add concise voice guidance for screen confirmation & checkout
+  if (actionProposal && actionProposal.action_type === "CREATE_BOOKING") {
+    spoken += " I have prepared your booking summary on screen. Please review the details and tap confirm to complete payment.";
+  }
+
+  // Cap to 3 concise sentences for natural TTS brevity
+  const sentences = spoken.match(/[^.!?]+[.!?]+/g);
+  if (sentences && sentences.length > 3) {
+    spoken = sentences.slice(0, 3).join(" ");
+  }
+
+  return spoken;
+}
 
 type Recommendation = {
   entity_type: string;
@@ -70,7 +96,7 @@ type ActionProposal = {
   action_type: string;
   title: string;
   description: string;
-  payload: Record<string, any>;
+  payload: Record<string, unknown>;
   status?: "requires_approval" | "executing" | "executed" | "cancelled";
   resultMessage?: string;
 };
@@ -135,7 +161,7 @@ function renderFormattedText(text: string) {
 }
 
 export default function AIRobotChat() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [input, setInput] = useState("");
@@ -143,6 +169,12 @@ export default function AIRobotChat() {
   const [currentStep, setCurrentStep] = useState<string>("Searching platform database...");
   const [executingActionId, setExecutingActionId] = useState<string | null>(null);
   const [expandedStepsId, setExpandedStepsId] = useState<string | null>(null);
+  
+  // Voice & Speech States
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isVoiceMuted, setIsVoiceMuted] = useState(false);
+  const recognitionRef = useRef<{ stop: () => void; abort: () => void } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const isAuthenticated = status === "authenticated";
@@ -151,34 +183,164 @@ export default function AIRobotChat() {
     {
       id: "welcome",
       role: "assistant",
-      text: "Namaste! 🙏 I am your TravelNepal AI Agent. I query our verified catalog, search live web data when needed, generate Google Maps links, and automate form filling with Human-In-The-Loop approval!",
+      text: "Namaste! 🙏 I am your TravelNepal AI Voice & Travel Assistant. Ask me to book hotels or restaurants, give safety guidance, or log expenses via voice or text!",
     },
   ]);
 
-  // Auto-scroll to bottom of chat
+  // Clean up any ongoing TTS speech synthesis or recognition on unmount
   useEffect(() => {
-    if (isOpen) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages, isOpen, isLoading, executingActionId, isExpanded]);
-
-  // Listen for open-ai-chat custom events from cards & buttons
-  useEffect(() => {
-    const handleOpenAIChat = (e: any) => {
-      setIsOpen(true);
-      if (e.detail?.message) {
-        setTimeout(() => {
-          handleSend(e.detail.message);
-        }, 100);
+    return () => {
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.abort();
+        } catch {}
       }
     };
-    window.addEventListener("open-ai-chat", handleOpenAIChat);
-    return () => window.removeEventListener("open-ai-chat", handleOpenAIChat);
   }, []);
+
+  // Text-To-Speech Output Function
+  const speakText = (text: string, actionProposal?: ActionProposal) => {
+    if (typeof window === "undefined" || !("speechSynthesis" in window) || isVoiceMuted) return;
+
+    const spoken = cleanSpokenTTS(text, actionProposal);
+    if (!spoken) return;
+
+    try {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(spoken);
+      utterance.rate = 0.95;
+      utterance.pitch = 1.0;
+      utterance.lang = "en-US";
+
+      // Select natural sounding voice if available
+      const voices = window.speechSynthesis.getVoices();
+      const naturalVoice = voices.find(
+        (v) =>
+          (v.name.includes("Google") ||
+            v.name.includes("Natural") ||
+            v.name.includes("Samantha") ||
+            v.name.includes("Jenny") ||
+            v.lang === "en-US") &&
+          !v.name.includes("Whisper")
+      );
+      if (naturalVoice) {
+        utterance.voice = naturalVoice;
+      }
+
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+
+      window.speechSynthesis.speak(utterance);
+    } catch (err) {
+      console.warn("TTS synthesis error:", err);
+      setIsSpeaking(false);
+    }
+  };
+
+  const stopSpeaking = () => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+  };
+
+  // Speech-To-Text Recognition Function (Web Speech API)
+  const startListening = () => {
+    if (typeof window === "undefined") return;
+    const windowWithSpeech = window as unknown as {
+      SpeechRecognition?: new () => {
+        lang: string;
+        interimResults: boolean;
+        continuous: boolean;
+        onstart: () => void;
+        onresult: (event: { results: ArrayLike<{ 0: { transcript: string } }> }) => void;
+        onerror: (event: { error: string }) => void;
+        onend: () => void;
+        start: () => void;
+        stop: () => void;
+        abort: () => void;
+      };
+      webkitSpeechRecognition?: new () => {
+        lang: string;
+        interimResults: boolean;
+        continuous: boolean;
+        onstart: () => void;
+        onresult: (event: { results: ArrayLike<{ 0: { transcript: string } }> }) => void;
+        onerror: (event: { error: string }) => void;
+        onend: () => void;
+        start: () => void;
+        stop: () => void;
+        abort: () => void;
+      };
+    };
+    const SpeechRecognition =
+      windowWithSpeech.SpeechRecognition || windowWithSpeech.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      toast.error("Voice input is not supported in this browser. Please use Chrome, Edge, or Safari.");
+      return;
+    }
+
+    if (isSpeaking) {
+      stopSpeaking();
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.interimResults = true;
+      recognition.continuous = false;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        toast.info("Listening... Speak your hotel, restaurant, or travel request!");
+      };
+
+      recognition.onresult = (event: { results: ArrayLike<{ 0: { transcript: string } }> }) => {
+        const transcript = Array.from(event.results)
+          .map((result) => result[0].transcript)
+          .join("");
+        setInput(transcript);
+      };
+
+      recognition.onerror = (event: { error: string }) => {
+        console.warn("Speech recognition error:", event.error);
+        setIsListening(false);
+        if (event.error !== "no-speech") {
+          toast.error(`Voice recognition error: ${event.error}`);
+        }
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch (err) {
+      console.error("Failed to start voice recognition:", err);
+      setIsListening(false);
+    }
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    }
+  };
 
   const handleSend = async (customPrompt?: string) => {
     const query = (customPrompt || input).trim();
     if (!query || isLoading) return;
+
+    if (isSpeaking) {
+      stopSpeaking();
+    }
 
     const userMsgId = `user-${Date.now()}`;
     setMessages((prev) => [
@@ -210,26 +372,29 @@ export default function AIRobotChat() {
       const data = await res.json();
 
       if (!res.ok) {
+        const errorText =
+          data.detail ||
+          data.error ||
+          "Sorry, I had trouble answering that. Please try again.";
         setMessages((prev) => [
           ...prev,
           {
             id: `assistant-${Date.now()}`,
             role: "assistant",
-            text:
-              data.detail ||
-              data.error ||
-              "Sorry, I had trouble answering that. Please try again.",
+            text: errorText,
           },
         ]);
+        speakText(errorText);
         return;
       }
 
+      const answerText = data.answer || "Here is what I found for your trip:";
       setMessages((prev) => [
         ...prev,
         {
           id: `assistant-${Date.now()}`,
           role: "assistant",
-          text: data.answer || "Here is what I found for your trip:",
+          text: answerText,
           recommendations: data.recommendations || [],
           action_proposal: data.action_proposal || undefined,
           map_cards: data.map_cards || [],
@@ -238,26 +403,55 @@ export default function AIRobotChat() {
           tools_used: data.tools_used || [],
         },
       ]);
+
+      // Automatically speak TTS response with plain natural spoken text & booking prompts
+      speakText(answerText, data.action_proposal);
     } catch {
+      const connErr = "Unable to connect to the AI assistant service right now. Please check if the server is running.";
       setMessages((prev) => [
         ...prev,
         {
           id: `assistant-${Date.now()}`,
           role: "assistant",
-          text: "Unable to connect to the AI assistant service right now. Please check if the server is running.",
+          text: connErr,
         },
       ]);
+      speakText(connErr);
     } finally {
       clearTimeout(stepTimer);
       setIsLoading(false);
     }
   };
 
+  // Auto-scroll to bottom of chat
+  useEffect(() => {
+    if (isOpen) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, isOpen, isLoading, executingActionId, isExpanded]);
+
+  // Listen for open-ai-chat custom events from cards & buttons
+  useEffect(() => {
+    const handleOpenAIChat = (e: Event) => {
+      const customEvent = e as CustomEvent<{ message?: string }>;
+      setIsOpen(true);
+      if (customEvent.detail?.message) {
+        setTimeout(() => {
+          handleSend(customEvent.detail.message);
+        }, 100);
+      }
+    };
+    window.addEventListener("open-ai-chat", handleOpenAIChat);
+    return () => window.removeEventListener("open-ai-chat", handleOpenAIChat);
+  }, []);
+
   const handleConfirmAction = async (msgId: string, proposal: ActionProposal) => {
     setExecutingActionId(msgId);
 
     try {
-      const res = await executeAgentAction(proposal);
+      const res = await executeAgentAction(
+        proposal as unknown as Parameters<typeof executeAgentAction>[0]
+      );
 
       if (res.success) {
         toast.success(res.message);
@@ -279,8 +473,9 @@ export default function AIRobotChat() {
       } else {
         toast.error(res.message);
       }
-    } catch (err: any) {
-      toast.error(err?.message || "Failed to execute action.");
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : "Failed to execute action.";
+      toast.error(errorMsg);
     } finally {
       setExecutingActionId(null);
     }
@@ -318,24 +513,72 @@ export default function AIRobotChat() {
             {/* Chat Window Header */}
             <div className="flex items-center justify-between border-b bg-primary px-4 py-3 text-primary-foreground shrink-0 select-none">
               <div className="flex items-center gap-3">
-                <div className="size-9 rounded-xl bg-white/20 flex items-center justify-center text-primary-foreground backdrop-blur-sm">
+                <div className="size-9 rounded-xl bg-white/20 flex items-center justify-center text-primary-foreground backdrop-blur-sm relative">
                   <Sparkles className="size-5" />
+                  {isSpeaking && (
+                    <span className="absolute -top-1 -right-1 flex size-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full size-3 bg-emerald-500"></span>
+                    </span>
+                  )}
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-bold leading-none">Travel Genie AI</p>
+                    <p className="text-sm font-bold leading-none">TravelNepal Voice AI</p>
                     <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-white/40 text-white">
-                      RAG + HITL
+                      TTS & Speech
                     </Badge>
                   </div>
                   <p className="text-[11px] text-primary-foreground/80 mt-0.5">
-                    Platform Catalog • Live Maps • Web Search
+                    {isSpeaking
+                      ? "Speaking aloud..."
+                      : isListening
+                      ? "Listening to your voice..."
+                      : "Voice Search • Hotel/Food Booking • SOS"}
                   </p>
                 </div>
               </div>
 
-              {/* Window Controls (Enlarge & Close) */}
+              {/* Window Controls (Voice Mute, TTS Stop, Enlarge & Close) */}
               <div className="flex items-center gap-1.5">
+                {isSpeaking && (
+                  <button
+                    type="button"
+                    onClick={stopSpeaking}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-red-500/80 text-white transition hover:bg-red-600 cursor-pointer animate-pulse"
+                    title="Stop speaking"
+                    aria-label="Stop speaking"
+                  >
+                    <Square className="h-3.5 w-3.5 fill-current" />
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (isSpeaking) stopSpeaking();
+                    setIsVoiceMuted((prev) => !prev);
+                    toast.info(
+                      !isVoiceMuted
+                        ? "Voice assistant muted."
+                        : "Voice assistant unmuted (auto-speech enabled)."
+                    );
+                  }}
+                  className={`flex h-8 w-8 items-center justify-center rounded-full transition cursor-pointer ${
+                    isVoiceMuted
+                      ? "bg-white/10 text-white/50 hover:bg-white/20"
+                      : "bg-white/20 text-white hover:bg-white/30"
+                  }`}
+                  title={isVoiceMuted ? "Unmute spoken voice" : "Mute spoken voice"}
+                  aria-label={isVoiceMuted ? "Unmute spoken voice" : "Mute spoken voice"}
+                >
+                  {isVoiceMuted ? (
+                    <VolumeX className="h-4 w-4" />
+                  ) : (
+                    <Volume2 className="h-4 w-4" />
+                  )}
+                </button>
+
                 <button
                   type="button"
                   onClick={() => setIsExpanded((prev) => !prev)}
@@ -352,7 +595,11 @@ export default function AIRobotChat() {
 
                 <button
                   type="button"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    stopSpeaking();
+                    stopListening();
+                    setIsOpen(false);
+                  }}
                   className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-primary-foreground transition hover:bg-white/20 cursor-pointer"
                   title="Close chat"
                   aria-label="Close chat"
@@ -392,7 +639,7 @@ export default function AIRobotChat() {
                       }`}
                     >
                       <div
-                        className={`rounded-2xl px-4 py-3 text-xs sm:text-sm leading-relaxed ${
+                        className={`rounded-2xl px-4 py-3 text-xs sm:text-sm leading-relaxed relative group ${
                           isExpanded ? "max-w-[85%]" : "max-w-[92%]"
                         } ${
                           message.role === "assistant"
@@ -400,51 +647,87 @@ export default function AIRobotChat() {
                             : "bg-primary text-primary-foreground"
                         }`}
                       >
-                        {/* Thinking Steps Accordion (If Present) */}
+                        {/* Speaker replay button for Assistant Messages */}
+                        {message.role === "assistant" && (
+                          <div className="flex items-center justify-between gap-2 pb-1.5 mb-1.5 border-b border-border/40 text-[11px] text-muted-foreground">
+                            <span className="font-semibold flex items-center gap-1 text-primary">
+                              <Radio className="size-3 text-emerald-500 animate-pulse" /> Voice Guide
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => speakText(message.text, message.action_proposal)}
+                              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors cursor-pointer px-1.5 py-0.5 rounded-md hover:bg-muted"
+                              title="Listen to response"
+                            >
+                              <Volume2 className="size-3.5" />
+                              <span className="text-[10px]">Listen</span>
+                            </button>
+                          </div>
+                        )}
+
+                        <div className="whitespace-pre-wrap leading-relaxed">
+                          {renderFormattedText(message.text)}
+                        </div>
+
+                        {/* RAG & Search Steps Breakdown */}
                         {message.steps_taken && message.steps_taken.length > 0 && (
-                          <div className="mb-2.5 rounded-xl border bg-muted/50 p-2.5 text-[11px]">
+                          <div className="mt-2.5 pt-2 border-t border-border/40">
                             <button
                               type="button"
                               onClick={() =>
-                                setExpandedStepsId((prev) =>
-                                  prev === message.id ? null : message.id
+                                setExpandedStepsId(
+                                  expandedStepsId === message.id ? null : message.id
                                 )
                               }
-                              className="flex items-center justify-between w-full font-medium text-muted-foreground hover:text-foreground cursor-pointer"
+                              className="flex items-center gap-1.5 text-[10px] font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                             >
-                              <span className="flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider text-primary">
-                                <Search className="size-3" />
-                                {message.steps_taken.length} search & execution steps taken
+                              <ListOrdered className="size-3 text-primary" />
+                              <span>
+                                {message.steps_taken.length} Verification Steps Completed
                               </span>
                               {expandedStepsId === message.id ? (
-                                <ChevronUp className="size-3.5" />
+                                <ChevronUp className="size-3 ml-0.5" />
                               ) : (
-                                <ChevronDown className="size-3.5" />
+                                <ChevronDown className="size-3 ml-0.5" />
                               )}
                             </button>
 
                             {expandedStepsId === message.id && (
-                              <div className="mt-2 pt-2 border-t space-y-1 text-[11px] text-muted-foreground">
+                              <div className="mt-1.5 space-y-1 rounded-lg bg-muted/50 p-2 text-[10px] text-muted-foreground border">
                                 {message.steps_taken.map((step, idx) => (
-                                  <p key={idx} className="flex items-center gap-1.5 leading-tight">
-                                    <span className="text-primary font-bold">•</span> {step}
-                                  </p>
+                                  <div key={idx} className="flex items-start gap-1.5">
+                                    <span className="font-mono text-primary font-bold">
+                                      {idx + 1}.
+                                    </span>
+                                    <span>{step}</span>
+                                  </div>
                                 ))}
+                                {message.tools_used && message.tools_used.length > 0 && (
+                                  <div className="pt-1 mt-1 border-t border-border/30 flex items-center gap-1">
+                                    <span className="font-semibold text-foreground">
+                                      Tools Used:
+                                    </span>
+                                    <span className="font-mono text-primary truncate">
+                                      {message.tools_used.join(", ")}
+                                    </span>
+                                  </div>
+                                )}
                               </div>
                             )}
                           </div>
                         )}
 
-                        <div className="whitespace-pre-line leading-relaxed">
-                          {renderFormattedText(message.text)}
-                        </div>
-
-                        {/* LIVE GOOGLE MAPS CARDS */}
+                        {/* Interactive Google Maps Cards */}
                         {message.map_cards && message.map_cards.length > 0 && (
-                          <div className="mt-3.5 pt-3 border-t border-border/50 space-y-2">
-                            <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
-                              <Map className="size-3 text-primary" /> Live Google Maps Navigation:
-                            </p>
+                          <div className="mt-3.5 pt-2.5 border-t border-border/50 space-y-2">
+                            <div className="flex items-center justify-between">
+                              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                                📍 Live Map Locations & Directions:
+                              </p>
+                              <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-emerald-500/40 text-emerald-600 dark:text-emerald-400">
+                                Google Maps
+                              </Badge>
+                            </div>
                             <div
                               className={`grid gap-2 ${
                                 isExpanded ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3" : "grid-cols-1 sm:grid-cols-2"
@@ -579,33 +862,37 @@ export default function AIRobotChat() {
                             </div>
                             <div
                               className={`grid gap-2 ${
-                                isExpanded ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3" : "grid-cols-1"
+                                isExpanded ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
                               }`}
                             >
-                              {message.recommendations.map((rec) => (
+                              {message.recommendations.map((rec, idx) => (
                                 <div
-                                  key={`${rec.entity_type}-${rec.entity_id}`}
-                                  className="rounded-xl border bg-muted/40 p-3 text-xs space-y-1.5 hover:border-primary/40 transition-colors"
+                                  key={idx}
+                                  className="rounded-xl border bg-background/90 p-2.5 space-y-1.5 text-xs transition hover:border-primary/50 shadow-2xs"
                                 >
-                                  <div className="flex items-center justify-between gap-2">
-                                    <span className="font-bold text-foreground truncate">
-                                      {rec.entity_type === "hotel" ? "🏨 " : rec.entity_type === "restaurant" ? "🍽️ " : "🧭 "}
+                                  <div className="flex items-center justify-between gap-1">
+                                    <p className="font-bold text-foreground truncate">
                                       {rec.name}
-                                    </span>
-                                    {rec.location && (
-                                      <span className="text-[10px] text-muted-foreground flex items-center gap-0.5 shrink-0">
-                                        <MapPin className="size-2.5" /> {rec.location}
-                                      </span>
-                                    )}
+                                    </p>
+                                    <Badge
+                                      variant="secondary"
+                                      className="text-[9px] px-1.5 py-0 capitalize"
+                                    >
+                                      {rec.entity_type}
+                                    </Badge>
                                   </div>
-                                  <p className="text-[11px] text-muted-foreground leading-tight">
+
+                                  <p className="text-[11px] text-muted-foreground line-clamp-2">
                                     {rec.reason}
                                   </p>
-                                  {rec.booking_note && (
-                                    <p className="text-[10px] text-primary font-medium">
-                                      {rec.booking_note}
+
+                                  {rec.location && (
+                                    <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+                                      <MapPin className="size-3 shrink-0 text-primary" />
+                                      <span className="truncate">{rec.location}</span>
                                     </p>
                                   )}
+
                                   {rec.url && (
                                     <div className="pt-1">
                                       {rec.url.startsWith("http") ? (
@@ -655,7 +942,7 @@ export default function AIRobotChat() {
               )}
             </div>
 
-            {/* Chat Footer / Input */}
+            {/* Chat Footer / Input with Voice Recognition & Quick Starters */}
             {isAuthenticated && (
               <div className="border-t bg-card p-3 space-y-2 shrink-0">
                 {/* Quick Prompts Carousel */}
@@ -674,12 +961,58 @@ export default function AIRobotChat() {
                   </div>
                 )}
 
+                {/* Listening Alert / Status */}
+                {isListening && (
+                  <div className="flex items-center justify-between px-3 py-1.5 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-600 dark:text-red-400 animate-pulse">
+                    <div className="flex items-center gap-2">
+                      <span className="size-2.5 rounded-full bg-red-500 animate-ping" />
+                      <span className="font-semibold">Listening to spoken voice...</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={stopListening}
+                      className="text-[11px] font-bold underline hover:opacity-80 cursor-pointer"
+                    >
+                      Done
+                    </button>
+                  </div>
+                )}
+
                 <div className="flex items-center gap-2 rounded-2xl border bg-muted/50 px-3.5 py-2 focus-within:border-primary/50 focus-within:bg-background transition-colors">
+                  {/* Microphone Speech Input Button */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (isListening) {
+                        stopListening();
+                      } else {
+                        startListening();
+                      }
+                    }}
+                    className={`size-8 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+                      isListening
+                        ? "bg-red-500 text-white animate-bounce shadow-md"
+                        : "bg-background text-muted-foreground hover:text-primary hover:bg-primary/10 border"
+                    }`}
+                    title={isListening ? "Stop listening" : "Speak with Voice Assistant"}
+                    aria-label={isListening ? "Stop listening" : "Speak with Voice Assistant"}
+                  >
+                    {isListening ? (
+                      <MicOff className="size-4" />
+                    ) : (
+                      <Mic className="size-4" />
+                    )}
+                  </button>
+
                   <input
                     value={input}
                     disabled={isLoading}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Ask anything, search live map routes, log expenses, add rooms..."
+                    placeholder={
+                      isListening
+                        ? "Listening... speak now..."
+                        : "Speak or type: 'Book hotel in Pokhara', 'Reserve dinner table'..."
+                    }
                     className="h-8 flex-1 bg-transparent text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-hidden disabled:opacity-50"
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !e.shiftKey) {

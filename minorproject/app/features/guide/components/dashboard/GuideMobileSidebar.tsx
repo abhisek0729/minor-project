@@ -48,9 +48,14 @@ export default function GuideMobileSidebar({
       ? sidebarLinks
       : [
           {
-            name: "Dashboard",
+            name: "Pending Approval",
             href: "/dashboard/guide/pending",
             icon: Clock3,
+          },
+          {
+            name: "Profile & Settings",
+            href: "/dashboard/guide/settings",
+            icon: Settings,
           },
         ];
 

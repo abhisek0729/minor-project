@@ -32,7 +32,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import ImageUpload from "../../../../../components/ui/image-upload";
-import LocationMapPicker from "@/components/maps/LocationMapPicker";
+import LocationMapPicker, { NEPAL_CITY_COORDINATES } from "@/components/maps/LocationMapPicker";
 import { provinces } from "@/app/features/shared/data/nepal-location";
 import { RESTAURANT_PREDEFINED_FACILITIES } from "../../data/restaurant-facilities";
 
@@ -104,12 +104,21 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
 
   const handleChange = (field: string, value: any) => {
     setFormData((prev) => {
-      const updated = { ...prev, [field]: value };
+      const updated: any = { ...prev, [field]: value };
       if (field === "province") {
         updated.district = "";
         updated.municipality = "";
       } else if (field === "district") {
         updated.municipality = "";
+        if (value && NEPAL_CITY_COORDINATES[value]) {
+          updated.latitude = NEPAL_CITY_COORDINATES[value].lat;
+          updated.longitude = NEPAL_CITY_COORDINATES[value].lng;
+        }
+      } else if (field === "municipality") {
+        if (value && NEPAL_CITY_COORDINATES[value]) {
+          updated.latitude = NEPAL_CITY_COORDINATES[value].lat;
+          updated.longitude = NEPAL_CITY_COORDINATES[value].lng;
+        }
       }
       return updated;
     });
@@ -379,14 +388,17 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
                 />
                 {errors.street && <p className="text-sm text-destructive">{errors.street}</p>}
               </div>
-
               {/* Interactive Location Map Picker */}
               <div className="col-span-2 pt-2">
                 <LocationMapPicker
-                  address={`${formData.street || ""}, ${formData.district || ""}, ${formData.province || ""}`}
+                  latitude={(formData as any).latitude || null}
+                  longitude={(formData as any).longitude || null}
+                  address={`${formData.street || ""}, ${formData.municipality || ""}, ${formData.district || ""}`}
                   label="Pin Restaurant Exact Map Location"
                   description="Use GPS or select a tourism hub to pin your restaurant on Google Maps for diners."
                   onChange={({ latitude, longitude, address: newAddr }) => {
+                    handleChange("latitude", latitude);
+                    handleChange("longitude", longitude);
                     if (newAddr && !formData.street) {
                       handleChange("street", newAddr);
                     }

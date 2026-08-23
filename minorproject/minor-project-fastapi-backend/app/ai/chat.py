@@ -45,8 +45,11 @@ def extract_query_keywords(text: str) -> list[str]:
 
 async def chat(db, req):
     user_msg = req.message or ""
+    msg_lower = user_msg.lower()
     destination = req.destination or ""
     user_roles = req.user_roles or []
+    steps_taken = []
+    tools_used = []
     
     # Execute LangGraph Multi-Agent State Workflow
     try:

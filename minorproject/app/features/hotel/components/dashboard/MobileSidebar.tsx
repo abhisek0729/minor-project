@@ -6,6 +6,7 @@ import {
   Clock3,
   Hotel,
   Menu,
+  Settings,
   User,
 } from "lucide-react";
 
@@ -40,9 +41,14 @@ export function MobileSidebar({
       ? HOTEL_DASHBOARD_NAVIGATION
       : [
           {
-            title: "Dashboard",
+            title: "Pending Approval",
             href: "/dashboard/hotels/pending",
             icon: Clock3,
+          },
+          {
+            title: "Profile & Settings",
+            href: "/dashboard/hotels/settings",
+            icon: Settings,
           },
         ];
 

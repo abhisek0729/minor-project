@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 60
     cors_origins: str = "http://localhost:3000"
     gemini_api_key: str | None = None
-    gemini_model: str = "gemini-2.5-flash"
+    gemini_model: str = "gemini-3.6-flash"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

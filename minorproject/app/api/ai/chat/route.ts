@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
   // 2. Try FastAPI Backend first if running
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000);
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
     const backendResponse = await fetch(
       `${FASTAPI_BASE_URL.replace(/\/$/, "")}/api/v1/ai/chat`,

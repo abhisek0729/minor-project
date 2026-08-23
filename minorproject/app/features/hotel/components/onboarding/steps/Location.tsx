@@ -3,7 +3,7 @@
 import { MapPin, MapPinned, Navigation } from "lucide-react";
 import { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
-import LocationMapPicker from "@/components/maps/LocationMapPicker";
+import LocationMapPicker, { NEPAL_CITY_COORDINATES } from "@/components/maps/LocationMapPicker";
 
 import { HotelSchema } from "../../../schemas/hotel.schema";
 import { provinces } from "../../../data/nepal-location";
@@ -164,6 +164,10 @@ export default function LocationStep({
                   onValueChange={(value) => {
                     setValue("district", value!);
                     setValue("municipality", "");
+                    if (value && NEPAL_CITY_COORDINATES[value]) {
+                      setValue("latitude", NEPAL_CITY_COORDINATES[value].lat);
+                      setValue("longitude", NEPAL_CITY_COORDINATES[value].lng);
+                    }
                   }}
                   disabled={!selectedProvince}
                 >
@@ -196,14 +200,19 @@ export default function LocationStep({
 
                 <Select
                   value={watch("municipality")}
-                  onValueChange={(value) =>
-                    setValue("municipality", value!)
-                  }
+                  onValueChange={(value) => {
+                    setValue("municipality", value!);
+                    if (value && NEPAL_CITY_COORDINATES[value]) {
+                      setValue("latitude", NEPAL_CITY_COORDINATES[value].lat);
+                      setValue("longitude", NEPAL_CITY_COORDINATES[value].lng);
+                    }
+                  }}
                   disabled={!selectedDistrict}
                 >
                   <SelectTrigger className="h-12">
                     <SelectValue placeholder="Select Municipality" />
                   </SelectTrigger>
+
 
                   <SelectContent>
                     {selectedDistrict?.municipalities.map(
