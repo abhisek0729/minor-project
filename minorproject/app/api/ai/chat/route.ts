@@ -630,7 +630,10 @@ You can explore our verified partner hotels in Kathmandu, Pokhara, and Lumbini w
     msgLower.includes("create room") ||
     msgLower.includes("new room") ||
     msgLower.includes("add a room") ||
-    msgLower.includes("list room")
+    msgLower.includes("list room") ||
+    msgLower.includes("add a room detail") ||
+    (msgLower.includes("hotel owner") && (msgLower.includes("room") || msgLower.includes("hotel"))) ||
+    (msgLower.includes("hotel is listed") && msgLower.includes("room"))
   ) {
     if (!userRoles.includes("hotelOwner") && !userRoles.includes("admin")) {
       return {

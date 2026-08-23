@@ -120,26 +120,27 @@ def parse_duration_and_budget(text: str) -> tuple[int | None, int | None]:
     return days, budget
 
 # ============================================================================
-# 3. SUPERVISOR & ORCHESTRATOR AGENT NODE
+# 3. SUPERVISOR & ORCHESTRATOR AGENT NODE (LLM NLU DRIVEN)
 # ============================================================================
-def supervisor_orchestrator_node(state: TourismAgentState) -> dict[str, Any]:
+async def supervisor_orchestrator_node(state: TourismAgentState) -> dict[str, Any]:
     """
-    Supervisor Agent: Evaluates user message, analyzes multi-lingual inputs,
-    enforces security guardrails, detects invalid parameters, and routes to
-    specialized domain agents.
+    Hierarchical Supervisor Node:
+    Uses Gemini LLM NLU reasoning to determine user intent, extracted parameters,
+    and delegating sub-agents, combined with zero-tolerance safety guardrails.
     """
     last_msg = state["messages"][-1].content if state["messages"] else ""
     msg_lower = last_msg.lower().strip()
     steps = list(state.get("steps_taken", []))
     tools = list(state.get("tools_used", []))
+    roles = state.get("user_roles", []) or []
 
-    steps.append("🧠 Supervisor Agent: Analyzing intent, language, entities & safety")
+    steps.append("🧠 Supervisor NLU: Analyzing intent, semantic roles, entities & safety")
     tools.append("supervisor_orchestrator")
 
     lang = detect_language(last_msg)
     days, budget = parse_duration_and_budget(last_msg)
 
-    # 1. SECURITY & PROMPT INJECTION GUARDRAIL
+    # 1. IMMEDIATE SECURITY & PROMPT INJECTION GUARDRAIL
     for pat in SECURITY_INJECTION_PATTERNS:
         if re.search(pat, msg_lower):
             steps.append("🛡️ Security Guardrail: Blocked adversarial prompt injection attempt")
@@ -155,7 +156,7 @@ How may I assist you with your travel plans in Nepal?""",
                 "tools_used": tools + ["security_filter"],
             }
 
-    # 2. INVALID INPUT TESTING (Negative days/budget, zero travelers)
+    # 2. INVALID INPUT TESTING
     if re.search(r"-\s*\d+\s*(?:day|days|din)", msg_lower) or (days is not None and days <= 0):
         steps.append("⚠️ Input Validator: Detected invalid duration parameter")
         return {
@@ -197,7 +198,7 @@ How may I assist you with your travel plans in Nepal?""",
             "steps_taken": steps + ["🚨 Supervisor: Delegated to Emergency SOS Agent"],
         }
 
-    # 4. GREETINGS & CAPABILITIES
+    # 4. PURE CONVERSATIONAL GREETINGS
     is_pure_greeting = any(re.search(rf"^{g}\b", msg_lower) for g in ["hi", "hello", "hey", "namaste", "what's up", "sup", "greetings"]) and len(msg_lower.split()) <= 4
     if is_pure_greeting and not any(city in msg_lower for city in KNOWN_NEPALI_CITIES):
         steps.append("👋 Supervisor: Handled conversational greeting")
@@ -230,7 +231,7 @@ I can help you plan trips, find hotels and local food, book stays with Khalti, c
         }
 
     # 5. OUT-OF-DOMAIN FILTER
-    has_travel_terms = any(t in msg_lower for t in ["nepal", "travel", "trip", "trek", "hotel", "food", "restaurant", "guide", "stay", "khalti", "expense", "bus", "student", "route", "visit", "destination", "book", "reserve", "pokhara", "kathmandu", "chitwan"])
+    has_travel_terms = any(t in msg_lower for t in ["nepal", "travel", "trip", "trek", "hotel", "food", "restaurant", "guide", "stay", "khalti", "expense", "bus", "student", "route", "visit", "destination", "book", "reserve", "pokhara", "kathmandu", "chitwan", "dharan", "mustang"])
     if any(re.search(rf"\b{kw}\b", msg_lower) for kw in OUT_OF_DOMAIN_KEYWORDS) and not has_travel_terms:
         steps.append("🔒 Guardrail: Filtered non-travel question")
         return {
@@ -244,29 +245,96 @@ I cannot assist with programming, general coding, or non-tourism subjects. How c
             "tools_used": tools + ["guardrail_filter"],
         }
 
-    # 6. EXTRACT ORIGIN & DESTINATION
+    # 6. LLM NLU INTENT & SCHEMA EXTRACTION VIA GEMINI
+    nlu_intent = None
+    extracted_data: dict[str, Any] = {}
     origin = None
     destination = None
     secondary_dest = None
 
-    route_match = re.search(r"from\s+([a-zA-Z]+)\s+to\s+([a-zA-Z]+)", msg_lower)
-    if route_match:
-        c1, c2 = route_match.group(1), route_match.group(2)
-        for city in KNOWN_NEPALI_CITIES:
-            if c1 == city:
-                origin = city.capitalize()
-            if c2 == city:
-                destination = city.capitalize()
+    try:
+        gemini = GeminiService()
+        nlu_prompt = f"""You are the Supervisor NLU Router for TravelNepal AI platform.
+User Roles: {roles}
+User Message: "{last_msg}"
 
-    # Compare pattern: X or Y / X vs Y
-    comp_match = re.search(r"([a-zA-Z]+)\s+(?:vs|or|and|ra)\s+([a-zA-Z]+)", msg_lower)
-    if comp_match and not origin:
-        c1, c2 = comp_match.group(1), comp_match.group(2)
-        for city in KNOWN_NEPALI_CITIES:
-            if c1 == city:
-                destination = city.capitalize()
-            if c2 == city:
-                secondary_dest = city.capitalize()
+Determine:
+1. "intent": One of:
+   - "partner_rbac_action": User wants to add, create, or mutate workspace items (hotel owner adding room/hotel, restaurant owner adding dish/menu, guide setting package/availability).
+   - "hotel_booking": Traveler searching or booking hotel stays.
+   - "dining_discovery": Traveler searching for food, restaurants, or cuisines.
+   - "transit_routing": Traveler asking how to travel between cities, bus routes, bus fares.
+   - "itinerary_planning": Multi-day custom trip schedule for a specific destination.
+   - "destination_discovery": Open-ended "where should I go in Nepal".
+   - "expense_tracking": Logging a travel expense.
+   - "out_of_domain": Non-travel questions.
+
+2. "origin": starting city if transit (e.g. Butwal, Kathmandu).
+3. "destination": target city in Nepal if mentioned (e.g. Dharan, Pokhara, Kathmandu, Chitwan, Mustang).
+4. "extracted_data": JSON with any parameters extracted:
+   - "room_number": room number or title (e.g., "101", "Deluxe Room")
+   - "price_per_night": numeric price in NPR (e.g., 123, 2500)
+   - "room_type": "single" | "double" | "twin" | "family" | "suite"
+   - "capacity": integer guests (default 2)
+   - "dish_name": dish name
+   - "dish_price": numeric price of dish in NPR
+   - "expense_amount": numeric amount in NPR
+   - "expense_category": category
+
+Respond ONLY with valid JSON."""
+
+        nlu_schema = {
+            "type": "OBJECT",
+            "properties": {
+                "intent": {"type": "STRING"},
+                "action_type": {"type": "STRING"},
+                "origin": {"type": "STRING"},
+                "destination": {"type": "STRING"},
+                "days": {"type": "INTEGER"},
+                "budget_npr": {"type": "NUMBER"},
+                "extracted_data": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "room_number": {"type": "STRING"},
+                        "price_per_night": {"type": "NUMBER"},
+                        "room_type": {"type": "STRING"},
+                        "capacity": {"type": "INTEGER"},
+                        "dish_name": {"type": "STRING"},
+                        "dish_price": {"type": "NUMBER"},
+                        "expense_amount": {"type": "NUMBER"},
+                        "expense_category": {"type": "STRING"},
+                    }
+                }
+            },
+            "required": ["intent"]
+        }
+
+        res_json_str = await gemini.generate_json(nlu_prompt, nlu_schema)
+        if res_json_str and res_json_str != "{}":
+            parsed = json.loads(res_json_str)
+            nlu_intent = parsed.get("intent")
+            extracted_data = parsed.get("extracted_data") or {}
+            if parsed.get("origin"):
+                origin = parsed["origin"]
+            if parsed.get("destination"):
+                destination = parsed["destination"]
+            if parsed.get("days"):
+                days = parsed["days"]
+            if parsed.get("budget_npr"):
+                budget = int(parsed["budget_npr"])
+    except Exception as e:
+        print("[Supervisor LLM NLU Warning]:", e)
+
+    # Fast fallback / Semantic Pattern Reinforcement
+    if not origin or not destination:
+        route_match = re.search(r"from\s+([a-zA-Z]+)\s+to\s+([a-zA-Z]+)", msg_lower)
+        if route_match:
+            c1, c2 = route_match.group(1), route_match.group(2)
+            for city in KNOWN_NEPALI_CITIES:
+                if c1 == city:
+                    origin = city.capitalize()
+                if c2 == city:
+                    destination = city.capitalize()
 
     if not destination:
         for city in KNOWN_NEPALI_CITIES:
@@ -274,29 +342,37 @@ I cannot assist with programming, general coding, or non-tourism subjects. How c
                 destination = city.capitalize()
                 break
 
-    # 7. ROUTE TO DOMAIN SUB-AGENTS
-    # A. Partner RBAC Owner Mutations
-    if any(phrase in msg_lower for phrase in ["add room", "create room", "new room", "add hotel room", "add dish", "add food", "add menu", "new dish"]):
+    # Check for Partner Workspace Mutation intent via NLU or regex
+    is_owner_mutation = (
+        nlu_intent == "partner_rbac_action" or
+        bool(re.search(r"\b(add|create|new|insert|publish|list)\s+(?:a\s+)?(?:new\s+)?(?:hotel\s+)?(room|dish|food|menu|package)\b", msg_lower)) or
+        bool("hotel owner" in msg_lower and any(w in msg_lower for w in ["room", "hotel", "listed", "price"])) or
+        bool("restaurant owner" in msg_lower and any(w in msg_lower for w in ["dish", "menu", "food"]))
+    )
+
+    if is_owner_mutation:
         return {
             "intent": "partner_rbac_action",
             "destination": destination,
             "language": lang,
+            "extracted_data": extracted_data,
             "is_terminal": False,
-            "steps_taken": steps + ["🏢 Supervisor: Delegated to Partner RBAC Agent"],
+            "steps_taken": steps + ["🏢 Supervisor: Delegated to Partner RBAC Agent (LLM NLU)"],
         }
 
     # B. Expense Logging
-    if any(phrase in msg_lower for phrase in ["log expense", "spent", "spent rs", "spent npr", "record expense", "add expense"]):
+    if nlu_intent == "expense_tracking" or any(phrase in msg_lower for phrase in ["log expense", "spent", "spent rs", "spent npr", "record expense", "add expense"]):
         return {
             "intent": "expense_tracking",
             "destination": destination,
             "language": lang,
+            "extracted_data": extracted_data,
             "is_terminal": False,
             "steps_taken": steps + ["💰 Supervisor: Delegated to Expense Tracking Agent"],
         }
 
     # C. Transit & Intercity Routing
-    if (origin and destination) or any(t in msg_lower for t in ["how to travel", "how to reach", "how to go", "how do i travel", "bus from", "flight to", "cheapest way to reach", "fastest way to reach", "travel time", "travel by bus", "bus route", "bus fare", "bus ticket"]):
+    if nlu_intent == "transit_routing" or (origin and destination) or any(t in msg_lower for t in ["how to travel", "how to reach", "how to go", "how do i travel", "bus from", "flight to", "cheapest way to reach", "fastest way to reach", "travel time", "travel by bus", "bus route", "bus fare", "bus ticket"]):
         return {
             "intent": "transit_routing",
             "origin": origin,
@@ -309,7 +385,7 @@ I cannot assist with programming, general coding, or non-tourism subjects. How c
         }
 
     # D. Hotel Search & Booking
-    if any(h in msg_lower for h in ["hotel", "stay", "resort", "lodge", "room", "accommodation", "booking", "reserve room"]):
+    if nlu_intent == "hotel_booking" or any(h in msg_lower for h in ["hotel", "stay", "resort", "lodge", "room", "accommodation", "booking", "reserve room"]):
         return {
             "intent": "hotel_booking",
             "destination": destination,
@@ -321,7 +397,7 @@ I cannot assist with programming, general coding, or non-tourism subjects. How c
         }
 
     # E. Dining & Food Discovery
-    if any(f in msg_lower for f in ["food", "eat", "restaurant", "cafe", "momo", "sekuwa", "thakali", "khaja", "breakfast", "dinner", "lunch", "cuisine", "dining"]):
+    if nlu_intent == "dining_discovery" or any(f in msg_lower for f in ["food", "eat", "restaurant", "cafe", "momo", "sekuwa", "thakali", "khaja", "breakfast", "dinner", "lunch", "cuisine", "dining"]):
         return {
             "intent": "dining_discovery",
             "destination": destination,
@@ -331,7 +407,7 @@ I cannot assist with programming, general coding, or non-tourism subjects. How c
         }
 
     # F. Open-ended Vacation / Destination Discovery (No specific city named)
-    if not destination:
+    if not destination or nlu_intent == "destination_discovery":
         return {
             "intent": "destination_discovery",
             "destination": None,
@@ -636,9 +712,16 @@ def partner_rbac_agent(state: TourismAgentState) -> dict[str, Any]:
     msg_lower = last_msg.lower()
     steps = list(state.get("steps_taken", []))
     tools = list(state.get("tools_used", []))
+    extracted = state.get("extracted_data") or {}
 
-    # Hotel Owner RBAC
-    if any(w in msg_lower for w in ["add room", "create room", "new room", "hotel room"]):
+    # 1. HOTEL ROOM CREATION / MUTATION
+    is_room_mutation = (
+        any(w in msg_lower for w in ["room", "hotel owner", "add room", "add a room", "create room", "new room", "list room"]) or
+        bool(extracted.get("price_per_night")) or
+        bool(extracted.get("room_number"))
+    ) and not any(w in msg_lower for w in ["dish", "menu", "food", "package"])
+
+    if is_room_mutation:
         if "hotelOwner" not in roles and "admin" not in roles:
             steps.append("🚫 RBAC Guard: Traveler blocked from hotel room creation")
             return {
@@ -651,33 +734,47 @@ You are currently signed in as a traveler. Adding hotel rooms requires an approv
                 "tools_used": tools + ["rbac_guard"],
             }
 
-        num_match = re.findall(r"\b\d+\b", msg_lower)
-        room_num = num_match[0] if num_match else "101"
-        price = int(num_match[1]) if len(num_match) > 1 else 3000
+        # Extract values using NLU parsed data with robust fallbacks
+        price = int(extracted.get("price_per_night") or 0)
+        if not price:
+            num_matches = [int(n) for n in re.findall(r"\b\d+\b", msg_lower)]
+            price = num_matches[0] if num_matches else 2500
+
+        room_num = str(extracted.get("room_number") or "101")
+        if room_num == str(price) and price < 500:
+            room_num = "101"
+
+        room_type = str(extracted.get("room_type") or "double").lower()
+        if room_type not in ["single", "double", "twin", "family", "suite"]:
+            room_type = "double"
+
+        capacity = int(extracted.get("capacity") or (1 if room_type == "single" else 4 if room_type in ["family", "suite"] else 2))
+        desc = extracted.get("description") or f"Comfortable {room_type.capitalize()} room with modern amenities."
 
         action_payload = {
             "room_number": room_num,
-            "room_type": "double",
+            "room_type": room_type,
             "price_per_night": price,
-            "capacity": 2,
-            "description": "Comfortable deluxe room with modern amenities.",
+            "capacity": capacity,
+            "description": desc,
+            "image_url": "",
         }
-        steps.append("📝 Human-In-The-Loop: Prepared Hotel Room Action Card")
+        steps.append("📝 Human-In-The-Loop: Prepared Hotel Room Action Card with Cloudinary Upload")
         return {
             "is_terminal": True,
             "action_proposal": {
                 "action_type": "ADD_HOTEL_ROOM",
-                "title": f"Add Hotel Room {room_num}",
-                "description": f"Publish Room #{room_num} (Double, 2 Guests) at NPR {price:,}/night to your hotel catalog.",
+                "title": f"Add Hotel Room #{room_num}",
+                "description": f"Publish Room #{room_num} ({room_type.capitalize()}, Max {capacity} Guests) at NPR {price:,}/night to your hotel catalog. You can attach a room photo below.",
                 "payload": action_payload,
             },
-            "final_answer": f"I have prepared the action proposal for **Room #{room_num}** at **NPR {price:,}/night**. Please review and confirm on the action card below.",
+            "final_answer": f"I have prepared the action proposal for **Room #{room_num} ({room_type.capitalize()})** at **NPR {price:,}/night**.\n\n📸 You can upload a room image via Cloudinary on the card below, edit any field, and click **Confirm & Execute** to publish it live!",
             "steps_taken": steps,
-            "tools_used": tools + ["hitl_action_proposal"],
+            "tools_used": tools + ["hitl_action_proposal", "cloudinary_upload"],
         }
 
-    # Restaurant Owner RBAC
-    if any(w in msg_lower for w in ["add dish", "add food", "add menu", "create dish"]):
+    # 2. RESTAURANT OWNER RBAC
+    if any(w in msg_lower for w in ["add dish", "add food", "add menu", "create dish", "dish", "food item"]):
         if "restaurantOwner" not in roles and "admin" not in roles:
             steps.append("🚫 RBAC Guard: Traveler blocked from restaurant menu creation")
             return {
@@ -690,26 +787,31 @@ You are currently signed in as a traveler. Adding menu items requires an approve
                 "tools_used": tools + ["rbac_guard"],
             }
 
-        num_match = re.findall(r"\b\d+\b", msg_lower)
-        price = int(num_match[0]) if num_match else 400
+        price = int(extracted.get("dish_price") or 0)
+        if not price:
+            num_match = re.findall(r"\b\d+\b", msg_lower)
+            price = int(num_match[0]) if num_match else 400
+
+        dish_name = extracted.get("dish_name") or "Special Local Dish"
         action_payload = {
-            "name": "Special Local Dish",
+            "name": dish_name,
             "price": price,
-            "description": "Freshly prepared local specialty.",
+            "description": f"Freshly prepared authentic {dish_name}.",
             "category": "Main Course",
+            "menus_image_url": "",
         }
-        steps.append("📝 Human-In-The-Loop: Prepared Restaurant Menu Action Card")
+        steps.append("📝 Human-In-The-Loop: Prepared Restaurant Menu Action Card with Cloudinary Upload")
         return {
             "is_terminal": True,
             "action_proposal": {
                 "action_type": "ADD_RESTAURANT_DISH",
-                "title": "Add Menu Dish",
-                "description": f"Add new dish at NPR {price:,} to your digital menu.",
+                "title": f"Add Menu Dish: {dish_name}",
+                "description": f"Add {dish_name} at NPR {price:,} to your digital menu.",
                 "payload": action_payload,
             },
-            "final_answer": f"I have configured the action card to add this new dish at **NPR {price:,}**. Click **Confirm & Execute** below to publish it.",
+            "final_answer": f"I have configured the action card to add **{dish_name}** at **NPR {price:,}**. You can upload a photo and click **Confirm & Execute** to publish it.",
             "steps_taken": steps,
-            "tools_used": tools + ["hitl_action_proposal"],
+            "tools_used": tools + ["hitl_action_proposal", "cloudinary_upload"],
         }
 
     return {"is_terminal": False}

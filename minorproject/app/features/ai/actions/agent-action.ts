@@ -13,6 +13,7 @@ import {
   packagesTable,
   restaurantsTable,
   roomsTable,
+  roomImagesTable,
 } from "@/app/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -184,6 +185,15 @@ export async function executeAgentAction(proposal: AgentProposalPayload) {
             status: "available",
           })
           .returning();
+
+        // Save Cloudinary uploaded room image if present
+        if (payload.image_url && String(payload.image_url).startsWith("http")) {
+          await db.insert(roomImagesTable).values({
+            roomId: room.id,
+            imageUrl: String(payload.image_url),
+            publicId: String(payload.image_public_id || `room_${room.id}_img`),
+          });
+        }
 
         revalidatePath("/dashboard/hotels");
         revalidatePath("/dashboard/hotels/rooms");

@@ -4,11 +4,13 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import {
+  Camera,
   CheckCircle2,
   ChevronDown,
   ChevronUp,
   CreditCard,
   ExternalLink,
+  Image as ImageIcon,
   ListOrdered,
   Loader2,
   Lock,
@@ -30,6 +32,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ImageUpload from "@/components/ui/image-upload";
 import { executeAgentAction } from "@/app/features/ai/actions/agent-action";
 
 const starterReplies = [
@@ -176,6 +179,17 @@ export default function AIRobotChat() {
   const [isVoiceMuted, setIsVoiceMuted] = useState(false);
   const recognitionRef = useRef<{ stop: () => void; abort: () => void } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Auto-resize input textarea as user speaks or types long queries
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      const scrollH = textareaRef.current.scrollHeight;
+      const nextH = Math.min(Math.max(scrollH, 36), 140);
+      textareaRef.current.style.height = `${nextH}px`;
+    }
+  }, [input]);
 
   const isAuthenticated = status === "authenticated";
 
@@ -804,17 +818,91 @@ export default function AIRobotChat() {
 
                                 {/* Key-Value Details */}
                                 <div className="rounded-lg bg-background/80 p-2.5 border text-[11px] space-y-1">
-                                  {Object.entries(message.action_proposal.payload).map(([k, v]) => (
-                                    <div key={k} className="flex justify-between items-center capitalize">
-                                      <span className="text-muted-foreground">{k.replace(/_/g, " ")}:</span>
-                                      <span className="font-semibold text-foreground truncate max-w-[200px]">
-                                        {typeof v === "number" && (k.includes("price") || k === "amount")
-                                          ? `NPR ${v.toLocaleString()}`
-                                          : String(v)}
-                                      </span>
-                                    </div>
-                                  ))}
+                                  {Object.entries(message.action_proposal.payload).map(([k, v]) => {
+                                    if (k.includes("image") || k.includes("public_id")) return null;
+                                    return (
+                                      <div key={k} className="flex justify-between items-center capitalize">
+                                        <span className="text-muted-foreground">{k.replace(/_/g, " ")}:</span>
+                                        <span className="font-semibold text-foreground truncate max-w-[200px]">
+                                          {typeof v === "number" && (k.includes("price") || k === "amount")
+                                            ? `NPR ${v.toLocaleString()}`
+                                            : String(v)}
+                                        </span>
+                                      </div>
+                                    );
+                                  })}
                                 </div>
+
+                                {/* Cloudinary Photo Upload Integration */}
+                                {(message.action_proposal.action_type === "ADD_HOTEL_ROOM" ||
+                                  message.action_proposal.action_type === "ADD_RESTAURANT_DISH" ||
+                                  message.action_proposal.action_type === "CREATE_HOTEL") && (
+                                  <div className="pt-2 border-t border-border/50 space-y-1.5">
+                                    <div className="flex items-center justify-between text-[11px]">
+                                      <span className="font-semibold text-foreground flex items-center gap-1">
+                                        <Camera className="size-3 text-primary" /> Attach Photo (Cloudinary)
+                                      </span>
+                                      {message.action_proposal.payload.image_url ? (
+                                        <span className="text-[10px] text-emerald-600 font-bold">✓ Attached</span>
+                                      ) : (
+                                        <span className="text-[10px] text-muted-foreground">Optional</span>
+                                      )}
+                                    </div>
+                                    <ImageUpload
+                                      value={
+                                        message.action_proposal.payload.image_url
+                                          ? [String(message.action_proposal.payload.image_url)]
+                                          : []
+                                      }
+                                      folder={
+                                        message.action_proposal.action_type === "ADD_HOTEL_ROOM"
+                                          ? "tourism/rooms"
+                                          : "tourism/restaurant"
+                                      }
+                                      onChange={(urls) => {
+                                        if (urls.length > 0) {
+                                          setMessages((prev) =>
+                                            prev.map((m) =>
+                                              m.id === message.id && m.action_proposal
+                                                ? {
+                                                    ...m,
+                                                    action_proposal: {
+                                                      ...m.action_proposal,
+                                                      payload: {
+                                                        ...m.action_proposal.payload,
+                                                        image_url: urls[0],
+                                                        image_public_id: urls[0].split("/").pop() || "room_photo",
+                                                      },
+                                                    },
+                                                  }
+                                                : m
+                                            )
+                                          );
+                                          toast.success("Photo uploaded to Cloudinary!");
+                                        }
+                                      }}
+                                      onRemove={() => {
+                                        setMessages((prev) =>
+                                          prev.map((m) =>
+                                            m.id === message.id && m.action_proposal
+                                              ? {
+                                                  ...m,
+                                                  action_proposal: {
+                                                    ...m.action_proposal,
+                                                    payload: {
+                                                      ...m.action_proposal.payload,
+                                                      image_url: "",
+                                                      image_public_id: "",
+                                                    },
+                                                  },
+                                                }
+                                              : m
+                                          )
+                                        );
+                                      }}
+                                    />
+                                  </div>
+                                )}
 
                                 {/* Action Buttons */}
                                 <div className="flex items-center gap-2 pt-1">
@@ -978,7 +1066,7 @@ export default function AIRobotChat() {
                   </div>
                 )}
 
-                <div className="flex items-center gap-2 rounded-2xl border bg-muted/50 px-3.5 py-2 focus-within:border-primary/50 focus-within:bg-background transition-colors">
+                <div className="flex items-end gap-2 rounded-2xl border bg-muted/50 p-2 focus-within:border-primary/50 focus-within:bg-background transition-all">
                   {/* Microphone Speech Input Button */}
                   <button
                     type="button"
@@ -989,7 +1077,7 @@ export default function AIRobotChat() {
                         startListening();
                       }
                     }}
-                    className={`size-8 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+                    className={`size-8 rounded-xl flex items-center justify-center transition-all cursor-pointer shrink-0 mb-0.5 ${
                       isListening
                         ? "bg-red-500 text-white animate-bounce shadow-md"
                         : "bg-background text-muted-foreground hover:text-primary hover:bg-primary/10 border"
@@ -1004,16 +1092,18 @@ export default function AIRobotChat() {
                     )}
                   </button>
 
-                  <input
+                  <textarea
+                    ref={textareaRef}
+                    rows={1}
                     value={input}
                     disabled={isLoading}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder={
                       isListening
-                        ? "Listening... speak now..."
-                        : "Speak or type: 'Book hotel in Pokhara', 'Reserve dinner table'..."
+                        ? "Listening to your voice... (text appears here)..."
+                        : "Speak or type: 'Book hotel in Pokhara', 'Travel from Butwal to Dharan'..."
                     }
-                    className="h-8 flex-1 bg-transparent text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-hidden disabled:opacity-50"
+                    className="min-h-[36px] max-h-[140px] flex-1 resize-none bg-transparent py-1.5 px-1 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-hidden disabled:opacity-50 leading-relaxed overflow-y-auto"
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !e.shiftKey) {
                         e.preventDefault();
@@ -1021,12 +1111,13 @@ export default function AIRobotChat() {
                       }
                     }}
                   />
+
                   <Button
                     type="button"
                     size="icon"
                     disabled={!input.trim() || isLoading}
                     onClick={() => handleSend()}
-                    className="size-8 rounded-xl shrink-0 cursor-pointer"
+                    className="size-8 rounded-xl shrink-0 cursor-pointer mb-0.5"
                   >
                     <SendHorizonal className="size-4" />
                   </Button>
