@@ -26,8 +26,9 @@ export default function Hero({
           fill
           priority
           fetchPriority="high"
+          unoptimized
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
-          quality={70}
+          quality={75}
           className="object-cover object-center"
         />
         {/* Dual atmospheric gradients keeping the mountain peaks visible */}

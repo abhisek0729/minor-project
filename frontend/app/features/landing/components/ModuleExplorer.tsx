@@ -252,32 +252,27 @@ interface ModuleExplorerProps {
 function SafeCardImage({
   src,
   alt,
-  fallback = "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=75",
+  fallback = "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
 }: {
   src: string;
   alt: string;
   fallback?: string;
 }) {
   const [imgSrc, setImgSrc] = useState(src || fallback);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setImgSrc(src || fallback);
-  }, [src, fallback]);
+    if (src) setImgSrc(src);
+  }, [src]);
 
   return (
-    <div className="relative h-40 sm:h-44 md:h-48 w-full overflow-hidden bg-muted/50">
+    <div className="relative h-40 sm:h-44 md:h-48 w-full overflow-hidden bg-muted">
       <Image
-        src={imgSrc}
+        src={imgSrc || fallback}
         alt={alt}
         fill
+        unoptimized
         loading="lazy"
-        decoding="async"
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className={`object-cover transition-all duration-500 group-hover:scale-105 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        }`}
-        onLoad={() => setIsLoaded(true)}
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
         onError={() => {
           if (imgSrc !== fallback) {
             setImgSrc(fallback);
