@@ -23,17 +23,19 @@ app.add_middleware(
 )
 
 @app.get("/health", tags=["system"])
+@app.get("/api/backend/health", tags=["system"])
 async def health():
     return {"status": "ok"}
 
-api = "/api/v1"
-app.include_router(auth_router, prefix=api)
-app.include_router(hotels_router, prefix=api)
-app.include_router(restaurants_router, prefix=api)
-app.include_router(guides_router, prefix=api)
-app.include_router(places_router, prefix=api)
-app.include_router(expenses_router, prefix=api)
-app.include_router(itineraries_router, prefix=api)
-app.include_router(bookings_router, prefix=api)
-app.include_router(ai_router, prefix=api)
-app.include_router(admin_router, prefix=api)
+# Support both standard `/api/v1` and Vercel multi-service `/api/backend/api/v1` prefixes
+for prefix in ["/api/v1", "/api/backend/api/v1"]:
+    app.include_router(auth_router, prefix=prefix)
+    app.include_router(hotels_router, prefix=prefix)
+    app.include_router(restaurants_router, prefix=prefix)
+    app.include_router(guides_router, prefix=prefix)
+    app.include_router(places_router, prefix=prefix)
+    app.include_router(expenses_router, prefix=prefix)
+    app.include_router(itineraries_router, prefix=prefix)
+    app.include_router(bookings_router, prefix=prefix)
+    app.include_router(ai_router, prefix=prefix)
+    app.include_router(admin_router, prefix=prefix)
