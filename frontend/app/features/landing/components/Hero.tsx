@@ -25,9 +25,10 @@ export default function Hero({
           alt="Himalayan Mountain Panorama in Nepal"
           fill
           priority
-          sizes="100vw"
-          quality={80}
-          className="object-cover object-center transform scale-105 transition-transform duration-1000"
+          fetchPriority="high"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
+          quality={70}
+          className="object-cover object-center"
         />
         {/* Dual atmospheric gradients keeping the mountain peaks visible */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/50" />

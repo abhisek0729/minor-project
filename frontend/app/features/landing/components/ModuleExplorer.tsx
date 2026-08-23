@@ -74,7 +74,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "Lakeside luxury resort with mountain garden views",
         price: "NPR 6,500 / night",
         rating: 4.9,
-        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=75",
         tag: "Verified Stay",
         location: "Pokhara, Gandaki",
       },
@@ -84,7 +84,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "Restored Newari palace hotel in central Kathmandu",
         price: "NPR 11,200 / night",
         rating: 5.0,
-        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200",
+        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=75",
         tag: "Heritage",
         location: "Kathmandu, Bagmati",
       },
@@ -94,7 +94,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "Boutique peaceful retreat with pool and garden",
         price: "NPR 7,800 / night",
         rating: 4.8,
-        image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200",
+        image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=75",
         tag: "Boutique",
         location: "Pokhara, Gandaki",
       },
@@ -113,7 +113,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "Wood-fired pizzas and fresh Himalayan trout",
         price: "NPR 850 / set",
         rating: 4.9,
-        image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+        image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=75",
         tag: "Lakeside",
         location: "Pokhara, Gandaki",
       },
@@ -123,7 +123,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "Traditional Newari feasts and cultural performance",
         price: "NPR 1,200 / set",
         rating: 4.8,
-        image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1200",
+        image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=600&q=75",
         tag: "Cultural Feast",
         location: "Kathmandu, Bagmati",
       },
@@ -133,7 +133,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "Fresh organic salads, hummus and vegan specialties",
         price: "NPR 750 / set",
         rating: 4.7,
-        image: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?q=80&w=1200",
+        image: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=600&q=75",
         tag: "Organic Vegan",
         location: "Kathmandu, Bagmati",
       },
@@ -152,7 +152,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "Peaceful boat rides with reflection of Annapurna",
         price: "Free access",
         rating: 4.9,
-        image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=75",
         tag: "Must Visit",
         location: "Gandaki Province",
       },
@@ -162,7 +162,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "World famous trekking trail under Mount Everest",
         price: "NPR 9,500/day",
         rating: 5.0,
-        image: "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1200",
+        image: "https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?auto=format&fit=crop&w=600&q=75",
         tag: "High Trek",
         location: "Koshi Province",
       },
@@ -172,7 +172,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "Sacred UNESCO World Heritage pagoda shrine on Bagmati",
         price: "NPR 2,000 entry",
         rating: 4.8,
-        image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200",
+        image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=600&q=75",
         tag: "Heritage",
         location: "Bagmati Province",
       },
@@ -191,7 +191,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "Specialized in Kathmandu Valley heritage, sacred courtyards, and folklore",
         price: "NPR 3,200 / day",
         rating: 5.0,
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=75",
         tag: "Heritage Guide",
         location: "Kathmandu & Patan",
       },
@@ -201,7 +201,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "High-altitude mountain guide for Annapurna, Mardi Himal & Poon Hill",
         price: "NPR 4,600 / day",
         rating: 5.0,
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=75",
         tag: "Alpine Leader",
         location: "Pokhara & Annapurna",
       },
@@ -211,7 +211,7 @@ const defaultModules: ModuleConfig[] = [
         subtitle: "Eco-tourism and wildlife naturalist leading jeep safaris & nature walks",
         price: "NPR 3,800 / day",
         rating: 5.0,
-        image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=75",
         tag: "Wildlife Safari",
         location: "Chitwan & Sauraha",
       },
@@ -439,29 +439,20 @@ export default function ModuleExplorer({
   return (
     <section className="bg-muted/30 py-12 md:py-16">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
-        <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
-              Explore the trip
-            </p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-              Find what fits your next stay
-            </h2>
-          </div>
-          <Link href={getModuleExploreTarget(activeModule.id).href}>
-            <Button
-              variant="outline"
-              aria-label={`Explore more ${activeModule.label}`}
-              className="w-fit rounded-full px-5 py-2.5 text-sm font-semibold border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-xs"
-            >
-              {getModuleExploreTarget(activeModule.id).label}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
+        <div className="mb-6 text-center max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-primary">
+            Explore Categories
+          </p>
+          <h2 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-foreground">
+            Find what fits your next trip
+          </h2>
+          <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground">
+            {activeModule.summary}
+          </p>
         </div>
 
         {/* Module Tab Selector */}
-        <div role="tablist" aria-label="Tourism Categories" className="mb-6 flex gap-2 sm:gap-3 overflow-x-auto pb-1.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div role="tablist" aria-label="Tourism Categories" className="mb-6 flex gap-2 sm:gap-3 overflow-x-auto pb-1.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden justify-start sm:justify-center">
           {modules.map((module) => {
             const Icon = module.icon;
             const isActive = module.id === activeModule.id;
@@ -474,7 +465,7 @@ export default function ModuleExplorer({
                 aria-selected={isActive}
                 aria-label={`Select ${module.label} module`}
                 onClick={() => setActiveModuleId(module.id)}
-                className={`group relative flex min-w-[140px] sm:min-w-[170px] items-center gap-2.5 rounded-full border px-3 py-2 sm:px-4 sm:py-2.5 text-left transition-all duration-200 cursor-pointer ${
+                className={`group relative flex min-w-[130px] sm:min-w-[160px] items-center gap-2.5 rounded-full border px-3 py-2 sm:px-4 sm:py-2.5 text-left transition-all duration-200 cursor-pointer ${
                   isActive
                     ? "border-primary bg-primary text-primary-foreground shadow-xs"
                     : "border-border bg-card text-foreground hover:border-primary/30"
@@ -505,31 +496,20 @@ export default function ModuleExplorer({
         </div>
 
         {/* Active Module Content Container */}
-        <div className="rounded-[32px] border border-border bg-card p-4 shadow-sm md:p-6">
+        <div className="rounded-2xl sm:rounded-3xl border border-border bg-card p-3 sm:p-5 shadow-sm">
           <div className="space-y-4">
-            <div className="flex items-center justify-between gap-4 rounded-2xl bg-muted/60 px-4 py-3">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <Sparkles className="h-4 w-4" />
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    Featured
-                  </p>
-                  <h3 className="text-base font-semibold text-foreground">
-                    {activeModule.label}
-                  </h3>
-                </div>
+            <div className="flex items-center gap-3 rounded-xl sm:rounded-2xl bg-muted/60 px-3.5 py-2.5">
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <Sparkles className="h-4 w-4" />
               </div>
-              <Link href={getModuleExploreTarget(activeModule.id).href}>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="rounded-full border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground font-semibold text-xs shadow-2xs gap-1.5 cursor-pointer"
-                >
-                  {getModuleExploreTarget(activeModule.id).label} →
-                </Button>
-              </Link>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-semibold">
+                  Featured Recommendations
+                </p>
+                <h3 className="text-xs sm:text-sm font-bold text-foreground">
+                  {activeModule.label}
+                </h3>
+              </div>
             </div>
 
             {/* EXPENSES MODULE */}
@@ -792,6 +772,20 @@ export default function ModuleExplorer({
                 })}
               </div>
             )}
+            {/* Dedicated Lower Explore More Button */}
+            <div className="pt-4 sm:pt-6 flex justify-center border-t border-border/60">
+              <Link href={getModuleExploreTarget(activeModule.id).href}>
+                <Button
+                  size="default"
+                  variant="outline"
+                  aria-label={`Explore more ${activeModule.label}`}
+                  className="rounded-full border-primary/40 px-6 py-2.5 text-xs sm:text-sm font-bold text-primary hover:bg-primary hover:text-primary-foreground shadow-xs gap-2 cursor-pointer transition-all hover:scale-102"
+                >
+                  {getModuleExploreTarget(activeModule.id).label}
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

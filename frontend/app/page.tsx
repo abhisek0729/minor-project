@@ -17,9 +17,9 @@ export default async function Home() {
   } = await getCachedLandingData();
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
+    <div className="bg-background text-foreground min-h-screen w-full overflow-x-hidden">
       <Navbar />
-      <main>
+      <main className="w-full overflow-x-hidden">
         <Hero />
         <ModuleExplorer
           featuredHotels={featuredHotels}

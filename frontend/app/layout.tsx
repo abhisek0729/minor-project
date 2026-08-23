@@ -143,7 +143,7 @@ export default function RootLayout({
           fetchPriority="high"
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-hidden w-full max-w-full">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
