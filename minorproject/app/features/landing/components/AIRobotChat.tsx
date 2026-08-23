@@ -1132,6 +1132,151 @@ export default function AIRobotChat() {
                                         />
                                       </div>
                                     </div>
+                                  ) : message.action_proposal.action_type === "ONBOARD_HOTEL" ||
+                                    message.action_proposal.action_type === "CREATE_HOTEL" ? (
+                                    <div className="space-y-2 text-left">
+                                      <div>
+                                        <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                          Hotel Name
+                                        </label>
+                                        <input
+                                          type="text"
+                                          value={String(
+                                            message.action_proposal.payload.hotel_name ||
+                                              message.action_proposal.payload.name ||
+                                              ""
+                                          )}
+                                          onChange={(e) => {
+                                            const val = e.target.value;
+                                            setMessages((prev) =>
+                                              prev.map((m) =>
+                                                m.id === message.id && m.action_proposal
+                                                  ? {
+                                                      ...m,
+                                                      action_proposal: {
+                                                        ...m.action_proposal,
+                                                        payload: {
+                                                          ...m.action_proposal.payload,
+                                                          hotel_name: val,
+                                                          name: val,
+                                                        },
+                                                      },
+                                                    }
+                                                  : m
+                                              )
+                                            );
+                                          }}
+                                          placeholder="Grand Pokhara Resort"
+                                          className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                        />
+                                      </div>
+
+                                      <div className="grid grid-cols-2 gap-2">
+                                        <div>
+                                          <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                            District / City
+                                          </label>
+                                          <input
+                                            type="text"
+                                            value={String(
+                                              message.action_proposal.payload.district ||
+                                                message.action_proposal.payload.city ||
+                                                ""
+                                            )}
+                                            onChange={(e) => {
+                                              const val = e.target.value;
+                                              setMessages((prev) =>
+                                                prev.map((m) =>
+                                                  m.id === message.id && m.action_proposal
+                                                    ? {
+                                                        ...m,
+                                                        action_proposal: {
+                                                          ...m.action_proposal,
+                                                          payload: {
+                                                            ...m.action_proposal.payload,
+                                                            district: val,
+                                                            city: val,
+                                                          },
+                                                        },
+                                                      }
+                                                    : m
+                                                )
+                                              );
+                                            }}
+                                            placeholder="Kaski / Pokhara"
+                                            className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                          />
+                                        </div>
+                                        <div>
+                                          <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                            Phone Number
+                                          </label>
+                                          <input
+                                            type="text"
+                                            value={String(
+                                              message.action_proposal.payload.phone ||
+                                                message.action_proposal.payload.phone_number ||
+                                                ""
+                                            )}
+                                            onChange={(e) => {
+                                              const val = e.target.value;
+                                              setMessages((prev) =>
+                                                prev.map((m) =>
+                                                  m.id === message.id && m.action_proposal
+                                                    ? {
+                                                        ...m,
+                                                        action_proposal: {
+                                                          ...m.action_proposal,
+                                                          payload: {
+                                                            ...m.action_proposal.payload,
+                                                            phone: val,
+                                                            phone_number: val,
+                                                          },
+                                                        },
+                                                      }
+                                                    : m
+                                                )
+                                              );
+                                            }}
+                                            placeholder="98XXXXXXXX"
+                                            className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                          />
+                                        </div>
+                                      </div>
+
+                                      <div>
+                                        <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                          Description
+                                        </label>
+                                        <input
+                                          type="text"
+                                          value={String(
+                                            message.action_proposal.payload.description || ""
+                                          )}
+                                          onChange={(e) => {
+                                            const val = e.target.value;
+                                            setMessages((prev) =>
+                                              prev.map((m) =>
+                                                m.id === message.id && m.action_proposal
+                                                  ? {
+                                                      ...m,
+                                                      action_proposal: {
+                                                        ...m.action_proposal,
+                                                        payload: {
+                                                          ...m.action_proposal.payload,
+                                                          description: val,
+                                                        },
+                                                      },
+                                                    }
+                                                  : m
+                                              )
+                                            );
+                                          }}
+                                          placeholder="Modern boutique hotel with mountain views."
+                                          className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                        />
+                                      </div>
+                                    </div>
                                   ) : (
                                     Object.entries(message.action_proposal.payload).map(
                                       ([k, v]) => {
@@ -1161,13 +1306,16 @@ export default function AIRobotChat() {
                                 {/* Cloudinary Photo Upload Integration */}
                                 {(message.action_proposal.action_type === "ADD_HOTEL_ROOM" ||
                                   message.action_proposal.action_type === "ADD_RESTAURANT_DISH" ||
+                                  message.action_proposal.action_type === "ONBOARD_HOTEL" ||
+                                  message.action_proposal.action_type === "ONBOARD_RESTAURANT" ||
                                   message.action_proposal.action_type === "CREATE_HOTEL") && (
                                   <div className="pt-2 border-t border-border/50 space-y-1.5">
                                     <div className="flex items-center justify-between text-[11px]">
                                       <span className="font-semibold text-foreground flex items-center gap-1">
                                         <Camera className="size-3 text-primary" /> Attach Photo (Cloudinary)
                                       </span>
-                                      {message.action_proposal.payload.image_url ? (
+                                      {message.action_proposal.payload.image_url ||
+                                      message.action_proposal.payload.cover_image_url ? (
                                         <span className="text-[10px] text-emerald-600 font-bold">✓ Attached</span>
                                       ) : (
                                         <span className="text-[10px] text-muted-foreground">Optional</span>
@@ -1175,13 +1323,17 @@ export default function AIRobotChat() {
                                     </div>
                                     <ImageUpload
                                       value={
-                                        message.action_proposal.payload.image_url
+                                        message.action_proposal.payload.cover_image_url
+                                          ? [String(message.action_proposal.payload.cover_image_url)]
+                                          : message.action_proposal.payload.image_url
                                           ? [String(message.action_proposal.payload.image_url)]
                                           : []
                                       }
                                       folder={
                                         message.action_proposal.action_type === "ADD_HOTEL_ROOM"
                                           ? "tourism/rooms"
+                                          : message.action_proposal.action_type.includes("HOTEL")
+                                          ? "tourism/hotels"
                                           : "tourism/restaurant"
                                       }
                                       onChange={(urls) => {
@@ -1196,7 +1348,9 @@ export default function AIRobotChat() {
                                                       payload: {
                                                         ...m.action_proposal.payload,
                                                         image_url: urls[0],
-                                                        image_public_id: urls[0].split("/").pop() || "room_photo",
+                                                        cover_image_url: urls[0],
+                                                        cover_image_public_id:
+                                                          urls[0].split("/").pop() || "workspace_cover",
                                                       },
                                                     },
                                                   }

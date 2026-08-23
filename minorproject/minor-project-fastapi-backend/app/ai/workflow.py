@@ -841,6 +841,71 @@ def partner_rbac_agent(state: TourismAgentState) -> dict[str, Any]:
     tools = list(state.get("tools_used", []))
     extracted = state.get("extracted_data") or {}
 
+    # 0. WORKSPACE ONBOARDING (HOTEL, RESTAURANT, GUIDE)
+    is_onboarding_hotel = any(w in msg_lower for w in ["onboard hotel", "register hotel", "add hotel workspace", "new hotel workspace", "create hotel workspace", "register my hotel", "onboard my hotel", "add a hotel"])
+    is_onboarding_restaurant = any(w in msg_lower for w in ["onboard restaurant", "register restaurant", "add restaurant workspace", "new restaurant workspace", "register my restaurant", "onboard my restaurant", "add a restaurant"])
+    is_onboarding_guide = any(w in msg_lower for w in ["onboard guide", "register guide", "become a guide", "tour guide workspace", "onboard as guide", "register as guide"])
+
+    if is_onboarding_hotel:
+        hotel_name = extracted.get("hotel_name") or "New Himalayan Hotel"
+        name_match = re.search(r"(?:called|named|hotel\s+name\s+is|hotel)\s+([A-Za-z0-9\s]+?)(?:\s+in|\s+at|$)", last_msg, re.IGNORECASE)
+        if name_match:
+            cand = name_match.group(1).strip()
+            if len(cand) > 3 and not any(w in cand.lower() for w in ["workspace", "please", "help"]):
+                hotel_name = f"{cand} Hotel" if not cand.lower().endswith("hotel") else cand
+
+        city = state.get("destination") or "Pokhara"
+        action_payload = {
+            "hotel_name": hotel_name,
+            "district": city,
+            "province": "Gandaki Province" if city.lower() in ["pokhara", "mustang", "manang", "gorkha"] else "Bagmati Province",
+            "municipality": city,
+            "phone": "9800000000",
+            "established_year": 2024,
+            "description": f"Premier verified hotel accommodation in {city}, Nepal.",
+            "cover_image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        }
+        steps.append("🏢 Human-In-The-Loop: Prepared Hotel Workspace Onboarding Form")
+        return {
+            "is_terminal": True,
+            "action_proposal": {
+                "action_type": "ONBOARD_HOTEL",
+                "title": f"Onboard Hotel Workspace: {hotel_name}",
+                "description": f"Register and activate your new Hotel Workspace in {city}. You can customize the name, location, contact, and cover photo below.",
+                "payload": action_payload,
+            },
+            "final_answer": f"I have initialized your **Hotel Workspace Onboarding** proposal for **{hotel_name}** ({city})!\n\n📋 You can customize the hotel name, location, phone number, and cover photo directly on the interactive card below. Click **Confirm & Execute** to activate your new workspace!",
+            "steps_taken": steps,
+            "tools_used": tools + ["hitl_onboarding_proposal"],
+        }
+
+    if is_onboarding_restaurant:
+        rest_name = extracted.get("restaurant_name") or "Authentic Nepali Kitchen"
+        city = state.get("destination") or "Kathmandu"
+        action_payload = {
+            "restaurant_name": rest_name,
+            "cuisine": "Authentic Thakali & Newari Cuisine",
+            "district": city,
+            "province": "Bagmati Province",
+            "municipality": city,
+            "phone": "9800000000",
+            "description": f"Authentic dining experience in {city}.",
+            "image_url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+        }
+        steps.append("🍽️ Human-In-The-Loop: Prepared Restaurant Workspace Onboarding Form")
+        return {
+            "is_terminal": True,
+            "action_proposal": {
+                "action_type": "ONBOARD_RESTAURANT",
+                "title": f"Onboard Restaurant Workspace: {rest_name}",
+                "description": f"Register and activate your new Restaurant Workspace in {city}.",
+                "payload": action_payload,
+            },
+            "final_answer": f"I have prepared your **Restaurant Workspace Onboarding** proposal for **{rest_name}**!\n\n📋 Edit the details and click **Confirm & Execute** to launch your restaurant workspace.",
+            "steps_taken": steps,
+            "tools_used": tools + ["hitl_onboarding_proposal"],
+        }
+
     # 1. HOTEL ROOM CREATION / MUTATION
     is_room_mutation = (
         any(w in msg_lower for w in ["room", "hotel owner", "add room", "add a room", "create room", "new room", "list room"]) or
