@@ -524,6 +524,35 @@ export default function AIRobotChat() {
     return () => window.removeEventListener("open-ai-chat", handleOpenAIChat);
   }, []);
 
+  const [isInitiatingPayment, setIsInitiatingPayment] = useState(false);
+
+  const handleInitiateKhalti = async (bookingId: number, amount: number, itemName: string) => {
+    try {
+      setIsInitiatingPayment(true);
+      toast.info(`Connecting to Khalti secure checkout for ${itemName}...`);
+      const res = await fetch("/api/payment/initiate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          bookingId,
+          amount,
+          itemName,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success && data.payment_url) {
+        window.location.href = data.payment_url;
+      } else {
+        toast.error(data.error || "Could not initiate Khalti payment session.");
+      }
+    } catch {
+      toast.error("Failed to connect to Khalti payment gateway.");
+    } finally {
+      setIsInitiatingPayment(false);
+    }
+  };
+
   const handleConfirmAction = async (msgId: string, proposal: ActionProposal) => {
     setExecutingActionId(msgId);
 
@@ -534,6 +563,8 @@ export default function AIRobotChat() {
 
       if (res.success) {
         toast.success(res.message);
+        const newBookingId = (res as any)?.data?.id;
+
         setMessages((prev) =>
           prev.map((msg) => {
             if (msg.id === msgId && msg.action_proposal) {
@@ -543,12 +574,26 @@ export default function AIRobotChat() {
                   ...msg.action_proposal,
                   status: "executed",
                   resultMessage: res.message,
+                  payload: {
+                    ...msg.action_proposal.payload,
+                    bookingId: newBookingId || msg.action_proposal.payload.bookingId,
+                  },
                 },
               };
             }
             return msg;
           })
         );
+
+        // If it was a booking, automatically prompt Khalti checkout
+        if (proposal.action_type === "CREATE_BOOKING" && newBookingId) {
+          const amt = Number(proposal.payload?.total_amount || proposal.payload?.amount) || 3500;
+          const name = String(proposal.payload?.item_name || "Travel Booking");
+          toast.info("Booking created! Redirecting to Khalti secure checkout...");
+          setTimeout(() => {
+            handleInitiateKhalti(newBookingId, amt, name);
+          }, 800);
+        }
       } else {
         toast.error(res.message);
       }
@@ -850,10 +895,39 @@ export default function AIRobotChat() {
                                     "Changes have been committed to the platform."}
                                 </p>
                                 {message.action_proposal.action_type === "CREATE_BOOKING" && (
-                                  <div className="pt-1">
+                                  <div className="pt-2 flex flex-wrap gap-2 items-center">
+                                    <button
+                                      type="button"
+                                      disabled={isInitiatingPayment}
+                                      onClick={() => {
+                                        const proposalPayload = message.action_proposal?.payload || {};
+                                        const bId =
+                                          Number((proposalPayload as any).bookingId) ||
+                                          Number(
+                                            message.action_proposal?.resultMessage?.match(/Booking #(\d+)/)?.[1]
+                                          ) ||
+                                          1;
+                                        const amt =
+                                          Number(proposalPayload.total_amount || proposalPayload.amount) ||
+                                          3500;
+                                        const name = String(
+                                          proposalPayload.item_name || "Hotel Reservation"
+                                        );
+                                        handleInitiateKhalti(bId, amt, name);
+                                      }}
+                                      className="inline-flex items-center gap-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 active:scale-95 text-white px-3.5 py-2 text-xs font-bold shadow-md transition-all cursor-pointer disabled:opacity-50"
+                                    >
+                                      <CreditCard className="size-3.5" />
+                                      <span>
+                                        {isInitiatingPayment
+                                          ? "Redirecting to Khalti..."
+                                          : "Pay with Khalti (Direct Checkout) →"}
+                                      </span>
+                                    </button>
+
                                     <Link href="/dashboard">
-                                      <Button size="sm" className="text-xs bg-purple-600 hover:bg-purple-700 text-white gap-1.5 h-8 font-semibold shadow-xs">
-                                        <CreditCard className="size-3.5" /> Pay with Khalti on Dashboard →
+                                      <Button size="sm" variant="outline" className="text-xs h-8">
+                                        Dashboard
                                       </Button>
                                     </Link>
                                   </div>
