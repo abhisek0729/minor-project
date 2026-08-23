@@ -565,19 +565,30 @@ export default function AIRobotChat() {
 
       if (res.success) {
         toast.success(res.message);
-        const newBookingId = (res as any)?.data?.id;
+        const resData = (res as any)?.data;
+        const newBookingId = resData?.id;
+        const executedRoomNumber = resData?.roomNumber || proposal.payload?.room_number;
 
         setMessages((prev) =>
           prev.map((msg) => {
             if (msg.id === msgId && msg.action_proposal) {
+              let updatedText = msg.text;
+              if (executedRoomNumber) {
+                updatedText = updatedText
+                  .replace(/Room #\w+/g, `Room #${executedRoomNumber}`)
+                  .replace(/Room 101/g, `Room #${executedRoomNumber}`);
+              }
+
               return {
                 ...msg,
+                text: updatedText,
                 action_proposal: {
                   ...msg.action_proposal,
                   status: "executed",
                   resultMessage: res.message,
                   payload: {
                     ...msg.action_proposal.payload,
+                    room_number: executedRoomNumber || msg.action_proposal.payload.room_number,
                     bookingId: newBookingId || msg.action_proposal.payload.bookingId,
                   },
                 },

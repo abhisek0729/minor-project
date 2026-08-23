@@ -943,6 +943,9 @@ You are currently signed in as a traveler. Adding hotel rooms requires an approv
         capacity = int(extracted.get("capacity") or (1 if room_type == "single" else 4 if room_type in ["family", "suite"] else 2))
         desc = extracted.get("description") or f"Comfortable {room_type.capitalize()} room with modern amenities."
 
+        has_explicit_room = bool(extracted.get("room_number") or re.search(r"room\s*#?\s*\d+", msg_lower))
+        room_label = f"**Room #{room_num} ({room_type.capitalize()})**" if has_explicit_room else f"a new **{room_type.capitalize()} Room**"
+
         action_payload = {
             "room_number": room_num,
             "room_type": room_type,
@@ -956,11 +959,11 @@ You are currently signed in as a traveler. Adding hotel rooms requires an approv
             "is_terminal": True,
             "action_proposal": {
                 "action_type": "ADD_HOTEL_ROOM",
-                "title": f"Add Hotel Room #{room_num}",
+                "title": f"Add Hotel Room #{room_num}" if has_explicit_room else f"Add Hotel Room",
                 "description": f"Publish Room #{room_num} ({room_type.capitalize()}, Max {capacity} Guests) at NPR {price:,}/night to your hotel catalog. You can attach a room photo below.",
                 "payload": action_payload,
             },
-            "final_answer": f"I have prepared the action proposal for **Room #{room_num} ({room_type.capitalize()})** at **NPR {price:,}/night**.\n\n📸 You can upload a room image via Cloudinary on the card below, edit any field, and click **Confirm & Execute** to publish it live!",
+            "final_answer": f"I have prepared the action proposal to add {room_label} at **NPR {price:,}/night**.\n\n📸 You can customize the Room Number, Type, Price, Capacity, or upload a photo on the card below, then click **Confirm & Execute** to publish it live!",
             "steps_taken": steps,
             "tools_used": tools + ["hitl_action_proposal", "cloudinary_upload"],
         }
