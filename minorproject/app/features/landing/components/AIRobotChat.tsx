@@ -1341,6 +1341,173 @@ export default function AIRobotChat() {
                                         />
                                       </div>
                                     </div>
+                                  ) : message.action_proposal.action_type === "ADD_RESTAURANT_DISH" ? (
+                                    <div className="space-y-2 text-left">
+                                      <div className="grid grid-cols-2 gap-2">
+                                        <div>
+                                          <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                            Dish Name
+                                          </label>
+                                          <input
+                                            type="text"
+                                            value={String(message.action_proposal.payload.name || "")}
+                                            onChange={(e) => {
+                                              const val = e.target.value;
+                                              setMessages((prev) =>
+                                                prev.map((m) =>
+                                                  m.id === message.id && m.action_proposal
+                                                    ? {
+                                                        ...m,
+                                                        action_proposal: {
+                                                          ...m.action_proposal,
+                                                          title: val ? `Add Dish: ${val}` : "Add Menu Item",
+                                                          description: val
+                                                            ? `Publish "${val}" to your restaurant menu at NPR ${Number(m.action_proposal.payload.price || 0).toLocaleString()}.`
+                                                            : "Publish a new dish to your menu.",
+                                                          payload: {
+                                                            ...m.action_proposal.payload,
+                                                            name: val,
+                                                          },
+                                                        },
+                                                      }
+                                                    : m
+                                                )
+                                              );
+                                            }}
+                                            placeholder="e.g. Dal Bhat, Momo, Thukpa"
+                                            className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                          />
+                                        </div>
+                                        <div>
+                                          <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                            Category
+                                          </label>
+                                          <select
+                                            value={String(message.action_proposal.payload.category || "main").toLowerCase()}
+                                            onChange={(e) => {
+                                              const val = e.target.value;
+                                              setMessages((prev) =>
+                                                prev.map((m) =>
+                                                  m.id === message.id && m.action_proposal
+                                                    ? {
+                                                        ...m,
+                                                        action_proposal: {
+                                                          ...m.action_proposal,
+                                                          payload: {
+                                                            ...m.action_proposal.payload,
+                                                            category: val,
+                                                          },
+                                                        },
+                                                      }
+                                                    : m
+                                                )
+                                              );
+                                            }}
+                                            className="w-full h-7 px-1.5 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                          >
+                                            <option value="appetizer">Appetizer</option>
+                                            <option value="main">Main Course</option>
+                                            <option value="dessert">Dessert</option>
+                                            <option value="beverage">Beverage</option>
+                                            <option value="snack">Snack</option>
+                                          </select>
+                                        </div>
+                                      </div>
+
+                                      <div className="grid grid-cols-2 gap-2">
+                                        <div>
+                                          <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                            Price (NPR)
+                                          </label>
+                                          <input
+                                            type="number"
+                                            value={Number(message.action_proposal.payload.price || 0) || ""}
+                                            onChange={(e) => {
+                                              const val = Number(e.target.value);
+                                              setMessages((prev) =>
+                                                prev.map((m) =>
+                                                  m.id === message.id && m.action_proposal
+                                                    ? {
+                                                        ...m,
+                                                        action_proposal: {
+                                                          ...m.action_proposal,
+                                                          payload: {
+                                                            ...m.action_proposal.payload,
+                                                            price: val,
+                                                          },
+                                                        },
+                                                      }
+                                                    : m
+                                                )
+                                              );
+                                            }}
+                                            placeholder="350"
+                                            className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                          />
+                                        </div>
+                                        <div>
+                                          <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                            Prep Time (mins)
+                                          </label>
+                                          <input
+                                            type="number"
+                                            value={Number(message.action_proposal.payload.preparation_time || 15)}
+                                            onChange={(e) => {
+                                              const val = Number(e.target.value);
+                                              setMessages((prev) =>
+                                                prev.map((m) =>
+                                                  m.id === message.id && m.action_proposal
+                                                    ? {
+                                                        ...m,
+                                                        action_proposal: {
+                                                          ...m.action_proposal,
+                                                          payload: {
+                                                            ...m.action_proposal.payload,
+                                                            preparation_time: val,
+                                                          },
+                                                        },
+                                                      }
+                                                    : m
+                                                )
+                                              );
+                                            }}
+                                            placeholder="15"
+                                            className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                          />
+                                        </div>
+                                      </div>
+
+                                      <div>
+                                        <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                          Description
+                                        </label>
+                                        <input
+                                          type="text"
+                                          value={String(message.action_proposal.payload.description || "")}
+                                          onChange={(e) => {
+                                            const val = e.target.value;
+                                            setMessages((prev) =>
+                                              prev.map((m) =>
+                                                m.id === message.id && m.action_proposal
+                                                  ? {
+                                                      ...m,
+                                                      action_proposal: {
+                                                        ...m.action_proposal,
+                                                        payload: {
+                                                          ...m.action_proposal.payload,
+                                                          description: val,
+                                                        },
+                                                      },
+                                                    }
+                                                  : m
+                                              )
+                                            );
+                                          }}
+                                          placeholder="Authentic Nepali dish served with rice and pickles."
+                                          className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                        />
+                                      </div>
+                                    </div>
                                   ) : (
                                     Object.entries(message.action_proposal.payload).map(
                                       ([k, v]) => {
