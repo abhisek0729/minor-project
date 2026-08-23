@@ -451,6 +451,7 @@ export default function ModuleExplorer({
           <Link href={getModuleExploreTarget(activeModule.id).href}>
             <Button
               variant="outline"
+              aria-label={`Explore more ${activeModule.label}`}
               className="w-fit rounded-full px-5 py-2.5 text-sm font-semibold border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-xs"
             >
               {getModuleExploreTarget(activeModule.id).label}

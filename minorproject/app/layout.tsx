@@ -138,7 +138,8 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=75&w=1920&auto=format&fit=crop"
+          href="/images/hero-himalayas.webp"
+          type="image/webp"
           fetchPriority="high"
         />
       </head>
