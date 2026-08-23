@@ -423,21 +423,44 @@ export default function AIRobotChat() {
       const recognition = new SpeechRecognition();
       recognition.lang = "en-US";
       recognition.interimResults = true;
-      recognition.continuous = false;
+      recognition.continuous = true; // Keep listening until user stops speaking
+
+      // Silence-detection: stop after 3s of no new speech results
+      let silenceTimer: ReturnType<typeof setTimeout> | null = null;
+      let finalTranscript = "";
+
+      const resetSilenceTimer = () => {
+        if (silenceTimer) clearTimeout(silenceTimer);
+        silenceTimer = setTimeout(() => {
+          recognition.stop();
+        }, 3000); // 3 second silence = done speaking
+      };
 
       recognition.onstart = () => {
         setIsListening(true);
-        toast.info("Listening... Speak your hotel, restaurant, or travel request!");
+        finalTranscript = "";
+        toast.info("🎙️ Listening... Speak your request. Will auto-stop after silence.");
+        resetSilenceTimer();
       };
 
-      recognition.onresult = (event: { results: ArrayLike<{ 0: { transcript: string } }> }) => {
-        const transcript = Array.from(event.results)
-          .map((result) => result[0].transcript)
-          .join("");
-        setInput(transcript);
+      recognition.onresult = (event: { results: ArrayLike<{ 0: { transcript: string }; isFinal?: boolean }> }) => {
+        let interim = "";
+        let full = "";
+        const results = Array.from(event.results) as Array<{ 0: { transcript: string }; isFinal?: boolean }>;
+        for (const result of results) {
+          if (result.isFinal) {
+            full += result[0].transcript + " ";
+          } else {
+            interim += result[0].transcript;
+          }
+        }
+        finalTranscript = full;
+        setInput((full + interim).trim());
+        resetSilenceTimer(); // Reset silence timer on any speech activity
       };
 
       recognition.onerror = (event: { error: string }) => {
+        if (silenceTimer) clearTimeout(silenceTimer);
         console.warn("Speech recognition error:", event.error);
         setIsListening(false);
         if (event.error !== "no-speech") {
@@ -446,7 +469,12 @@ export default function AIRobotChat() {
       };
 
       recognition.onend = () => {
+        if (silenceTimer) clearTimeout(silenceTimer);
         setIsListening(false);
+        // If we accumulated a final transcript, update input with it
+        if (finalTranscript.trim()) {
+          setInput(finalTranscript.trim());
+        }
       };
 
       recognitionRef.current = recognition;
