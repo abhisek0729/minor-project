@@ -28,29 +28,54 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : process.env.NEXTAUTH_URL || "https://minor-project-orcin-tau.vercel.app");
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXTAUTH_URL || "http://localhost:3000"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "TravelNepal | Intelligent AI Tourism & Verified Stays in Nepal",
+    default: "TravelNepal | Intelligent AI Tourism, Verified Stays & Trekking in Nepal",
     template: "%s | TravelNepal",
   },
   description:
-    "Discover Nepal's premier travel platform. Plan custom Himalayan itineraries, book verified hotels with instant Khalti checkout, find authentic dining, and calculate student transit discounts.",
+    "Explore Nepal with TravelNepal — the all-in-one smart travel platform. Discover 150+ trekking destinations, book verified hotels with Khalti, hire certified tour guides, find authentic local dining, and plan personalized itineraries with our AI Voice Specialist.",
   keywords: [
+    "TravelNepal",
+    "Travel Nepal",
+    "Travelling Nepal",
     "Nepal Tourism",
+    "Visit Nepal 2026",
+    "Nepal Travel Guide",
+    "Hotels in Nepal",
     "Pokhara Hotels",
     "Kathmandu Stays",
-    "Chitwan Safari",
-    "Nepal Travel Itinerary",
+    "Chitwan Safari Lodges",
+    "Nepal Trekking Itinerary",
+    "Annapurna Circuit Guide",
+    "Everest Base Camp Trek",
     "Khalti Hotel Booking",
-    "Himalayan Tour Guides",
-    "Nepal Transit Discounts",
-    "TravelNepal AI",
-    "Mustang Treks",
+    "Licensed Himalayan Tour Guides",
+    "Authentic Nepali Food & Dining",
+    "Nepal Emergency SOS Hotline",
+    "AI Travel Planner Nepal",
+    "Nepal Trip Budget Calculator",
   ],
-  authors: [{ name: "TravelNepal Team" }],
-  creator: "TravelNepal IOE",
+  authors: [{ name: "TravelNepal Engineering Team" }],
+  creator: "TravelNepal",
   publisher: "TravelNepal",
+  applicationName: "TravelNepal",
+  category: "travel",
+  formatDetection: {
+    telephone: true,
+    date: true,
+    address: true,
+    email: true,
+  },
   robots: {
     index: true,
     follow: true,
@@ -65,25 +90,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://travelnepal.app",
+    url: SITE_URL,
     siteName: "TravelNepal",
     title: "TravelNepal | Intelligent AI Tourism & Verified Stays in Nepal",
     description:
-      "Plan custom Himalayan itineraries, book verified hotels with instant Khalti checkout, and discover authentic Nepal dining with AI assistance.",
+      "Your complete Nepal travel guide: AI trip planner, 150+ curated destinations, verified hotels with Khalti checkout, authentic dining, and licensed tour guides.",
     images: [
       {
         url: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
         width: 1200,
         height: 630,
-        alt: "TravelNepal - Explore the Himalayas",
+        alt: "TravelNepal - Discover the Himalayas",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TravelNepal | AI-Powered Travel Planning in Nepal",
+    title: "TravelNepal | AI-Powered Travel & Stays in Nepal",
     description:
-      "Discover verified hotels, authentic food, Himalayan guides, and custom trip itineraries across Nepal.",
+      "Plan custom Himalayan itineraries, book verified hotels with instant Khalti checkout, and explore Nepal with AI assistance.",
     images: ["https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200"],
     creator: "@TravelNepalApp",
   },
@@ -97,26 +122,60 @@ const jsonLdSchema = {
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://travelnepal.app/#website",
-      "url": "https://travelnepal.app",
+      "@id": `${SITE_URL}/#website`,
+      "url": SITE_URL,
       "name": "TravelNepal",
-      "description": "Intelligent AI-Powered Tourism & Verified Stays Platform in Nepal",
+      "alternateName": ["Travel Nepal", "Travelling Nepal", "TravelNepal AI"],
+      "description": "Intelligent AI-Powered Tourism, Verified Stays & Trekking Platform in Nepal",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://travelnepal.app/destinations?search={search_term_string}",
+        "target": `${SITE_URL}/destinations?search={search_term_string}`,
         "query-input": "required name=search_term_string",
       },
     },
     {
       "@type": "TravelAgency",
-      "@id": "https://travelnepal.app/#agency",
+      "@id": `${SITE_URL}/#agency`,
       "name": "TravelNepal Platform",
-      "url": "https://travelnepal.app",
-      "logo": "https://travelnepal.app/favicon.ico",
+      "url": SITE_URL,
+      "logo": `${SITE_URL}/favicon.ico`,
       "image": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
-      "description": "Verified hotel stays, authentic dining, and Himalayan tour planning across Nepal.",
-      "areaServed": "Nepal",
+      "description": "Verified hotel stays, licensed Himalayan tour guides, authentic dining, and emergency mountain rescue assistance across Nepal.",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Nepal",
+      },
       "priceRange": "NPR",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${SITE_URL}/#faq`,
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I plan a trip to Nepal with AI on TravelNepal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can use the TravelNepal AI Voice & Chat Assistant or the AI Trip Planner at /ai-planner. Simply enter your travel dates, origin, destination, and budget to receive a personalized day-by-day itinerary with estimated NPR costs, hotel options, and maps.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Can I book verified hotels in Nepal directly using Khalti?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, TravelNepal offers seamless instant booking for verified hotels and lodges across Kathmandu, Pokhara, Chitwan, Lumbini, and Mustang with secure digital Khalti payment verification.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do in case of an emergency while trekking in Nepal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TravelNepal provides a 24/7 Emergency SOS Hub at /emergency with direct one-tap dialing for Nepal Tourist Police (1144), Nepal Police (100), Ambulance (102), hospital locators, and Acute Mountain Sickness (AMS) safety checklists.",
+          },
+        },
+      ],
     },
   ],
 };
