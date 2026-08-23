@@ -957,21 +957,205 @@ export default function AIRobotChat() {
                                   {message.action_proposal.description}
                                 </p>
 
-                                {/* Key-Value Details */}
-                                <div className="rounded-lg bg-background/80 p-2.5 border text-[11px] space-y-1">
-                                  {Object.entries(message.action_proposal.payload).map(([k, v]) => {
-                                    if (k.includes("image") || k.includes("public_id")) return null;
-                                    return (
-                                      <div key={k} className="flex justify-between items-center capitalize">
-                                        <span className="text-muted-foreground">{k.replace(/_/g, " ")}:</span>
-                                        <span className="font-semibold text-foreground truncate max-w-[200px]">
-                                          {typeof v === "number" && (k.includes("price") || k === "amount")
-                                            ? `NPR ${v.toLocaleString()}`
-                                            : String(v)}
-                                        </span>
+                                {/* Key-Value Details & Schema Form Fields */}
+                                <div className="rounded-lg bg-background/90 p-2.5 border text-xs space-y-2">
+                                  {message.action_proposal.action_type === "ADD_HOTEL_ROOM" ? (
+                                    <div className="space-y-2 text-left">
+                                      <div className="grid grid-cols-2 gap-2">
+                                        <div>
+                                          <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                            Room Number
+                                          </label>
+                                          <input
+                                            type="text"
+                                            value={String(message.action_proposal.payload.room_number || "")}
+                                            onChange={(e) => {
+                                              const val = e.target.value;
+                                              setMessages((prev) =>
+                                                prev.map((m) =>
+                                                  m.id === message.id && m.action_proposal
+                                                    ? {
+                                                        ...m,
+                                                        action_proposal: {
+                                                          ...m.action_proposal,
+                                                          payload: {
+                                                            ...m.action_proposal.payload,
+                                                            room_number: val,
+                                                          },
+                                                        },
+                                                      }
+                                                    : m
+                                                )
+                                              );
+                                            }}
+                                            placeholder="e.g. 101, 102"
+                                            className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                          />
+                                        </div>
+                                        <div>
+                                          <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                            Room Type
+                                          </label>
+                                          <select
+                                            value={String(
+                                              message.action_proposal.payload.room_type || "double"
+                                            ).toLowerCase()}
+                                            onChange={(e) => {
+                                              const val = e.target.value;
+                                              setMessages((prev) =>
+                                                prev.map((m) =>
+                                                  m.id === message.id && m.action_proposal
+                                                    ? {
+                                                        ...m,
+                                                        action_proposal: {
+                                                          ...m.action_proposal,
+                                                          payload: {
+                                                            ...m.action_proposal.payload,
+                                                            room_type: val,
+                                                          },
+                                                        },
+                                                      }
+                                                    : m
+                                                )
+                                              );
+                                            }}
+                                            className="w-full h-7 px-1.5 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                          >
+                                            <option value="single">Single</option>
+                                            <option value="double">Double</option>
+                                            <option value="twin">Twin</option>
+                                            <option value="family">Family</option>
+                                            <option value="suite">Suite</option>
+                                          </select>
+                                        </div>
                                       </div>
-                                    );
-                                  })}
+
+                                      <div className="grid grid-cols-2 gap-2">
+                                        <div>
+                                          <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                            Price / Night (NPR)
+                                          </label>
+                                          <input
+                                            type="number"
+                                            value={
+                                              Number(
+                                                message.action_proposal.payload.price_per_night || 0
+                                              ) || ""
+                                            }
+                                            onChange={(e) => {
+                                              const val = Number(e.target.value);
+                                              setMessages((prev) =>
+                                                prev.map((m) =>
+                                                  m.id === message.id && m.action_proposal
+                                                    ? {
+                                                        ...m,
+                                                        action_proposal: {
+                                                          ...m.action_proposal,
+                                                          payload: {
+                                                            ...m.action_proposal.payload,
+                                                            price_per_night: val,
+                                                          },
+                                                        },
+                                                      }
+                                                    : m
+                                                )
+                                              );
+                                            }}
+                                            placeholder="2500"
+                                            className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                          />
+                                        </div>
+                                        <div>
+                                          <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                            Capacity (Guests)
+                                          </label>
+                                          <input
+                                            type="number"
+                                            value={Number(
+                                              message.action_proposal.payload.capacity || 2
+                                            )}
+                                            onChange={(e) => {
+                                              const val = Number(e.target.value);
+                                              setMessages((prev) =>
+                                                prev.map((m) =>
+                                                  m.id === message.id && m.action_proposal
+                                                    ? {
+                                                        ...m,
+                                                        action_proposal: {
+                                                          ...m.action_proposal,
+                                                          payload: {
+                                                            ...m.action_proposal.payload,
+                                                            capacity: val,
+                                                          },
+                                                        },
+                                                      }
+                                                    : m
+                                                )
+                                              );
+                                            }}
+                                            placeholder="2"
+                                            className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                          />
+                                        </div>
+                                      </div>
+
+                                      <div>
+                                        <label className="text-[10px] font-semibold text-muted-foreground block mb-0.5">
+                                          Description
+                                        </label>
+                                        <input
+                                          type="text"
+                                          value={String(
+                                            message.action_proposal.payload.description || ""
+                                          )}
+                                          onChange={(e) => {
+                                            const val = e.target.value;
+                                            setMessages((prev) =>
+                                              prev.map((m) =>
+                                                m.id === message.id && m.action_proposal
+                                                  ? {
+                                                      ...m,
+                                                      action_proposal: {
+                                                        ...m.action_proposal,
+                                                        payload: {
+                                                          ...m.action_proposal.payload,
+                                                          description: val,
+                                                        },
+                                                      },
+                                                    }
+                                                  : m
+                                              )
+                                            );
+                                          }}
+                                          placeholder="Comfortable room with modern amenities."
+                                          className="w-full h-7 px-2 text-xs rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                        />
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    Object.entries(message.action_proposal.payload).map(
+                                      ([k, v]) => {
+                                        if (k.includes("image") || k.includes("public_id"))
+                                          return null;
+                                        return (
+                                          <div
+                                            key={k}
+                                            className="flex justify-between items-center capitalize"
+                                          >
+                                            <span className="text-muted-foreground text-[11px]">
+                                              {k.replace(/_/g, " ")}:
+                                            </span>
+                                            <span className="font-semibold text-foreground truncate max-w-[200px] text-[11px]">
+                                              {typeof v === "number" &&
+                                              (k.includes("price") || k === "amount")
+                                                ? `NPR ${v.toLocaleString()}`
+                                                : String(v)}
+                                            </span>
+                                          </div>
+                                        );
+                                      }
+                                    )
+                                  )}
                                 </div>
 
                                 {/* Cloudinary Photo Upload Integration */}

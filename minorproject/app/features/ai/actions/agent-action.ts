@@ -173,15 +173,44 @@ export async function executeAgentAction(proposal: AgentProposalPayload) {
           };
         }
 
+        // Query existing rooms for this hotel to prevent duplicate room numbers
+        const existingRooms = await db
+          .select({ roomNumber: roomsTable.roomNumber })
+          .from(roomsTable)
+          .where(eq(roomsTable.hotelId, hotel.id));
+
+        const existingNumbers = new Set(existingRooms.map((r) => r.roomNumber.trim().toLowerCase()));
+        let chosenRoomNumber = String(payload.room_number || "101").trim();
+
+        // If duplicate room number, auto-increment to next available room number
+        if (existingNumbers.has(chosenRoomNumber.toLowerCase())) {
+          const baseNum = parseInt(chosenRoomNumber.replace(/\D/g, "")) || 101;
+          let candidate = baseNum + 1;
+          while (existingNumbers.has(String(candidate).toLowerCase())) {
+            candidate += 1;
+          }
+          chosenRoomNumber = String(candidate);
+        }
+
+        const validTypes = ["single", "double", "twin", "family", "suite"] as const;
+        let roomType = String(payload.room_type || "double").toLowerCase() as typeof validTypes[number];
+        if (!validTypes.includes(roomType)) {
+          roomType = "double";
+        }
+
+        const capacity = Number(payload.capacity) || (roomType === "single" ? 1 : roomType === "family" || roomType === "suite" ? 4 : 2);
+        const pricePerNight = String(payload.price_per_night || "2500");
+        const description = String(payload.description || `Comfortable ${roomType.toUpperCase()} room with modern amenities.`);
+
         const [room] = await db
           .insert(roomsTable)
           .values({
             hotelId: hotel.id,
-            roomNumber: String(payload.room_number || "101"),
-            roomType: String(payload.room_type || "single") as "single" | "double" | "twin" | "family" | "suite",
-            pricePerNight: String(payload.price_per_night || "2500"),
-            capacity: Number(payload.capacity) || 2,
-            description: String(payload.description || "Comfortable room with modern amenities."),
+            roomNumber: chosenRoomNumber,
+            roomType,
+            pricePerNight,
+            capacity,
+            description,
             status: "available",
           })
           .returning();
@@ -200,7 +229,7 @@ export async function executeAgentAction(proposal: AgentProposalPayload) {
 
         return {
           success: true,
-          message: `Room #${room.roomNumber} (${room.roomType.toUpperCase()}) added to ${hotel.name} at NPR ${Number(room.pricePerNight).toLocaleString()}/night.`,
+          message: `Room #${room.roomNumber} (${room.roomType.toUpperCase()}, Max ${room.capacity} Guests) added to ${hotel.name} at NPR ${Number(room.pricePerNight).toLocaleString()}/night.`,
           data: room,
         };
       }
