@@ -1074,12 +1074,45 @@ Here are 3 premier travel ideas curated for your **{days}-Day** holiday in Nepal
 * **Recommended Highway Stops:** Malekhu / Mugling for fresh river fish and Nepali Dal Bhat."""
 
         else:
-            final_text = f"""### 🌟 {days}-Day Travel Guide: {dest}, Nepal
+            final_text = f"""### 🌟 {days}-Day Complete Itinerary & Travel Guide: {dest}, Nepal
 
-Here is your customized travel itinerary for **{dest}**:
-* **Best Season:** Autumn (Sept–Nov) & Spring (March–May) for clear blue skies and mountain visibility.
-* **Accommodations & Dining:** Verified partner listings with instant booking via Khalti Digital Wallet.
-* **Activities & Sights:** Viewpoints, cultural trails, local culinary food tours, and adventure sports."""
+Here is your detailed, day-by-day travel plan curated for **{days} Days in {dest}**:
+
+---
+
+#### 🗓️ Day-by-Day Schedule:
+* **Day 1: Arrival, Check-In & Local Atmosphere**
+  • **Morning:** Arrive in {dest}, check into your lodge/hotel, and settle in.
+  • **Afternoon:** Stroll through local markets, scenic waterfronts, and cultural viewpoints.
+  • **Evening:** Savor authentic local cuisine (Thakali Thali / Newari Khaja / Tharu specialities) and relax.
+
+* **Day 2: Signature Attractions & Guided Excursions**
+  • **Morning:** Early morning sunrise excursion or core landmark visit.
+  • **Afternoon:** Guided tour of prime attractions, heritage sites, and nature trails.
+  • **Evening:** Sunset vantage point followed by local cafe hopping.
+
+* **Day 3: Outdoor Adventure & Cultural Immersion**
+  • **Morning:** Outdoor excursion (Jeep safari / boat ride / nature hike / viewpoint walk).
+  • **Afternoon:** Visit traditional ethnic settlements, organic farms, and artisan centers.
+  • **Evening:** Evening leisure, bonfire dinner, and local music.
+
+* **Day 4: Highlights & Souvenir Walk**
+  • **Morning:** Morning photo walk, organic tea/coffee, and authentic souvenir shopping.
+  • **Afternoon:** Departure and smooth transit to your next destination.
+
+---
+
+#### 🏨 Recommended Stays & Pricing in {dest}:
+* **Verified Deluxe & Boutique Stays:** NPR 2,800 – 6,500 / night (With instant Khalti checkout).
+* **Authentic Local Homestays:** NPR 1,200 – 2,200 / night (Includes home-cooked meals).
+
+---
+
+#### 💰 Estimated Budget Breakdown ({days} Days):
+* **Accommodation ({max(1, days-1)} Nights):** NPR {int(max(1, days-1) * 2800):,}
+* **Meals & Authentic Dining:** NPR {int(days * 1200):,}
+* **Local Sightseeing & Entry Permits:** NPR {int(days * 1500):,}
+* **Total Estimated Budget:** **NPR {int(max(1, days-1) * 2800 + days * 1200 + days * 1500):,} per person**"""
 
     return {
         "final_answer": final_text,
