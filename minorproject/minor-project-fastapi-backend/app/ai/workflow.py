@@ -342,6 +342,24 @@ Respond ONLY with valid JSON."""
                 destination = city.capitalize()
                 break
 
+    # 0. Excessive / Invalid Trip Duration Guardrail
+    if days and (days > 60 or days <= 0):
+        steps.append(f"🛡️ Guardrail: Detected out-of-range trip duration ({days:,} days)")
+        return {
+            "is_terminal": True,
+            "final_answer": (
+                f"🏔️ **Trip Duration Notice ({days:,} Days)**\n\n"
+                f"A continuous {days:,}-day itinerary exceeds typical travel visa durations (Nepal tourist visas are issued for a maximum of 150 days per calendar year).\n\n"
+                f"🌟 **Recommended Trip Durations:**\n"
+                f"• **Weekend Getaways:** 2 – 4 Days (e.g. Pokhara, Chitwan, Nagarkot)\n"
+                f"• **Classic Circuits:** 7 – 14 Days (e.g. Annapurna Base Camp, Everest Panorama, Langtang)\n"
+                f"• **Grand Himalayan Traverses:** 21 – 30 Days (e.g. Great Himalaya Trail sectors, Manaslu & Mustang)\n\n"
+                f"Would you like me to plan a custom **3-Day, 7-Day, or 14-Day** itinerary for your favorite destinations?"
+            ),
+            "steps_taken": steps,
+            "tools_used": tools + ["duration_guardrail"],
+        }
+
     # Check for Partner Workspace Mutation intent via NLU or regex
     is_owner_mutation = (
         nlu_intent == "partner_rbac_action" or

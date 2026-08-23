@@ -116,51 +116,116 @@ type ChatMessage = {
   tools_used?: string[];
 };
 
-function renderFormattedText(text: string) {
-  if (!text) return null;
-  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s\)]+|\/[^\s\)]+)\)/g;
-  const parts: (string | React.ReactNode)[] = [];
-  let lastIndex = 0;
+function renderInlineMarkdown(content: string): React.ReactNode {
+  if (!content) return null;
+  // Parse links [label](url) and bold **text**
+  const tokenRegex = /(\[([^\]]+)\]\((https?:\/\/[^\s\)]+|\/[^\s\)]+)\)|\*\*([^*]+)\*\*)/g;
+  const nodes: React.ReactNode[] = [];
+  let lastIdx = 0;
   let match: RegExpExecArray | null;
 
-  while ((match = linkRegex.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index));
+  while ((match = tokenRegex.exec(content)) !== null) {
+    if (match.index > lastIdx) {
+      nodes.push(content.slice(lastIdx, match.index));
     }
-    const label = match[1];
-    const url = match[2];
-    if (url.startsWith("http")) {
-      parts.push(
-        <a
-          key={match.index}
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary font-bold underline inline-flex items-center gap-0.5 hover:opacity-80 transition-opacity"
-        >
-          <span>{label}</span>
-          <ExternalLink className="size-3 inline-block" />
-        </a>
-      );
-    } else {
-      parts.push(
-        <Link
-          key={match.index}
-          href={url}
-          className="text-primary font-bold underline hover:opacity-80 transition-opacity"
-        >
-          {label}
-        </Link>
+
+    if (match[2] && match[3]) {
+      // Link match
+      const label = match[2];
+      const url = match[3];
+      if (url.startsWith("http")) {
+        nodes.push(
+          <a
+            key={`link-${match.index}`}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary font-bold underline inline-flex items-center gap-0.5 hover:opacity-80 transition-opacity"
+          >
+            <span>{label}</span>
+            <ExternalLink className="size-3 inline-block" />
+          </a>
+        );
+      } else {
+        nodes.push(
+          <Link
+            key={`link-${match.index}`}
+            href={url}
+            className="text-primary font-bold underline hover:opacity-80 transition-opacity"
+          >
+            {label}
+          </Link>
+        );
+      }
+    } else if (match[4]) {
+      // Bold match
+      nodes.push(
+        <strong key={`bold-${match.index}`} className="font-semibold text-foreground">
+          {match[4]}
+        </strong>
       );
     }
-    lastIndex = match.index + match[0].length;
+
+    lastIdx = match.index + match[0].length;
   }
 
-  if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex));
+  if (lastIdx < content.length) {
+    nodes.push(content.slice(lastIdx));
   }
 
-  return parts;
+  return nodes;
+}
+
+function renderFormattedText(text: string) {
+  if (!text) return null;
+  const lines = text.split("\n");
+
+  return (
+    <div className="space-y-1.5 leading-relaxed text-sm">
+      {lines.map((line, idx) => {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          return <div key={idx} className="h-1" />;
+        }
+
+        // Horizontal separator
+        if (trimmed === "---" || trimmed === "***") {
+          return <hr key={idx} className="my-2 border-border/40" />;
+        }
+
+        // Headers: ### or ## or #
+        const headerMatch = trimmed.match(/^(#{1,4})\s+(.+)$/);
+        if (headerMatch) {
+          const level = headerMatch[1].length;
+          const headerText = headerMatch[2];
+          return (
+            <div
+              key={idx}
+              className={`font-bold tracking-tight text-foreground ${
+                level <= 2 ? "text-base mt-2 mb-1" : "text-sm font-semibold mt-1.5 mb-0.5"
+              }`}
+            >
+              {renderInlineMarkdown(headerText)}
+            </div>
+          );
+        }
+
+        // Bullet point: • or * or -
+        const bulletMatch = trimmed.match(/^([•\*\-]|(?:\d+\.))\s+(.+)$/);
+        if (bulletMatch) {
+          const bulletContent = bulletMatch[2];
+          return (
+            <div key={idx} className="flex items-start gap-2 pl-1.5">
+              <span className="text-primary font-bold select-none text-xs mt-0.5">▪</span>
+              <div className="flex-1">{renderInlineMarkdown(bulletContent)}</div>
+            </div>
+          );
+        }
+
+        return <p key={idx}>{renderInlineMarkdown(line)}</p>;
+      })}
+    </div>
+  );
 }
 
 export default function AIRobotChat() {
