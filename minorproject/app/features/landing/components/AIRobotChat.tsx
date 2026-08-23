@@ -238,6 +238,41 @@ function renderFormattedText(text: string) {
           );
         }
 
+        // Standalone link-only line: e.g. [Hotel Name](/hotels/3) or [Place](https://...)
+        const standaloneLinkMatch = trimmed.match(/^\[([^\]]+)\]\(\s*([^)]+?)\s*\)$/);
+        if (standaloneLinkMatch) {
+          const label = standaloneLinkMatch[1];
+          let url = standaloneLinkMatch[2].trim();
+          if (url.includes("localhost:3000/")) {
+            url = url.substring(url.indexOf("localhost:3000") + "localhost:3000".length);
+          }
+          if (url.startsWith("http://") || url.startsWith("https://")) {
+            return (
+              <a
+                key={idx}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 font-bold text-primary bg-primary/10 hover:bg-primary/20 border border-primary/30 px-3 py-1 rounded-lg text-sm transition-all my-0.5 shadow-2xs hover:shadow-xs"
+              >
+                <span>{label}</span>
+                <ExternalLink className="size-3.5 inline-block" />
+              </a>
+            );
+          }
+          const cleanPath = url.startsWith("/") ? url : `/${url}`;
+          return (
+            <Link
+              key={idx}
+              href={cleanPath}
+              className="inline-flex items-center gap-1.5 font-bold text-primary bg-primary/10 hover:bg-primary/20 border border-primary/30 px-3 py-1.5 rounded-lg text-sm transition-all my-0.5 shadow-2xs hover:shadow-xs"
+            >
+              <span>{label}</span>
+              <ArrowRight className="size-3.5 inline-block" />
+            </Link>
+          );
+        }
+
         return <p key={idx}>{renderInlineMarkdown(line)}</p>;
       })}
     </div>
