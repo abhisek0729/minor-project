@@ -17,6 +17,8 @@ from app.core.config import settings
 from app.ai.tools import TourismAgentToolset
 from app.ai.action_agent import process_action_request
 
+from app.services.transcription_correction_service import correct_transcription
+
 COMMON_LOCATIONS = [
     "kathmandu", "pokhara", "chitwan", "lumbini", "bhaktapur",
     "lalitpur", "patan", "annapurna", "everest", "mustang",
@@ -44,14 +46,26 @@ def extract_query_keywords(text: str) -> list[str]:
     return found
 
 async def chat(db, req):
-    user_msg = req.message or ""
+    raw_user_msg = req.message or ""
+
+    # ============================================================================
+    # STEP 1: DEDICATED LLM-BASED SPELLING & TRANSCRIPTION CORRECTION LAYER
+    # ============================================================================
+    corrected_user_msg, is_modified = await correct_transcription(raw_user_msg)
+    user_msg = corrected_user_msg if corrected_user_msg else raw_user_msg
     msg_lower = user_msg.lower()
     destination = req.destination or ""
     user_roles = req.user_roles or []
-    steps_taken = []
-    tools_used = []
     
-    # Execute LangGraph Multi-Agent State Workflow
+    correction_steps = []
+    correction_tools = []
+    if is_modified:
+        correction_steps.append(f"✏️ Context-Aware Text Refiner: '{raw_user_msg}' ➔ '{user_msg}'")
+        correction_tools.append("transcription_correction_layer")
+
+    # ============================================================================
+    # STEP 2: EXECUTE LANGGRAPH MULTI-AGENT STATE WORKFLOW WITH CORRECTED QUERY
+    # ============================================================================
     try:
         messages = []
         if req.history:
@@ -64,6 +78,9 @@ async def chat(db, req):
                     messages.append(AIMessage(content=str(content)))
         messages.append(HumanMessage(content=user_msg))
 
+        init_steps = list(correction_steps) + ["🚀 LangGraph Multi-Agent Workflow: Initialized state graph"]
+        init_tools = list(correction_tools) + ["langgraph_orchestrator"]
+
         graph_input = {
             "messages": messages,
             "user_id": getattr(req, "user_id", None),
@@ -75,8 +92,8 @@ async def chat(db, req):
             "action_proposal": None,
             "recommendations": [],
             "map_cards": [],
-            "steps_taken": ["🚀 LangGraph Multi-Agent Workflow: Initialized state graph"],
-            "tools_used": ["langgraph_orchestrator"],
+            "steps_taken": init_steps,
+            "tools_used": init_tools,
             "final_answer": "",
             "is_terminal": False,
         }
