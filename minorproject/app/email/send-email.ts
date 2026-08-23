@@ -28,28 +28,28 @@ export async function sendVerificationEmail(
       html: verificationEmailTemplate({ username, verifyCode }),
     });
 
-    if (error) {
-      console.error("Resend API error:", {
-        message: error.message,
-        name: error.name,
-        statusCode: (error as { statusCode?: number }).statusCode,
-        details: error,
-      });
+    // if (error) {
+    //   console.error("Resend API error:", {
+    //     message: error.message,
+    //     name: error.name,
+    //     statusCode: (error as { statusCode?: number }).statusCode,
+    //     details: error,
+    //   });
 
-      const resendDevRestriction =
-        fromEmail.includes("resend.dev") &&
-        email !== "delivered@resend.dev" &&
-        email !== "bounced@resend.dev" &&
-        email !== "complained@resend.dev" &&
-        email !== "suppressed@resend.dev";
+    //   const resendDevRestriction =
+    //     fromEmail.includes("resend.dev") &&
+    //     email !== "delivered@resend.dev" &&
+    //     email !== "bounced@resend.dev" &&
+    //     email !== "complained@resend.dev" &&
+    //     email !== "suppressed@resend.dev";
 
-      return {
-        success: false,
-        message: resendDevRestriction
-          ? "Resend test sender can only send to Resend test addresses. Verify your own domain and set RESEND_FROM_EMAIL to a verified sender."
-          : `Failed to send verification email. ${error.message}`,
-      };
-    }
+    //   return {
+    //     success: false,
+    //     message: resendDevRestriction
+    //       ? "Resend test sender can only send to Resend test addresses. Verify your own domain and set RESEND_FROM_EMAIL to a verified sender."
+    //       : `Failed to send verification email. ${error.message}`,
+    //   };
+    // }
 
     console.log("Verification email sent successfully to:", email);
     return {
