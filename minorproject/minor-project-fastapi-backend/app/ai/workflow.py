@@ -550,6 +550,7 @@ Tell me your location (and your budget per night if you have one), and I will se
 
     recommendations = []
     matched_hotel = None
+    web_insights = []
     try:
         async with SessionLocal() as db:
             db_hotels = await search_hotels(db, dest, max_price=budget, limit=4)
@@ -564,6 +565,21 @@ Tell me your location (and your budget per night if you have one), and I will se
                         "rating": 4.8,
                         "location": f"{h.district or dest}, Nepal",
                         "action_url": f"/hotels/{h.id}",
+                    })
+            else:
+                # Web Search Grounding Fallback for stays
+                steps.append(f"🌐 Web Search Grounding: Searching top hotels & resorts in {dest}")
+                searcher = WebSearchService()
+                web_insights = await searcher.search(f"Top best hotels resorts in {dest} Nepal", max_results=3)
+                for w in web_insights:
+                    recommendations.append({
+                        "name": w.get("title", f"Stay in {dest}"),
+                        "type": "hotel",
+                        "description": w.get("snippet", f"Recommended accommodation in {dest}."),
+                        "price": "NPR 2,500 – 5,500/night",
+                        "rating": 4.7,
+                        "location": f"{dest}, Nepal",
+                        "action_url": w.get("url", GoogleMapsService.build_search_url(f"Hotels in {dest} Nepal")),
                     })
     except Exception as e:
         print("Hotel DB Query Error:", e)
@@ -644,6 +660,21 @@ Let me know your city, and I will find verified local restaurants, famous eateri
                         "location": f"{r.location or dest}, Nepal",
                         "action_url": f"/restaurants/{r.id}",
                     })
+            else:
+                # Web Search Grounding for dining
+                steps.append(f"🌐 Web Search Grounding: Searching local dining in {dest}")
+                searcher = WebSearchService()
+                web_insights = await searcher.search(f"Best authentic local food restaurants in {dest} Nepal", max_results=3)
+                for w in web_insights:
+                    recommendations.append({
+                        "name": w.get("title", f"Local Dining in {dest}"),
+                        "type": "restaurant",
+                        "description": w.get("snippet", f"Authentic regional cuisine in {dest}."),
+                        "price": "NPR 300 – 900",
+                        "rating": 4.7,
+                        "location": f"{dest}, Nepal",
+                        "action_url": w.get("url", GoogleMapsService.build_search_url(f"Restaurants in {dest} Nepal")),
+                    })
     except Exception as e:
         print("Dining DB Error:", e)
 
@@ -652,8 +683,8 @@ Let me know your city, and I will find verified local restaurants, famous eateri
         "title": f"Dining & Food in {dest}",
         "location": f"{dest}, Nepal",
         "map_url": map_url,
-        "place_type": "food_map",
-        "description": f"Find authentic Thakali, Newari, Sekuwa, and scenic cafes in {dest}",
+        "place_type": "dining_map",
+        "description": f"Discover top local kitchens, Thakali sets, and restaurants in {dest}",
     }]
 
     return {
@@ -676,16 +707,29 @@ async def itinerary_planning_agent(state: TourismAgentState) -> dict[str, Any]:
     try:
         async with SessionLocal() as db:
             db_hotels = await search_hotels(db, dest, limit=3)
-            for h in db_hotels:
-                recommendations.append({
-                    "name": h.name,
-                    "type": "hotel",
-                    "description": h.description or f"Recommended platform accommodation in {dest}.",
-                    "price": f"NPR {getattr(h, 'min_price', 2500):,}/night",
-                    "rating": 4.8,
-                    "location": f"{h.district or dest}, Nepal",
-                    "action_url": f"/hotels/{h.id}",
-                })
+            if db_hotels:
+                for h in db_hotels:
+                    recommendations.append({
+                        "name": h.name,
+                        "type": "hotel",
+                        "description": h.description or f"Recommended platform accommodation in {dest}.",
+                        "price": f"NPR {getattr(h, 'min_price', 2500):,}/night",
+                        "rating": 4.8,
+                        "location": f"{h.district or dest}, Nepal",
+                        "action_url": f"/hotels/{h.id}",
+                    })
+            else:
+                steps.append(f"🌐 Web Search Grounding: Discovering top sights and stays in {dest}")
+                searcher = WebSearchService()
+                web_insights = await searcher.search(f"Top attractions sights things to do in {dest} Nepal", max_results=3)
+                for w in web_insights:
+                    recommendations.append({
+                        "name": w.get("title", f"Attraction in {dest}"),
+                        "type": "place",
+                        "description": w.get("snippet", f"Must-visit landmark in {dest}."),
+                        "location": f"{dest}, Nepal",
+                        "action_url": w.get("url", GoogleMapsService.build_search_url(f"{dest} Nepal attractions")),
+                    })
     except Exception as e:
         print("Itinerary DB Error:", e)
 
