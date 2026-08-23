@@ -603,10 +603,43 @@ Tell me your location (and your budget per night if you have one), and I will se
     web_insights = []
     try:
         async with SessionLocal() as db:
-            db_hotels = await search_hotels(db, dest, max_price=budget, limit=4)
+            db_hotels = await search_hotels(db, dest, max_price=budget, limit=8)
             if db_hotels:
-                matched_hotel = db_hotels[0]
-                for h in db_hotels:
+                # 1. Filter out dummy test listings like "gggggggg", "test" unless no other exist
+                valid_hotels = [h for h in db_hotels if h.name.lower() not in ["gggggggg", "test", "asdf"]] or db_hotels
+                
+                # 2. Score candidate hotels against words in user query
+                query_words = set(re.findall(r"\b[a-zA-Z]{3,}\b", msg_lower))
+                best_match = None
+                best_score = 0
+
+                for h in valid_hotels:
+                    h_lower = h.name.lower()
+                    h_words = set(re.findall(r"\b[a-zA-Z]{3,}\b", h_lower))
+                    score = 0
+                    
+                    # Direct substring match
+                    if h_lower in msg_lower:
+                        score += 10
+                    
+                    # Word overlap
+                    overlap = len(query_words.intersection(h_words))
+                    score += overlap * 4
+
+                    # Stemming / prefix fuzzy match (e.g. pindeshware -> pindeshwari)
+                    for qw in query_words:
+                        if len(qw) >= 4 and any(hw.startswith(qw[:4]) or qw.startswith(hw[:4]) for hw in h_words):
+                            score += 5
+
+                    if score > best_score:
+                        best_score = score
+                        best_match = h
+
+                matched_hotel = best_match or valid_hotels[0]
+
+                # Put matched hotel first in recommendations
+                sorted_hotels = [matched_hotel] + [h for h in valid_hotels if h.id != matched_hotel.id]
+                for h in sorted_hotels[:4]:
                     recommendations.append({
                         "name": h.name,
                         "type": "hotel",

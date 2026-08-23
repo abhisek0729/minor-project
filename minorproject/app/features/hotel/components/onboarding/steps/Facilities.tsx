@@ -110,7 +110,7 @@ export default function FacilitiesStep({
                 Common Facilities
               </FieldLabel>
 
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {predefinedFacilities.map((facility) => {
                   const Icon = facilityIcons[facility.icon];
 
@@ -126,23 +126,23 @@ export default function FacilitiesStep({
                       onClick={() =>
                         toggleFacility(facility.id)
                       }
-                      className={`flex items-center gap-4 rounded-xl border p-2 py-3 text-left transition-all ${
+                      className={`flex items-center gap-3 rounded-xl border p-3 text-left transition-all min-h-[58px] cursor-pointer ${
                         active
-                          ? "border-primary bg-primary/10"
+                          ? "border-primary bg-primary/10 ring-1 ring-primary/30"
                           : "hover:border-primary/40 hover:bg-muted/40"
                       }`}
                     >
                       <div
-                        className={`rounded-lg p-2 ${
+                        className={`shrink-0 rounded-lg p-2 ${
                           active
                             ? "bg-primary text-primary-foreground"
-                            : "bg-muted"
+                            : "bg-muted text-muted-foreground"
                         }`}
                       >
-                        <Icon className="size-5" />
+                        <Icon className="size-4.5" />
                       </div>
 
-                      <div className="font-medium">
+                      <div className="text-xs sm:text-sm font-medium leading-snug break-words flex-1 min-w-0">
                         {facility.name}
                       </div>
                     </button>
