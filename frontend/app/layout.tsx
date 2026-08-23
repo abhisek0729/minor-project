@@ -115,6 +115,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  verification: {
+    google: "pQKFYJohqLUl4jdqbnjX0U1QgRQxaqla6bZLM6idWYk",
+  },
 };
 
 const jsonLdSchema = {
@@ -192,6 +195,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        <meta name="google-site-verification" content="pQKFYJohqLUl4jdqbnjX0U1QgRQxaqla6bZLM6idWYk" />
         <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <link
