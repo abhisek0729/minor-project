@@ -509,6 +509,7 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
                           src={img.imageUrl}
                           alt={`Gallery ${idx + 1}`}
                           fill
+                          unoptimized
                           className="object-cover transition-transform group-hover:scale-105"
                         />
                         <button
@@ -597,6 +598,7 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
                           src={formData.restaurantImageUrl}
                           alt="Cover Preview"
                           fill
+                          unoptimized
                           className="object-cover"
                         />
                         <span className="absolute bottom-1 left-1 bg-black/70 text-[10px] text-white px-1.5 py-0.5 rounded">
@@ -611,6 +613,7 @@ export default function RestaurantOnboardingForm({ userEmail }: { userEmail: str
                           src={img.imageUrl}
                           alt={`Gallery ${idx + 1}`}
                           fill
+                          unoptimized
                           className="object-cover"
                         />
                       </div>
