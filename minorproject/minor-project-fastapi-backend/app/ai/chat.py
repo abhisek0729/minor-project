@@ -463,6 +463,7 @@ User Query: {user_msg}
             location=h["location"],
             map_url=h["map_url"],
             booking_note=f"Visit {h['url']} to reserve.",
+            url=h.get("url", f"/hotels/{h['id']}"),
         ))
 
     for r in restaurants_context[:2]:
@@ -474,6 +475,7 @@ User Query: {user_msg}
             location=r["location"],
             map_url=r["map_url"],
             booking_note=f"Visit {r['url']} for menu.",
+            url=r.get("url", f"/restaurants/{r['id']}"),
         ))
 
     for p in places_context[:2]:
@@ -484,6 +486,7 @@ User Query: {user_msg}
             reason=p.get("description", "Top attraction in Nepal"),
             location=p["location"],
             map_url=p["map_url"],
+            url=p.get("map_url", "https://maps.google.com/"),
         ))
 
     return ChatResponse(

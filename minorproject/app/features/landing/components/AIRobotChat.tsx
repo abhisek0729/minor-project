@@ -1719,28 +1719,38 @@ export default function AIRobotChat() {
                                     </p>
                                   )}
 
-                                  {rec.url && (
-                                    <div className="pt-1">
-                                      {rec.url.startsWith("http") ? (
-                                        <a
-                                          href={rec.url}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:underline"
-                                        >
-                                          <span>Open Google Maps & Details</span>
-                                          <ExternalLink className="size-3" />
-                                        </a>
-                                      ) : (
-                                        <Link
-                                          href={rec.url}
-                                          className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:underline"
-                                        >
-                                          <span>View Platform Listing →</span>
-                                        </Link>
-                                      )}
-                                    </div>
-                                  )}
+                                  {(() => {
+                                    const targetUrl =
+                                      rec.url ||
+                                      (rec.entity_type === "hotel" && rec.entity_id
+                                        ? `/hotels/${rec.entity_id}`
+                                        : rec.entity_type === "restaurant" && rec.entity_id
+                                        ? `/restaurants/${rec.entity_id}`
+                                        : rec.map_url);
+                                    if (!targetUrl) return null;
+                                    return (
+                                      <div className="pt-1">
+                                        {targetUrl.startsWith("http") ? (
+                                          <a
+                                            href={targetUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:underline"
+                                          >
+                                            <span>Open Google Maps & Details</span>
+                                            <ExternalLink className="size-3" />
+                                          </a>
+                                        ) : (
+                                          <Link
+                                            href={targetUrl}
+                                            className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:underline"
+                                          >
+                                            <span>View Platform Listing →</span>
+                                          </Link>
+                                        )}
+                                      </div>
+                                    );
+                                  })()}
                                 </div>
                               ))}
                             </div>
