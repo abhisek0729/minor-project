@@ -127,8 +127,9 @@ async def chat(db, req):
             tools_used=graph_output.get("tools_used", []),
         )
     except Exception as e:
-        # Fallback to direct Gemini generation if graph execution encounters an unhandled runtime error
-        pass
+        import traceback
+        print("[chat.py] LangGraph execution error:", e)
+        traceback.print_exc()
 
     # 0. OUT-OF-DOMAIN & NON-TOURISM GUARDRAIL
     out_of_domain_patterns = [

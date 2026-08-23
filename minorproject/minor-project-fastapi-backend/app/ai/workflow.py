@@ -296,11 +296,11 @@ I cannot assist with programming, general coding, or non-tourism subjects. How c
         }
 
     # C. Transit & Intercity Routing
-    if (origin and destination) or any(t in msg_lower for t in ["how to travel", "how to reach", "how to go", "how do i travel", "bus from", "flight to", "cheapest way to reach", "fastest way to reach", "travel time"]):
+    if (origin and destination) or any(t in msg_lower for t in ["how to travel", "how to reach", "how to go", "how do i travel", "bus from", "flight to", "cheapest way to reach", "fastest way to reach", "travel time", "travel by bus", "bus route", "bus fare", "bus ticket"]):
         return {
             "intent": "transit_routing",
-            "origin": origin or "Kathmandu",
-            "destination": destination or "Pokhara",
+            "origin": origin,
+            "destination": destination,
             "days": days,
             "budget_npr": budget,
             "language": lang,
@@ -312,34 +312,46 @@ I cannot assist with programming, general coding, or non-tourism subjects. How c
     if any(h in msg_lower for h in ["hotel", "stay", "resort", "lodge", "room", "accommodation", "booking", "reserve room"]):
         return {
             "intent": "hotel_booking",
-            "destination": destination or "Pokhara",
+            "destination": destination,
             "days": days,
             "budget_npr": budget,
             "language": lang,
             "is_terminal": False,
-            "steps_taken": steps + [f"🏨 Supervisor: Delegated to Hotel & Stay Agent ({destination or 'Pokhara'})"],
+            "steps_taken": steps + [f"🏨 Supervisor: Delegated to Hotel & Stay Agent ({destination or 'Location Required'})"],
         }
 
     # E. Dining & Food Discovery
     if any(f in msg_lower for f in ["food", "eat", "restaurant", "cafe", "momo", "sekuwa", "thakali", "khaja", "breakfast", "dinner", "lunch", "cuisine", "dining"]):
         return {
             "intent": "dining_discovery",
-            "destination": destination or "Kathmandu",
+            "destination": destination,
             "language": lang,
             "is_terminal": False,
-            "steps_taken": steps + [f"🍽️ Supervisor: Delegated to Dining & Food Agent ({destination or 'Kathmandu'})"],
+            "steps_taken": steps + [f"🍽️ Supervisor: Delegated to Dining & Food Agent ({destination or 'Location Required'})"],
         }
 
-    # F. Itinerary & Personalized Trip Planning
+    # F. Open-ended Vacation / Destination Discovery (No specific city named)
+    if not destination:
+        return {
+            "intent": "destination_discovery",
+            "destination": None,
+            "days": days or 4,
+            "budget_npr": budget,
+            "language": lang,
+            "is_terminal": False,
+            "steps_taken": steps + [f"🗺️ Supervisor: Open-ended trip query — Curating {days or 4}-day options & clarifying location with traveler"],
+        }
+
+    # G. Itinerary & Personalized Trip Planning for Named Destination
     return {
         "intent": "itinerary_planning",
-        "destination": destination or "Pokhara",
+        "destination": destination,
         "secondary_dest": secondary_dest,
         "days": days or 3,
         "budget_npr": budget,
         "language": lang,
         "is_terminal": False,
-        "steps_taken": steps + [f"🗺️ Supervisor: Delegated to Itinerary Planning Agent ({destination or 'Pokhara'})"],
+        "steps_taken": steps + [f"🗺️ Supervisor: Delegated to Itinerary Planning Agent ({destination})"],
     }
 
 # ============================================================================
@@ -375,10 +387,27 @@ If you or anyone in your group is injured, lost, or experiencing severe high-alt
 
 # SUB-AGENT 2: TRANSIT & ROUTE AGENT
 async def transit_route_agent(state: TourismAgentState) -> dict[str, Any]:
-    origin = state.get("origin") or "Kathmandu"
-    destination = state.get("destination") or "Pokhara"
+    origin = state.get("origin")
+    destination = state.get("destination")
     steps = list(state.get("steps_taken", []))
     tools = list(state.get("tools_used", []))
+
+    if not origin or not destination:
+        steps.append("❓ Transit Agent: Missing route endpoints — Prompted traveler for origin and destination")
+        return {
+            "is_terminal": True,
+            "final_answer": """🚌 **Nepal Intercity Transit & Route Planner**
+
+Please let me know your **starting location** and **destination city** (for example: *Kathmandu to Pokhara*, *Butwal to Dharan*, or *Pokhara to Chitwan*).
+
+Once you specify your route, I will provide:
+• 🛣️ Exact highway distances & realistic travel durations
+• 🎫 Bus types (Tourist AC, Micro HiAce, Deluxe) & approximate fares
+• 🎓 Student 45% discount guidance
+• 🍲 Recommended highway meal stops""",
+            "steps_taken": steps,
+            "tools_used": tools + ["clarification_guard"],
+        }
 
     steps.append(f"🚌 Transit Agent: Calculating highway routes, fares & travel options ({origin} ➔ {destination})")
     tools.append("transit_route_agent")
@@ -419,12 +448,26 @@ async def transit_route_agent(state: TourismAgentState) -> dict[str, Any]:
 
 # SUB-AGENT 3: HOTEL & ACCOMMODATION AGENT
 async def hotel_booking_agent(state: TourismAgentState) -> dict[str, Any]:
-    dest = state.get("destination") or "Pokhara"
+    dest = state.get("destination")
     budget = state.get("budget_npr")
     last_msg = state["messages"][-1].content if state["messages"] else ""
     msg_lower = last_msg.lower()
     steps = list(state.get("steps_taken", []))
     tools = list(state.get("tools_used", []))
+
+    if not dest:
+        steps.append("❓ Hotel Agent: Missing target city — Prompted traveler for destination")
+        return {
+            "is_terminal": True,
+            "final_answer": """🏨 **Hotel & Accommodations Search**
+
+Which city or area in Nepal are you planning to stay in?
+*(e.g., **Pokhara Lakeside, Kathmandu Thamel, Chitwan Sauraha, Lumbini, Mustang, Dharan, Nagarkot**)*
+
+Tell me your location (and your budget per night if you have one), and I will search our live database of verified partner stays with instant Khalti checkout!""",
+            "steps_taken": steps,
+            "tools_used": tools + ["clarification_guard"],
+        }
 
     steps.append(f"🏨 Hotel Agent: Querying verified platform catalog for {dest}")
     tools.append("hotel_booking_agent")
@@ -489,9 +532,23 @@ async def hotel_booking_agent(state: TourismAgentState) -> dict[str, Any]:
 
 # SUB-AGENT 4: DINING & FOOD DISCOVERY AGENT
 async def dining_discovery_agent(state: TourismAgentState) -> dict[str, Any]:
-    dest = state.get("destination") or "Kathmandu"
+    dest = state.get("destination")
     steps = list(state.get("steps_taken", []))
     tools = list(state.get("tools_used", []))
+
+    if not dest:
+        steps.append("❓ Dining Agent: Missing target city — Prompted traveler for dining location")
+        return {
+            "is_terminal": True,
+            "final_answer": """🍽️ **Authentic Dining & Food Discovery**
+
+Which city or area in Nepal are you dining in?
+*(e.g., **Kathmandu (Newari & Thakali), Pokhara Lakeside (Cafes & Fish), Chitwan (Tharu delicacies), Janakpur (Mithila sweets)**)*
+
+Let me know your city, and I will find verified local restaurants, famous eateries, and traditional dishes!""",
+            "steps_taken": steps,
+            "tools_used": tools + ["clarification_guard"],
+        }
 
     steps.append(f"🍽️ Dining Agent: Searching authentic local food & restaurants in {dest}")
     tools.append("dining_discovery_agent")
@@ -688,18 +745,87 @@ def expense_tracking_agent(state: TourismAgentState) -> dict[str, Any]:
         "tools_used": tools + ["hitl_action_proposal"],
     }
 
+# SUB-AGENT 8: DESTINATION DISCOVERY & VACATION SUGGESTIONS AGENT
+async def destination_discovery_agent(state: TourismAgentState) -> dict[str, Any]:
+    days = state.get("days") or 5
+    budget = state.get("budget_npr")
+    steps = list(state.get("steps_taken", []))
+    tools = list(state.get("tools_used", []))
+
+    steps.append(f"🗺️ Discovery Agent: Curating top {days}-day vacation ideas across Nepal")
+    tools.append("destination_discovery_agent")
+
+    # Multi-destination map cards
+    map_cards = [
+        {
+            "title": "Pokhara Valley & Annapurna Foothills",
+            "location": "Pokhara, Gandaki Province, Nepal",
+            "map_url": GoogleMapsService.build_search_url("Pokhara Nepal attractions"),
+            "place_type": "attraction_map",
+            "description": "Lakeside relaxation, Phewa boating, Sarangkot sunrise, World Peace Pagoda, and paragliding.",
+        },
+        {
+            "title": "Chitwan National Park & Sauraha",
+            "location": "Chitwan, Bagmati Province, Nepal",
+            "map_url": GoogleMapsService.build_search_url("Chitwan National Park Nepal"),
+            "place_type": "safari_map",
+            "description": "Jeep safaris, one-horned rhinos, elephant breeding center, canoe rides & authentic Tharu cultural dance.",
+        },
+        {
+            "title": "Kathmandu Valley & Nagarkot Heritage",
+            "location": "Kathmandu Valley, Nepal",
+            "map_url": GoogleMapsService.build_search_url("Kathmandu UNESCO Heritage Nepal"),
+            "place_type": "heritage_map",
+            "description": "Ancient Durbar Squares, Swayambhunath, Boudhanath Stupa, and panoramic Himalayan sunrise in Nagarkot.",
+        },
+        {
+            "title": "Mustang & Muktinath Spiritual Circuit",
+            "location": "Mustang, Gandaki Province, Nepal",
+            "map_url": GoogleMapsService.build_search_url("Mustang Muktinath Nepal"),
+            "place_type": "adventure_map",
+            "description": "High-altitude desert landscapes, ancient cliff monasteries, sacred Muktinath Temple, and apple orchards.",
+        }
+    ]
+
+    # Gather top verified platform stays across these premier regions
+    recommendations = []
+    try:
+        async with SessionLocal() as db:
+            p_hotels = await search_hotels(db, "Pokhara", limit=2)
+            c_hotels = await search_hotels(db, "Chitwan", limit=1)
+            k_hotels = await search_hotels(db, "Kathmandu", limit=1)
+            for h in (p_hotels + c_hotels + k_hotels):
+                recommendations.append({
+                    "name": h.name,
+                    "type": "hotel",
+                    "description": f"Verified accommodation in {h.district or 'Nepal'}.",
+                    "price": f"NPR {getattr(h, 'min_price', 2800):,}/night",
+                    "rating": 4.8,
+                    "location": f"{h.district or 'Nepal'}, Nepal",
+                    "action_url": f"/hotels/{h.id}",
+                })
+    except Exception as e:
+        print("Discovery DB warning:", e)
+
+    return {
+        "recommendations": recommendations,
+        "map_cards": map_cards,
+        "steps_taken": steps,
+        "tools_used": tools,
+    }
+
 # ============================================================================
-# 5. RESPONSE SYNTHESIS NODE (Powered by Gemini 3.6 Flash)
+# 5. RESPONSE SYNTHESIS NODE (Powered by Multi-Model Gemini Engine)
 # ============================================================================
 async def response_synthesis_node(state: TourismAgentState) -> dict[str, Any]:
     if state.get("is_terminal") and state.get("final_answer"):
         return {}
 
     intent = state.get("intent", "")
-    dest = state.get("destination") or "Nepal"
+    dest = state.get("destination")
     sec_dest = state.get("secondary_dest")
     origin = state.get("origin")
-    days = state.get("days")
+    days = state.get("days") or (5 if intent == "destination_discovery" else 3)
     budget = state.get("budget_npr")
     lang = state.get("language", "en")
     last_msg = state["messages"][-1].content if state["messages"] else ""
@@ -707,53 +833,107 @@ async def response_synthesis_node(state: TourismAgentState) -> dict[str, Any]:
     steps = list(state.get("steps_taken", []))
     tools = list(state.get("tools_used", []))
 
-    steps.append("✨ Gemini 3.6 Flash: Synthesizing grounded multi-agent response")
+    steps.append("✨ Multi-Agent Synthesis: Generating comprehensive grounded response")
     tools.append("gemini_synthesis")
 
-    prompt = f"""You are the expert AI Travel Assistant for TravelNepal.
+    prompt = f"""You are the expert AI Travel Specialist for TravelNepal platform.
 
 User Query: "{last_msg}"
 Detected Language: {lang}
 Detected Intent: {intent}
 Origin: {origin or 'N/A'}
-Primary Destination: {dest}
+Primary Destination: {dest or 'Nepal Destinations'}
 Secondary Destination: {sec_dest or 'N/A'}
-Duration Days: {days or 'N/A'}
+Duration Days: {days}
 Budget (NPR): {budget or 'N/A'}
 Verified Database Items: {json.dumps(recs, default=str)}
 
 Guidelines:
-1. Language matching: If user spoke in Nepali (Devanagari) or Romanized Nepali, respond warmly in the same language or bilingual format.
-2. If comparing destinations (e.g. Kathmandu vs Pokhara): Provide structured comparisons (vibe, budget, best for couples/families/adventure, scenic highlights).
-3. If transit routing (e.g. Butwal to Dharan, Kathmandu to Pokhara): Give realistic distance (~km), travel time, bus types & fares in NPR, student 45% discount card guidance, and meal stops.
-4. If multi-day trip planning: Structure with Morning, Afternoon, Evening, estimated daily costs in NPR, and local food highlights.
-5. If user has constraints (e.g. budget under 20k, with kids, no trekking): Strictly honor every constraint in your breakdown.
-6. Provide structured, welcoming markdown with clear headers and bullet points.
+1. If user is asking for vacation suggestions (intent: destination_discovery or no specific city named):
+   - Provide 3-4 top, distinct {days}-day Nepal vacation options (e.g. Option 1: Pokhara Leisure & Sarangkot Sunrise, Option 2: Chitwan Wildlife Safari & Tharu Culture, Option 3: Lower Mustang & Muktinath, Option 4: Kathmandu Heritage & Nagarkot).
+   - For each option, summarize the vibe, why it's perfect for a {days}-day trip, estimated budget in NPR, and best season.
+   - Ask which destination excites them most so you can generate a detailed day-by-day itinerary with hotel bookings.
+2. If multi-day trip planning for a specific destination (e.g. Pokhara, Mustang):
+   - Create a realistic day-by-day plan (Day 1 to Day {days}) with Morning, Afternoon, Evening schedule, local food specialties, and transit advice.
+   - Include realistic estimated cost breakdowns in NPR.
+3. If transit routing: Give realistic distance (~km), travel time, tourist vs local bus fares in NPR, student 45% discount card guidance, and highway rest stops.
+4. Keep all responses well-formatted in rich Markdown with clean headers (###), bold accents, and bullet points.
 """
 
+    generated = ""
     try:
         gemini = GeminiService()
         generated = await gemini.generate(prompt, system_instruction=CHAT_SYSTEM)
-        final_text = generated or f"Here are your verified travel recommendations for **{dest}**, Nepal."
     except Exception as e:
         print("Gemini synthesis error:", e)
-        # Contextual rich fallback
-        if intent == "transit_routing":
+
+    if generated:
+        final_text = generated
+    else:
+        # High-Quality Contextual Fallback
+        if intent == "destination_discovery" or not dest:
+            final_text = f"""### 🏔️ Top Recommended Destinations for a {days}-Day Nepal Vacation
+
+Here are 3 premier travel ideas curated for your **{days}-Day** holiday in Nepal:
+
+---
+
+#### 1. 🌅 **Pokhara Valley & Annapurna Foothills (Lakeside, Adventure & Serenity)**
+* **Ideal For:** Couples, families, and leisure travelers who love mountain panoramas and lake vibes.
+* **{days}-Day Highlights:**
+  • **Day 1–2:** Boating on Phewa Lake, Tal Barahi Temple, Peace Pagoda & Davis Fall.
+  • **Day 3:** Sarangkot sunrise over Machhapuchhre (Fishtail) & optional tandem paragliding.
+  • **Day 4:** Day trip to Ghandruk ethnic Gurung heritage village or Begnas Lake.
+  • **Day 5:** Lakeside cafe hopping, souvenir shopping, and return journey.
+* **Estimated Budget:** NPR 18,000 – 30,000 per person (Comfort stay, meals & local transport).
+
+---
+
+#### 2. 🐘 **Chitwan National Park & Sauraha (Wildlife Safari & Jungle Adventure)**
+* **Ideal For:** Nature lovers, wildlife enthusiasts, and family vacations.
+* **{days}-Day Highlights:**
+  • **Day 1:** Arrival in Sauraha, sunset view from Rapti River bank, and Tharu Cultural Dance.
+  • **Day 2:** Full-day Jeep Safari in National Park core area (spot one-horned rhinos, deer & tigers).
+  • **Day 3:** Canoe ride along Rapti river (gharial crocodiles & birdwatching) + Elephant breeding center.
+  • **Day 4:** 20,000 Lakes (Bishajari Tal) cycling tour & authentic Tharu village walk.
+  • **Day 5:** Morning jungle walk and return trip.
+* **Estimated Budget:** NPR 16,000 – 26,000 per person (Includes safari permits & resort stay).
+
+---
+
+#### 3. 🏯 **Kathmandu Valley & Nagarkot Panoramic Trail (UNESCO Heritage & Sunrises)**
+* **Ideal For:** Cultural heritage, historic architecture, and gentle hiking.
+* **{days}-Day Highlights:**
+  • **Day 1–2:** Kathmandu & Patan Durbar Squares, Swayambhunath (Monkey Temple) & Boudhanath Stupa.
+  • **Day 3:** Scenic drive to Nagarkot hill station via medieval Bhaktapur city.
+  • **Day 4:** Majestic Himalayan sunrise view from Nagarkot tower & hiking to Changunarayan Temple.
+  • **Day 5:** Return to Kathmandu for Thamel shopping and traditional Newari dinner.
+* **Estimated Budget:** NPR 14,000 – 22,000 per person.
+
+---
+
+💬 **Which of these destinations interests you the most?** Let me know, and I will generate your exact day-by-day plan and book verified accommodations!"""
+
+        elif intent == "transit_routing":
             orig = origin or "Kathmandu"
             dst = dest or "Pokhara"
             final_text = f"""### 🚌 Transit & Route Guide: {orig} to {dst}
 
 * **Primary Route:** Main National Highway connecting {orig} and {dst}.
-* **Estimated Travel Time:** 6 – 9 hours depending on traffic and road conditions.
-* **Transit Options:** Tourist AC buses, Deluxe Express buses, and Micro HiAce buses depart daily from central transit terminals.
-* **Estimated Fare:** NPR 1,000 – 1,800 per seat (Present student ID card for public transit concessions)."""
-        else:
-            final_text = f"""### 🌟 Verified Travel Recommendations for {dest}, Nepal
+* **Estimated Travel Time:** 6 – 9 hours depending on road expansion and traffic conditions.
+* **Transit Options & Fares:**
+  • **Tourist AC Deluxe Bus:** NPR 1,200 – 1,800 per seat (Comfortable recliner seats with AC and highway lunch stop).
+  • **Micro HiAce Bus:** NPR 900 – 1,300 per seat (Faster transit, departs every 30 mins).
+  • **Public Deluxe Bus:** NPR 700 – 1,000 per seat *(Students receive 45% discount on presentation of valid ID card)*.
+* **Recommended Highway Stops:** Malekhu / Mugling for fresh river fish and Nepali Dal Bhat."""
 
-Here is your travel guide and recommendations for exploring **{dest}**:
-* **Best Season to Visit:** Autumn (Sept–Nov) & Spring (March–May) for clear weather and mountain views.
-* **Accommodations & Dining:** Explore our verified platform partners with direct booking below.
-* **Payments:** Instant checkout via Khalti Digital Wallet."""
+        else:
+            final_text = f"""### 🌟 {days}-Day Travel Guide: {dest}, Nepal
+
+Here is your customized travel itinerary for **{dest}**:
+* **Best Season:** Autumn (Sept–Nov) & Spring (March–May) for clear blue skies and mountain visibility.
+* **Accommodations & Dining:** Verified partner listings with instant booking via Khalti Digital Wallet.
+* **Activities & Sights:** Viewpoints, cultural trails, local culinary food tours, and adventure sports."""
 
     return {
         "final_answer": final_text,
@@ -768,6 +948,7 @@ Here is your travel guide and recommendations for exploring **{dest}**:
 workflow = StateGraph(TourismAgentState)
 
 workflow.add_node("supervisor", supervisor_orchestrator_node)
+workflow.add_node("destination_discovery_agent", destination_discovery_agent)
 workflow.add_node("emergency_sos_agent", emergency_sos_agent)
 workflow.add_node("transit_route_agent", transit_route_agent)
 workflow.add_node("hotel_booking_agent", hotel_booking_agent)
@@ -783,6 +964,8 @@ def route_from_supervisor(state: TourismAgentState) -> str:
     if state.get("is_terminal"):
         return END
     intent = state.get("intent", "")
+    if intent == "destination_discovery":
+        return "destination_discovery_agent"
     if intent == "emergency_sos":
         return "emergency_sos_agent"
     if intent == "transit_routing":
@@ -806,6 +989,7 @@ def route_after_agent(state: TourismAgentState) -> str:
         return END
     return "synthesis"
 
+workflow.add_conditional_edges("destination_discovery_agent", route_after_agent)
 workflow.add_conditional_edges("emergency_sos_agent", route_after_agent)
 workflow.add_conditional_edges("transit_route_agent", route_after_agent)
 workflow.add_conditional_edges("hotel_booking_agent", route_after_agent)

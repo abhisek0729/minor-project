@@ -2405,13 +2405,7 @@ Would you like me to initiate a verified hotel reservation or provide specific d
     }
   }
 
-  // Clean markdown formatting
-  const cleanAnswer = generatedAnswer
-    .replace(/^#{1,6}\s*/gm, "")
-    .replace(/\*\*([^*]+)\*\*/g, "$1")
-    .replace(/\*([^*]+)\*/g, "$1")
-    .replace(/^\s*[\*\-]\s+/gm, "• ")
-    .trim();
+  const cleanAnswer = generatedAnswer ? generatedAnswer.trim() : "";
 
   return {
     answer: cleanAnswer,

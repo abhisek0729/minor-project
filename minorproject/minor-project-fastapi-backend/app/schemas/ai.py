@@ -11,13 +11,19 @@ class RecommendationRequest(BaseModel):
     travelers: int = Field(default=1, ge=1, le=20)
 
 class Recommendation(BaseModel):
-    entity_type: str
-    entity_id: int
     name: str
-    reason: str
-    estimated_cost: Decimal | None = None
+    type: str = "place"
+    description: str = ""
+    price: str | None = None
+    rating: float | None = None
     location: str | None = None
+    action_url: str | None = None
     map_url: str | None = None
+    # Optional backward compatibility fields
+    entity_type: str | None = "place"
+    entity_id: int | None = 1
+    reason: str | None = ""
+    estimated_cost: Decimal | None = None
     booking_note: str | None = None
 
 class MapCard(BaseModel):
