@@ -461,7 +461,7 @@ export default function ModuleExplorer({
         </div>
 
         {/* Module Tab Selector */}
-        <div role="tablist" aria-label="Tourism Categories" className="mb-8 flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div role="tablist" aria-label="Tourism Categories" className="mb-6 flex gap-2 sm:gap-3 overflow-x-auto pb-1.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {modules.map((module) => {
             const Icon = module.icon;
             const isActive = module.id === activeModule.id;
@@ -474,27 +474,27 @@ export default function ModuleExplorer({
                 aria-selected={isActive}
                 aria-label={`Select ${module.label} module`}
                 onClick={() => setActiveModuleId(module.id)}
-                className={`group relative flex min-w-[180px] items-center gap-3 rounded-full border px-4 py-3 text-left transition-all duration-200 cursor-pointer ${
+                className={`group relative flex min-w-[140px] sm:min-w-[170px] items-center gap-2.5 rounded-full border px-3 py-2 sm:px-4 sm:py-2.5 text-left transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                    ? "border-primary bg-primary text-primary-foreground shadow-xs"
                     : "border-border bg-card text-foreground hover:border-primary/30"
                 }`}
               >
                 <span
-                  className={`flex h-8 w-8 items-center justify-center rounded-full ${
+                  className={`flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full ${
                     isActive
                       ? "bg-primary-foreground/15 text-primary-foreground"
                       : "bg-muted text-foreground"
                   }`}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </span>
-                <span>
-                  <span className="block text-sm font-semibold">
+                <span className="min-w-0">
+                  <span className="block text-xs sm:text-sm font-semibold truncate">
                     {module.label}
                   </span>
                   <span
-                    className={`block text-[11px] ${isActive ? "text-primary-foreground/90 font-medium" : "text-muted-foreground"}`}
+                    className={`block text-[10px] sm:text-[11px] truncate ${isActive ? "text-primary-foreground/90 font-medium" : "text-muted-foreground"}`}
                   >
                     {module.description}
                   </span>
@@ -694,7 +694,7 @@ export default function ModuleExplorer({
               )
             ) : (
               /* OTHER MODULES (Accommodation, Food, Destinations, Guides) */
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
                 {activeModule.cards.map((card) => {
                   const cardNumId = card.id.includes("-") ? card.id.split("-")[1] : card.id;
                   const detailHref =
@@ -709,50 +709,50 @@ export default function ModuleExplorer({
                   return (
                     <article
                       key={card.id}
-                      className="group overflow-hidden rounded-[26px] border border-border bg-muted/30 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 flex flex-col justify-between"
+                      className="group overflow-hidden rounded-2xl sm:rounded-[22px] border border-border bg-card shadow-2xs transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col justify-between"
                     >
                       <Link href={detailHref} className="block flex-1">
-                        <div className="relative h-56 overflow-hidden">
+                        <div className="relative h-40 sm:h-44 md:h-48 overflow-hidden">
                           <Image
                             src={card.image}
                             alt={card.title}
                             fill
-                            sizes="(max-width: 768px) 100vw, 33vw"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                          <div className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-background/90 px-2 py-1 text-xs font-medium text-foreground shadow-sm backdrop-blur-sm">
-                            <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
+                          <div className="absolute left-2.5 top-2.5 flex items-center gap-1 rounded-full bg-background/90 px-2 py-0.5 text-[11px] font-medium text-foreground shadow-xs backdrop-blur-sm">
+                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                             {card.rating.toFixed(1)}
                           </div>
-                          <div className="absolute right-3 top-3 rounded-full bg-foreground/80 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-background backdrop-blur-sm">
+                          <div className="absolute right-2.5 top-2.5 rounded-full bg-foreground/80 px-2 py-0.5 text-[9px] sm:text-[10px] font-medium uppercase tracking-[0.1em] text-background backdrop-blur-sm">
                             {card.tag}
                           </div>
                         </div>
 
-                        <div className="space-y-3 p-4">
-                          <div className="flex items-start justify-between gap-2">
+                        <div className="space-y-1.5 p-3 sm:p-3.5">
+                          <div className="flex items-start justify-between gap-1.5">
                             <div>
-                              <h4 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                              <h4 className="text-sm sm:text-base font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
                                 {card.title}
                               </h4>
-                              <p className="mt-1 text-sm text-muted-foreground">
+                              <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">
                                 {card.subtitle}
                               </p>
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <MapPin className="h-4 w-4" />
-                            {card.location}
+                          <div className="flex items-center gap-1.5 text-xs text-muted-foreground pt-0.5">
+                            <MapPin className="h-3.5 w-3.5 shrink-0 text-primary" />
+                            <span className="truncate">{card.location}</span>
                           </div>
                         </div>
                       </Link>
 
-                      <div className="p-4 pt-0">
-                        <div className="flex items-center justify-between border-t border-border pt-3">
+                      <div className="p-3 sm:p-3.5 pt-0">
+                        <div className="flex items-center justify-between border-t border-border pt-2.5">
                           <div>
-                            <span className="block text-xl font-bold text-foreground">
+                            <span className="block text-sm sm:text-base font-bold text-foreground">
                               {card.price}
                             </span>
                           </div>
@@ -761,24 +761,24 @@ export default function ModuleExplorer({
                             <Link href={detailHref}>
                               <Button
                                 size="sm"
-                                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold cursor-pointer"
+                                className="h-8 rounded-full bg-primary px-3 text-xs text-primary-foreground hover:bg-primary/90 font-semibold cursor-pointer"
                               >
-                                Explore Details →
+                                Explore →
                               </Button>
                             </Link>
                           ) : activeModule.id === "food" ? (
                             <Link href={detailHref}>
                               <Button
                                 size="sm"
-                                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold cursor-pointer"
+                                className="h-8 rounded-full bg-primary px-3 text-xs text-primary-foreground hover:bg-primary/90 font-semibold cursor-pointer"
                               >
-                                View Menu & Details →
+                                View Menu →
                               </Button>
                             </Link>
                           ) : (
                             <Button
                               size="sm"
-                              className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold cursor-pointer"
+                              className="h-8 rounded-full bg-primary px-3 text-xs text-primary-foreground hover:bg-primary/90 font-semibold cursor-pointer"
                               onClick={() => handleBooking(card)}
                               disabled={isBooking === card.id}
                             >

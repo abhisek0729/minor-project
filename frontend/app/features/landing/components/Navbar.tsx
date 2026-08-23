@@ -61,10 +61,10 @@ export default function Navbar() {
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "border-b bg-background/90 shadow-sm backdrop-blur-xl"
-          : "bg-black/0 backdrop-blur-md"
+          : "border-b border-white/10 bg-black/40 backdrop-blur-md"
       }`}
     >
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 lg:px-8">
+      <div className="mx-auto flex h-14 sm:h-16 max-w-7xl items-center justify-between px-3.5 sm:px-4 lg:px-8">
         {/* Logo */}
 
         <Link href="/" className="flex items-center gap-3">
