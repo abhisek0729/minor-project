@@ -1,0 +1,20 @@
+# TravelNepal
+> Intelligent Multi-Agent Tourism, Verified Stays & Digital Transit Ecosystem in Nepal
+
+## Overview
+TravelNepal is Nepal's premier digital tourism platform connecting travelers with verified accommodations, authentic dining, licensed Himalayan trekking guides, and intercity transit routing with government-approved student discounts.
+
+## Core Features
+- **AI Travel Specialist**: Multi-agent trip planning for all destinations in Nepal (Pokhara, Kathmandu, Chitwan, Mustang, Lumbini, Ilam, Dharan, Rara).
+- **Verified Hotels & Stays**: Direct room reservations with instant Khalti digital wallet payment integration.
+- **Intercity Transit & Student Discounts**: Accurate highway route calculations with 45% student bus fare concessions.
+- **Human-In-The-Loop (HITL) Workspaces**: Partner dashboards for hotel owners, restaurant managers, and tour guides.
+- **Context-Aware Speech Correction**: Sanitizes phonetic speech-to-text transcription errors in English, Nepali, and Romanized Nepali.
+
+## Official Links
+- Home: https://travelnepal.app
+- Destinations: https://travelnepal.app/destinations
+- Hotels: https://travelnepal.app/hotels
+- Restaurants: https://travelnepal.app/restaurants
+- Guides: https://travelnepal.app/guides
+- AI Planner: https://travelnepal.app/ai-planner
