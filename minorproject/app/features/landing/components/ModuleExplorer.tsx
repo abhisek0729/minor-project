@@ -460,7 +460,7 @@ export default function ModuleExplorer({
         </div>
 
         {/* Module Tab Selector */}
-        <div className="mb-8 flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div role="tablist" aria-label="Tourism Categories" className="mb-8 flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {modules.map((module) => {
             const Icon = module.icon;
             const isActive = module.id === activeModule.id;
@@ -469,6 +469,9 @@ export default function ModuleExplorer({
               <button
                 key={module.id}
                 type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-label={`Select ${module.label} module`}
                 onClick={() => setActiveModuleId(module.id)}
                 className={`group relative flex min-w-[180px] items-center gap-3 rounded-full border px-4 py-3 text-left transition-all duration-200 cursor-pointer ${
                   isActive
@@ -490,7 +493,7 @@ export default function ModuleExplorer({
                     {module.label}
                   </span>
                   <span
-                    className={`block text-[11px] ${isActive ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+                    className={`block text-[11px] ${isActive ? "text-primary-foreground/90 font-medium" : "text-muted-foreground"}`}
                   >
                     {module.description}
                   </span>

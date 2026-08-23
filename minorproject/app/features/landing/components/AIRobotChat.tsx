@@ -1182,6 +1182,7 @@ export default function AIRobotChat() {
                     size="icon"
                     disabled={!input.trim() || isLoading}
                     onClick={() => handleSend()}
+                    aria-label="Send message to AI assistant"
                     className="size-8 rounded-xl shrink-0 cursor-pointer mb-0.5"
                   >
                     <SendHorizonal className="size-4" />
@@ -1197,7 +1198,8 @@ export default function AIRobotChat() {
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
           className="pointer-events-auto group relative flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-2xl transition hover:scale-105 active:scale-95 cursor-pointer"
-          aria-label="Toggle AI Assistant"
+          aria-label={isOpen ? "Close AI Assistant" : "Open TravelNepal AI Voice & Travel Assistant"}
+          aria-expanded={isOpen}
         >
           <Sparkles className="size-6 transition-transform group-hover:rotate-12" />
           <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-foreground text-[8px] font-bold text-background ring-2 ring-background">

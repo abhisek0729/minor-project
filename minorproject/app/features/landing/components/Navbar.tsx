@@ -92,8 +92,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav aria-label="Main Navigation" className="hidden items-center gap-6 lg:flex">
           {navItems.map((item) => {
             const active = pathname === item.href;
 
@@ -102,6 +101,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-label="Emergency SOS - Police & Rescue Helpline"
                   className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs ${
                     active
                       ? "bg-rose-600 text-white shadow-md ring-2 ring-rose-500/50"
@@ -137,7 +137,6 @@ export default function Navbar() {
         </nav>
 
         {/* Desktop Buttons */}
-
         <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
           {session ? (
@@ -146,6 +145,7 @@ export default function Navbar() {
                 <Button
                   variant="default"
                   className="rounded-xl shadow-xs font-semibold px-5"
+                  aria-label="Go to Dashboard"
                 >
                   Dashboard
                 </Button>
@@ -156,6 +156,7 @@ export default function Navbar() {
                 className={`rounded-xl transition hover:-translate-y-0.5 ${
                   isScrolled ? "text-destructive hover:bg-destructive/10" : "text-white hover:bg-white/10"
                 }`}
+                aria-label="Sign out of account"
                 onClick={() => signOut({ callbackUrl: "/" })}
               >
                 Sign out
@@ -163,26 +164,31 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Button variant={isScrolled ? "ghost" : "secondary"}>
-                <Link href="/partner/business-type">Become a Partner</Link>
-              </Button>
+              <Link href="/partner/business-type">
+                <Button variant={isScrolled ? "ghost" : "secondary"}>
+                  Become a Partner
+                </Button>
+              </Link>
 
-              <Button variant={isScrolled ? "outline" : "secondary"}>
-                <Link href="/sign-in">Sign In</Link>
-              </Button>
+              <Link href="/sign-in">
+                <Button variant={isScrolled ? "outline" : "secondary"}>
+                  Sign In
+                </Button>
+              </Link>
 
-              <Button>
-                <Link href="/sign-up">Get Started</Link>
-              </Button>
+              <Link href="/sign-up">
+                <Button>Get Started</Button>
+              </Link>
             </>
           )}
         </div>
 
-        {/* Mobile Menu */}
-
+        {/* Mobile Menu Button */}
         <Button
           variant="ghost"
           size="icon"
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isOpen}
           className={`lg:hidden ${
             isScrolled ? "text-foreground" : "text-white hover:bg-white/10"
           }`}
