@@ -1541,3 +1541,14 @@ workflow.add_edge("synthesis", END)
 
 checkpointer = MemorySaver()
 travel_agent_app = workflow.compile(checkpointer=checkpointer)
+
+if __name__ == "__main__":
+    print("\n" + "=" * 60)
+    print("[LangGraph] TravelNepal Multi-Agent Workflow")
+    print("=" * 60)
+    print("\nRegistered Nodes:")
+    for node in travel_agent_app.get_graph().nodes.keys():
+        print(f"  - {node}")
+    print("\nGraph Mermaid Definition:")
+    print(travel_agent_app.get_graph().draw_mermaid())
+    print("=" * 60)
