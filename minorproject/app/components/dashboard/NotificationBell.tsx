@@ -177,12 +177,13 @@ export default function NotificationBell() {
                   {getCategoryIcon(notif.category, notif.urgency)}
                 </div>
                 <div className="min-w-0 flex-1 space-y-1">
-                  <div className="flex items-center justify-between gap-1">
+                  <div className="flex items-center justify-between gap-2">
                     <p className={`text-xs truncate ${notif.read ? "font-semibold text-foreground" : "font-bold text-foreground"}`}>
                       {notif.title}
                     </p>
-                    <span className="text-[10px] text-muted-foreground shrink-0 flex items-center gap-0.5 font-mono">
-                      <Clock className="size-2.5" /> {notif.timestamp}
+                    <span className="text-[10px] text-muted-foreground shrink-0 flex items-center gap-1 font-mono font-medium bg-muted/80 border border-border/40 px-2 py-0.5 rounded-md shadow-2xs">
+                      <Clock className="size-2.5 text-primary" />
+                      <span>{notif.timestamp}</span>
                     </span>
                   </div>
                   <p className="text-[11px] text-muted-foreground leading-relaxed">

@@ -29,6 +29,29 @@ export interface WorkspaceNotification {
   link?: string;
 }
 
+function formatRelativeTime(date: Date | string | null | undefined): string {
+  if (!date) return "Just now";
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return "Recently";
+
+  const now = new Date();
+  const diffMs = now.getTime() - d.getTime();
+  if (diffMs < 0) return "Just now";
+
+  const diffSec = Math.floor(diffMs / 1000);
+  const diffMin = Math.floor(diffSec / 60);
+  const diffHrs = Math.floor(diffMin / 60);
+  const diffDays = Math.floor(diffHrs / 24);
+
+  if (diffSec < 45) return "Just now";
+  if (diffMin < 60) return `${diffMin}m ago`;
+  if (diffHrs < 24) return `${diffHrs}h ago`;
+  if (diffDays === 1) return "Yesterday";
+  if (diffDays < 7) return `${diffDays}d ago`;
+
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
 export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotification[]> {
   try {
     const session = await getServerSession(authOptions);
@@ -61,7 +84,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             title: "Hotel Verification Under Review",
             description: `Your registration for "${hotel.name}" in ${hotel.municipality}, ${hotel.district} is awaiting Super Admin verification.`,
             category: "hotel",
-            timestamp: "Live Status",
+            timestamp: formatRelativeTime(hotel.createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/hotels/pending",
@@ -72,7 +95,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             title: "Hotel Workspace Verified 🎉",
             description: `"${hotel.name}" is approved and publicly listed across the TravelNepal discovery catalog.`,
             category: "hotel",
-            timestamp: "Active",
+            timestamp: formatRelativeTime(hotel.updatedAt || hotel.createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/hotels",
@@ -104,7 +127,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             title: `Room Catalog Active (${rooms.length} Units)`,
             description: `Latest: Room #${rooms[0].roomNumber} (${rooms[0].roomType.toUpperCase()}) listed at NPR ${Number(rooms[0].pricePerNight).toLocaleString()}/night.`,
             category: "hotel",
-            timestamp: "Catalog Synced",
+            timestamp: formatRelativeTime(rooms[0].createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/hotels/rooms",
@@ -125,7 +148,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             title: `Guest Reservation #${b.id}`,
             description: `${b.guests} guest(s) booked for NPR ${b.totalAmount.toLocaleString()} (${b.status.toUpperCase()}). Payment: ${b.paymentStatus}.`,
             category: "booking",
-            timestamp: b.createdAt ? new Date(b.createdAt).toLocaleDateString() : "Recent",
+            timestamp: formatRelativeTime(b.createdAt),
             urgency: b.status === "pending" ? "high" : "normal",
             read: false,
             link: "/dashboard/hotels",
@@ -153,7 +176,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             title: "Restaurant Verification In Review",
             description: `Registration for "${rest.name}" is being verified. Operating hours: ${rest.openingTime || "09:00 AM"} - ${rest.closingTime || "10:00 PM"}.`,
             category: "restaurant",
-            timestamp: "Live Status",
+            timestamp: formatRelativeTime(rest.createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/restaurant/pending",
@@ -164,7 +187,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             title: "Restaurant Store Live 🍽️",
             description: `"${rest.name}" is verified. Store is currently ${rest.isOpen !== false ? "OPEN" : "CLOSED"}.`,
             category: "restaurant",
-            timestamp: "Active",
+            timestamp: formatRelativeTime(rest.updatedAt || rest.createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/restaurant",
@@ -196,7 +219,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             title: `Digital Menu Active (${menus.length} Dishes)`,
             description: `Latest Dish: "${menus[0].name}" listed at NPR ${menus[0].price.toLocaleString()}.`,
             category: "restaurant",
-            timestamp: "Menu Synced",
+            timestamp: formatRelativeTime(menus[0].createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/restaurant/menu",
@@ -217,7 +240,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             title: `Dining Order #${ord.id}`,
             description: `Customer: ${ord.customerName} (${ord.orderType || "dine-in"}) • Total: NPR ${ord.totalAmount.toLocaleString()} (${ord.status}).`,
             category: "restaurant",
-            timestamp: ord.createdAt ? new Date(ord.createdAt).toLocaleDateString() : "Recent",
+            timestamp: formatRelativeTime(ord.createdAt),
             urgency: ord.status === "pending" ? "high" : "normal",
             read: false,
             link: "/dashboard/restaurant/orders",
@@ -245,7 +268,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             title: "Tour Guide Credentials In Review",
             description: `Your guide profile and license details are under administrator review.`,
             category: "guide",
-            timestamp: "Pending Approval",
+            timestamp: formatRelativeTime(guide.createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/guide/pending",
@@ -276,7 +299,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             title: `Trekking Packages Live (${pkgs.length})`,
             description: `Latest Tour: "${pkgs[0].title}" (${pkgs[0].durationDays} Days, NPR ${pkgs[0].price.toLocaleString()}).`,
             category: "guide",
-            timestamp: "Active",
+            timestamp: formatRelativeTime(pkgs[0].createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/guide/packages",
@@ -301,7 +324,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
           title: "Partner Verification Requests",
           description: `${pendingRoles.length} partner application(s) are awaiting verification in the Super Admin console.`,
           category: "system",
-          timestamp: "Action Required",
+          timestamp: formatRelativeTime(pendingRoles[0].createdAt),
           urgency: "high",
           read: false,
           link: "/dashboard/admin/approvals",
@@ -325,7 +348,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
         title: `Booking: ${b.itemName || "Travel Reservation"}`,
         description: `Reserved for ${b.guests} guest(s) at NPR ${b.totalAmount.toLocaleString()}. Status: ${b.status.toUpperCase()}.`,
         category: "booking",
-        timestamp: b.createdAt ? new Date(b.createdAt).toLocaleDateString() : "Recent",
+        timestamp: formatRelativeTime(b.createdAt),
         urgency: b.status === "pending" ? "high" : "normal",
         read: false,
         link: "/dashboard",
@@ -345,7 +368,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
         title: `Expense Logged: NPR ${exp.amount.toLocaleString()}`,
         description: `Recorded "${exp.name}" (${exp.type}) in ${exp.location}.`,
         category: "expense",
-        timestamp: exp.createdAt ? new Date(exp.createdAt).toLocaleDateString() : "Ledger Synced",
+        timestamp: formatRelativeTime(exp.createdAt),
         urgency: "normal",
         read: true,
         link: "/dashboard",
