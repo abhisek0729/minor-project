@@ -42,13 +42,22 @@ export const getCachedLandingData = unstable_cache(
         db.select().from(guidesTable).limit(12),
       ]);
 
+const FALLBACK_HERO_IMAGE = "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200";
+
+function sanitizeImageUrl(url: string | null | undefined, fallback: string): string {
+  if (!url || typeof url !== "string" || url.includes("1623880840102")) {
+    return fallback;
+  }
+  return url;
+}
+
       const featuredHotels = dbHotels.map((h) => ({
         id: String(h.id),
         title: h.name,
         subtitle: (h.description || "Top rated accommodation in Nepal").slice(0, 55) + "...",
         price: h.minPrice ? `NPR ${Number(h.minPrice).toLocaleString()} / night` : "NPR 3,500 / night",
         rating: 4.9,
-        image: h.coverImageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200",
+        image: sanitizeImageUrl(h.coverImageUrl, "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200"),
         tag: "Verified Stay",
         location: `${h.district || "Nepal"}, ${h.province || "Nepal"}`,
       }));
@@ -59,7 +68,7 @@ export const getCachedLandingData = unstable_cache(
         subtitle: r.cuisine || "Authentic Nepali & Multi-Cuisine",
         price: "NPR 650 / set",
         rating: 4.8,
-        image: r.restaurantImageUrl || "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+        image: sanitizeImageUrl(r.restaurantImageUrl, "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200"),
         tag: r.isOpen ? "Open Now" : "Popular Choice",
         location: r.location || "Nepal",
       }));
@@ -70,7 +79,7 @@ export const getCachedLandingData = unstable_cache(
         subtitle: d.shortDescription ? d.shortDescription.slice(0, 55) + "..." : "Scenic Himalayan wonder",
         price: d.startingCost || "Free access",
         rating: d.rating || 4.9,
-        image: d.coverImage || "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200",
+        image: sanitizeImageUrl(d.coverImage, FALLBACK_HERO_IMAGE),
         tag: d.category || "Must Visit",
         location: d.region || "Nepal",
       }));
@@ -81,7 +90,7 @@ export const getCachedLandingData = unstable_cache(
         subtitle: `${g.experienceYears || 5}+ years certified Himalayan leader`,
         price: `NPR ${(g.dailyRate || 3500).toLocaleString()} / day`,
         rating: 5.0,
-        image: g.guideImageUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800",
+        image: sanitizeImageUrl(g.guideImageUrl, "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800"),
         tag: "Certified Guide",
         location: g.location || "Kathmandu / Pokhara",
       }));
