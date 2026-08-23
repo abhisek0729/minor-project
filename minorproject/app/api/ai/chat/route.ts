@@ -5,7 +5,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 const FASTAPI_BASE_URL =
   process.env.FASTAPI_BASE_URL ||
   process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-  "http://localhost:8000";
+  "http://127.0.0.1:8000";
 
 export async function POST(request: NextRequest) {
   try {

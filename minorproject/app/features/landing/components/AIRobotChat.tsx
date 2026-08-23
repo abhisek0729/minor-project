@@ -119,8 +119,8 @@ type ChatMessage = {
 
 function renderInlineMarkdown(content: string): React.ReactNode {
   if (!content) return null;
-  // Parse links [label](url) with optional whitespace and bold **text**
-  const tokenRegex = /(\[([^\]]+)\]\(\s*([^\)\s]+)\s*\)|\*\*([^*]+)\*\*)/g;
+  // Parse links [label](url), bold **text**, and italic *text*
+  const tokenRegex = /(\[([^\]]+)\]\(\s*([^\)]+?)\s*\)|\*\*([^*]+)\*\*|\*([^*]+)\*)/g;
   const nodes: React.ReactNode[] = [];
   let lastIdx = 0;
   let match: RegExpExecArray | null;
@@ -133,8 +133,14 @@ function renderInlineMarkdown(content: string): React.ReactNode {
     if (match[2] && match[3]) {
       // Link match
       const label = match[2];
-      const url = match[3].trim();
-      if (url.startsWith("http")) {
+      let url = match[3].trim();
+      
+      // Clean localhost prefix if present
+      if (url.includes("localhost:3000/")) {
+        url = url.substring(url.indexOf("localhost:3000") + "localhost:3000".length);
+      }
+
+      if (url.startsWith("http://") || url.startsWith("https://")) {
         nodes.push(
           <a
             key={`link-${match.index}`}
@@ -148,10 +154,11 @@ function renderInlineMarkdown(content: string): React.ReactNode {
           </a>
         );
       } else {
+        const cleanPath = url.startsWith("/") ? url : `/${url}`;
         nodes.push(
           <Link
             key={`link-${match.index}`}
-            href={url}
+            href={cleanPath}
             className="text-primary font-bold underline inline-flex items-center gap-0.5 hover:opacity-80 transition-opacity"
           >
             <span>{label}</span>
@@ -160,11 +167,18 @@ function renderInlineMarkdown(content: string): React.ReactNode {
         );
       }
     } else if (match[4]) {
-      // Bold match
+      // Bold match **text**
       nodes.push(
         <strong key={`bold-${match.index}`} className="font-semibold text-foreground">
           {match[4]}
         </strong>
+      );
+    } else if (match[5]) {
+      // Italic match *text*
+      nodes.push(
+        <em key={`italic-${match.index}`} className="italic text-foreground/90">
+          {match[5]}
+        </em>
       );
     }
 

@@ -375,6 +375,14 @@ Respond ONLY with valid JSON."""
                 destination = city.capitalize()
                 break
 
+    # Extract guests count accurately from query
+    guests = state.get("guests")
+    guest_match = re.search(r"(\d+)\s*(?:guests?|people|persons?|pax|adults?)", msg_lower)
+    if guest_match:
+        guests = int(guest_match.group(1))
+    elif not guests:
+        guests = int(extracted_data.get("guests") or 0) or None
+
     # 0. Excessive / Invalid Trip Duration Guardrail
     if days and (days > 60 or days <= 0):
         steps.append(f"🛡️ Guardrail: Detected out-of-range trip duration ({days:,} days)")
@@ -406,6 +414,7 @@ Respond ONLY with valid JSON."""
             "intent": "partner_rbac_action",
             "destination": destination,
             "language": lang,
+            "guests": guests,
             "extracted_data": extracted_data,
             "is_terminal": False,
             "steps_taken": steps + ["🏢 Supervisor: Delegated to Partner RBAC Agent (LLM NLU)"],
@@ -417,6 +426,7 @@ Respond ONLY with valid JSON."""
             "intent": "expense_tracking",
             "destination": destination,
             "language": lang,
+            "guests": guests,
             "extracted_data": extracted_data,
             "is_terminal": False,
             "steps_taken": steps + ["💰 Supervisor: Delegated to Expense Tracking & Ledger Agent"],
@@ -429,6 +439,7 @@ Respond ONLY with valid JSON."""
             "origin": origin,
             "destination": destination,
             "days": days,
+            "guests": guests,
             "budget_npr": budget,
             "language": lang,
             "is_terminal": False,
@@ -441,6 +452,7 @@ Respond ONLY with valid JSON."""
             "intent": "hotel_booking",
             "destination": destination,
             "days": days,
+            "guests": guests,
             "budget_npr": budget,
             "language": lang,
             "is_terminal": False,
@@ -683,16 +695,22 @@ Tell me your location (and your budget per night if you have one), and I will se
         hotel_name = matched_hotel.name if matched_hotel else f"Deluxe Stay {dest}"
         hotel_id = matched_hotel.id if matched_hotel else 1
         price = budget or 3500
+        
+        num_guests = state.get("guests")
+        if not num_guests:
+            g_match = re.search(r"(\d+)\s*(?:guests?|people|persons?|pax|adults?)", msg_lower)
+            num_guests = int(g_match.group(1)) if g_match else 2
+
         action_proposal = {
             "action_type": "CREATE_BOOKING",
             "title": f"Reserve Stay at {hotel_name}",
-            "description": f"Initialize hotel reservation in {dest} for NPR {price:,}. Final payment will be completed via Khalti Digital Wallet.",
+            "description": f"Initialize hotel reservation in {dest} for {num_guests} guests (NPR {price:,}). Final payment will be completed via Khalti Digital Wallet.",
             "payload": {
                 "booking_type": "hotel",
                 "item_id": hotel_id,
                 "item_name": hotel_name,
                 "total_amount": price,
-                "guests": state.get("guests") or 2,
+                "guests": num_guests,
                 "check_in_date": "2026-08-24",
             },
         }

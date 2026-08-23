@@ -9,8 +9,10 @@ import {
   Search,
   Crosshair,
   CheckCircle2,
-  Navigation,
   Compass,
+  Plus,
+  Minus,
+  Navigation,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -81,43 +83,21 @@ export default function LocationMapPicker({
   address = "",
   onChange,
   label = "Pinpoint Exact Location on Map",
-  description = "Search an address or landmark, click a city preset, or use GPS to pinpoint your exact coordinates.",
-  defaultZoom = 16,
+  description = "Click anywhere on the map canvas to pinpoint your exact spot, or drag the red marker.",
+  defaultZoom = 17,
 }: LocationMapPickerProps) {
   const [lat, setLat] = useState<number>(() => latitude || 26.8124);
   const [lng, setLng] = useState<number>(() => longitude || 87.2834);
-  const [zoom, setZoom] = useState(defaultZoom);
+  const [currentZoom, setCurrentZoom] = useState(defaultZoom);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [isDetectingGPS, setIsDetectingGPS] = useState(false);
   const [lastUpdatedCity, setLastUpdatedCity] = useState<string>("");
+  const [isMapReady, setIsMapReady] = useState(false);
 
-  // Sync with incoming parent props if changed externally
-  useEffect(() => {
-    if (latitude && latitude !== lat) setLat(latitude);
-    if (longitude && longitude !== lng) setLng(longitude);
-  }, [latitude, longitude]);
-
-  // If address contains a known city (e.g. Dharan, Butwal, Pokhara) and user hasn't set coordinates yet
-  useEffect(() => {
-    if (!address) return;
-    for (const [city, coords] of Object.entries(NEPAL_CITY_COORDINATES)) {
-      if (address.toLowerCase().includes(city.toLowerCase()) && lastUpdatedCity !== city) {
-        setLastUpdatedCity(city);
-        if (!latitude && !longitude) {
-          setLat(coords.lat);
-          setLng(coords.lng);
-          onChange({
-            latitude: coords.lat,
-            longitude: coords.lng,
-            address: address,
-            mapQuery: `${coords.lat},${coords.lng}`,
-          });
-        }
-        break;
-      }
-    }
-  }, [address, lastUpdatedCity, latitude, longitude, onChange]);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<any>(null);
+  const markerRef = useRef<any>(null);
 
   const updateCoordinates = useCallback(
     (newLat: number, newLng: number, newAddr?: string) => {
@@ -136,6 +116,135 @@ export default function LocationMapPicker({
     },
     [address, onChange]
   );
+
+  // Sync with incoming parent props if changed externally
+  useEffect(() => {
+    if (latitude && Math.abs(latitude - lat) > 0.00001) setLat(latitude);
+    if (longitude && Math.abs(longitude - lng) > 0.00001) setLng(longitude);
+  }, [latitude, longitude]);
+
+  // If address contains a known city (e.g. Dharan, Butwal, Pokhara) and user hasn't set coordinates yet
+  useEffect(() => {
+    if (!address) return;
+    for (const [city, coords] of Object.entries(NEPAL_CITY_COORDINATES)) {
+      if (address.toLowerCase().includes(city.toLowerCase()) && lastUpdatedCity !== city) {
+        setLastUpdatedCity(city);
+        if (!latitude && !longitude) {
+          updateCoordinates(coords.lat, coords.lng, address);
+        }
+        break;
+      }
+    }
+  }, [address, lastUpdatedCity, latitude, longitude, updateCoordinates]);
+
+  // Initialize Interactive Leaflet Map (Click & Drag Canvas Pinpoint)
+  useEffect(() => {
+    let isMounted = true;
+
+    const setupMap = () => {
+      const L = (window as any).L;
+      if (!L || !mapContainerRef.current || mapInstanceRef.current) return;
+
+      try {
+        delete (L.Icon.Default.prototype as any)._getIconUrl;
+        L.Icon.Default.mergeOptions({
+          iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+          iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+          shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        });
+
+        const initialLat = lat || 26.8124;
+        const initialLng = lng || 87.2834;
+
+        const map = L.map(mapContainerRef.current, {
+          center: [initialLat, initialLng],
+          zoom: defaultZoom,
+          zoomControl: false,
+          scrollWheelZoom: true,
+        });
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution: "© OpenStreetMap",
+        }).addTo(map);
+
+        const marker = L.marker([initialLat, initialLng], {
+          draggable: true,
+          autoPan: true,
+        }).addTo(map);
+
+        // Marker Drag Event
+        marker.on("dragend", () => {
+          const pos = marker.getLatLng();
+          updateCoordinates(pos.lat, pos.lng);
+          toast.success(`Pinned location: ${pos.lat.toFixed(5)}, ${pos.lng.toFixed(5)}`);
+        });
+
+        // Map Click Event: Click anywhere to drop and move pin
+        map.on("click", (e: any) => {
+          const { lat: clickLat, lng: clickLng } = e.latlng;
+          marker.setLatLng([clickLat, clickLng]);
+          map.panTo([clickLat, clickLng]);
+          updateCoordinates(clickLat, clickLng);
+          toast.success(`Pinned location: ${clickLat.toFixed(5)}, ${clickLng.toFixed(5)}`);
+        });
+
+        map.on("zoomend", () => {
+          setCurrentZoom(map.getZoom());
+        });
+
+        mapInstanceRef.current = map;
+        markerRef.current = marker;
+        if (isMounted) setIsMapReady(true);
+      } catch (err) {
+        console.warn("Leaflet Map init error:", err);
+      }
+    };
+
+    if ((window as any).L) {
+      setupMap();
+    } else {
+      if (!document.getElementById("leaflet-css")) {
+        const link = document.createElement("link");
+        link.id = "leaflet-css";
+        link.rel = "stylesheet";
+        link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+        document.head.appendChild(link);
+      }
+
+      const script = document.createElement("script");
+      script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+      script.async = true;
+      script.onload = () => {
+        if (isMounted) setupMap();
+      };
+      document.body.appendChild(script);
+    }
+
+    return () => {
+      isMounted = false;
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+    };
+  }, []);
+
+  // Synchronize Leaflet map view whenever coordinates change
+  useEffect(() => {
+    if (mapInstanceRef.current && markerRef.current) {
+      const currentMarker = markerRef.current.getLatLng();
+      if (
+        Math.abs(currentMarker.lat - lat) > 0.00001 ||
+        Math.abs(currentMarker.lng - lng) > 0.00001
+      ) {
+        markerRef.current.setLatLng([lat, lng]);
+        mapInstanceRef.current.flyTo([lat, lng], mapInstanceRef.current.getZoom() || defaultZoom, {
+          duration: 0.8,
+        });
+      }
+    }
+  }, [lat, lng, defaultZoom]);
 
   // Search Address or Landmark via OpenStreetMap Nominatim Geocoder
   const handleSearchLocation = async (e?: React.FormEvent) => {
@@ -209,7 +318,6 @@ export default function LocationMapPicker({
     toast.success(`Pinned location to ${hub.name}`);
   };
 
-  const mapEmbedUrl = `https://maps.google.com/maps?q=${lat},${lng}&z=${zoom}&output=embed`;
   const googleMapsSearchUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
 
   return (
@@ -230,7 +338,7 @@ export default function LocationMapPicker({
           size="sm"
           onClick={handleDetectGPS}
           disabled={isDetectingGPS}
-          className="font-bold text-xs h-8 gap-1.5 rounded-xl cursor-pointer shrink-0 border-emerald-500/30 text-emerald-600 hover:bg-emerald-50"
+          className="font-bold text-xs h-8 gap-1.5 rounded-xl cursor-pointer shrink-0 border-emerald-500/30 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
         >
           {isDetectingGPS ? (
             <>
@@ -270,7 +378,7 @@ export default function LocationMapPicker({
           onClick={() => handleSearchLocation()}
           size="sm"
           disabled={isSearching || !searchQuery.trim()}
-          className="h-9 px-4 text-xs font-semibold"
+          className="h-9 px-4 text-xs font-semibold cursor-pointer"
         >
           {isSearching ? <Loader2 className="size-3.5 animate-spin" /> : "Search & Pin"}
         </Button>
@@ -295,18 +403,12 @@ export default function LocationMapPicker({
         </div>
       </div>
 
-      {/* Interactive Map Canvas Embed with Visual Pinpoint Target */}
-      <div className="relative w-full h-72 sm:h-80 rounded-xl overflow-hidden border shadow-inner bg-muted/30">
-        <iframe
-          title="Interactive Map Location"
-          src={mapEmbedUrl}
-          className="w-full h-full border-0"
-          loading="lazy"
-          allowFullScreen
-        />
+      {/* Interactive Leaflet Map Canvas (Click & Drag Anywhere to Pinpoint) */}
+      <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden border shadow-inner bg-muted/20">
+        <div ref={mapContainerRef} className="w-full h-full z-0 cursor-crosshair" />
 
         {/* Center Pinpoint Reticle Badge */}
-        <div className="absolute top-3 left-3 bg-background/95 backdrop-blur-md px-3 py-1.5 rounded-xl border shadow-sm text-xs font-mono font-bold flex items-center gap-2 z-10">
+        <div className="absolute top-3 left-3 bg-background/95 backdrop-blur-md px-3 py-1.5 rounded-xl border shadow-sm text-xs font-mono font-bold flex items-center gap-2 z-10 pointer-events-none">
           <span className="size-2.5 rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-foreground font-semibold">
             Lat: {lat.toFixed(5)}, Lng: {lng.toFixed(5)}
@@ -314,25 +416,39 @@ export default function LocationMapPicker({
           <CheckCircle2 className="size-3.5 text-emerald-600 ml-1" />
         </div>
 
-        {/* Zoom adjustment pill */}
-        <div className="absolute top-3 right-3 flex items-center gap-1 bg-background/95 backdrop-blur-md p-1 rounded-xl border shadow-sm z-10">
+        {/* Zoom Controls */}
+        <div className="absolute top-3 right-3 flex flex-col items-center gap-1 bg-background/95 backdrop-blur-md p-1 rounded-xl border shadow-sm z-10">
           <button
             type="button"
-            onClick={() => setZoom((z) => Math.min(z + 1, 20))}
-            className="size-6 text-xs font-bold rounded-lg hover:bg-muted flex items-center justify-center"
+            onClick={() => {
+              if (mapInstanceRef.current) {
+                mapInstanceRef.current.zoomIn();
+              }
+            }}
+            className="size-7 text-xs font-bold rounded-lg hover:bg-muted flex items-center justify-center cursor-pointer transition-colors"
             title="Zoom In"
           >
-            +
+            <Plus className="size-3.5" />
           </button>
-          <span className="text-[10px] font-mono px-1">{zoom}x</span>
+          <span className="text-[10px] font-mono font-bold px-1 select-none">{currentZoom}x</span>
           <button
             type="button"
-            onClick={() => setZoom((z) => Math.max(z - 1, 8))}
-            className="size-6 text-xs font-bold rounded-lg hover:bg-muted flex items-center justify-center"
+            onClick={() => {
+              if (mapInstanceRef.current) {
+                mapInstanceRef.current.zoomOut();
+              }
+            }}
+            className="size-7 text-xs font-bold rounded-lg hover:bg-muted flex items-center justify-center cursor-pointer transition-colors"
             title="Zoom Out"
           >
-            -
+            <Minus className="size-3.5" />
           </button>
+        </div>
+
+        {/* Map Interactive Hint Overlay */}
+        <div className="absolute bottom-3 left-3 bg-background/90 backdrop-blur-md px-2.5 py-1 rounded-lg border shadow-xs text-[10px] text-muted-foreground flex items-center gap-1.5 z-10 pointer-events-none">
+          <Crosshair className="size-3 text-primary animate-spin" />
+          <span>Click anywhere or drag marker to update location</span>
         </div>
 
         {/* Direct Google Maps link */}
@@ -342,7 +458,7 @@ export default function LocationMapPicker({
           rel="noopener noreferrer"
           className="absolute bottom-3 right-3 bg-background/95 hover:bg-background backdrop-blur-md px-3 py-1.5 rounded-xl border shadow-sm text-xs font-bold text-primary flex items-center gap-1.5 transition-all z-10"
         >
-          <span>Open Full Google Maps</span>
+          <span>Open in Google Maps</span>
           <ExternalLink className="size-3.5" />
         </a>
       </div>
@@ -357,7 +473,10 @@ export default function LocationMapPicker({
             type="number"
             step="any"
             value={lat}
-            onChange={(e) => updateCoordinates(parseFloat(e.target.value) || 0, lng)}
+            onChange={(e) => {
+              const val = parseFloat(e.target.value) || 0;
+              updateCoordinates(val, lng);
+            }}
             placeholder="26.8124"
             className="text-xs font-mono h-9"
           />
@@ -371,7 +490,10 @@ export default function LocationMapPicker({
             type="number"
             step="any"
             value={lng}
-            onChange={(e) => updateCoordinates(lat, parseFloat(e.target.value) || 0)}
+            onChange={(e) => {
+              const val = parseFloat(e.target.value) || 0;
+              updateCoordinates(lat, val);
+            }}
             placeholder="87.2834"
             className="text-xs font-mono h-9"
           />
