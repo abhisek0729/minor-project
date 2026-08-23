@@ -159,7 +159,7 @@ function renderInlineMarkdown(content: string): React.ReactNode {
           <Link
             key={`link-${match.index}`}
             href={cleanPath}
-            className="text-primary font-bold underline inline-flex items-center gap-0.5 hover:opacity-80 transition-opacity"
+            className="inline-flex items-center gap-1 font-bold text-primary bg-primary/10 hover:bg-primary/20 border border-primary/30 px-2 py-0.5 rounded-md text-xs transition-all mx-0.5 shadow-2xs hover:shadow-xs"
           >
             <span>{label}</span>
             <ArrowRight className="size-3 inline-block" />
