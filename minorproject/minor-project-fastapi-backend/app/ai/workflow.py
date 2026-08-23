@@ -1057,12 +1057,21 @@ async def expense_tracking_agent(state: TourismAgentState) -> dict[str, Any]:
     tools = list(state.get("tools_used", []))
     user_id = state.get("user_id")
 
-    is_querying = any(k in msg_lower for k in [
-        "my expense", "my expenses", "current expense", "current expenses",
-        "show expense", "list expense", "how much did i spend", "what are my expenses",
-        "my spending", "total expense", "total spent", "view expenses", "check expense",
-        "see expense", "what did i spend", "expense ledger", "expense history"
-    ]) or (not any(w in msg_lower for w in ["log", "record", "add expense", "spent", "spent rs", "spent npr"]) and "expense" in msg_lower)
+    # Check if this is an expense logging/recording command (e.g. "add 20 rupees in expense for a drink", "spent 500 on taxi", "log 1200 for lunch")
+    has_number = bool(re.search(r"\b\d+\b", msg_lower))
+    logging_keywords = ["add", "log", "record", "spent", "spend", "paid", "pay", "bought", "buy", "cost", "entry", "track", "insert", "charge"]
+    is_logging_action = has_number and (any(w in msg_lower for w in logging_keywords) or any(c in msg_lower for c in ["rupees", "npr", "rs"]))
+
+    is_querying = (not is_logging_action) and (
+        any(k in msg_lower for k in [
+            "my expense", "my expenses", "current expense", "current expenses",
+            "show expense", "list expense", "how much did i spend", "what are my expenses",
+            "my spending", "total expense", "total spent", "view expense", "check expense",
+            "see expense", "what did i spend", "expense ledger", "expense history", "summary", "breakdown"
+        ]) or (
+            "expense" in msg_lower and not is_logging_action
+        )
+    )
 
     if is_querying:
         steps.append("📊 Expense Ledger: Querying user travel expense records")
@@ -1123,15 +1132,53 @@ Whenever you state an expense, I will prepare a verified Human-In-The-Loop card 
             "tools_used": tools,
         }
 
-    # LOGGING INTENT
-    num_match = re.findall(r"\b\d+\b", msg_lower)
-    amount = int(num_match[0]) if num_match else 1500
-    category = "food" if any(f in msg_lower for f in ["food", "dinner", "lunch", "breakfast", "momo", "cafe", "restaurant", "snack"]) else "transport" if any(t in msg_lower for t in ["taxi", "bus", "cab", "flight", "jeep", "transport", "micro"]) else "accommodation" if any(h in msg_lower for h in ["hotel", "room", "stay", "resort", "lodge"]) else "general"
+    # LOGGING INTENT: Extract amount accurately
+    amount = 500
+    num_match = re.search(r"(?:npr|rs\.?|rupees?)?\s*(\d+(?:,\d+)?)\s*(?:npr|rs\.?|rupees?)?", msg_lower)
+    if num_match:
+        amount = int(num_match.group(1).replace(",", ""))
+    else:
+        num_fallback = re.findall(r"\b\d+\b", msg_lower)
+        if num_fallback:
+            amount = int(num_fallback[0])
+
+    # Extract item name from context
+    item_name = "Trip Expense"
+    for prep in ["for", "on", "in", "of"]:
+        item_match = re.search(rf"\b{prep}\s+(?:a\s+|an\s+|the\s+)?([a-zA-Z\s]{{2,20}})", msg_lower)
+        if item_match:
+            candidate = item_match.group(1).strip()
+            # Clean common filler words
+            cleaned = re.sub(r"\b(expense|expenses|rupees|npr|rs|amount|cost)\b", "", candidate).strip()
+            if cleaned and len(cleaned) >= 2:
+                item_name = cleaned.title()
+                break
+
+    # Category matching
+    if any(f in msg_lower for f in ["drink", "beverage", "tea", "coffee", "juice", "beer", "water", "food", "dinner", "lunch", "breakfast", "momo", "cafe", "restaurant", "snack", "meal", "khaja"]):
+        category = "food"
+    elif any(t in msg_lower for t in ["taxi", "bus", "cab", "flight", "jeep", "transport", "micro", "transit", "ticket", "fare"]):
+        category = "transport"
+    elif any(h in msg_lower for h in ["hotel", "room", "stay", "resort", "lodge", "homestay"]):
+        category = "accommodation"
+    elif any(a in msg_lower for a in ["ticket", "entry", "permit", "sightseeing", "guide", "safari", "rafting", "paragliding", "boating"]):
+        category = "activities"
+    else:
+        category = "general"
+
+    # Location resolution: Check if query has a specific location, else use state destination
+    expense_location = None
+    for city in KNOWN_NEPALI_CITIES:
+        if re.search(rf"\b{city}\b", msg_lower):
+            expense_location = city.capitalize()
+            break
+    if not expense_location:
+        expense_location = state.get("destination") or "Nepal"
 
     action_payload = {
-        "name": "Trip Expense",
+        "name": item_name,
         "amount": amount,
-        "location": state.get("destination") or "Nepal",
+        "location": expense_location,
         "type": category,
     }
     steps.append("📝 Human-In-The-Loop: Prepared Travel Expense Card")
@@ -1139,11 +1186,11 @@ Whenever you state an expense, I will prepare a verified Human-In-The-Loop card 
         "is_terminal": True,
         "action_proposal": {
             "action_type": "LOG_EXPENSE",
-            "title": f"Log Expense: NPR {amount:,}",
-            "description": f"Record {category.capitalize()} expense of NPR {amount:,} in your Travel Expense Ledger.",
+            "title": f"Log Expense: NPR {amount:,} ({item_name})",
+            "description": f"Record {category.capitalize()} expense of NPR {amount:,} for '{item_name}' in {expense_location} to your Travel Ledger.",
             "payload": action_payload,
         },
-        "final_answer": f"I have prepared your expense entry of **NPR {amount:,}** ({category.capitalize()}). Click **Confirm & Execute** below to record it in your ledger.",
+        "final_answer": f"I have prepared your expense entry for **{item_name}** at **NPR {amount:,}** ({category.capitalize()}) in {expense_location}. Click **Confirm & Execute** below to record it in your ledger.",
         "steps_taken": steps,
         "tools_used": tools + ["hitl_action_proposal"],
     }
