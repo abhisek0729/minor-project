@@ -641,7 +641,7 @@ export default function UnifiedDashboardView({
               {/* Workspaces Quick Cards */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-bold tracking-tight">Active Partner Workspaces</h2>
+                  <h2 className="text-lg font-bold tracking-tight">Partner Workspaces</h2>
                   <Button variant="link" size="sm" onClick={() => setActiveTab("workspaces")} className="text-xs text-primary p-0">
                     View all workspaces →
                   </Button>
@@ -785,7 +785,7 @@ export default function UnifiedDashboardView({
                           </Badge>
                         ) : (
                           <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px] gap-1">
-                            <CheckCircle2 className="size-2.5" /> Active Guide
+                            <CheckCircle2 className="size-2.5" /> Approved & Active
                           </Badge>
                         )}
                       </div>
@@ -1683,11 +1683,30 @@ export default function UnifiedDashboardView({
                 </p>
 
                 <div className="pt-2 flex flex-wrap gap-2">
-                  {roles.map((r) => (
-                    <Badge key={r.name} variant="outline" className="text-xs capitalize py-1 px-3">
-                      {r.name} ({r.approvalStatus || "active"})
-                    </Badge>
-                  ))}
+                  {roles.map((r) => {
+                    const isApp = r.approvalStatus === "approved";
+                    const isPend = r.approvalStatus === "pending" || !r.approvalStatus;
+                    return (
+                      <Badge
+                        key={r.name}
+                        variant="outline"
+                        className={`text-xs capitalize py-1 px-3 gap-1.5 ${
+                          isApp
+                            ? "border-emerald-500/30 text-emerald-600 bg-emerald-500/10"
+                            : isPend
+                            ? "border-amber-500/30 text-amber-600 bg-amber-500/10"
+                            : "border-rose-500/30 text-rose-600 bg-rose-500/10"
+                        }`}
+                      >
+                        {isApp ? (
+                          <CheckCircle2 className="size-3" />
+                        ) : isPend ? (
+                          <Clock3 className="size-3" />
+                        ) : null}
+                        {r.name} ({r.approvalStatus || "pending"})
+                      </Badge>
+                    );
+                  })}
                 </div>
               </Card>
             </div>
