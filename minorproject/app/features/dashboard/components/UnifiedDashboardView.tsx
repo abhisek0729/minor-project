@@ -20,6 +20,7 @@ import {
   LogOut,
   MapPin,
   MapPinned,
+  Menu,
   Package,
   Plus,
   Receipt,
@@ -42,6 +43,15 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
 import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
 import NotificationBell from "@/app/components/dashboard/NotificationBell";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
+import { addExpenseAction } from "@/app/features/expenses/actions/expense.action";
 
 interface UnifiedDashboardViewProps {
   user: {
@@ -58,6 +68,7 @@ interface UnifiedDashboardViewProps {
   hotel: any;
   guide: any;
   bookings: any[];
+  expenses?: any[];
 }
 
 export default function UnifiedDashboardView({
@@ -67,16 +78,26 @@ export default function UnifiedDashboardView({
   hotel,
   guide,
   bookings,
+  expenses = [],
 }: UnifiedDashboardViewProps) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<"overview" | "workspaces" | "bookings" | "itinerary" | "settings">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "workspaces" | "bookings" | "expenses" | "itinerary" | "settings">("overview");
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
-  // Filter roles
-  const hasRestaurant = roles.some((r) => r.name === "restaurantOwner");
-  const hasHotel = roles.some((r) => r.name === "hotelOwner");
-  const hasGuide = roles.some((r) => r.name === "guide");
+  // Filter roles and statuses
+  const hotelRole = roles.find((r) => r.name === "hotelOwner");
+  const restaurantRole = roles.find((r) => r.name === "restaurantOwner");
+  const guideRole = roles.find((r) => r.name === "guide");
   const adminRole = roles.find((r) => r.name === "admin");
+
+  const hasHotel = !!hotelRole;
+  const hasRestaurant = !!restaurantRole;
+  const hasGuide = !!guideRole;
   const hasAdmin = !!adminRole;
+
+  const hotelStatus = hotelRole?.approvalStatus ?? "pending";
+  const restaurantStatus = restaurantRole?.approvalStatus ?? "pending";
+  const guideStatus = guideRole?.approvalStatus ?? "pending";
   const isAdminApproved = adminRole?.approvalStatus === "approved";
 
   // Booking stats
@@ -88,6 +109,76 @@ export default function UnifiedDashboardView({
 
   const [bookingFilter, setBookingFilter] = useState<string>("all");
   const [payingBookingId, setPayingBookingId] = useState<number | null>(null);
+
+  // Expense State & Filtering
+  const [expensesList, setExpensesList] = useState<any[]>(expenses || []);
+  const [expenseSearch, setExpenseSearch] = useState("");
+  const [expenseCategoryFilter, setExpenseCategoryFilter] = useState("all");
+  const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false);
+  const [isSubmittingExpense, setIsSubmittingExpense] = useState(false);
+  const [newExpense, setNewExpense] = useState({
+    name: "",
+    amount: "",
+    location: "Nepal",
+    type: "food",
+  });
+
+  const handleAddExpense = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newExpense.name.trim() || !newExpense.amount || Number(newExpense.amount) <= 0) {
+      toast.error("Please enter a valid expense name and amount.");
+      return;
+    }
+    setIsSubmittingExpense(true);
+    try {
+      const res = await addExpenseAction({
+        name: newExpense.name.trim(),
+        amount: Number(newExpense.amount),
+        location: newExpense.location.trim() || "Nepal",
+        type: newExpense.type || "other",
+      });
+      if (res.success && res.data) {
+        toast.success(res.message);
+        setExpensesList((prev) => [res.data, ...prev]);
+        setIsAddExpenseOpen(false);
+        setNewExpense({ name: "", amount: "", location: "Nepal", type: "food" });
+      } else {
+        toast.error(res.message || "Failed to log expense");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Error logging expense");
+    } finally {
+      setIsSubmittingExpense(false);
+    }
+  };
+
+  const totalExpenseSum = expensesList.reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+  const foodExpenseSum = expensesList
+    .filter((e) => e.type === "food" || e.type === "dining" || e.type === "meal")
+    .reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+  const lodgingExpenseSum = expensesList
+    .filter((e) => e.type === "lodging" || e.type === "hotel" || e.type === "stay")
+    .reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+  const transitExpenseSum = expensesList
+    .filter((e) => e.type === "transportation" || e.type === "transport" || e.type === "activities" || e.type === "travel")
+    .reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+
+  const filteredExpenses = expensesList.filter((e) => {
+    const matchesCategory =
+      expenseCategoryFilter === "all" ||
+      e.type === expenseCategoryFilter ||
+      (expenseCategoryFilter === "food" && (e.type === "dining" || e.type === "meal")) ||
+      (expenseCategoryFilter === "lodging" && (e.type === "hotel" || e.type === "stay")) ||
+      (expenseCategoryFilter === "transportation" && (e.type === "transport" || e.type === "bus" || e.type === "flight"));
+
+    const matchesSearch =
+      !expenseSearch.trim() ||
+      e.name?.toLowerCase().includes(expenseSearch.toLowerCase()) ||
+      e.location?.toLowerCase().includes(expenseSearch.toLowerCase()) ||
+      e.type?.toLowerCase().includes(expenseSearch.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
 
   const handlePayKhalti = async (booking: any) => {
     try {
@@ -121,10 +212,161 @@ export default function UnifiedDashboardView({
     return b.status === bookingFilter || b.bookingType === bookingFilter;
   });
 
+  const renderNavButtons = (onSelect?: () => void) => (
+    <nav className="space-y-1.5">
+      {isAdminApproved && (
+        <Link
+          href="/dashboard/admin"
+          onClick={() => onSelect && onSelect()}
+          className="flex items-center gap-3 px-3.5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md hover:opacity-95 transition-all mb-3 cursor-pointer"
+        >
+          <ShieldCheck className="size-4 shrink-0" />
+          <span>Super Admin Console</span>
+          <ArrowRight className="size-3.5 ml-auto" />
+        </Link>
+      )}
+
+      <div className="px-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+        Portal Navigation
+      </div>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("overview");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "overview"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <LayoutDashboard className="size-4" />
+        <span>Overview & Summary</span>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("workspaces");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "workspaces"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <div className="flex items-center gap-3">
+          <Building2 className="size-4" />
+          <span>My Workspaces</span>
+        </div>
+        {roles.filter((r) => r.name !== "tourist").length > 0 && (
+          <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "workspaces" ? "border-white text-white" : ""}`}>
+            {roles.filter((r) => r.name !== "tourist").length}
+          </Badge>
+        )}
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("bookings");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "bookings"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <div className="flex items-center gap-3">
+          <Package className="size-4" />
+          <span>My Trips & Bookings</span>
+        </div>
+        {totalBookings > 0 && (
+          <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "bookings" ? "border-white text-white" : ""}`}>
+            {totalBookings}
+          </Badge>
+        )}
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("expenses");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "expenses"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <div className="flex items-center gap-3">
+          <Receipt className="size-4" />
+          <span>Expense Tracker</span>
+        </div>
+        {expensesList.length > 0 && (
+          <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "expenses" ? "border-white text-white" : ""}`}>
+            {expensesList.length}
+          </Badge>
+        )}
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("itinerary");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "itinerary"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <MapPinned className="size-4" />
+        <span>AI Trip Planner</span>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setActiveTab("settings");
+          if (onSelect) onSelect();
+        }}
+        className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
+          activeTab === "settings"
+            ? "bg-primary text-primary-foreground shadow-sm"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        }`}
+      >
+        <Settings className="size-4" />
+        <span>Profile & Settings</span>
+      </button>
+
+      <Link
+        href="/emergency"
+        onClick={() => onSelect && onSelect()}
+        className="flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer bg-rose-500/10 text-rose-600 hover:bg-rose-500/20 border border-rose-500/30 mt-2"
+      >
+        <div className="flex items-center gap-3">
+          <Siren className="size-4 animate-pulse text-rose-600" />
+          <span>Emergency SOS Hub</span>
+        </div>
+        <Badge variant="destructive" className="text-[9px] px-1.5 py-0 bg-rose-600">
+          24/7
+        </Badge>
+      </Link>
+    </nav>
+  );
+
   return (
     <div className="flex h-screen overflow-hidden bg-muted/20 w-full">
-      {/* Left Sidebar Navigation (Pinned Full-Height Left Panel) */}
-      <aside className="w-72 shrink-0 border-r bg-card flex flex-col justify-between overflow-y-auto p-5 space-y-6 shadow-2xs">
+      {/* Desktop Left Sidebar (Pinned on large screens) */}
+      <aside className="hidden lg:flex w-72 shrink-0 border-r bg-card flex-col justify-between overflow-y-auto p-5 space-y-6 shadow-2xs">
         <div className="space-y-6">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 font-bold text-lg text-foreground hover:opacity-90 transition-opacity">
@@ -161,124 +403,20 @@ export default function UnifiedDashboardView({
           </Card>
 
           {/* Navigation Items */}
-          <nav className="space-y-1.5">
-            {isAdminApproved && (
-              <Link
-                href="/dashboard/admin"
-                className="flex items-center gap-3 px-3.5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md hover:opacity-95 transition-all mb-3 cursor-pointer"
-              >
-                <ShieldCheck className="size-4 shrink-0" />
-                <span>Super Admin Console</span>
-                <ArrowRight className="size-3.5 ml-auto" />
-              </Link>
-            )}
-
-            <div className="px-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
-              Portal Navigation
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("overview")}
-              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                activeTab === "overview"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <LayoutDashboard className="size-4" />
-              <span>Overview & Summary</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("workspaces")}
-              className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                activeTab === "workspaces"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <Building2 className="size-4" />
-                <span>My Workspaces</span>
-              </div>
-              {roles.filter((r) => r.name !== "tourist").length > 0 && (
-                <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "workspaces" ? "border-white text-white" : ""}`}>
-                  {roles.filter((r) => r.name !== "tourist").length}
-                </Badge>
-              )}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("bookings")}
-              className={`flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                activeTab === "bookings"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <Package className="size-4" />
-                <span>My Trips & Bookings</span>
-              </div>
-              {totalBookings > 0 && (
-                <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${activeTab === "bookings" ? "border-white text-white" : ""}`}>
-                  {totalBookings}
-                </Badge>
-              )}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("itinerary")}
-              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                activeTab === "itinerary"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <MapPinned className="size-4" />
-              <span>AI Trip Planner</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("settings")}
-              className={`flex w-full items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
-                activeTab === "settings"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <Settings className="size-4" />
-              <span>Profile & Settings</span>
-            </button>
-
-            <Link
-              href="/emergency"
-              className="flex w-full items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer bg-rose-500/10 text-rose-600 hover:bg-rose-500/20 border border-rose-500/30"
-            >
-              <div className="flex items-center gap-3">
-                <Siren className="size-4 animate-pulse text-rose-600" />
-                <span>Emergency SOS Hub</span>
-              </div>
-              <Badge variant="destructive" className="text-[9px] px-1.5 py-0 bg-rose-600">
-                24/7
-              </Badge>
-            </Link>
-          </nav>
+          {renderNavButtons()}
         </div>
 
-        {/* Quick Partner CTA in sidebar footer */}
-        <Card className="p-3.5 border border-dashed bg-primary/5 text-center space-y-1.5">
-          <p className="font-semibold text-xs text-foreground">Want to list a business?</p>
-          <p className="text-[10px] text-muted-foreground leading-tight">
-            Register as a Hotel Owner, Restaurant Partner, or Tour Guide.
+        {/* Partner Upsell Card */}
+        <Card className="p-4 border border-primary/30 bg-primary/5 space-y-3">
+          <div className="flex items-center gap-2 text-primary font-bold text-xs">
+            <Sparkles className="size-4" />
+            <span>Join Partner Network</span>
+          </div>
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            Register your Hotel, Restaurant, or Tour Guide service on TravelNepal.
           </p>
-          <Link href="/partner/business-type" className="block pt-1">
-            <Button size="sm" variant="outline" className="w-full text-xs h-8 gap-1.5 border-primary/30 text-primary hover:bg-primary/10 cursor-pointer">
+          <Link href="/partner/business-type">
+            <Button size="sm" className="w-full text-xs font-semibold gap-1.5 cursor-pointer">
               <Plus className="size-3.5" /> Become a Partner
             </Button>
           </Link>
@@ -288,15 +426,51 @@ export default function UnifiedDashboardView({
       {/* Main Full-Width Right Workspace Panel */}
       <div className="flex-1 flex flex-col h-full overflow-hidden min-w-0">
         {/* Top Header Bar */}
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-6 sm:px-8 backdrop-blur-md shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-muted-foreground">Workspace View:</span>
-            <Badge variant="secondary" className="text-xs font-semibold capitalize">
-              {activeTab}
-            </Badge>
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 sm:px-8 backdrop-blur-md shrink-0">
+          <div className="flex items-center gap-3">
+            {/* Mobile Sheet Trigger */}
+            <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+              <SheetTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border/70 hover:bg-accent focus:outline-none lg:hidden cursor-pointer">
+                <Menu className="size-5" />
+              </SheetTrigger>
+              <SheetContent side="left" className="flex w-80 flex-col p-0">
+                <SheetHeader className="border-b px-6 py-5">
+                  <SheetTitle className="flex items-center gap-3">
+                    <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+                      <Building2 className="size-5" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-bold text-base text-foreground leading-none">TravelNepal</p>
+                      <p className="text-xs text-muted-foreground mt-1">Unified Workspace</p>
+                    </div>
+                  </SheetTitle>
+                </SheetHeader>
+                <div className="p-4 space-y-4 overflow-y-auto flex-1">
+                  <Card className="p-3 border shadow-2xs bg-muted/30">
+                    <div className="flex items-center gap-3">
+                      <div className="size-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-sm border border-primary/20 shrink-0">
+                        {user.initials}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-bold text-xs truncate">{user.name}</h3>
+                        <p className="text-[11px] text-muted-foreground truncate">{user.email}</p>
+                      </div>
+                    </div>
+                  </Card>
+                  {renderNavButtons(() => setMobileNavOpen(false))}
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-muted-foreground hidden sm:inline">Workspace View:</span>
+              <Badge variant="secondary" className="text-xs font-semibold capitalize">
+                {activeTab}
+              </Badge>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <GlobalWorkspaceSwitcher />
 
             <NotificationBell />
@@ -305,15 +479,86 @@ export default function UnifiedDashboardView({
               variant="ghost"
               size="sm"
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="text-xs text-destructive hover:bg-destructive/10 cursor-pointer"
+              className="text-xs text-destructive hover:bg-destructive/10 cursor-pointer h-9 px-2.5 sm:px-3"
             >
-              <LogOut className="size-3.5 mr-1" /> Sign Out
+              <LogOut className="size-3.5 sm:mr-1" />
+              <span className="hidden sm:inline">Sign Out</span>
             </Button>
           </div>
         </header>
 
+        {/* Quick Horizontal Scrollable Tabs Bar for Mobile Screens */}
+        <div className="lg:hidden flex items-center gap-1.5 px-4 py-2 border-b bg-background/80 backdrop-blur-sm overflow-x-auto shrink-0 scrollbar-none">
+          <button
+            type="button"
+            onClick={() => setActiveTab("overview")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "overview"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Overview
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("workspaces")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "workspaces"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Workspaces ({roles.filter((r) => r.name !== "tourist").length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("bookings")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "bookings"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Bookings ({totalBookings})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("expenses")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "expenses"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Expenses ({expensesList.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("itinerary")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "itinerary"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            AI Planner
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("settings")}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+              activeTab === "settings"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Settings
+          </button>
+        </div>
+
         {/* Scrollable Main Content Container Occupying Entire Width */}
-        <main className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
           {/* TAB 1: OVERVIEW & SUMMARY */}
           {activeTab === "overview" && (
             <div className="space-y-6 animate-in fade-in duration-200">
@@ -325,7 +570,7 @@ export default function UnifiedDashboardView({
               </div>
 
               {/* Stats Summary Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <Card className="p-5 border shadow-xs">
                   <div className="flex items-center justify-between">
                     <div>
@@ -359,7 +604,7 @@ export default function UnifiedDashboardView({
                 <Card className="p-5 border shadow-xs">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-xs text-muted-foreground font-medium">Total Travel Spend</p>
+                      <p className="text-xs text-muted-foreground font-medium">Digital Bookings Spend</p>
                       <p className="text-2xl font-extrabold mt-1">NPR {totalSpent.toLocaleString()}</p>
                     </div>
                     <div className="p-3 rounded-xl bg-violet-500/10 text-violet-600">
@@ -367,7 +612,28 @@ export default function UnifiedDashboardView({
                     </div>
                   </div>
                   <p className="text-[11px] text-muted-foreground mt-2">
-                    Verified digital transactions
+                    Verified Khalti checkout payments
+                  </p>
+                </Card>
+
+                <Card
+                  onClick={() => setActiveTab("expenses")}
+                  className="p-5 border shadow-xs hover:border-primary/50 transition-colors cursor-pointer group"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium group-hover:text-primary transition-colors">
+                        Logged Expenses
+                      </p>
+                      <p className="text-2xl font-extrabold mt-1">NPR {totalExpenseSum.toLocaleString()}</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-amber-500/10 text-amber-600 group-hover:scale-105 transition-transform">
+                      <Receipt className="size-6" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2 flex items-center justify-between">
+                    <span>{expensesList.length} items logged</span>
+                    <span className="text-primary font-bold group-hover:underline">View Tracker →</span>
                   </p>
                 </Card>
               </div>
@@ -375,7 +641,7 @@ export default function UnifiedDashboardView({
               {/* Workspaces Quick Cards */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-bold tracking-tight">Active Partner Workspaces</h2>
+                  <h2 className="text-lg font-bold tracking-tight">Partner Workspaces</h2>
                   <Button variant="link" size="sm" onClick={() => setActiveTab("workspaces")} className="text-xs text-primary p-0">
                     View all workspaces →
                   </Button>
@@ -392,20 +658,48 @@ export default function UnifiedDashboardView({
                           </div>
                           <div>
                             <h3 className="font-bold text-sm">{hotel?.name || "Hotel Management"}</h3>
-                            <p className="text-xs text-muted-foreground">Manage rooms, rates & guest check-ins</p>
+                            <p className="text-xs text-muted-foreground">
+                              {hotelStatus === "pending"
+                                ? !hotel
+                                  ? "Registration submitted • Onboarding needed"
+                                  : "Application under administrator review"
+                                : "Manage rooms, rates & guest check-ins"}
+                            </p>
                           </div>
                         </div>
-                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px]">
-                          Approved
-                        </Badge>
+                        {hotelStatus === "pending" ? (
+                          <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-[10px] gap-1">
+                            <Clock3 className="size-2.5" /> Verification Pending
+                          </Badge>
+                        ) : (
+                          <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px] gap-1">
+                            <CheckCircle2 className="size-2.5" /> Approved
+                          </Badge>
+                        )}
                       </div>
                       <div className="mt-4 pt-3 border-t flex items-center justify-between">
                         <span className="text-[11px] text-muted-foreground">Hotel Partner</span>
-                        <Link href="/dashboard/hotels">
-                          <Button size="sm" className="text-xs gap-1.5 h-8">
-                            Open Hotel Dashboard <ArrowRight className="size-3" />
-                          </Button>
-                        </Link>
+                        {hotelStatus === "pending" ? (
+                          !hotel ? (
+                            <Link href="/onboarding/hotel">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                                Complete Onboarding <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          ) : (
+                            <Link href="/dashboard/hotels/pending">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                                View Pending Status <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          )
+                        ) : (
+                          <Link href="/dashboard/hotels">
+                            <Button size="sm" className="text-xs gap-1.5 h-8">
+                              Open Hotel Dashboard <ArrowRight className="size-3" />
+                            </Button>
+                          </Link>
+                        )}
                       </div>
                     </Card>
                   ) : null}
@@ -420,20 +714,48 @@ export default function UnifiedDashboardView({
                           </div>
                           <div>
                             <h3 className="font-bold text-sm">{restaurant?.name || "Restaurant Management"}</h3>
-                            <p className="text-xs text-muted-foreground">Food menus, live orders & table bookings</p>
+                            <p className="text-xs text-muted-foreground">
+                              {restaurantStatus === "pending"
+                                ? !restaurant
+                                  ? "Registration submitted • Onboarding needed"
+                                  : "Application under administrator review"
+                                : "Food menus, live orders & table bookings"}
+                            </p>
                           </div>
                         </div>
-                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px]">
-                          Approved
-                        </Badge>
+                        {restaurantStatus === "pending" ? (
+                          <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-[10px] gap-1">
+                            <Clock3 className="size-2.5" /> Verification Pending
+                          </Badge>
+                        ) : (
+                          <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px] gap-1">
+                            <CheckCircle2 className="size-2.5" /> Approved
+                          </Badge>
+                        )}
                       </div>
                       <div className="mt-4 pt-3 border-t flex items-center justify-between">
                         <span className="text-[11px] text-muted-foreground">Dining Partner</span>
-                        <Link href="/dashboard/restaurant">
-                          <Button size="sm" className="text-xs gap-1.5 h-8">
-                            Open Restaurant Panel <ArrowRight className="size-3" />
-                          </Button>
-                        </Link>
+                        {restaurantStatus === "pending" ? (
+                          !restaurant ? (
+                            <Link href="/onboarding/restaurant">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                                Complete Onboarding <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          ) : (
+                            <Link href="/dashboard/restaurant/pending">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                                View Pending Status <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          )
+                        ) : (
+                          <Link href="/dashboard/restaurant">
+                            <Button size="sm" className="text-xs gap-1.5 h-8">
+                              Open Restaurant Panel <ArrowRight className="size-3" />
+                            </Button>
+                          </Link>
+                        )}
                       </div>
                     </Card>
                   ) : null}
@@ -448,20 +770,42 @@ export default function UnifiedDashboardView({
                           </div>
                           <div>
                             <h3 className="font-bold text-sm">{guide?.name || "Tour Guide Portal"}</h3>
-                            <p className="text-xs text-muted-foreground">Tour packages, guiding calendar & requests</p>
+                            <p className="text-xs text-muted-foreground">
+                              {guideStatus === "pending"
+                                ? !guide
+                                  ? "Registration submitted • Onboarding needed"
+                                  : "Application under administrator review"
+                                : "Tour packages, guiding calendar & requests"}
+                            </p>
                           </div>
                         </div>
-                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px]">
-                          Active Guide
-                        </Badge>
+                        {guideStatus === "pending" ? (
+                          <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-[10px] gap-1">
+                            <Clock3 className="size-2.5" /> Verification Pending
+                          </Badge>
+                        ) : (
+                          <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-[10px] gap-1">
+                            <CheckCircle2 className="size-2.5" /> Approved & Active
+                          </Badge>
+                        )}
                       </div>
                       <div className="mt-4 pt-3 border-t flex items-center justify-between">
                         <span className="text-[11px] text-muted-foreground">Tour Guide Partner</span>
-                        <Link href="/dashboard/guide">
-                          <Button size="sm" className="text-xs gap-1.5 h-8">
-                            Open Guide Portal <ArrowRight className="size-3" />
-                          </Button>
-                        </Link>
+                        {guideStatus === "pending" ? (
+                          <div className="flex items-center gap-2">
+                            <Link href="/onboarding/guide">
+                              <Button size="sm" variant="outline" className="text-xs gap-1.5 h-8 border-amber-500/40 text-amber-600 hover:bg-amber-500/10 cursor-pointer">
+                                Complete Onboarding <ArrowRight className="size-3" />
+                              </Button>
+                            </Link>
+                          </div>
+                        ) : (
+                          <Link href="/dashboard/guide">
+                            <Button size="sm" className="text-xs gap-1.5 h-8 cursor-pointer">
+                              Open Guide Portal <ArrowRight className="size-3" />
+                            </Button>
+                          </Link>
+                        )}
                       </div>
                     </Card>
                   ) : null}
@@ -591,25 +935,55 @@ export default function UnifiedDashboardView({
                         </div>
                         <div>
                           <h3 className="font-bold text-base">{hotel?.name || "Hotel Owner Portal"}</h3>
-                          <p className="text-xs text-muted-foreground">Hotel Accommodation & Rooms</p>
+                          <p className="text-xs text-muted-foreground">
+                            {hotelStatus === "pending"
+                              ? !hotel
+                                ? "Registration submitted • Onboarding needed"
+                                : "Application under administrator review"
+                              : "Hotel Accommodation & Rooms"}
+                          </p>
                         </div>
                       </div>
-                      <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs">
-                        Active
-                      </Badge>
+                      {hotelStatus === "pending" ? (
+                        <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-xs gap-1">
+                          <Clock3 className="size-3" /> Verification Pending
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs gap-1">
+                          <CheckCircle2 className="size-3" /> Approved & Active
+                        </Badge>
+                      )}
                     </div>
 
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Manage room listings, gallery photos, pricing per night, availability calendar, and guest check-ins.
+                      {hotelStatus === "pending"
+                        ? "Your hotel owner application is currently under verification. Once approved, you can manage inventory, room categories, pricing, and guest check-ins."
+                        : "Manage room listings, gallery photos, pricing per night, availability calendar, and guest check-ins."}
                     </p>
 
                     <div className="pt-2 border-t flex items-center justify-between">
                       <span className="text-xs text-muted-foreground font-medium">Hotel Workspace</span>
-                      <Link href="/dashboard/hotels">
-                        <Button size="sm" className="text-xs gap-1.5">
-                          Open Hotel Dashboard <ArrowRight className="size-3.5" />
-                        </Button>
-                      </Link>
+                      {hotelStatus === "pending" ? (
+                        !hotel ? (
+                          <Link href="/onboarding/hotel">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              Complete Hotel Onboarding <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        ) : (
+                          <Link href="/dashboard/hotels/pending">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              View Pending Status <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        )
+                      ) : (
+                        <Link href="/dashboard/hotels">
+                          <Button size="sm" className="text-xs gap-1.5">
+                            Open Hotel Dashboard <ArrowRight className="size-3.5" />
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </Card>
                 )}
@@ -624,25 +998,55 @@ export default function UnifiedDashboardView({
                         </div>
                         <div>
                           <h3 className="font-bold text-base">{restaurant?.name || "Restaurant Panel"}</h3>
-                          <p className="text-xs text-muted-foreground">Dining & Kitchen Management</p>
+                          <p className="text-xs text-muted-foreground">
+                            {restaurantStatus === "pending"
+                              ? !restaurant
+                                ? "Registration submitted • Onboarding needed"
+                                : "Application under administrator review"
+                              : "Dining & Kitchen Management"}
+                          </p>
                         </div>
                       </div>
-                      <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs">
-                        Active
-                      </Badge>
+                      {restaurantStatus === "pending" ? (
+                        <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-xs gap-1">
+                          <Clock3 className="size-3" /> Verification Pending
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs gap-1">
+                          <CheckCircle2 className="size-3" /> Approved & Active
+                        </Badge>
+                      )}
                     </div>
 
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Update menu items, set open/closed status, receive live orders, and handle table reservations.
+                      {restaurantStatus === "pending"
+                        ? "Your dining partner registration is awaiting administrator review. Once verified, you can manage food menus, operating hours, and live customer orders."
+                        : "Update menu items, set open/closed status, receive live orders, and handle table reservations."}
                     </p>
 
                     <div className="pt-2 border-t flex items-center justify-between">
                       <span className="text-xs text-muted-foreground font-medium">Restaurant Workspace</span>
-                      <Link href="/dashboard/restaurant">
-                        <Button size="sm" className="text-xs gap-1.5">
-                          Open Restaurant Panel <ArrowRight className="size-3.5" />
-                        </Button>
-                      </Link>
+                      {restaurantStatus === "pending" ? (
+                        !restaurant ? (
+                          <Link href="/onboarding/restaurant">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              Complete Dining Onboarding <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        ) : (
+                          <Link href="/dashboard/restaurant/pending">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10">
+                              View Pending Status <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        )
+                      ) : (
+                        <Link href="/dashboard/restaurant">
+                          <Button size="sm" className="text-xs gap-1.5">
+                            Open Restaurant Panel <ArrowRight className="size-3.5" />
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </Card>
                 )}
@@ -657,25 +1061,49 @@ export default function UnifiedDashboardView({
                         </div>
                         <div>
                           <h3 className="font-bold text-base">{guide?.name || "Tour Guide Portal"}</h3>
-                          <p className="text-xs text-muted-foreground">Trekking & Guiding Services</p>
+                          <p className="text-xs text-muted-foreground">
+                            {guideStatus === "pending"
+                              ? !guide
+                                ? "Registration submitted • Onboarding needed"
+                                : "Application under administrator review"
+                              : "Trekking & Guiding Services"}
+                          </p>
                         </div>
                       </div>
-                      <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs">
-                        Active Guide
-                      </Badge>
+                      {guideStatus === "pending" ? (
+                        <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-xs gap-1">
+                          <Clock3 className="size-3" /> Verification Pending
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-emerald-500/15 text-emerald-600 border-emerald-500/30 text-xs gap-1">
+                          <CheckCircle2 className="size-3" /> Approved & Active
+                        </Badge>
+                      )}
                     </div>
 
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Publish tour packages, manage your working calendar, and coordinate directly with traveler requests.
+                      {guideStatus === "pending"
+                        ? "Your tour guide profile and credentials are being reviewed by administrators. Once approved, your profile will be published live in the public Tour Guides catalog."
+                        : "Publish tour packages, manage your working calendar, and coordinate directly with traveler requests."}
                     </p>
 
                     <div className="pt-2 border-t flex items-center justify-between">
                       <span className="text-xs text-muted-foreground font-medium">Guide Workspace</span>
-                      <Link href="/dashboard/guide">
-                        <Button size="sm" className="text-xs gap-1.5">
-                          Open Guide Portal <ArrowRight className="size-3.5" />
-                        </Button>
-                      </Link>
+                      {guideStatus === "pending" ? (
+                        <div className="flex items-center gap-2">
+                          <Link href="/onboarding/guide">
+                            <Button size="sm" variant="outline" className="text-xs gap-1.5 border-amber-500/40 text-amber-600 hover:bg-amber-500/10 cursor-pointer">
+                              Complete Guide Onboarding <ArrowRight className="size-3.5" />
+                            </Button>
+                          </Link>
+                        </div>
+                      ) : (
+                        <Link href="/dashboard/guide">
+                          <Button size="sm" className="text-xs gap-1.5 cursor-pointer">
+                            Open Guide Portal <ArrowRight className="size-3.5" />
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </Card>
                 )}
@@ -841,7 +1269,352 @@ export default function UnifiedDashboardView({
             </div>
           )}
 
-          {/* TAB 4: AI ITINERARY */}
+          {/* TAB 4: EXPENSE TRACKER */}
+          {activeTab === "expenses" && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h1 className="text-2xl font-bold tracking-tight">Travel Expense Tracker</h1>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    Log and categorize your daily travel costs (meals, hotels, transportation, activities) in NPR.
+                  </p>
+                </div>
+
+                <Button
+                  onClick={() => setIsAddExpenseOpen(true)}
+                  className="font-semibold text-xs gap-1.5 rounded-xl shadow-xs cursor-pointer"
+                >
+                  <Plus className="size-4" /> Log New Expense
+                </Button>
+              </div>
+
+              {/* Expense Stats Summary Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Card className="p-4 border shadow-xs bg-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Total Spent</p>
+                      <p className="text-xl font-extrabold mt-1 text-foreground">NPR {totalExpenseSum.toLocaleString()}</p>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
+                      <Receipt className="size-5" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    {expensesList.length} logged expense record{expensesList.length === 1 ? "" : "s"}
+                  </p>
+                </Card>
+
+                <Card className="p-4 border shadow-xs bg-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Food & Meals</p>
+                      <p className="text-xl font-extrabold mt-1 text-amber-600 dark:text-amber-400">NPR {foodExpenseSum.toLocaleString()}</p>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600">
+                      <UtensilsCrossed className="size-5" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    Dining, snacks & cafes
+                  </p>
+                </Card>
+
+                <Card className="p-4 border shadow-xs bg-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Lodging & Stays</p>
+                      <p className="text-xl font-extrabold mt-1 text-blue-600 dark:text-blue-400">NPR {lodgingExpenseSum.toLocaleString()}</p>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-600">
+                      <Hotel className="size-5" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    Hotels, resorts & homestays
+                  </p>
+                </Card>
+
+                <Card className="p-4 border shadow-xs bg-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Transit & Activities</p>
+                      <p className="text-xl font-extrabold mt-1 text-emerald-600 dark:text-emerald-400">NPR {transitExpenseSum.toLocaleString()}</p>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600">
+                      <Compass className="size-5" />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    Cabs, buses & permits
+                  </p>
+                </Card>
+              </div>
+
+              {/* Filters & Search Bar */}
+              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+                <div className="relative flex-1 max-w-md">
+                  <Input
+                    placeholder="Search expenses by title, city, or tag..."
+                    value={expenseSearch}
+                    onChange={(e) => setExpenseSearch(e.target.value)}
+                    className="pl-3 bg-card rounded-xl text-xs"
+                  />
+                </div>
+
+                {/* Category Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+                  {[
+                    { id: "all", label: "All" },
+                    { id: "food", label: "Food & Meals" },
+                    { id: "lodging", label: "Lodging" },
+                    { id: "transportation", label: "Transit" },
+                    { id: "activities", label: "Activities" },
+                    { id: "other", label: "Other" },
+                  ].map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setExpenseCategoryFilter(cat.id)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+                        expenseCategoryFilter === cat.id
+                          ? "bg-primary text-primary-foreground shadow-xs"
+                          : "bg-card border text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Expenses List */}
+              {filteredExpenses.length === 0 ? (
+                <Card className="border-dashed p-12 text-center bg-muted/15">
+                  <Receipt className="size-10 text-muted-foreground mx-auto mb-3" />
+                  <h3 className="font-bold text-base">No expenses found</h3>
+                  <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto">
+                    {expenseSearch || expenseCategoryFilter !== "all"
+                      ? "No expenses matched your search or category filter."
+                      : "You haven't logged any travel expenses yet. Start tracking your meals, stays, and transit!"}
+                  </p>
+                  <div className="mt-4 flex justify-center">
+                    <Button size="sm" onClick={() => setIsAddExpenseOpen(true)} className="text-xs gap-1.5">
+                      <Plus className="size-3.5" /> Log First Expense
+                    </Button>
+                  </div>
+                </Card>
+              ) : (
+                <div className="space-y-3">
+                  {filteredExpenses.map((exp, idx) => {
+                    const typeLower = (exp.type || "other").toLowerCase();
+                    const isFood = typeLower.includes("food") || typeLower.includes("dining") || typeLower.includes("meal");
+                    const isLodging = typeLower.includes("lodging") || typeLower.includes("hotel") || typeLower.includes("stay");
+                    const isTransit = typeLower.includes("transport") || typeLower.includes("bus") || typeLower.includes("taxi");
+                    const isActivity = typeLower.includes("activit") || typeLower.includes("guide") || typeLower.includes("trek");
+
+                    const dateStr = exp.createdAt
+                      ? new Date(exp.createdAt).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })
+                      : "Today";
+
+                    return (
+                      <Card
+                        key={exp.id || idx}
+                        className="p-4 border shadow-xs bg-card hover:border-primary/40 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div
+                            className={`p-3 rounded-2xl shrink-0 ${
+                              isFood
+                                ? "bg-amber-500/10 text-amber-600"
+                                : isLodging
+                                ? "bg-blue-500/10 text-blue-600"
+                                : isTransit
+                                ? "bg-emerald-500/10 text-emerald-600"
+                                : isActivity
+                                ? "bg-purple-500/10 text-purple-600"
+                                : "bg-slate-500/10 text-slate-600"
+                            }`}
+                          >
+                            {isFood ? (
+                              <UtensilsCrossed className="size-5" />
+                            ) : isLodging ? (
+                              <Hotel className="size-5" />
+                            ) : isTransit ? (
+                              <MapPin className="size-5" />
+                            ) : isActivity ? (
+                              <Compass className="size-5" />
+                            ) : (
+                              <Receipt className="size-5" />
+                            )}
+                          </div>
+
+                          <div>
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <h3 className="font-bold text-sm text-foreground">{exp.name}</h3>
+                              <Badge
+                                variant="outline"
+                                className={`text-[10px] capitalize px-2 py-0.5 ${
+                                  isFood
+                                    ? "border-amber-500/30 text-amber-600 bg-amber-500/5"
+                                    : isLodging
+                                    ? "border-blue-500/30 text-blue-600 bg-blue-500/5"
+                                    : isTransit
+                                    ? "border-emerald-500/30 text-emerald-600 bg-emerald-500/5"
+                                    : "border-purple-500/30 text-purple-600 bg-purple-500/5"
+                                }`}
+                              >
+                                {exp.type}
+                              </Badge>
+                            </div>
+
+                            <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
+                              <span className="flex items-center gap-1">
+                                <MapPin className="size-3 text-primary" /> {exp.location || "Nepal"}
+                              </span>
+                              <span>•</span>
+                              <span className="flex items-center gap-1">
+                                <Calendar className="size-3" /> {dateStr}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="text-right shrink-0">
+                          <p className="text-base font-extrabold text-foreground">
+                            NPR {Number(exp.amount).toLocaleString()}
+                          </p>
+                          <p className="text-[10px] text-muted-foreground">Recorded in ledger</p>
+                        </div>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* IN-PLACE ADD EXPENSE MODAL */}
+              {isAddExpenseOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200">
+                  <div className="relative w-full max-w-md bg-card border rounded-3xl p-6 shadow-2xl space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
+                          <Receipt className="size-5" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-base text-foreground">Log Travel Expense</h3>
+                          <p className="text-xs text-muted-foreground">Record your trip spending</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setIsAddExpenseOpen(false)}
+                        className="text-muted-foreground hover:text-foreground cursor-pointer p-1"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    <form onSubmit={handleAddExpense} className="space-y-3.5 pt-1">
+                      <Field>
+                        <FieldLabel>Expense Name / Description</FieldLabel>
+                        <Input
+                          required
+                          placeholder="e.g. Thakali Thali dinner in Pokhara"
+                          value={newExpense.name}
+                          onChange={(e) => setNewExpense({ ...newExpense, name: e.target.value })}
+                        />
+                      </Field>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <Field>
+                          <FieldLabel>Amount (NPR)</FieldLabel>
+                          <Input
+                            required
+                            type="number"
+                            min="1"
+                            placeholder="1500"
+                            value={newExpense.amount}
+                            onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
+                          />
+                        </Field>
+
+                        <Field>
+                          <FieldLabel>City / Location</FieldLabel>
+                          <Input
+                            required
+                            placeholder="Pokhara / Kathmandu"
+                            value={newExpense.location}
+                            onChange={(e) => setNewExpense({ ...newExpense, location: e.target.value })}
+                          />
+                        </Field>
+                      </div>
+
+                      <Field>
+                        <FieldLabel>Category</FieldLabel>
+                        <div className="grid grid-cols-3 gap-2 pt-1">
+                          {[
+                            { id: "food", label: "Food & Meals" },
+                            { id: "lodging", label: "Lodging" },
+                            { id: "transportation", label: "Transit" },
+                            { id: "activities", label: "Activities" },
+                            { id: "other", label: "Other" },
+                          ].map((cat) => (
+                            <button
+                              key={cat.id}
+                              type="button"
+                              onClick={() => setNewExpense({ ...newExpense, type: cat.id })}
+                              className={`py-2 px-2 text-xs rounded-xl border font-semibold text-center transition-all cursor-pointer ${
+                                newExpense.type === cat.id
+                                  ? "border-primary bg-primary/10 text-primary font-bold shadow-xs"
+                                  : "border-border text-muted-foreground hover:bg-muted"
+                              }`}
+                            >
+                              {cat.label}
+                            </button>
+                          ))}
+                        </div>
+                      </Field>
+
+                      <div className="flex items-center justify-end gap-2 pt-3">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          disabled={isSubmittingExpense}
+                          onClick={() => setIsAddExpenseOpen(false)}
+                          className="rounded-xl"
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          type="submit"
+                          size="sm"
+                          disabled={isSubmittingExpense}
+                          className="rounded-xl font-bold gap-1.5 shadow-xs"
+                        >
+                          {isSubmittingExpense ? (
+                            <>
+                              <Loader2 className="size-3.5 animate-spin" /> Saving...
+                            </>
+                          ) : (
+                            <>
+                              <Plus className="size-3.5" /> Save Expense
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 5: AI ITINERARY */}
           {activeTab === "itinerary" && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <div>
@@ -910,11 +1683,30 @@ export default function UnifiedDashboardView({
                 </p>
 
                 <div className="pt-2 flex flex-wrap gap-2">
-                  {roles.map((r) => (
-                    <Badge key={r.name} variant="outline" className="text-xs capitalize py-1 px-3">
-                      {r.name} ({r.approvalStatus || "active"})
-                    </Badge>
-                  ))}
+                  {roles.map((r) => {
+                    const isApp = r.approvalStatus === "approved";
+                    const isPend = r.approvalStatus === "pending" || !r.approvalStatus;
+                    return (
+                      <Badge
+                        key={r.name}
+                        variant="outline"
+                        className={`text-xs capitalize py-1 px-3 gap-1.5 ${
+                          isApp
+                            ? "border-emerald-500/30 text-emerald-600 bg-emerald-500/10"
+                            : isPend
+                            ? "border-amber-500/30 text-amber-600 bg-amber-500/10"
+                            : "border-rose-500/30 text-rose-600 bg-rose-500/10"
+                        }`}
+                      >
+                        {isApp ? (
+                          <CheckCircle2 className="size-3" />
+                        ) : isPend ? (
+                          <Clock3 className="size-3" />
+                        ) : null}
+                        {r.name} ({r.approvalStatus || "pending"})
+                      </Badge>
+                    );
+                  })}
                 </div>
               </Card>
             </div>

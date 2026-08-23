@@ -20,11 +20,11 @@ export default async function RestaurantDashboardLayout({
     redirect("/sign-in");
   }
 
-  const isRestaurantOwner = session?.user?.roles?.some(
-    (role) => role.name === "restaurantOwner"
-  );
+  const { getUserRoles } = await import("@/app/features/auth/services/roles.service");
+  const userRoles = await getUserRoles(Number(session.user.id));
+  const ownerRole = userRoles.find((role) => role.name === "restaurantOwner");
 
-  if (!isRestaurantOwner) {
+  if (!ownerRole) {
     redirect("/unauthorized");
   }
 
@@ -34,11 +34,7 @@ export default async function RestaurantDashboardLayout({
     redirect("/onboarding/restaurant");
   }
 
-  const ownerRole = session.user.roles?.find(
-    (role) => role.name === "restaurantOwner"
-  );
-
-  const approvalStatus = ownerRole?.approvalStatus ?? "pending";
+  const approvalStatus = ownerRole.approvalStatus ?? "pending";
 
   return (
     <div className="flex h-dvh overflow-hidden bg-muted/30">
@@ -54,6 +50,7 @@ export default async function RestaurantDashboardLayout({
           userEmail={session.user.email ?? ""}
           isOpen={restaurant.isOpen ?? true}
           approvalStatus={approvalStatus}
+          restaurantId={restaurant.id}
         />
 
         <main className="flex-1 overflow-y-auto p-6 bg-muted/10">

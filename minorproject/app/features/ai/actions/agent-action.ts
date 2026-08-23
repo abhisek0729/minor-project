@@ -12,9 +12,12 @@ import {
   menusTable,
   packagesTable,
   restaurantsTable,
+  rolesTable,
   roomsTable,
+  roomImagesTable,
+  userRolesTable,
 } from "@/app/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { getUserRoles } from "@/app/features/auth/services/roles.service";
 import { updatePartnerApprovalStatus, deletePartnerWorkspaceAction } from "@/app/features/admin/actions/admin.action";
@@ -148,6 +151,247 @@ export async function executeAgentAction(proposal: AgentProposalPayload) {
       }
 
       // ==========================================
+      // 🏢 WORKSPACE ONBOARDING ACTIONS (HOTEL, RESTAURANT, GUIDE)
+      // ==========================================
+
+      case "ONBOARD_HOTEL":
+      case "CREATE_HOTEL": {
+        const hotelName = String(payload.hotel_name || payload.name || "New Partner Hotel").trim();
+        const district = String(payload.district || payload.city || "Kaski").trim();
+        const province = String(payload.province || "Gandaki Province").trim();
+        const municipality = String(payload.municipality || "Pokhara").trim();
+        const ward = String(payload.ward || "6").trim();
+        const street = String(payload.street || "Lakeside").trim();
+        const phone = String(payload.phone || payload.phone_number || "9800000000").trim();
+        const description = String(
+          payload.description || `Welcome to ${hotelName}, providing comfortable stays in ${district}, Nepal.`
+        ).trim();
+        const coverImageUrl = String(
+          payload.cover_image_url ||
+            payload.image_url ||
+            "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200"
+        ).trim();
+
+        // 1. Insert Hotel record
+        const [newHotel] = await db
+          .insert(hotelsTable)
+          .values({
+            userId,
+            name: hotelName,
+            description,
+            establishedYear: Number(payload.established_year) || 2020,
+            phoneNumber: phone,
+            website: payload.website ? String(payload.website) : null,
+            province,
+            district,
+            municipality,
+            ward,
+            street,
+            latitude: payload.latitude ? String(payload.latitude) : "28.2096",
+            longitude: payload.longitude ? String(payload.longitude) : "83.9856",
+            coverImageUrl,
+            coverImagePublicId: String(payload.cover_image_public_id || "hotel_cover"),
+          })
+          .returning();
+
+        // 2. Grant and approve hotelOwner role for user
+        const [role] = await db
+          .select({ id: rolesTable.id })
+          .from(rolesTable)
+          .where(eq(rolesTable.name, "hotelOwner"));
+
+        if (role) {
+          const [existingUserRole] = await db
+            .select()
+            .from(userRolesTable)
+            .where(
+              and(
+                eq(userRolesTable.userId, userId),
+                eq(userRolesTable.roleId, role.id)
+              )
+            );
+
+          if (!existingUserRole) {
+            await db.insert(userRolesTable).values({
+              userId,
+              roleId: role.id,
+              approvalStatus: "approved",
+            });
+          } else {
+            await db
+              .update(userRolesTable)
+              .set({ approvalStatus: "approved" })
+              .where(
+                and(
+                  eq(userRolesTable.userId, userId),
+                  eq(userRolesTable.roleId, role.id)
+                )
+              );
+          }
+        }
+
+        revalidatePath("/dashboard");
+        revalidatePath("/dashboard/hotels");
+        revalidatePath("/workspace");
+        revalidatePath("/hotels");
+
+        return {
+          success: true,
+          message: `🎉 Hotel Workspace "${newHotel.name}" (${newHotel.district}) successfully onboarded and activated! You can now list rooms, manage facilities, and receive guest reservations.`,
+          data: newHotel,
+        };
+      }
+
+      case "ONBOARD_RESTAURANT":
+      case "CREATE_RESTAURANT": {
+        const restName = String(payload.restaurant_name || payload.name || "New Restaurant").trim();
+        const cuisine = String(payload.cuisine || "Authentic Nepali & Multi-Cuisine").trim();
+        const district = String(payload.district || payload.city || "Kathmandu").trim();
+        const province = String(payload.province || "Bagmati Province").trim();
+        const municipality = String(payload.municipality || "Kathmandu").trim();
+        const street = String(payload.street || "Thamel").trim();
+        const phone = String(payload.phone || payload.phone_number || "9800000000").trim();
+        const description = String(
+          payload.description || `Authentic dining experience at ${restName} serving ${cuisine}.`
+        ).trim();
+        const imageUrl = String(
+          payload.image_url ||
+            "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200"
+        ).trim();
+
+        const [newRest] = await db
+          .insert(restaurantsTable)
+          .values({
+            userId,
+            name: restName,
+            description,
+            cuisine,
+            phoneNumber: phone,
+            location: `${street}, ${municipality}, ${district}, ${province}`,
+            restaurantImageUrl: imageUrl,
+          })
+          .returning();
+
+        // Grant & approve restaurantOwner role
+        const [role] = await db
+          .select({ id: rolesTable.id })
+          .from(rolesTable)
+          .where(eq(rolesTable.name, "restaurantOwner"));
+
+        if (role) {
+          const [existingUserRole] = await db
+            .select()
+            .from(userRolesTable)
+            .where(
+              and(
+                eq(userRolesTable.userId, userId),
+                eq(userRolesTable.roleId, role.id)
+              )
+            );
+
+          if (!existingUserRole) {
+            await db.insert(userRolesTable).values({
+              userId,
+              roleId: role.id,
+              approvalStatus: "approved",
+            });
+          } else {
+            await db
+              .update(userRolesTable)
+              .set({ approvalStatus: "approved" })
+              .where(
+                and(
+                  eq(userRolesTable.userId, userId),
+                  eq(userRolesTable.roleId, role.id)
+                )
+              );
+          }
+        }
+
+        revalidatePath("/dashboard");
+        revalidatePath("/dashboard/restaurant");
+        revalidatePath("/workspace");
+        revalidatePath("/restaurants");
+
+        return {
+          success: true,
+          message: `🎉 Restaurant Workspace "${newRest.name}" (${cuisine}) successfully onboarded and activated! You can now add dishes to your digital menu.`,
+          data: newRest,
+        };
+      }
+
+      case "ONBOARD_GUIDE":
+      case "REGISTER_GUIDE": {
+        const guideName = String(payload.guide_name || payload.name || "Certified Tour Guide").trim();
+        const languages = String(payload.languages || "Nepali, English").trim();
+        const dailyRate = Math.round(Number(payload.daily_rate || payload.price_per_day || 2500));
+        const bio = String(payload.bio || payload.description || "Licensed local guide with deep knowledge of Himalayan trails and culture.").trim();
+        const contact = String(payload.contact_number || payload.phone || "9800000000").trim();
+        const location = String(payload.location || payload.district || "Pokhara, Nepal").trim();
+
+        const [newGuide] = await db
+          .insert(guidesTable)
+          .values({
+            userId,
+            name: guideName,
+            languages,
+            dailyRate,
+            description: bio,
+            phoneNumber: contact,
+            location,
+            isApproved: true,
+          })
+          .returning();
+
+        // Grant & approve guide role
+        const [role] = await db
+          .select({ id: rolesTable.id })
+          .from(rolesTable)
+          .where(eq(rolesTable.name, "guide"));
+
+        if (role) {
+          const [existingUserRole] = await db
+            .select()
+            .from(userRolesTable)
+            .where(
+              and(
+                eq(userRolesTable.userId, userId),
+                eq(userRolesTable.roleId, role.id)
+              )
+            );
+
+          if (!existingUserRole) {
+            await db.insert(userRolesTable).values({
+              userId,
+              roleId: role.id,
+              approvalStatus: "approved",
+            });
+          } else {
+            await db
+              .update(userRolesTable)
+              .set({ approvalStatus: "approved" })
+              .where(
+                and(
+                  eq(userRolesTable.userId, userId),
+                  eq(userRolesTable.roleId, role.id)
+                )
+              );
+          }
+        }
+
+        revalidatePath("/dashboard");
+        revalidatePath("/dashboard/guide");
+        revalidatePath("/workspace");
+        revalidatePath("/guides");
+
+        return {
+          success: true,
+          message: `🎉 Tour Guide Workspace for "${newGuide.name}" (${location}) successfully onboarded and activated!`,
+          data: newGuide,
+        };
+      }
+
+      // ==========================================
       // 🏨 HOTEL OWNER ACTIONS (RBAC Guard)
       // ==========================================
 
@@ -172,25 +416,71 @@ export async function executeAgentAction(proposal: AgentProposalPayload) {
           };
         }
 
+        const chosenRoomNumber = String(payload.room_number || "").trim();
+        if (!chosenRoomNumber) {
+          return {
+            success: false,
+            message: "Room Number is required. Please specify a room number (e.g. 102, 201) before confirming.",
+          };
+        }
+
+        // Query existing rooms for this hotel to enforce uniqueness
+        const [existing] = await db
+          .select({ id: roomsTable.id, roomNumber: roomsTable.roomNumber })
+          .from(roomsTable)
+          .where(
+            and(
+              eq(roomsTable.hotelId, hotel.id),
+              eq(roomsTable.roomNumber, chosenRoomNumber)
+            )
+          )
+          .limit(1);
+
+        if (existing) {
+          return {
+            success: false,
+            message: `Room #${chosenRoomNumber} already exists in ${hotel.name}. Please enter a unique room number.`,
+          };
+        }
+
+        const validTypes = ["single", "double", "twin", "family", "suite"] as const;
+        let roomType = String(payload.room_type || "double").toLowerCase() as typeof validTypes[number];
+        if (!validTypes.includes(roomType)) {
+          roomType = "double";
+        }
+
+        const capacity = Number(payload.capacity) || (roomType === "single" ? 1 : roomType === "family" || roomType === "suite" ? 4 : 2);
+        const pricePerNight = String(payload.price_per_night || "2500");
+        const description = String(payload.description || `Comfortable ${roomType.toUpperCase()} room with modern amenities.`);
+
         const [room] = await db
           .insert(roomsTable)
           .values({
             hotelId: hotel.id,
-            roomNumber: String(payload.room_number || "101"),
-            roomType: String(payload.room_type || "single") as "single" | "double" | "twin" | "family" | "suite",
-            pricePerNight: String(payload.price_per_night || "2500"),
-            capacity: Number(payload.capacity) || 2,
-            description: String(payload.description || "Comfortable room with modern amenities."),
+            roomNumber: chosenRoomNumber,
+            roomType,
+            pricePerNight,
+            capacity,
+            description,
             status: "available",
           })
           .returning();
+
+        // Save Cloudinary uploaded room image if present
+        if (payload.image_url && String(payload.image_url).startsWith("http")) {
+          await db.insert(roomImagesTable).values({
+            roomId: room.id,
+            imageUrl: String(payload.image_url),
+            publicId: String(payload.image_public_id || `room_${room.id}_img`),
+          });
+        }
 
         revalidatePath("/dashboard/hotels");
         revalidatePath("/dashboard/hotels/rooms");
 
         return {
           success: true,
-          message: `Room #${room.roomNumber} (${room.roomType.toUpperCase()}) added to ${hotel.name} at NPR ${Number(room.pricePerNight).toLocaleString()}/night.`,
+          message: `Room #${room.roomNumber} (${room.roomType.toUpperCase()}, Max ${room.capacity} Guests) added to ${hotel.name} at NPR ${Number(room.pricePerNight).toLocaleString()}/night.`,
           data: room,
         };
       }
@@ -426,7 +716,7 @@ export async function executeAgentAction(proposal: AgentProposalPayload) {
 
         return {
           success: true,
-          message: `Booking request for "${booking.itemName}" (NPR ${booking.totalAmount.toLocaleString()}) submitted!`,
+          message: `Booking #${booking.id} created for "${booking.itemName}" (NPR ${booking.totalAmount.toLocaleString()}). Proceed to Khalti payment checkout to finalize reservation!`,
           data: booking,
         };
       }

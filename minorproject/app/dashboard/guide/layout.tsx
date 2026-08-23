@@ -20,36 +20,21 @@ export default async function GuideDashboardLayout({ children }: GuideLayoutProp
     redirect("/sign-in");
   }
 
-  const isGuide = session.user.roles?.some((role) => role.name === "guide");
-  if (!isGuide) {
+  const { getUserRoles } = await import("@/app/features/auth/services/roles.service");
+  const userRoles = await getUserRoles(Number(session.user.id));
+  const guideRole = userRoles.find((role) => role.name === "guide");
+
+  if (!guideRole) {
     redirect("/unauthorized");
   }
 
-  let guide = await getGuideByUserId(Number(session.user.id));
+  const guide = await getGuideByUserId(Number(session.user.id));
 
   if (!guide) {
-    // Auto-create guide entry if missing
-    const [newGuide] = await db
-      .insert(guidesTable)
-      .values({
-        userId: Number(session.user.id),
-        name: session.user.name || "Tour Guide",
-        description: "Certified mountain and cultural tour guide in Nepal.",
-        location: "Kathmandu, Nepal",
-        phoneNumber: "9800000000",
-        guideImageUrl: "",
-        experienceYears: 2,
-        languages: "Nepali, English",
-        dailyRate: 2500,
-        isAvailable: true,
-      })
-      .returning();
-
-    guide = newGuide;
+    redirect("/onboarding/guide");
   }
 
-  const guideRole = session.user.roles?.find((r) => r.name === "guide");
-  const approvalStatus = guideRole?.approvalStatus ?? "pending";
+  const approvalStatus = guideRole.approvalStatus ?? "pending";
 
   return (
     <div className="flex h-dvh overflow-hidden bg-muted/30">
@@ -61,6 +46,7 @@ export default async function GuideDashboardLayout({ children }: GuideLayoutProp
           location={guide.location}
           isAvailable={guide.isAvailable ?? true}
           dailyRate={guide.dailyRate ?? 2500}
+          approvalStatus={approvalStatus}
         />
 
         {approvalStatus === "pending" && (

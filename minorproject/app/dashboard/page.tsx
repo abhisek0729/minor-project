@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { db } from "@/app/lib/db";
-import { usersTable } from "@/app/lib/db/schema";
+import { expensesTable, usersTable } from "@/app/lib/db/schema";
+import { getUserRoles } from "@/app/features/auth/services/roles.service";
 import { getRestaurantByOwnerId } from "@/app/features/restaurant/services/restaurant.service";
 import { getHotelByOwnerId } from "@/app/features/hotel/actions/getHotelByOwnerId";
 import { getGuideByUserId } from "@/app/features/guide/services/guide.service";
@@ -22,7 +23,8 @@ export default async function MainDashboardPage() {
 
   const userId = Number(session.user.id);
 
-  const roles = session.user.roles ?? [];
+  // Fetch fresh, live roles from database directly (eliminates stale JWT issue without signing out)
+  const roles = await getUserRoles(userId);
   const isAdmin = roles.some((r) => r.name === "admin" && r.approvalStatus === "approved");
 
   if (isAdmin) {
@@ -33,13 +35,18 @@ export default async function MainDashboardPage() {
   const hasHotel = roles.some((r) => r.name === "hotelOwner");
   const hasGuide = roles.some((r) => r.name === "guide");
 
-  // Fetch user data, partner listings & user bookings all concurrently in single round-trip
-  const [[dbUser], restaurant, hotel, guide, bookings] = await Promise.all([
+  // Fetch user data, partner listings, bookings & expenses concurrently in single round-trip
+  const [[dbUser], restaurant, hotel, guide, bookings, expenses] = await Promise.all([
     db.select().from(usersTable).where(eq(usersTable.id, userId)),
     hasRestaurant ? getRestaurantByOwnerId(userId) : Promise.resolve(null),
     hasHotel ? getHotelByOwnerId(userId) : Promise.resolve(null),
     hasGuide ? getGuideByUserId(userId) : Promise.resolve(null),
     getUserBookings(userId),
+    db
+      .select()
+      .from(expensesTable)
+      .where(eq(expensesTable.userId, userId))
+      .orderBy(desc(expensesTable.createdAt)),
   ]);
 
   const name = dbUser?.name || session.user.name || "User";
@@ -77,6 +84,7 @@ export default async function MainDashboardPage() {
       hotel={hotel}
       guide={guide}
       bookings={bookings}
+      expenses={expenses || []}
     />
   );
 }

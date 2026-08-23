@@ -1,16 +1,16 @@
 import { db } from "@/app/lib/db";
 import { hotelsTable } from "@/app/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export async function getHotelByOwnerId(userId: number) {
   const [hotel] = await db
     .select()
     .from(hotelsTable)
-    .where(eq(hotelsTable.userId, userId));
+    .where(eq(hotelsTable.userId, userId))
+    .orderBy(desc(hotelsTable.id));
 
   return hotel ?? null;
 }
-
 
 export async function hasHotel(userId: number) {
   const [hotel] = await db

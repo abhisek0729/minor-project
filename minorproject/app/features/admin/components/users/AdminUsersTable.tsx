@@ -27,11 +27,13 @@ export default function AdminUsersTable({ initialUsers }: AdminUsersTableProps) 
   const [deletingUser, setDeletingUser] = useState<any | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const filtered = users.filter(
-    (u) =>
-      u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.email.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = users.filter((u) => {
+    const name = (u.name || "").toLowerCase();
+    const email = (u.email || "").toLowerCase();
+    const roles = (u.roles || "").toLowerCase();
+    const q = search.toLowerCase();
+    return name.includes(q) || email.includes(q) || roles.includes(q);
+  });
 
   const handleDeleteUser = async () => {
     if (!deletingUser) return;
@@ -40,7 +42,7 @@ export default function AdminUsersTable({ initialUsers }: AdminUsersTableProps) 
     try {
       const res = await deleteUserAdminAction(deletingUser.id);
       if (res.success) {
-        toast.success(res.message || `User ${deletingUser.name} deleted.`);
+        toast.success(res.message || `User ${deletingUser.name || deletingUser.email} deleted.`);
         setUsers((prev) => prev.filter((u) => u.id !== deletingUser.id));
         setDeletingUser(null);
       } else {
@@ -53,17 +55,41 @@ export default function AdminUsersTable({ initialUsers }: AdminUsersTableProps) 
     }
   };
 
+  const getRoleBadges = (rolesString?: string) => {
+    if (!rolesString) return <Badge variant="outline" className="text-xs">tourist</Badge>;
+    const roles = rolesString.split(",").map((r) => r.trim());
+    return (
+      <div className="flex flex-wrap gap-1">
+        {roles.map((role) => {
+          let badgeClass = "bg-muted text-muted-foreground text-[11px]";
+          if (role === "admin") badgeClass = "bg-purple-500/10 text-purple-600 border-purple-500/20 text-[11px] font-semibold";
+          else if (role === "hotelOwner") badgeClass = "bg-blue-500/10 text-blue-600 border-blue-500/20 text-[11px]";
+          else if (role === "restaurantOwner") badgeClass = "bg-amber-500/10 text-amber-600 border-amber-500/20 text-[11px]";
+          else if (role === "guide") badgeClass = "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 text-[11px]";
+          return (
+            <Badge key={role} className={badgeClass} variant="outline">
+              {role}
+            </Badge>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative w-full max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
           <Input
-            placeholder="Search users by name or email..."
+            placeholder="Search users by name, email, role..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-9 h-10 bg-card"
           />
+        </div>
+        <div className="text-xs text-muted-foreground font-medium">
+          Showing {filtered.length} of {users.length} registered accounts
         </div>
       </div>
 
@@ -73,6 +99,7 @@ export default function AdminUsersTable({ initialUsers }: AdminUsersTableProps) 
             <TableRow className="bg-muted/30">
               <TableHead>User ID</TableHead>
               <TableHead>Name & Email</TableHead>
+              <TableHead>Roles</TableHead>
               <TableHead>Verification</TableHead>
               <TableHead>Auth Provider</TableHead>
               <TableHead>Joined Date</TableHead>
@@ -83,7 +110,7 @@ export default function AdminUsersTable({ initialUsers }: AdminUsersTableProps) 
           <TableBody>
             {filtered.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center py-8 text-muted-foreground text-sm">
+                <TableCell colSpan={7} className="text-center py-8 text-muted-foreground text-sm">
                   No users found.
                 </TableCell>
               </TableRow>
@@ -97,9 +124,13 @@ export default function AdminUsersTable({ initialUsers }: AdminUsersTableProps) 
                   <TableCell>
                     <div className="font-semibold text-sm leading-tight text-foreground flex items-center gap-1.5">
                       <User className="size-3.5 text-primary shrink-0" />
-                      {u.name}
+                      {u.name || "Unnamed User"}
                     </div>
                     <div className="text-xs text-muted-foreground mt-0.5">{u.email}</div>
+                  </TableCell>
+
+                  <TableCell>
+                    {getRoleBadges(u.roles)}
                   </TableCell>
 
                   <TableCell>

@@ -289,6 +289,50 @@ export async function updatePartnerApprovalStatus(
         )
       );
 
+    // Fetch user and business details to send approval notification email
+    const [targetUser] = await db
+      .select({ name: usersTable.name, email: usersTable.email })
+      .from(usersTable)
+      .where(eq(usersTable.id, userId));
+
+    let businessName = "Workspace Listing";
+    let businessType: "Hotel" | "Restaurant" | "Tour Guide" = "Hotel";
+
+    if (roleName === "hotelOwner") {
+      businessType = "Hotel";
+      const [h] = await db
+        .select({ name: hotelsTable.name })
+        .from(hotelsTable)
+        .where(eq(hotelsTable.userId, userId));
+      if (h?.name) businessName = h.name;
+    } else if (roleName === "restaurantOwner") {
+      businessType = "Restaurant";
+      const [r] = await db
+        .select({ name: restaurantsTable.name })
+        .from(restaurantsTable)
+        .where(eq(restaurantsTable.userId, userId));
+      if (r?.name) businessName = r.name;
+    } else if (roleName === "guide") {
+      businessType = "Tour Guide";
+      const [g] = await db
+        .select({ name: guidesTable.name })
+        .from(guidesTable)
+        .where(eq(guidesTable.userId, userId));
+      businessName = g?.name || targetUser?.name || "Tour Guide Profile";
+    }
+
+    if (targetUser?.email && (status === "approved" || status === "rejected")) {
+      const { sendApprovalNotificationEmail } = await import("@/app/email/send-email");
+      await sendApprovalNotificationEmail({
+        email: targetUser.email,
+        ownerName: targetUser.name || "Partner",
+        businessName,
+        businessType,
+        status,
+      });
+    }
+
+    revalidatePath("/dashboard");
     revalidatePath("/dashboard/admin");
     revalidatePath("/dashboard/admin/approvals");
     revalidatePath("/dashboard/admin/companies");
@@ -301,10 +345,11 @@ export async function updatePartnerApprovalStatus(
     revalidatePath("/restaurants");
     revalidatePath("/hotels");
     revalidatePath("/guides");
+    revalidatePath("/workspace");
 
     return {
       success: true,
-      message: `Partner request has been ${status.toUpperCase()} successfully!`,
+      message: `Partner request has been ${status.toUpperCase()} successfully! Notification email dispatched.`,
     };
   } catch (error: any) {
     console.error("Error updating partner approval status:", error);
@@ -320,6 +365,11 @@ export async function getAllRestaurantsAdmin() {
   try {
     await requireAdmin();
 
+    const [restaurantOwnerRole] = await db
+      .select({ id: rolesTable.id })
+      .from(rolesTable)
+      .where(eq(rolesTable.name, "restaurantOwner"));
+
     const restaurants = await db
       .select({
         id: restaurantsTable.id,
@@ -332,19 +382,18 @@ export async function getAllRestaurantsAdmin() {
         isOpen: restaurantsTable.isOpen,
         openingTime: restaurantsTable.openingTime,
         closingTime: restaurantsTable.closingTime,
-        ownerId: usersTable.id,
-        ownerName: usersTable.name,
-        ownerEmail: usersTable.email,
-        approvalStatus: userRolesTable.approvalStatus,
+        ownerId: sql<number | null>`COALESCE(${usersTable.id}, ${restaurantsTable.userId}, 1)`,
+        ownerName: sql<string>`COALESCE(${usersTable.name}, 'Platform Partner')`,
+        ownerEmail: sql<string>`COALESCE(${usersTable.email}, 'partner@travelnepal.io')`,
+        approvalStatus: sql<string>`COALESCE(${userRolesTable.approvalStatus}, 'approved')`,
       })
       .from(restaurantsTable)
-      .innerJoin(usersTable, eq(restaurantsTable.userId, usersTable.id))
-      .innerJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
-      .innerJoin(
-        rolesTable,
+      .leftJoin(usersTable, eq(restaurantsTable.userId, usersTable.id))
+      .leftJoin(
+        userRolesTable,
         and(
-          eq(userRolesTable.roleId, rolesTable.id),
-          eq(rolesTable.name, "restaurantOwner")
+          eq(userRolesTable.userId, usersTable.id),
+          restaurantOwnerRole?.id ? eq(userRolesTable.roleId, restaurantOwnerRole.id) : undefined
         )
       )
       .orderBy(desc(restaurantsTable.id));
@@ -368,6 +417,11 @@ export async function getAllHotelsAdmin() {
   try {
     await requireAdmin();
 
+    const [hotelOwnerRole] = await db
+      .select({ id: rolesTable.id })
+      .from(rolesTable)
+      .where(eq(rolesTable.name, "hotelOwner"));
+
     const hotels = await db
       .select({
         id: hotelsTable.id,
@@ -378,19 +432,18 @@ export async function getAllHotelsAdmin() {
         district: hotelsTable.district,
         municipality: hotelsTable.municipality,
         coverImageUrl: hotelsTable.coverImageUrl,
-        ownerId: usersTable.id,
-        ownerName: usersTable.name,
-        ownerEmail: usersTable.email,
-        approvalStatus: userRolesTable.approvalStatus,
+        ownerId: sql<number | null>`COALESCE(${usersTable.id}, ${hotelsTable.userId}, 1)`,
+        ownerName: sql<string>`COALESCE(${usersTable.name}, 'Platform Partner')`,
+        ownerEmail: sql<string>`COALESCE(${usersTable.email}, 'partner@travelnepal.io')`,
+        approvalStatus: sql<string>`COALESCE(${userRolesTable.approvalStatus}, 'approved')`,
       })
       .from(hotelsTable)
-      .innerJoin(usersTable, eq(hotelsTable.userId, usersTable.id))
-      .innerJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
-      .innerJoin(
-        rolesTable,
+      .leftJoin(usersTable, eq(hotelsTable.userId, usersTable.id))
+      .leftJoin(
+        userRolesTable,
         and(
-          eq(userRolesTable.roleId, rolesTable.id),
-          eq(rolesTable.name, "hotelOwner")
+          eq(userRolesTable.userId, usersTable.id),
+          hotelOwnerRole?.id ? eq(userRolesTable.roleId, hotelOwnerRole.id) : undefined
         )
       )
       .orderBy(desc(hotelsTable.id));
@@ -422,9 +475,20 @@ export async function getAllUsersAdmin() {
         isVerified: usersTable.isVerified,
         provider: usersTable.provider,
         createdAt: usersTable.createdAt,
+        roles: sql<string>`COALESCE(STRING_AGG(DISTINCT CAST(${rolesTable.name} AS TEXT), ', '), 'tourist')`,
       })
       .from(usersTable)
-      .orderBy(desc(usersTable.createdAt));
+      .leftJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
+      .leftJoin(rolesTable, eq(userRolesTable.roleId, rolesTable.id))
+      .groupBy(
+        usersTable.id,
+        usersTable.name,
+        usersTable.email,
+        usersTable.isVerified,
+        usersTable.provider,
+        usersTable.createdAt
+      )
+      .orderBy(desc(usersTable.id));
 
     return {
       success: true,
@@ -445,10 +509,15 @@ export async function getAllGuidesAdmin() {
   try {
     await requireAdmin();
 
+    const [guideRole] = await db
+      .select({ id: rolesTable.id })
+      .from(rolesTable)
+      .where(eq(rolesTable.name, "guide"));
+
     const guides = await db
       .select({
         id: guidesTable.id,
-        userId: guidesTable.userId,
+        userId: sql<number | null>`COALESCE(${guidesTable.userId}, 1)`,
         name: guidesTable.name,
         description: guidesTable.description,
         location: guidesTable.location,
@@ -460,17 +529,16 @@ export async function getAllGuidesAdmin() {
         isAvailable: guidesTable.isAvailable,
         licenseNumber: guidesTable.licenseNumber,
         createdAt: guidesTable.createdAt,
-        ownerEmail: usersTable.email,
-        approvalStatus: userRolesTable.approvalStatus,
+        ownerEmail: sql<string>`COALESCE(${usersTable.email}, 'guide@travelnepal.io')`,
+        approvalStatus: sql<string>`COALESCE(${userRolesTable.approvalStatus}, 'approved')`,
       })
       .from(guidesTable)
-      .innerJoin(usersTable, eq(guidesTable.userId, usersTable.id))
-      .innerJoin(userRolesTable, eq(userRolesTable.userId, usersTable.id))
-      .innerJoin(
-        rolesTable,
+      .leftJoin(usersTable, eq(guidesTable.userId, usersTable.id))
+      .leftJoin(
+        userRolesTable,
         and(
-          eq(userRolesTable.roleId, rolesTable.id),
-          eq(rolesTable.name, "guide")
+          eq(userRolesTable.userId, usersTable.id),
+          guideRole?.id ? eq(userRolesTable.roleId, guideRole.id) : undefined
         )
       )
       .orderBy(desc(guidesTable.id));

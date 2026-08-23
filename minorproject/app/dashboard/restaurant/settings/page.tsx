@@ -20,10 +20,6 @@ export default async function RestaurantSettingsPage() {
     redirect("/unauthorized");
   }
 
-  if (ownerRole.approvalStatus === "pending") {
-    redirect("/dashboard/restaurant/pending");
-  }
-
   const restaurant = await getRestaurantByOwnerId(Number(session.user.id));
 
   if (!restaurant) {

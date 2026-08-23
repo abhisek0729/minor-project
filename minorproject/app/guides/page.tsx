@@ -31,92 +31,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const initialGuides = [
-  {
-    id: 1,
-    name: "Aarav Sharma",
-    description: "Specialized in Kathmandu Valley heritage, sacred courtyards, ancient Newari architecture, and folklore.",
-    location: "Kathmandu & Patan",
-    experienceYears: 7,
-    languages: "Nepali, English, Hindi",
-    dailyRate: 3200,
-    licenseNumber: "NTA-GUIDE-4812",
-    specialty: "Heritage & Culture",
-    packagesCount: 3,
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    id: 2,
-    name: "Bikram Rai",
-    description: "High-altitude mountain guide certified in Annapurna Circuit, Mardi Himal, and Poon Hill trekking trails.",
-    location: "Pokhara & Annapurna",
-    experienceYears: 10,
-    languages: "Nepali, English, Gurung",
-    dailyRate: 4600,
-    licenseNumber: "NTA-TREK-1092",
-    specialty: "High Altitude Trekking",
-    packagesCount: 4,
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    id: 3,
-    name: "Sunita Tamang",
-    description: "Eco-tourism and wildlife naturalist leading jeep safaris, bird-watching, and cultural homestay tours.",
-    location: "Chitwan & Sauraha",
-    experienceYears: 6,
-    languages: "Nepali, English, Tharu",
-    dailyRate: 3800,
-    licenseNumber: "NTA-WILD-3301",
-    specialty: "Wildlife Safari",
-    packagesCount: 2,
-    image:
-      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    id: 4,
-    name: "Pemba Sherpa",
-    description: "Everest region veteran with decades of high-pass navigation, Sagarmatha expeditions, and alpine safety.",
-    location: "Namche & Khumbu",
-    experienceYears: 14,
-    languages: "Nepali, English, Tibetan",
-    dailyRate: 5500,
-    licenseNumber: "NTA-EXP-8890",
-    specialty: "High Altitude Trekking",
-    packagesCount: 5,
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    id: 5,
-    name: "Rajesh Shrestha",
-    description: "Spiritual tour leader and historian covering Lumbini sacred gardens, Kapilvastu, and Buddhist pilgrimage sites.",
-    location: "Lumbini & Kapilvastu",
-    experienceYears: 8,
-    languages: "Nepali, English, Japanese",
-    dailyRate: 3500,
-    licenseNumber: "NTA-GUIDE-5120",
-    specialty: "Heritage & Culture",
-    packagesCount: 2,
-    image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    id: 6,
-    name: "Pooja Gurung",
-    description: "Adventure and paragliding enthusiast guiding Chinde Danda, Bhedetar, and scenic trails of Eastern Nepal.",
-    location: "Dharan & Bhedetar",
-    experienceYears: 5,
-    languages: "Nepali, English",
-    dailyRate: 3000,
-    licenseNumber: "NTA-EAST-2104",
-    specialty: "Adventure & Paragliding",
-    packagesCount: 2,
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop",
-  },
-];
+import { guidesData } from "./guidesData";
+
+const initialGuides = guidesData;
 
 export default function GuidesPage() {
   const [search, setSearch] = useState("");

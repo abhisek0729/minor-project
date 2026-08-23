@@ -6,6 +6,7 @@ import {
   AlertCircle,
   Clock3,
   Hotel,
+  Settings,
   User,
   XCircle,
 } from "lucide-react";
@@ -38,9 +39,14 @@ export function Sidebar({
       ? HOTEL_DASHBOARD_NAVIGATION
       : [
           {
-            title: "Dashboard",
+            title: "Pending Approval",
             href: "/dashboard/hotels/pending",
             icon: Clock3,
+          },
+          {
+            title: "Profile & Settings",
+            href: "/dashboard/hotels/settings",
+            icon: Settings,
           },
         ];
 

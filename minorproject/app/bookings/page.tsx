@@ -9,9 +9,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 
 type Booking = {
@@ -31,23 +28,33 @@ export default function BookingHistoryPage() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<string>("all");
 
-  useEffect(() => {
-    fetchBookings();
-  }, []);
-
   const fetchBookings = async () => {
     try {
-      setLoading(true);
       const response = await fetch("/api/bookings");
       if (!response.ok) throw new Error("Failed to fetch bookings");
       const data = await response.json();
       setBookings(data.bookings || []);
-    } catch (error) {
+    } catch {
       toast.error("Unable to load bookings");
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    void fetch("/api/bookings")
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Failed to fetch bookings");
+        const data = await response.json();
+        setBookings(data.bookings || []);
+      })
+      .catch(() => {
+        toast.error("Unable to load bookings");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const handleCancel = async (bookingId: number) => {
     try {
@@ -201,8 +208,12 @@ export default function BookingHistoryPage() {
                                 } else {
                                   toast.error(data.error || "Failed to initiate payment");
                                 }
-                              } catch (err: any) {
-                                toast.error(err.message || "Payment initiation error");
+                              } catch (error) {
+                                toast.error(
+                                  error instanceof Error
+                                    ? error.message
+                                    : "Payment initiation error",
+                                );
                               }
                             }}
                           >

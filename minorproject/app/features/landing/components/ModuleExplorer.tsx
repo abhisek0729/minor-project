@@ -187,33 +187,33 @@ const defaultModules: ModuleConfig[] = [
     cards: [
       {
         id: "1",
-        title: "Pasang Sherpa",
-        subtitle: "Certified high-altitude mountain guide with 12+ yrs exp",
-        price: "NPR 3,500 / day",
+        title: "Jyoti Sharma",
+        subtitle: "Specialized in Kathmandu Valley heritage, sacred courtyards, and folklore",
+        price: "NPR 3,200 / day",
         rating: 5.0,
-        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800",
-        tag: "Everest Guide",
-        location: "Namche / Kathmandu",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
+        tag: "Heritage Guide",
+        location: "Kathmandu & Patan",
       },
       {
         id: "2",
-        title: "Nima Gurung",
-        subtitle: "Annapurna and Mardi Himal trekking specialist",
-        price: "NPR 3,200 / day",
-        rating: 4.9,
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200",
+        title: "Bikram Rai",
+        subtitle: "High-altitude mountain guide for Annapurna, Mardi Himal & Poon Hill",
+        price: "NPR 4,600 / day",
+        rating: 5.0,
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
         tag: "Alpine Leader",
-        location: "Pokhara, Gandaki",
+        location: "Pokhara & Annapurna",
       },
       {
         id: "3",
-        title: "Lakpa Tamang",
-        subtitle: "Wilderness first responder and Langtang valley guide",
-        price: "NPR 3,000 / day",
-        rating: 4.8,
-        image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200",
-        tag: "Langtang Leader",
-        location: "Kathmandu / Rasuwa",
+        title: "Sunita Tamang",
+        subtitle: "Eco-tourism and wildlife naturalist leading jeep safaris & nature walks",
+        price: "NPR 3,800 / day",
+        rating: 5.0,
+        image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200&auto=format&fit=crop",
+        tag: "Wildlife Safari",
+        location: "Chitwan & Sauraha",
       },
     ],
   },
@@ -451,6 +451,7 @@ export default function ModuleExplorer({
           <Link href={getModuleExploreTarget(activeModule.id).href}>
             <Button
               variant="outline"
+              aria-label={`Explore more ${activeModule.label}`}
               className="w-fit rounded-full px-5 py-2.5 text-sm font-semibold border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-xs"
             >
               {getModuleExploreTarget(activeModule.id).label}
@@ -460,7 +461,7 @@ export default function ModuleExplorer({
         </div>
 
         {/* Module Tab Selector */}
-        <div className="mb-8 flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div role="tablist" aria-label="Tourism Categories" className="mb-8 flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {modules.map((module) => {
             const Icon = module.icon;
             const isActive = module.id === activeModule.id;
@@ -469,6 +470,9 @@ export default function ModuleExplorer({
               <button
                 key={module.id}
                 type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-label={`Select ${module.label} module`}
                 onClick={() => setActiveModuleId(module.id)}
                 className={`group relative flex min-w-[180px] items-center gap-3 rounded-full border px-4 py-3 text-left transition-all duration-200 cursor-pointer ${
                   isActive
@@ -490,7 +494,7 @@ export default function ModuleExplorer({
                     {module.label}
                   </span>
                   <span
-                    className={`block text-[11px] ${isActive ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+                    className={`block text-[11px] ${isActive ? "text-primary-foreground/90 font-medium" : "text-muted-foreground"}`}
                   >
                     {module.description}
                   </span>
@@ -760,6 +764,15 @@ export default function ModuleExplorer({
                                 className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold cursor-pointer"
                               >
                                 Explore Details →
+                              </Button>
+                            </Link>
+                          ) : activeModule.id === "food" ? (
+                            <Link href={detailHref}>
+                              <Button
+                                size="sm"
+                                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold cursor-pointer"
+                              >
+                                View Menu & Details →
                               </Button>
                             </Link>
                           ) : (

@@ -1,4 +1,6 @@
 import re
+from langchain_core.messages import HumanMessage, AIMessage
+from app.ai.workflow import travel_agent_app
 from app.ai.gemini import GeminiService
 from app.ai.prompts import CHAT_SYSTEM, AGENT_SYSTEM
 from app.services.catalog_service import (
@@ -14,6 +16,8 @@ from app.schemas.ai import ChatResponse, Recommendation, ActionProposal, MapCard
 from app.core.config import settings
 from app.ai.tools import TourismAgentToolset
 from app.ai.action_agent import process_action_request
+
+from app.services.transcription_correction_service import correct_transcription
 
 COMMON_LOCATIONS = [
     "kathmandu", "pokhara", "chitwan", "lumbini", "bhaktapur",
@@ -31,15 +35,165 @@ def extract_query_keywords(text: str) -> list[str]:
     
     if not found:
         words = re.findall(r"\b[A-Za-z]{3,}\b", text)
-        stopwords = {"the", "and", "for", "with", "show", "tell", "what", "where", "how", "can", "you", "plan", "trip", "find", "best", "some", "good", "hotel", "hotels", "stay", "stays", "food", "restaurant", "restaurants", "guide", "guides", "trek", "place", "places", "budget"}
+        stopwords = {
+            "the", "and", "for", "with", "show", "tell", "what", "where", "how", "can", "you",
+            "plan", "trip", "find", "best", "some", "good", "hotel", "hotels", "stay", "stays",
+            "food", "foods", "restaurant", "restaurants", "guide", "guides", "trek", "place", "places",
+            "budget", "eat", "eating", "pork", "momo", "momos", "thakali", "sekuwa", "sukuti",
+            "buff", "chicken", "mutton", "dish", "dishes", "lunch", "dinner", "breakfast", "cafe"
+        }
         found = [w for w in words if w.lower() not in stopwords]
     return found
 
 async def chat(db, req):
-    user_msg = req.message or ""
+    raw_user_msg = req.message or ""
+
+    # ============================================================================
+    # STEP 1: DEDICATED LLM-BASED SPELLING & TRANSCRIPTION CORRECTION LAYER
+    # ============================================================================
+    corrected_user_msg, is_modified = await correct_transcription(raw_user_msg)
+    user_msg = corrected_user_msg if corrected_user_msg else raw_user_msg
+    msg_lower = user_msg.lower()
     destination = req.destination or ""
     user_roles = req.user_roles or []
-    steps_taken = []
+    
+    correction_steps = []
+    correction_tools = []
+    if is_modified:
+        correction_steps.append(f"✏️ Context-Aware Text Refiner: '{raw_user_msg}' ➔ '{user_msg}'")
+        correction_tools.append("transcription_correction_layer")
+
+    # ============================================================================
+    # STEP 2: EXECUTE LANGGRAPH MULTI-AGENT STATE WORKFLOW WITH CORRECTED QUERY
+    # ============================================================================
+    try:
+        messages = []
+        if req.history:
+            for item in req.history:
+                role = getattr(item, "role", None) or (item.get("role") if isinstance(item, dict) else "user")
+                content = getattr(item, "content", None) or getattr(item, "text", None) or (item.get("text", "") if isinstance(item, dict) else "") or (item.get("content", "") if isinstance(item, dict) else "")
+                if role in ["user", "human"]:
+                    messages.append(HumanMessage(content=str(content)))
+                elif role in ["assistant", "model"]:
+                    messages.append(AIMessage(content=str(content)))
+        messages.append(HumanMessage(content=user_msg))
+
+        init_steps = list(correction_steps) + ["🚀 LangGraph Multi-Agent Workflow: Initialized state graph"]
+        init_tools = list(correction_tools) + ["langgraph_orchestrator"]
+
+        graph_input = {
+            "messages": messages,
+            "user_id": getattr(req, "user_id", None),
+            "user_name": getattr(req, "user_name", "Traveler"),
+            "user_roles": user_roles,
+            "intent": "",
+            "destination": destination or None,
+            "slots": {},
+            "action_proposal": None,
+            "recommendations": [],
+            "map_cards": [],
+            "steps_taken": init_steps,
+            "tools_used": init_tools,
+            "final_answer": "",
+            "is_terminal": False,
+        }
+
+        config = {"configurable": {"thread_id": str(getattr(req, "user_id", "guest_session"))}}
+        graph_output = await travel_agent_app.ainvoke(graph_input, config=config)
+
+        recs = [
+            Recommendation(
+                name=r.get("name", "Recommendation"),
+                type=r.get("type", "hotel"),
+                description=r.get("description", ""),
+                price=r.get("price"),
+                rating=r.get("rating", 4.8),
+                location=r.get("location"),
+                action_url=r.get("action_url") or r.get("url"),
+                url=r.get("action_url") or r.get("url"),
+                entity_type=r.get("type", "hotel"),
+                entity_id=r.get("entity_id") or r.get("id"),
+                reason=r.get("description") or r.get("reason", ""),
+            )
+            for r in graph_output.get("recommendations", [])
+        ]
+
+        action_prop = None
+        if graph_output.get("action_proposal"):
+            ap_data = graph_output["action_proposal"]
+            action_prop = ActionProposal(
+                action_type=ap_data.get("action_type", "CUSTOM"),
+                title=ap_data.get("title", "Action Proposal"),
+                description=ap_data.get("description", ""),
+                payload=ap_data.get("payload", {}),
+                status="requires_approval",
+            )
+
+        map_cards_list = [
+            MapCard(
+                title=m.get("title", "Map Location"),
+                location=m.get("location", "Nepal"),
+                map_url=m.get("map_url", ""),
+                description=m.get("description", ""),
+            )
+            for m in graph_output.get("map_cards", [])
+        ]
+
+        return ChatResponse(
+            answer=graph_output.get("final_answer", "Here is the travel plan and recommendations."),
+            recommendations=recs,
+            action_proposal=action_prop,
+            map_cards=map_cards_list,
+            steps_taken=graph_output.get("steps_taken", []),
+            tools_used=graph_output.get("tools_used", []),
+        )
+    except Exception as e:
+        import traceback
+        print("[chat.py] LangGraph execution error:", e)
+        traceback.print_exc()
+
+    steps_taken = list(correction_steps)
+    tools_used = list(correction_tools)
+
+    # 0. OUT-OF-DOMAIN & NON-TOURISM GUARDRAIL
+    out_of_domain_patterns = [
+        r"\b(c|c\+\+|cpp|python|javascript|typescript|java|rust|golang|ruby|php|html|css|sql)\s+(code|program|script|function|syntax|compiler)\b",
+        r"\b(write|generate|give|create|build)\s+(a\s+)?([a-z0-9#\+]+)?\s*(code|script|program|algorithm|class|function|regex|sql)\b",
+        r"\b(code\s+for|program\s+to|code\s+to|coding|algorithm|debugging|debug\s+this|compile\s+this|hello\s*world|fibonacci|bubble\s*sort)\b",
+        r"\b(write\s+(an?\s+)?(essay|poem|song|story|lyrics|speech))\s+(about|on)\s+(?!nepal|travel|trek|himalaya|tourism|everest|pokhara|kathmandu)",
+        r"\b(solve|calculate)\s+(math|equation|algebra|calculus|physics|integral|derivative|geometry)\b",
+        r"\b(crypto|bitcoin|ethereum|forex\s+trading|stock\s+market|stock\s+price\s+of)\b",
+        r"\b(medical\s+advice|diagnose\s+my|cure\s+for|symptoms\s+of\s+cancer)\b",
+    ]
+
+    has_travel_context = any(
+        k in msg_lower for k in [
+            "nepal", "travel", "trip", "trek", "tour", "hotel", "stay", "room",
+            "food", "restaurant", "dish", "expense", "booking", "guide",
+            "platform", "workspace", "khalti"
+        ]
+    )
+
+    is_out_of_domain = any(re.search(p, msg_lower) for p in out_of_domain_patterns) and not has_travel_context
+
+    if is_out_of_domain:
+        steps_taken.append("🔒 Guardrail: Filtered out-of-domain / non-tourism request")
+        return ChatResponse(
+            answer=(
+                "Namaste! 🙏 I am your **TravelNepal AI Specialist**, focused exclusively on travel, tourism, and platform operations across Nepal.\n\n"
+                "I cannot assist with programming, general coding, academic assignments, or topics outside Nepal tourism.\n\n"
+                "🌟 **Here is what I can help you with:**\n"
+                "• 🗺️ **Trip & Trek Planning**: Custom routes, day trips, and itineraries across Nepal\n"
+                "• 🏨 **Hotels & Stays**: Live recommendations and verified bookings via Khalti\n"
+                "• 🍽️ **Food & Dining**: Finding authentic dishes, local eateries, and restaurant menus\n"
+                "• 🧗 **Tour Guides**: Connecting with licensed Himalayan guides and porters\n"
+                "• 💰 **Travel Expenses**: Logging and categorizing your travel spending\n"
+                "• 🏢 **Partner Workspaces**: Managing your hotel, restaurant, or guide listings\n\n"
+                "Please feel free to ask any question about traveling in Nepal or using the TravelNepal platform!"
+            ),
+            steps_taken=steps_taken,
+            tools_used=["guardrail_filter"],
+        )
 
     # 1. ACTION & FORM ASSISTANT (HITL)
     action_result = await process_action_request(user_msg, user_roles, req.history or [])
@@ -70,6 +224,59 @@ async def chat(db, req):
                 steps_taken=steps_taken,
                 tools_used=["action_intent_compiler", "hitl_proposal_generator"],
             )
+
+    # 1.5 NEARBY / NEAR ME LOCATION INTENT
+    is_near_me = any(
+        k in msg_lower for k in [
+            "near me", "nearest hotel", "nearest stay", "nearest restaurant", "nearest food",
+            "hotels near me", "hotel near me", "stays near me", "nearby hotel",
+            "nearby stays", "nearby restaurant", "places near me"
+        ]
+    )
+    nep_cities = [
+        "butwal", "kathmandu", "pokhara", "lumbini", "dharan", "chitwan", "sauraha",
+        "nagarkot", "bhaktapur", "lalitpur", "biratnagar", "mustang", "manang",
+        "bandipur", "ilam", "janakpur", "gorkha", "hetauda", "nepalgunj",
+        "bhairahawa", "dhangadhi", "itahari", "birtamod", "damak"
+    ]
+    has_city_in_msg = any(c in msg_lower for c in nep_cities)
+
+    # Check if user is replying to previous location question
+    last_assistant_text = ""
+    if req.history:
+        for prev in reversed(req.history):
+            role = getattr(prev, "role", None) or (prev.get("role") if isinstance(prev, dict) else "")
+            if role in ["assistant", "model"]:
+                last_assistant_text = str(
+                    getattr(prev, "content", None) or getattr(prev, "text", None) or (prev.get("text", "") if isinstance(prev, dict) else "")
+                ).lower()
+                break
+
+    is_answering_location = (
+        "where are you currently located in nepal" in last_assistant_text or
+        "let me know your current city" in last_assistant_text
+    )
+
+    if is_answering_location:
+        for c in nep_cities:
+            if c in msg_lower:
+                destination = c.capitalize()
+                steps_taken.append(f"📍 Received traveler location: '{destination}'")
+                break
+        if not destination:
+            destination = user_msg.replace("i am in", "").replace("in", "").strip().capitalize()
+
+    elif is_near_me and not has_city_in_msg:
+        steps_taken.append("📍 Detected 'near me' query — Prompted traveler for current city/location")
+        return ChatResponse(
+            answer=(
+                "📍 **Where are you currently located in Nepal?**\n\n"
+                "Please let me know your current city or area (e.g., *Butwal, Kathmandu, Pokhara, Dharan, Chitwan, Lumbini*).\n\n"
+                "Once you tell me your location, I will immediately search our verified platform database and live Google Maps to find the closest top-rated hotels, stays, and restaurants for you!"
+            ),
+            steps_taken=steps_taken,
+            tools_used=["location_slot_analyzer"],
+        )
 
     # 2. QUERY & INFORMATION RETRIEVAL
     keywords = extract_query_keywords(user_msg)
@@ -260,6 +467,7 @@ User Query: {user_msg}
             location=h["location"],
             map_url=h["map_url"],
             booking_note=f"Visit {h['url']} to reserve.",
+            url=h.get("url", f"/hotels/{h['id']}"),
         ))
 
     for r in restaurants_context[:2]:
@@ -271,6 +479,7 @@ User Query: {user_msg}
             location=r["location"],
             map_url=r["map_url"],
             booking_note=f"Visit {r['url']} for menu.",
+            url=r.get("url", f"/restaurants/{r['id']}"),
         ))
 
     for p in places_context[:2]:
@@ -281,6 +490,7 @@ User Query: {user_msg}
             reason=p.get("description", "Top attraction in Nepal"),
             location=p["location"],
             map_url=p["map_url"],
+            url=p.get("map_url", "https://maps.google.com/"),
         ))
 
     return ChatResponse(

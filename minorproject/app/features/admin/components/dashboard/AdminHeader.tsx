@@ -3,10 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import { ArrowUpRight, Globe, Loader2, LogOut, ShieldCheck, User } from "lucide-react";
+import { ArrowUpRight, Globe, Loader2, LogOut, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import GlobalWorkspaceSwitcher from "@/app/components/dashboard/GlobalWorkspaceSwitcher";
+
+import AdminMobileSidebar from "./AdminMobileSidebar";
+import NotificationBell from "@/app/components/dashboard/NotificationBell";
 
 interface AdminHeaderProps {
   adminName: string;
@@ -29,8 +31,10 @@ export default function AdminHeader({
 
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 sm:px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex items-center gap-3">
+          <AdminMobileSidebar adminName={adminName} pendingCount={pendingCount} />
+
           <div className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <ShieldCheck className="size-5" />
           </div>
@@ -46,6 +50,8 @@ export default function AdminHeader({
         </div>
 
         <div className="flex items-center gap-3">
+          <NotificationBell />
+
           {/* Redirect to Main Platform Website */}
           <Link href="/">
             <Button
@@ -56,22 +62,6 @@ export default function AdminHeader({
               <Globe className="size-3.5" />
               <span>Main Platform</span>
               <ArrowUpRight className="size-3 text-muted-foreground" />
-            </Button>
-          </Link>
-
-          <GlobalWorkspaceSwitcher />
-
-          {pendingCount > 0 && (
-            <Link href="/dashboard/admin/approvals">
-              <Badge className="bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-xs px-2.5 py-1 hover:bg-amber-500/25 transition-colors cursor-pointer">
-                ⚠️ {pendingCount} Pending Approval{pendingCount > 1 ? "s" : ""}
-              </Badge>
-            </Link>
-          )}
-
-          <Link href="/profile">
-            <Button variant="ghost" size="icon" className="size-9 rounded-full cursor-pointer">
-              <User className="size-4 text-muted-foreground" />
             </Button>
           </Link>
 
