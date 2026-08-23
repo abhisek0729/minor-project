@@ -3,12 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  AlertCircle,
-  AlertTriangle,
   Ambulance,
-  ArrowRight,
   CheckCircle2,
-  Compass,
   Flame,
   Globe,
   LifeBuoy,
@@ -19,23 +15,19 @@ import {
   Phone,
   PhoneCall,
   Radio,
-  Send,
   Shield,
   ShieldAlert,
   ShieldCheck,
   Siren,
   Smartphone,
-  Sparkles,
   Wifi,
   WifiOff,
 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Field, FieldLabel } from "@/components/ui/field";
 
 const EMERGENCY_HOTLINES = [
   {
@@ -120,33 +112,17 @@ const EMERGENCY_HOTLINES = [
   },
 ];
 
-const EMERGENCY_TYPES = [
-  { id: "flood_disaster", label: "🌊 Flood / Landslide Hazard", severity: "critical" },
-  { id: "police", label: "👮 Police & Security Threat", severity: "high" },
-  { id: "medical_ambulance", label: "🚑 Medical / Ambulance Emergency", severity: "critical" },
-  { id: "altitude_sickness", label: "🫁 Altitude Sickness / High Altitude Evac", severity: "critical" },
-  { id: "lost_trekking", label: "🧭 Lost on Trekking Trail / Stranded", severity: "high" },
-  { id: "other", label: "⚠️ Other Urgent Assistance", severity: "moderate" },
-];
-
 export default function EmergencyClientView() {
   const [isOnline, setIsOnline] = useState(true);
-  const [isLocating, setIsLocating] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOneClickTriggering, setIsOneClickTriggering] = useState(false);
   const [targetPhone, setTargetPhone] = useState("1144");
   const [customPhone, setCustomPhone] = useState("");
   const [dispatchedResult, setDispatchedResult] = useState<any>(null);
 
-  const [formData, setFormData] = useState({
-    touristName: "",
-    contactNumber: "",
-    emergencyType: "flood_disaster",
-    severity: "critical",
-    locationAddress: "",
-    latitude: "",
-    longitude: "",
-    situationDescription: "",
+  const [coords, setCoords] = useState({
+    latitude: "26.812400",
+    longitude: "87.283400",
+    locationAddress: "Dharan, Sunsari, Koshi Province, Nepal",
   });
 
   // Load saved emergency contact phone from localStorage
@@ -169,7 +145,7 @@ export default function EmergencyClientView() {
     } catch {}
   };
 
-  // Play alarm sound using Web Audio API (works without external audio files)
+  // Play alarm sound using Web Audio API
   const playAlarmTone = () => {
     try {
       const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
@@ -222,63 +198,27 @@ export default function EmergencyClientView() {
       if (res.ok) {
         const data = await res.json();
         if (data.display_name) {
-          setFormData((prev) => ({
+          setCoords((prev) => ({
             ...prev,
             locationAddress: data.display_name,
           }));
-          toast.success("Location identified: " + (data.address?.city || data.address?.town || data.address?.county || "Nepal"));
         }
       }
-    } catch {
-      // Fallback
-    }
-  };
-
-  // Fetch device GPS coordinates
-  const handleGetLocation = () => {
-    if (!navigator.geolocation) {
-      toast.error("Geolocation is not supported by your browser.");
-      return;
-    }
-
-    setIsLocating(true);
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude.toFixed(6);
-        const lng = position.coords.longitude.toFixed(6);
-        setFormData((prev) => ({
-          ...prev,
-          latitude: lat,
-          longitude: lng,
-          locationAddress: prev.locationAddress && !prev.locationAddress.startsWith("GPS Coordinates")
-            ? prev.locationAddress
-            : `GPS Coordinates: ${lat}, ${lng}`,
-        }));
-        setIsLocating(false);
-        toast.success(`GPS Location acquired: ${lat}, ${lng}`);
-        reverseGeocode(lat, lng);
-      },
-      (error) => {
-        setIsLocating(false);
-        toast.error(`Could not retrieve GPS coordinates: ${error.message}`);
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
+    } catch {}
   };
 
   // Auto-fetch GPS location on initial mount if available
   useEffect(() => {
-    if (navigator.geolocation && !formData.latitude) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const lat = position.coords.latitude.toFixed(6);
           const lng = position.coords.longitude.toFixed(6);
-          setFormData((prev) => ({
-            ...prev,
+          setCoords({
             latitude: lat,
             longitude: lng,
-            locationAddress: prev.locationAddress || `GPS Coordinates: ${lat}, ${lng}`,
-          }));
+            locationAddress: `GPS: ${lat}, ${lng}`,
+          });
           reverseGeocode(lat, lng);
         },
         () => {},
@@ -292,9 +232,9 @@ export default function EmergencyClientView() {
     setIsOneClickTriggering(true);
     playAlarmTone();
 
-    let currentLat = formData.latitude;
-    let currentLng = formData.longitude;
-    let currentAddr = formData.locationAddress;
+    let currentLat = coords.latitude;
+    let currentLng = coords.longitude;
+    let currentAddr = coords.locationAddress;
 
     // Quick GPS position acquisition
     if (navigator.geolocation) {
@@ -330,8 +270,8 @@ export default function EmergencyClientView() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          touristName: formData.touristName || "Traveler (1-Click SOS)",
-          contactNumber: formData.contactNumber || targetPhone,
+          touristName: "Traveler (1-Click SOS)",
+          contactNumber: targetPhone,
           emergencyType: "other",
           severity: "critical",
           latitude: lat,
@@ -362,107 +302,6 @@ export default function EmergencyClientView() {
       const el = document.getElementById("sos-response-panel");
       if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
     }, 250);
-  };
-
-  // Online / Offline SOS Dispatch Handler
-  const handleDispatchSOS = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Auto-acquire location if missing
-    let currentLat = formData.latitude;
-    let currentLng = formData.longitude;
-
-    if (!currentLat && navigator.geolocation) {
-      try {
-        await new Promise<void>((resolve) => {
-          navigator.geolocation.getCurrentPosition(
-            (pos) => {
-              currentLat = pos.coords.latitude.toFixed(6);
-              currentLng = pos.coords.longitude.toFixed(6);
-              resolve();
-            },
-            () => resolve(),
-            { timeout: 4000 }
-          );
-        });
-      } catch {}
-    }
-
-    const payload = {
-      ...formData,
-      latitude: currentLat || "26.795204",
-      longitude: currentLng || "87.295381",
-      locationAddress: formData.locationAddress || `GPS: ${currentLat || '26.795204'}, ${currentLng || '87.295381'}`,
-    };
-
-    const selectedType = EMERGENCY_TYPES.find((t) => t.id === payload.emergencyType);
-    const smsBody = encodeURIComponent(
-      `EMERGENCY SOS: ${payload.touristName || 'Tourist'} (${payload.contactNumber || 'No number'}) requires URGENT help for ${selectedType?.label || payload.emergencyType}. Location: ${payload.locationAddress} (GPS: ${payload.latitude}, ${payload.longitude}). Note: ${payload.situationDescription}`
-    );
-
-    // If device is offline, trigger SMS directly to Tourist Police Hotline (1144)
-    if (!isOnline) {
-      setIsSubmitting(false);
-      toast.info("Offline mode active: Opening SMS app to send alert via cellular network...");
-      window.location.href = `sms:1144?body=${smsBody}`;
-      setDispatchedResult({
-        alertId: `SOS-OFFLINE-${Date.now().toString().slice(-6)}`,
-        status: "OFFLINE_SMS_GENERATED",
-        assignedAgency: "Tourist Police Emergency (1144) via Cellular SMS",
-        emergencyHotline: "1144 / 100",
-        latitude: payload.latitude,
-        longitude: payload.longitude,
-        locationAddress: payload.locationAddress,
-        immediateAction: "SMS prepared. Send the SMS directly from your messaging app to transmit your GPS coordinates.",
-      });
-      return;
-    }
-
-    // If online, dispatch to backend API
-    try {
-      const response = await fetch("/api/emergency/sos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "SOS transmission error");
-      }
-
-      setDispatchedResult({
-        ...data,
-        latitude: payload.latitude,
-        longitude: payload.longitude,
-        locationAddress: payload.locationAddress,
-      });
-      toast.success("🚨 Emergency SOS alert transmitted to rescue authorities!");
-
-      // Scroll to response card smoothly
-      setTimeout(() => {
-        const el = document.getElementById("sos-response-panel");
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
-      }, 200);
-    } catch {
-      // Fallback to SMS if network failed during fetch
-      toast.warning("Network transmission failed. Launching SMS fallback...");
-      window.location.href = `sms:1144?body=${smsBody}`;
-      setDispatchedResult({
-        alertId: `SOS-FALLBACK-${Date.now().toString().slice(-6)}`,
-        status: "SMS_FALLBACK_TRIGGERED",
-        assignedAgency: "Tourist Police (1144) & Nepal Police (100)",
-        emergencyHotline: "1144 / 100 / 1155",
-        latitude: payload.latitude,
-        longitude: payload.longitude,
-        locationAddress: payload.locationAddress,
-        immediateAction: "Please confirm sending the pre-filled emergency SMS on your mobile phone.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (
@@ -634,12 +473,107 @@ export default function EmergencyClientView() {
             <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-mono font-medium">
               <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>
-                GPS: {formData.latitude || "26.812400"}, {formData.longitude || "87.283400"}
+                GPS: {coords.latitude}, {coords.longitude}
               </span>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Live Dispatched Result Feedback Banner (Visible when SOS is triggered) */}
+      {dispatchedResult && (
+        <section id="sos-response-panel" className="animate-in fade-in duration-300">
+          <Card className="border-2 border-emerald-500 bg-emerald-500/5 p-6 shadow-lg space-y-4 rounded-3xl">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-base">
+                <CheckCircle2 className="size-5" />
+                <span>Distress Signal Transmitted & Logged!</span>
+              </div>
+              <Badge className="bg-emerald-600 text-white font-bold text-xs">
+                DISPATCHED
+              </Badge>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 text-xs">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between border-b pb-1.5">
+                  <span className="text-muted-foreground">Reference Tracking ID:</span>
+                  <span className="font-mono font-bold text-foreground">{dispatchedResult.alertId}</span>
+                </div>
+
+                <div className="flex items-center justify-between border-b pb-1.5">
+                  <span className="text-muted-foreground">Assigned Agency:</span>
+                  <span className="font-semibold text-foreground text-right">{dispatchedResult.assignedAgency}</span>
+                </div>
+
+                <div className="flex items-center justify-between border-b pb-1.5">
+                  <span className="text-muted-foreground">Emergency Hotline:</span>
+                  <span className="font-bold text-rose-600">{dispatchedResult.emergencyHotline}</span>
+                </div>
+
+                <div className="flex items-center justify-between border-b pb-1.5">
+                  <span className="text-muted-foreground">Original GPS Telemetry:</span>
+                  <span className="font-mono font-semibold text-foreground">
+                    {dispatchedResult.latitude && dispatchedResult.longitude
+                      ? `${dispatchedResult.latitude}, ${dispatchedResult.longitude}`
+                      : "GPS Verified"}
+                  </span>
+                </div>
+
+                {dispatchedResult.locationAddress && (
+                  <div className="border-b pb-1.5 space-y-0.5">
+                    <span className="text-muted-foreground block text-[11px]">Pinpointed Location:</span>
+                    <span className="font-medium text-foreground block">{dispatchedResult.locationAddress}</span>
+                  </div>
+                )}
+
+                <div className="pt-2">
+                  <p className="font-bold text-foreground mb-1">Recommended Immediate Action:</p>
+                  <p className="text-muted-foreground leading-relaxed bg-background/90 p-3 rounded-xl border text-[11px]">
+                    {dispatchedResult.immediateAction}
+                  </p>
+                </div>
+
+                {/* Direct Emergency Call Button */}
+                <div className="pt-2 space-y-2">
+                  <a
+                    href={`tel:${String(dispatchedResult.emergencyHotline).split('/')[0].replace(/[^0-9+]/g, '')}`}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 px-4 text-xs transition-colors shadow-xs"
+                  >
+                    <Phone className="size-3.5" /> 📞 Direct Call Assigned Agency ({dispatchedResult.emergencyHotline.split('/')[0].trim()})
+                  </a>
+                </div>
+              </div>
+
+              {/* Embedded Live Google Maps Pinpoint */}
+              {dispatchedResult.latitude && dispatchedResult.longitude && (
+                <div className="space-y-2">
+                  <p className="font-bold text-foreground flex items-center gap-1.5 text-xs">
+                    <MapPin className="size-3.5 text-rose-600" /> Live Location Map Pinpoint:
+                  </p>
+                  <div className="relative h-48 w-full rounded-2xl overflow-hidden border bg-muted shadow-xs">
+                    <iframe
+                      title="Live GPS Location"
+                      src={`https://maps.google.com/maps?q=${dispatchedResult.latitude},${dispatchedResult.longitude}&z=15&output=embed`}
+                      className="w-full h-full border-0"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${dispatchedResult.latitude},${dispatchedResult.longitude}`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-bold py-2.5 px-4 text-xs transition-colors shadow-xs"
+                  >
+                    <Navigation className="size-3.5" /> 📍 Open Exact Location in Google Maps
+                  </a>
+                </div>
+              )}
+            </div>
+          </Card>
+        </section>
+      )}
 
       {/* 1-Tap Emergency Hotline Directory Grid */}
       <section className="space-y-4">
@@ -712,290 +646,57 @@ export default function EmergencyClientView() {
         </div>
       </section>
 
-      {/* SOS Dispatch Form Section */}
-      <section className="grid gap-8 lg:grid-cols-12 pt-4">
-        {/* Left Column: Interactive SOS Form */}
-        <div className="lg:col-span-7 space-y-6">
-          <Card className="border-2 border-rose-500/30 bg-card p-6 sm:p-8 shadow-md space-y-6">
-            <div>
-              <div className="flex items-center gap-2 text-rose-600 font-bold text-lg">
-                <Radio className="size-5 animate-pulse" />
-                <span>Send Emergency SOS Distress Alert</span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                {isOnline
-                  ? "Transmits your current position and situation details to our emergency dashboard & authorities."
-                  : "Generates an instant SMS with your GPS coordinates directly addressed to Tourist Police (1144)."}
+      {/* Emergency Protocols & Survival Guidelines Grid */}
+      <section className="grid gap-6 md:grid-cols-2 pt-2">
+        <Card className="border bg-card p-6 shadow-xs space-y-4 rounded-3xl">
+          <h3 className="font-bold text-base flex items-center gap-2 text-foreground">
+            <ShieldCheck className="size-5 text-emerald-600" /> How Our Crisis Response Works
+          </h3>
+
+          <div className="space-y-3 text-xs text-muted-foreground">
+            <div className="flex items-start gap-2.5">
+              <span className="size-5 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center shrink-0">1</span>
+              <span><strong>Instant Dispatch:</strong> Alert is transmitted to both the Tourist Police Cell and National Disaster Response hub.</span>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <span className="size-5 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center shrink-0">2</span>
+              <span><strong>GPS Triangulation:</strong> Coordinates are mapped directly to the nearest local police precinct, hospital, or mountain guide unit.</span>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <span className="size-5 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center shrink-0">3</span>
+              <span><strong>Zero Internet Resiliency:</strong> If mobile data drops in the mountains, the one-tap cellular SMS system relays your distress message over standard 2G/GSM cellular bands.</span>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="border bg-muted/30 p-6 space-y-3 rounded-3xl">
+          <h4 className="font-bold text-xs uppercase tracking-wider text-muted-foreground">
+            Critical Survival Guidelines in Nepal
+          </h4>
+
+          <div className="space-y-2 text-xs">
+            <div className="p-2.5 rounded-xl bg-card border">
+              <p className="font-bold text-foreground">🌊 Flash Floods & Monsoon Rains</p>
+              <p className="text-muted-foreground text-[11px] mt-0.5">
+                Never attempt to cross swelling streams on foot or in vehicles. Seek high ground immediately.
               </p>
             </div>
 
-            <form onSubmit={handleDispatchSOS} className="space-y-4">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field className="space-y-1.5">
-                  <FieldLabel className="text-xs font-semibold">Your Full Name</FieldLabel>
-                  <Input
-                    placeholder="e.g. John Doe / Bhupendra Sah"
-                    value={formData.touristName}
-                    onChange={(e) => setFormData({ ...formData, touristName: e.target.value })}
-                    required
-                  />
-                </Field>
-
-                <Field className="space-y-1.5">
-                  <FieldLabel className="text-xs font-semibold">Your Contact Phone Number</FieldLabel>
-                  <Input
-                    placeholder="e.g. +977 98XXXXXXXX"
-                    value={formData.contactNumber}
-                    onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
-                    required
-                  />
-                </Field>
-              </div>
-
-              {/* Emergency Type Selection */}
-              <Field className="space-y-1.5">
-                <FieldLabel className="text-xs font-semibold">Select Emergency Type</FieldLabel>
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {EMERGENCY_TYPES.map((type) => (
-                    <button
-                      key={type.id}
-                      type="button"
-                      onClick={() => setFormData({ ...formData, emergencyType: type.id })}
-                      className={`text-left p-3 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
-                        formData.emergencyType === type.id
-                          ? "border-rose-600 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold shadow-xs"
-                          : "border-border bg-muted/40 hover:bg-muted text-foreground/80"
-                      }`}
-                    >
-                      {type.label}
-                    </button>
-                  ))}
-                </div>
-              </Field>
-
-              {/* GPS Geolocation Bar */}
-              <div className="rounded-2xl border bg-muted/30 p-4 space-y-3">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div>
-                    <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                      <MapPin className="size-4 text-rose-600" /> GPS Location Coordinates
-                    </span>
-                    <p className="text-[11px] text-muted-foreground">
-                      {formData.latitude && formData.longitude
-                        ? `Lat: ${formData.latitude}, Lng: ${formData.longitude}`
-                        : "No GPS acquired yet. Tap button to fetch live coordinates."}
-                    </p>
-                  </div>
-
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    onClick={handleGetLocation}
-                    disabled={isLocating}
-                    className="text-xs font-semibold gap-1.5 shrink-0 border-rose-500/30 text-rose-600 hover:bg-rose-500/10 cursor-pointer"
-                  >
-                    {isLocating ? (
-                      <Loader2 className="size-3.5 animate-spin" />
-                    ) : (
-                      <Navigation className="size-3.5" />
-                    )}
-                    {isLocating ? "Acquiring GPS..." : "Detect My GPS Location"}
-                  </Button>
-                </div>
-
-                <Input
-                  placeholder="Street, Landmark, Trail Name (e.g. Near Dharan Clocktower or Namche Bazaar Trail)"
-                  value={formData.locationAddress}
-                  onChange={(e) => setFormData({ ...formData, locationAddress: e.target.value })}
-                  className="text-xs"
-                  required
-                />
-              </div>
-
-              {/* Situation Description */}
-              <Field className="space-y-1.5">
-                <FieldLabel className="text-xs font-semibold">Describe What Happened / Immediate Need</FieldLabel>
-                <textarea
-                  rows={3}
-                  placeholder="e.g. Water level rising rapidly on river bank, need flood rescue / Lost on trekking route after sunset with no light..."
-                  value={formData.situationDescription}
-                  onChange={(e) => setFormData({ ...formData, situationDescription: e.target.value })}
-                  className="w-full rounded-xl border border-input bg-background p-3 text-xs shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  required
-                />
-              </Field>
-
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm h-12 rounded-xl gap-2 shadow-lg shadow-rose-600/20 cursor-pointer"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="size-4 animate-spin" /> Transmitting SOS Signal...
-                  </>
-                ) : isOnline ? (
-                  <>
-                    <Radio className="size-4 animate-pulse" /> DISPATCH EMERGENCY SOS (ONLINE)
-                  </>
-                ) : (
-                  <>
-                    <Smartphone className="size-4" /> SEND OFFLINE EMERGENCY SMS (1144)
-                  </>
-                )}
-              </Button>
-            </form>
-          </Card>
-        </div>
-
-        {/* Right Column: Dispatch Feedback & Emergency Protocols */}
-        <div className="lg:col-span-5 space-y-6">
-          {/* Live Dispatch Output Card */}
-          {dispatchedResult ? (
-            <Card
-              id="sos-response-panel"
-              className="border-2 border-emerald-500 bg-emerald-500/5 p-6 shadow-lg space-y-4 animate-in fade-in duration-300"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-base">
-                  <CheckCircle2 className="size-5" />
-                  <span>Distress Signal Transmitted & Logged!</span>
-                </div>
-                <Badge className="bg-emerald-600 text-white font-bold text-xs">
-                  DISPATCHED
-                </Badge>
-              </div>
-
-              <div className="space-y-2 text-xs">
-                <div className="flex items-center justify-between border-b pb-1.5">
-                  <span className="text-muted-foreground">Reference Tracking ID:</span>
-                  <span className="font-mono font-bold text-foreground">{dispatchedResult.alertId}</span>
-                </div>
-
-                <div className="flex items-center justify-between border-b pb-1.5">
-                  <span className="text-muted-foreground">Assigned Agency:</span>
-                  <span className="font-semibold text-foreground text-right">{dispatchedResult.assignedAgency}</span>
-                </div>
-
-                <div className="flex items-center justify-between border-b pb-1.5">
-                  <span className="text-muted-foreground">Emergency Hotline:</span>
-                  <span className="font-bold text-rose-600">{dispatchedResult.emergencyHotline}</span>
-                </div>
-
-                <div className="flex items-center justify-between border-b pb-1.5">
-                  <span className="text-muted-foreground">Original GPS Telemetry:</span>
-                  <span className="font-mono font-semibold text-foreground">
-                    {dispatchedResult.latitude && dispatchedResult.longitude
-                      ? `${dispatchedResult.latitude}, ${dispatchedResult.longitude}`
-                      : "GPS Verified"}
-                  </span>
-                </div>
-
-                {dispatchedResult.locationAddress && (
-                  <div className="border-b pb-1.5 space-y-0.5">
-                    <span className="text-muted-foreground block text-[11px]">Pinpointed Location:</span>
-                    <span className="font-medium text-foreground block">{dispatchedResult.locationAddress}</span>
-                  </div>
-                )}
-
-                {/* Embedded Live Google Maps Pinpoint */}
-                {dispatchedResult.latitude && dispatchedResult.longitude && (
-                  <div className="pt-2 space-y-2">
-                    <p className="font-bold text-foreground flex items-center gap-1.5 text-xs">
-                      <MapPin className="size-3.5 text-rose-600" /> Live Location Map Pinpoint:
-                    </p>
-                    <div className="relative h-44 w-full rounded-xl overflow-hidden border bg-muted shadow-xs">
-                      <iframe
-                        title="Live GPS Location"
-                        src={`https://maps.google.com/maps?q=${dispatchedResult.latitude},${dispatchedResult.longitude}&z=15&output=embed`}
-                        className="w-full h-full border-0"
-                        loading="lazy"
-                      />
-                    </div>
-
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${dispatchedResult.latitude},${dispatchedResult.longitude}`)}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-bold py-2.5 px-4 text-xs transition-colors shadow-xs"
-                    >
-                      <Navigation className="size-3.5" /> 📍 Open Exact Location in Google Maps
-                    </a>
-                  </div>
-                )}
-
-                <div className="pt-2">
-                  <p className="font-bold text-foreground mb-1">Recommended Immediate Action:</p>
-                  <p className="text-muted-foreground leading-relaxed bg-background/90 p-3 rounded-xl border text-[11px]">
-                    {dispatchedResult.immediateAction}
-                  </p>
-                </div>
-
-                {/* Direct Emergency Call Button */}
-                <div className="pt-2 space-y-2">
-                  <a
-                    href={`tel:${String(dispatchedResult.emergencyHotline).split('/')[0].replace(/[^0-9+]/g, '')}`}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 px-4 text-xs transition-colors shadow-xs"
-                  >
-                    <Phone className="size-3.5" /> 📞 Direct Call Assigned Agency ({dispatchedResult.emergencyHotline.split('/')[0].trim()})
-                  </a>
-                </div>
-              </div>
-            </Card>
-          ) : (
-            <Card className="border bg-card p-6 shadow-xs space-y-4">
-              <h3 className="font-bold text-base flex items-center gap-2 text-foreground">
-                <ShieldCheck className="size-5 text-emerald-600" /> How Our Crisis Response Works
-              </h3>
-
-              <div className="space-y-3 text-xs text-muted-foreground">
-                <div className="flex items-start gap-2.5">
-                  <span className="size-5 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center shrink-0">1</span>
-                  <span><strong>Instant Dispatch:</strong> Alert is transmitted to both the Tourist Police Cell and National Disaster Response hub.</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <span className="size-5 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center shrink-0">2</span>
-                  <span><strong>GPS Triangulation:</strong> Coordinates are mapped directly to the nearest local police precinct, hospital, or mountain guide unit.</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <span className="size-5 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center shrink-0">3</span>
-                  <span><strong>Zero Internet Resiliency:</strong> If mobile data drops in the mountains, the one-tap cellular SMS system relays your distress message over standard 2G/GSM cellular bands.</span>
-                </div>
-              </div>
-            </Card>
-          )}
-
-          {/* Quick Safety Tips */}
-          <Card className="border bg-muted/30 p-6 space-y-3">
-            <h4 className="font-bold text-xs uppercase tracking-wider text-muted-foreground">
-              Critical Survival Guidelines in Nepal
-            </h4>
-
-            <div className="space-y-2 text-xs">
-              <div className="p-2.5 rounded-xl bg-card border">
-                <p className="font-bold text-foreground">🌊 Flash Floods & Monsoon Rains</p>
-                <p className="text-muted-foreground text-[11px] mt-0.5">
-                  Never attempt to cross swelling streams on foot or in vehicles. Seek high ground immediately.
-                </p>
-              </div>
-
-              <div className="p-2.5 rounded-xl bg-card border">
-                <p className="font-bold text-foreground">🫁 Altitude Sickness (Above 2,800m)</p>
-                <p className="text-muted-foreground text-[11px] mt-0.5">
-                  If severe headache, nausea, or breathlessness occurs, <strong>descend immediately</strong>. Never ascend with symptoms.
-                </p>
-              </div>
-
-              <div className="p-2.5 rounded-xl bg-card border">
-                <p className="font-bold text-foreground">🧭 Mountain Trail Separation</p>
-                <p className="text-muted-foreground text-[11px] mt-0.5">
-                  Stay on the main marked trail. Blow 3 whistle blasts periodically. Build shelter before dark.
-                </p>
-              </div>
+            <div className="p-2.5 rounded-xl bg-card border">
+              <p className="font-bold text-foreground">🫁 Altitude Sickness (Above 2,800m)</p>
+              <p className="text-muted-foreground text-[11px] mt-0.5">
+                If severe headache, nausea, or breathlessness occurs, <strong>descend immediately</strong>. Never ascend with symptoms.
+              </p>
             </div>
-          </Card>
-        </div>
+
+            <div className="p-2.5 rounded-xl bg-card border">
+              <p className="font-bold text-foreground">🧭 Mountain Trail Separation</p>
+              <p className="text-muted-foreground text-[11px] mt-0.5">
+                Stay on the main marked trail. Blow 3 whistle blasts periodically. Build shelter before dark.
+              </p>
+            </div>
+          </div>
+        </Card>
       </section>
     </div>
   );
