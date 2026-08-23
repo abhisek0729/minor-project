@@ -1,16 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import dynamic from "next/dynamic";
 import { Toaster } from "@/components/ui/sonner";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { ThemeProvider } from "@/components/theme-provider";
-
-// Lazy-load heavy AI Chat assistant to eliminate main-thread Total Blocking Time (TBT)
-const AIRobotChat = dynamic(
-  () => import("./features/landing/components/AIRobotChat"),
-  { ssr: false }
-);
+import LazyAIRobotChat from "@/app/components/LazyAIRobotChat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -161,7 +155,7 @@ export default function RootLayout({
         >
           <Providers>
             {children}
-            <AIRobotChat />
+            <LazyAIRobotChat />
           </Providers>
         </ThemeProvider>
         <Toaster position="top-right" richColors />
