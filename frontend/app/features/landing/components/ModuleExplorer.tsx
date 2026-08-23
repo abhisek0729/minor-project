@@ -249,6 +249,45 @@ interface ModuleExplorerProps {
   featuredGuides?: ModuleCard[];
 }
 
+function SafeCardImage({
+  src,
+  alt,
+  fallback = "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=75",
+}: {
+  src: string;
+  alt: string;
+  fallback?: string;
+}) {
+  const [imgSrc, setImgSrc] = useState(src || fallback);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setImgSrc(src || fallback);
+  }, [src, fallback]);
+
+  return (
+    <div className="relative h-40 sm:h-44 md:h-48 w-full overflow-hidden bg-muted/50">
+      <Image
+        src={imgSrc}
+        alt={alt}
+        fill
+        loading="lazy"
+        decoding="async"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className={`object-cover transition-all duration-500 group-hover:scale-105 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        onLoad={() => setIsLoaded(true)}
+        onError={() => {
+          if (imgSrc !== fallback) {
+            setImgSrc(fallback);
+          }
+        }}
+      />
+    </div>
+  );
+}
+
 export default function ModuleExplorer({
   featuredHotels,
   featuredRestaurants,
@@ -692,20 +731,14 @@ export default function ModuleExplorer({
                       className="group overflow-hidden rounded-2xl sm:rounded-[22px] border border-border bg-card shadow-2xs transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col justify-between"
                     >
                       <Link href={detailHref} className="block flex-1">
-                        <div className="relative h-40 sm:h-44 md:h-48 overflow-hidden">
-                          <Image
-                            src={card.image}
-                            alt={card.title}
-                            fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                          <div className="absolute left-2.5 top-2.5 flex items-center gap-1 rounded-full bg-background/90 px-2 py-0.5 text-[11px] font-medium text-foreground shadow-xs backdrop-blur-sm">
+                        <div className="relative overflow-hidden">
+                          <SafeCardImage src={card.image} alt={card.title} />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
+                          <div className="absolute left-2.5 top-2.5 flex items-center gap-1 rounded-full bg-background/90 px-2 py-0.5 text-[11px] font-medium text-foreground shadow-xs backdrop-blur-sm pointer-events-none">
                             <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                             {card.rating.toFixed(1)}
                           </div>
-                          <div className="absolute right-2.5 top-2.5 rounded-full bg-foreground/80 px-2 py-0.5 text-[9px] sm:text-[10px] font-medium uppercase tracking-[0.1em] text-background backdrop-blur-sm">
+                          <div className="absolute right-2.5 top-2.5 rounded-full bg-foreground/80 px-2 py-0.5 text-[9px] sm:text-[10px] font-medium uppercase tracking-[0.1em] text-background backdrop-blur-sm pointer-events-none">
                             {card.tag}
                           </div>
                         </div>
