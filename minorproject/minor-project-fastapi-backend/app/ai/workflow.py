@@ -249,14 +249,26 @@ I cannot assist with programming, general coding, or non-tourism subjects. How c
     nlu_intent = None
     extracted_data: dict[str, Any] = {}
     origin = None
-    destination = None
+    destination = state.get("destination")
     secondary_dest = None
+
+    # Build recent dialogue history for conversational context continuity
+    recent_history = []
+    if len(messages) > 1:
+        for m in messages[-4:-1]:
+            sender = "Traveler" if isinstance(m, HumanMessage) else "Assistant"
+            recent_history.append(f"{sender}: {m.content[:200]}")
+    history_str = "\n".join(recent_history) if recent_history else "None"
 
     try:
         gemini = GeminiService()
         nlu_prompt = f"""You are the Supervisor NLU Router for TravelNepal AI platform.
 User Roles: {roles}
-User Message: "{last_msg}"
+Recent Dialogue History:
+{history_str}
+
+Active Destination in State: {destination or 'None'}
+Latest User Message: "{last_msg}"
 
 Determine:
 1. "intent": One of:
@@ -270,16 +282,8 @@ Determine:
    - "out_of_domain": Non-travel questions.
 
 2. "origin": starting city if transit (e.g. Butwal, Kathmandu).
-3. "destination": target city in Nepal if mentioned (e.g. Dharan, Pokhara, Kathmandu, Chitwan, Mustang).
-4. "extracted_data": JSON with any parameters extracted:
-   - "room_number": room number or title (e.g., "101", "Deluxe Room")
-   - "price_per_night": numeric price in NPR (e.g., 123, 2500)
-   - "room_type": "single" | "double" | "twin" | "family" | "suite"
-   - "capacity": integer guests (default 2)
-   - "dish_name": dish name
-   - "dish_price": numeric price of dish in NPR
-   - "expense_amount": numeric amount in NPR
-   - "expense_category": category
+3. "destination": target city in Nepal if mentioned or implied from conversation history (e.g. Kathmandu, Pokhara, Chitwan, Mustang, Dharan).
+4. "extracted_data": JSON with any parameters extracted (room_number, price_per_night, dish_name, dish_price, expense_amount).
 
 Respond ONLY with valid JSON."""
 
@@ -324,6 +328,33 @@ Respond ONLY with valid JSON."""
                 budget = int(parsed["budget_npr"])
     except Exception as e:
         print("[Supervisor LLM NLU Warning]:", e)
+
+    # Multi-turn Contextual Follow-up Continuity
+    if not destination:
+        if state.get("destination"):
+            destination = state["destination"]
+        elif len(messages) > 1:
+            for prev_m in reversed(messages[:-1]):
+                for city in KNOWN_NEPALI_CITIES:
+                    if re.search(rf"\b{city}\b", prev_m.content.lower()):
+                        destination = city.capitalize()
+                        break
+                if destination:
+                    break
+
+    # If the user gives a short affirmative confirmation ("yes", "sure", "show me", "okay", "yes please")
+    is_affirmative = msg_lower in ["yes", "yeah", "sure", "yep", "ok", "okay", "show me", "yes please", "tell me more", "proceed", "go ahead", "show them"]
+    if is_affirmative and len(messages) > 1:
+        prev_assistant = messages[-2].content.lower()
+        if any(w in prev_assistant for w in ["hotel", "stay", "resort", "accommodation", "hostel", "budget"]):
+            nlu_intent = "hotel_booking"
+            steps.append(f"🧠 Context Continuity: Linked affirmative response to hotel search in {destination or 'Kathmandu'}")
+        elif any(w in prev_assistant for w in ["food", "dish", "restaurant", "eat", "dining", "cuisine"]):
+            nlu_intent = "dining_discovery"
+            steps.append(f"🧠 Context Continuity: Linked affirmative response to dining discovery in {destination or 'Kathmandu'}")
+        elif any(w in prev_assistant for w in ["itinerary", "trip", "day", "days", "schedule"]):
+            nlu_intent = "itinerary_planning"
+            steps.append(f"🧠 Context Continuity: Linked affirmative response to trip itinerary in {destination or 'Nepal'}")
 
     # Fast fallback / Semantic Pattern Reinforcement
     if not origin or not destination:
@@ -1000,8 +1031,13 @@ async def response_synthesis_node(state: TourismAgentState) -> dict[str, Any]:
     steps.append("✨ Multi-Agent Synthesis: Generating comprehensive grounded response")
     tools.append("gemini_synthesis")
 
+    user_name = state.get("user_name") or "Traveler"
+    user_roles = state.get("user_roles") or []
+
     prompt = f"""You are the expert AI Travel Specialist for TravelNepal platform.
 
+Traveler Name: {user_name}
+Traveler Roles: {user_roles}
 User Query: "{last_msg}"
 Detected Language: {lang}
 Detected Intent: {intent}
@@ -1013,15 +1049,17 @@ Budget (NPR): {budget or 'N/A'}
 Verified Database Items: {json.dumps(recs, default=str)}
 
 Guidelines:
-1. If user is asking for vacation suggestions (intent: destination_discovery or no specific city named):
-   - Provide 3-4 top, distinct {days}-day Nepal vacation options (e.g. Option 1: Pokhara Leisure & Sarangkot Sunrise, Option 2: Chitwan Wildlife Safari & Tharu Culture, Option 3: Lower Mustang & Muktinath, Option 4: Kathmandu Heritage & Nagarkot).
-   - For each option, summarize the vibe, why it's perfect for a {days}-day trip, estimated budget in NPR, and best season.
-   - Ask which destination excites them most so you can generate a detailed day-by-day itinerary with hotel bookings.
-2. If multi-day trip planning for a specific destination (e.g. Pokhara, Mustang):
-   - Create a realistic day-by-day plan (Day 1 to Day {days}) with Morning, Afternoon, Evening schedule, local food specialties, and transit advice.
-   - Include realistic estimated cost breakdowns in NPR.
-3. If transit routing: Give realistic distance (~km), travel time, tourist vs local bus fares in NPR, student 45% discount card guidance, and highway rest stops.
-4. Keep all responses well-formatted in rich Markdown with clean headers (###), bold accents, and bullet points.
+1. Greet the traveler naturally using their name ({user_name}) if appropriate, or jump straight into the practical response. Never output template variables like '{{userName}}' or '{{spendingHabit}}'.
+2. If user is searching for hotels (intent: hotel_booking):
+   - Present the verified hotel listings found in {dest} with room types, prices in NPR, and features.
+   - If budget is below typical market rates (e.g. under NPR 1,000 in Kathmandu), realistically explain that verified stays start around NPR 1,500–2,500 and show the closest affordable verified options.
+3. If user is asking for vacation suggestions (intent: destination_discovery or no specific city named):
+   - Provide 3-4 top, distinct {days}-day Nepal vacation options (e.g. Option 1: Pokhara Leisure, Option 2: Chitwan Wildlife Safari, Option 3: Lower Mustang, Option 4: Kathmandu Heritage).
+   - Ask which destination excites them most so you can generate a detailed itinerary.
+4. If multi-day trip planning for a specific destination:
+   - Create a realistic day-by-day plan with Morning, Afternoon, Evening schedule, local food specialties, and estimated cost breakdowns in NPR.
+5. If transit routing: Give realistic distance (~km), travel time, tourist vs local bus fares in NPR, and student 45% discount card guidance.
+6. Keep all responses well-formatted in clean Markdown with headers (###), bold accents, and neat bullet points (•).
 """
 
     generated = ""
