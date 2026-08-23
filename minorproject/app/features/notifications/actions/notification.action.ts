@@ -24,6 +24,7 @@ export interface WorkspaceNotification {
   description: string;
   category: "booking" | "expense" | "hotel" | "restaurant" | "guide" | "system";
   timestamp: string;
+  createdAt: string;
   urgency?: "normal" | "high";
   read: boolean;
   link?: string;
@@ -52,6 +53,12 @@ function formatRelativeTime(date: Date | string | null | undefined): string {
   return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
+function toIsoString(date: Date | string | null | undefined): string {
+  if (!date) return new Date().toISOString();
+  const d = new Date(date);
+  return isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
+}
+
 export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotification[]> {
   try {
     const session = await getServerSession(authOptions);
@@ -61,7 +68,6 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
 
     const userId = Number(session.user.id);
     const userRoles = session.user.roles || (await getUserRoles(userId));
-    const roleNames = userRoles.map((r: { name: string }) => r.name);
     const notifications: WorkspaceNotification[] = [];
 
     // ==========================================
@@ -77,7 +83,6 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
         .limit(1);
 
       if (hotel) {
-        // Approval Status Notification
         if (status === "pending") {
           notifications.push({
             id: `hotel-status-${hotel.id}`,
@@ -85,6 +90,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `Your registration for "${hotel.name}" in ${hotel.municipality}, ${hotel.district} is awaiting Super Admin verification.`,
             category: "hotel",
             timestamp: formatRelativeTime(hotel.createdAt),
+            createdAt: toIsoString(hotel.createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/hotels/pending",
@@ -96,6 +102,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `"${hotel.name}" is approved and publicly listed across the TravelNepal discovery catalog.`,
             category: "hotel",
             timestamp: formatRelativeTime(hotel.updatedAt || hotel.createdAt),
+            createdAt: toIsoString(hotel.updatedAt || hotel.createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/hotels",
@@ -117,6 +124,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `"${hotel.name}" has 0 rooms listed. Add your first room unit so travelers can book stays.`,
             category: "hotel",
             timestamp: "Action Required",
+            createdAt: toIsoString(hotel.createdAt),
             urgency: "high",
             read: false,
             link: "/dashboard/hotels/rooms/new",
@@ -128,6 +136,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `Latest: Room #${rooms[0].roomNumber} (${rooms[0].roomType.toUpperCase()}) listed at NPR ${Number(rooms[0].pricePerNight).toLocaleString()}/night.`,
             category: "hotel",
             timestamp: formatRelativeTime(rooms[0].createdAt),
+            createdAt: toIsoString(rooms[0].createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/hotels/rooms",
@@ -149,6 +158,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `${b.guests} guest(s) booked for NPR ${b.totalAmount.toLocaleString()} (${b.status.toUpperCase()}). Payment: ${b.paymentStatus}.`,
             category: "booking",
             timestamp: formatRelativeTime(b.createdAt),
+            createdAt: toIsoString(b.createdAt),
             urgency: b.status === "pending" ? "high" : "normal",
             read: false,
             link: "/dashboard/hotels",
@@ -177,6 +187,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `Registration for "${rest.name}" is being verified. Operating hours: ${rest.openingTime || "09:00 AM"} - ${rest.closingTime || "10:00 PM"}.`,
             category: "restaurant",
             timestamp: formatRelativeTime(rest.createdAt),
+            createdAt: toIsoString(rest.createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/restaurant/pending",
@@ -188,6 +199,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `"${rest.name}" is verified. Store is currently ${rest.isOpen !== false ? "OPEN" : "CLOSED"}.`,
             category: "restaurant",
             timestamp: formatRelativeTime(rest.updatedAt || rest.createdAt),
+            createdAt: toIsoString(rest.updatedAt || rest.createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/restaurant",
@@ -209,6 +221,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `"${rest.name}" has no menu items yet. Add food items to enable digital menus for diners.`,
             category: "restaurant",
             timestamp: "Setup Required",
+            createdAt: toIsoString(rest.createdAt),
             urgency: "high",
             read: false,
             link: "/dashboard/restaurant/menu",
@@ -220,6 +233,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `Latest Dish: "${menus[0].name}" listed at NPR ${menus[0].price.toLocaleString()}.`,
             category: "restaurant",
             timestamp: formatRelativeTime(menus[0].createdAt),
+            createdAt: toIsoString(menus[0].createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/restaurant/menu",
@@ -241,6 +255,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `Customer: ${ord.customerName} (${ord.orderType || "dine-in"}) • Total: NPR ${ord.totalAmount.toLocaleString()} (${ord.status}).`,
             category: "restaurant",
             timestamp: formatRelativeTime(ord.createdAt),
+            createdAt: toIsoString(ord.createdAt),
             urgency: ord.status === "pending" ? "high" : "normal",
             read: false,
             link: "/dashboard/restaurant/orders",
@@ -269,6 +284,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `Your guide profile and license details are under administrator review.`,
             category: "guide",
             timestamp: formatRelativeTime(guide.createdAt),
+            createdAt: toIsoString(guide.createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/guide/pending",
@@ -289,6 +305,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: "Create your first scenic tour package to start receiving traveler trek bookings.",
             category: "guide",
             timestamp: "Setup",
+            createdAt: toIsoString(guide.createdAt),
             urgency: "high",
             read: false,
             link: "/dashboard/guide/packages",
@@ -300,6 +317,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
             description: `Latest Tour: "${pkgs[0].title}" (${pkgs[0].durationDays} Days, NPR ${pkgs[0].price.toLocaleString()}).`,
             category: "guide",
             timestamp: formatRelativeTime(pkgs[0].createdAt),
+            createdAt: toIsoString(pkgs[0].createdAt),
             urgency: "normal",
             read: false,
             link: "/dashboard/guide/packages",
@@ -325,6 +343,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
           description: `${pendingRoles.length} partner application(s) are awaiting verification in the Super Admin console.`,
           category: "system",
           timestamp: formatRelativeTime(pendingRoles[0].createdAt),
+          createdAt: toIsoString(pendingRoles[0].createdAt),
           urgency: "high",
           read: false,
           link: "/dashboard/admin/approvals",
@@ -349,6 +368,7 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
         description: `Reserved for ${b.guests} guest(s) at NPR ${b.totalAmount.toLocaleString()}. Status: ${b.status.toUpperCase()}.`,
         category: "booking",
         timestamp: formatRelativeTime(b.createdAt),
+        createdAt: toIsoString(b.createdAt),
         urgency: b.status === "pending" ? "high" : "normal",
         read: false,
         link: "/dashboard",
@@ -369,11 +389,19 @@ export async function getLiveWorkspaceNotifications(): Promise<WorkspaceNotifica
         description: `Recorded "${exp.name}" (${exp.type}) in ${exp.location}.`,
         category: "expense",
         timestamp: formatRelativeTime(exp.createdAt),
+        createdAt: toIsoString(exp.createdAt),
         urgency: "normal",
         read: true,
         link: "/dashboard",
       });
     }
+
+    // Sort notifications in chronological order (latest / most recent first)
+    notifications.sort((a, b) => {
+      const timeA = new Date(a.createdAt).getTime();
+      const timeB = new Date(b.createdAt).getTime();
+      return timeB - timeA;
+    });
 
     return notifications;
   } catch (error) {

@@ -51,6 +51,7 @@ export default function PendingApprovalsTable({
   const [filterType, setFilterType] = useState<"all" | "restaurant" | "hotel" | "guide">("all");
   const [search, setSearch] = useState("");
   const [selectedItem, setSelectedItem] = useState<any | null>(null);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   const [isPending, startTransition] = useTransition();
 
@@ -75,6 +76,12 @@ export default function PendingApprovalsTable({
       (item.languages && item.languages.toLowerCase().includes(search.toLowerCase()));
 
     return matchesType && matchesSearch;
+  });
+
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    const timeA = new Date(a.createdAt || a.created_at || a.updatedAt || 0).getTime();
+    const timeB = new Date(b.createdAt || b.created_at || b.updatedAt || 0).getTime();
+    return sortOrder === "asc" ? timeA - timeB : timeB - timeA;
   });
 
   const handleAction = (
@@ -165,11 +172,23 @@ export default function PendingApprovalsTable({
           >
             Tour Guides ({guides.length})
           </button>
+
+          {/* Time Ordering Toggle Button */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
+            className="rounded-full text-xs font-semibold h-8 gap-1 cursor-pointer border-border hover:bg-muted"
+            title={`Toggle Time Sorting: Currently ${sortOrder === "asc" ? "Ascending (Oldest First)" : "Descending (Newest First)"}`}
+          >
+            <Clock3 className="size-3.5 text-primary" />
+            <span>Time: {sortOrder === "asc" ? "Ascending ▴" : "Descending ▾"}</span>
+          </Button>
         </div>
       </div>
 
       {/* Requests List */}
-      {filteredItems.length === 0 ? (
+      {sortedItems.length === 0 ? (
         <Card className="border-dashed bg-muted/10 p-12 text-center rounded-3xl">
           <div className="flex size-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 mx-auto mb-3">
             <CheckCircle2 className="size-7" />
@@ -183,7 +202,7 @@ export default function PendingApprovalsTable({
         </Card>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filteredItems.map((item, index) => (
+          {sortedItems.map((item, index) => (
             <Card
               key={`${item.itemType}-${item.userId}-${item.businessName || ""}-${index}`}
               className="overflow-hidden border shadow-xs hover:border-primary/40 transition-all flex flex-col justify-between rounded-3xl bg-card"

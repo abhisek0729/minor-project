@@ -3,6 +3,8 @@
 import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import {
+  ArrowDownNarrowWide,
+  ArrowUpNarrowWide,
   Bell,
   CheckCheck,
   CheckCircle2,
@@ -34,6 +36,7 @@ export default function NotificationBell() {
   const [notifications, setNotifications] = useState<WorkspaceNotification[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   const fetchNotifications = () => {
     startTransition(async () => {
@@ -46,6 +49,12 @@ export default function NotificationBell() {
     fetchNotifications();
   }, []);
 
+  const sortedNotifications = [...notifications].sort((a, b) => {
+    const timeA = new Date(a.createdAt || 0).getTime();
+    const timeB = new Date(b.createdAt || 0).getTime();
+    return sortOrder === "asc" ? timeA - timeB : timeB - timeA;
+  });
+
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   const markAllAsRead = () => {
@@ -54,6 +63,10 @@ export default function NotificationBell() {
 
   const clearNotifications = () => {
     setNotifications([]);
+  };
+
+  const toggleSortOrder = () => {
+    setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
   };
 
   const getCategoryIcon = (category: WorkspaceNotification["category"], urgency?: string) => {
@@ -109,6 +122,27 @@ export default function NotificationBell() {
             )}
           </div>
           <div className="flex items-center gap-1">
+            {/* Sort Toggle Button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleSortOrder}
+              className="h-7 text-[11px] px-2 text-muted-foreground hover:text-foreground cursor-pointer flex items-center gap-1"
+              title={`Sort by time: ${sortOrder === "asc" ? "Ascending (Oldest First)" : "Descending (Newest First)"}`}
+            >
+              {sortOrder === "asc" ? (
+                <>
+                  <ArrowUpNarrowWide className="size-3.5 text-primary" />
+                  <span className="text-[10px] font-semibold">Asc</span>
+                </>
+              ) : (
+                <>
+                  <ArrowDownNarrowWide className="size-3.5 text-primary" />
+                  <span className="text-[10px] font-semibold">Desc</span>
+                </>
+              )}
+            </Button>
+
             <Button
               variant="ghost"
               size="icon"
@@ -144,6 +178,21 @@ export default function NotificationBell() {
           </div>
         </div>
 
+        {/* Subheader bar showing current sort */}
+        {notifications.length > 1 && (
+          <div className="px-4 py-1.5 bg-muted/20 border-b flex items-center justify-between text-[10px] text-muted-foreground">
+            <span>
+              Order: <strong className="text-foreground">{sortOrder === "asc" ? "Ascending Time (Oldest -> Newest)" : "Descending Time (Newest -> Oldest)"}</strong>
+            </span>
+            <button
+              onClick={toggleSortOrder}
+              className="text-primary hover:underline font-semibold cursor-pointer"
+            >
+              Switch to {sortOrder === "asc" ? "Descending" : "Ascending"}
+            </button>
+          </div>
+        )}
+
         {/* Notifications List */}
         <div className="max-h-[380px] overflow-y-auto divide-y divide-border/50">
           {isPending && notifications.length === 0 ? (
@@ -151,7 +200,7 @@ export default function NotificationBell() {
               <Loader2 className="size-6 animate-spin mx-auto text-primary" />
               <p className="text-xs text-muted-foreground">Checking live workspace status...</p>
             </div>
-          ) : notifications.length === 0 ? (
+          ) : sortedNotifications.length === 0 ? (
             <div className="p-8 text-center space-y-2">
               <div className="size-10 rounded-full bg-muted flex items-center justify-center mx-auto text-muted-foreground">
                 <Bell className="size-5" />
@@ -162,7 +211,7 @@ export default function NotificationBell() {
               </p>
             </div>
           ) : (
-            notifications.map((notif) => (
+            sortedNotifications.map((notif) => (
               <div
                 key={notif.id}
                 className={`p-3.5 flex gap-3 transition-colors ${
