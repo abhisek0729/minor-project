@@ -989,6 +989,10 @@ export default function AIRobotChat() {
                                                         ...m,
                                                         action_proposal: {
                                                           ...m.action_proposal,
+                                                          title: val ? `Add Hotel Room #${val}` : "Add Hotel Room",
+                                                          description: val
+                                                            ? `Publish Room #${val} (${m.action_proposal.payload.room_type || "Double"}) at NPR ${Number(m.action_proposal.payload.price_per_night || 2500).toLocaleString()}/night to your catalog.`
+                                                            : "Publish a new room to your hotel catalog.",
                                                           payload: {
                                                             ...m.action_proposal.payload,
                                                             room_number: val,

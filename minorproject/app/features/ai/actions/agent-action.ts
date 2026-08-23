@@ -416,23 +416,31 @@ export async function executeAgentAction(proposal: AgentProposalPayload) {
           };
         }
 
-        // Query existing rooms for this hotel to prevent duplicate room numbers
-        const existingRooms = await db
-          .select({ roomNumber: roomsTable.roomNumber })
+        const chosenRoomNumber = String(payload.room_number || "").trim();
+        if (!chosenRoomNumber) {
+          return {
+            success: false,
+            message: "Room Number is required. Please specify a room number (e.g. 102, 201) before confirming.",
+          };
+        }
+
+        // Query existing rooms for this hotel to enforce uniqueness
+        const [existing] = await db
+          .select({ id: roomsTable.id, roomNumber: roomsTable.roomNumber })
           .from(roomsTable)
-          .where(eq(roomsTable.hotelId, hotel.id));
+          .where(
+            and(
+              eq(roomsTable.hotelId, hotel.id),
+              eq(roomsTable.roomNumber, chosenRoomNumber)
+            )
+          )
+          .limit(1);
 
-        const existingNumbers = new Set(existingRooms.map((r) => r.roomNumber.trim().toLowerCase()));
-        let chosenRoomNumber = String(payload.room_number || "101").trim();
-
-        // If duplicate room number, auto-increment to next available room number
-        if (existingNumbers.has(chosenRoomNumber.toLowerCase())) {
-          const baseNum = parseInt(chosenRoomNumber.replace(/\D/g, "")) || 101;
-          let candidate = baseNum + 1;
-          while (existingNumbers.has(String(candidate).toLowerCase())) {
-            candidate += 1;
-          }
-          chosenRoomNumber = String(candidate);
+        if (existing) {
+          return {
+            success: false,
+            message: `Room #${chosenRoomNumber} already exists in ${hotel.name}. Please enter a unique room number.`,
+          };
         }
 
         const validTypes = ["single", "double", "twin", "family", "suite"] as const;
