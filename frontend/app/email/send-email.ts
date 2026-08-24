@@ -19,7 +19,9 @@ export async function sendVerificationEmail(
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+    const fromEmail =
+      process.env.RESEND_FROM_EMAIL ||
+      "TravelNepal <noreply@travelnepal.abhisekgupta7.com.np>";
     
     const { data, error } = await resend.emails.send({
       from: fromEmail,
@@ -28,30 +30,30 @@ export async function sendVerificationEmail(
       html: verificationEmailTemplate({ username, verifyCode }),
     });
 
-    // if (error) {
-    //   console.error("Resend API error:", {
-    //     message: error.message,
-    //     name: error.name,
-    //     statusCode: (error as { statusCode?: number }).statusCode,
-    //     details: error,
-    //   });
+    if (error) {
+      console.error("Resend API error:", {
+        message: error.message,
+        name: error.name,
+        statusCode: (error as { statusCode?: number }).statusCode,
+        details: error,
+      });
 
-    //   const resendDevRestriction =
-    //     fromEmail.includes("resend.dev") &&
-    //     email !== "delivered@resend.dev" &&
-    //     email !== "bounced@resend.dev" &&
-    //     email !== "complained@resend.dev" &&
-    //     email !== "suppressed@resend.dev";
+      const resendDevRestriction =
+        fromEmail.includes("resend.dev") &&
+        email !== "delivered@resend.dev" &&
+        email !== "bounced@resend.dev" &&
+        email !== "complained@resend.dev" &&
+        email !== "suppressed@resend.dev";
 
-    //   return {
-    //     success: false,
-    //     message: resendDevRestriction
-    //       ? "Resend test sender can only send to Resend test addresses. Verify your own domain and set RESEND_FROM_EMAIL to a verified sender."
-    //       : `Failed to send verification email. ${error.message}`,
-    //   };
-    // }
+      return {
+        success: false,
+        message: resendDevRestriction
+          ? "Resend test sender can only send to Resend test addresses. Verify your own domain and set RESEND_FROM_EMAIL to a verified sender."
+          : `Failed to send verification email. ${error.message}`,
+      };
+    }
 
-    console.log("Verification email sent successfully to:", email);
+    console.log("Verification email sent successfully to:", email, "Message ID:", data?.id);
     return {
       success: true,
       message: "Verification email sent successfully.",
@@ -85,7 +87,9 @@ export async function sendApprovalNotificationEmail({
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+    const fromEmail =
+      process.env.RESEND_FROM_EMAIL ||
+      "TravelNepal <noreply@travelnepal.abhisekgupta7.com.np>";
     const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
     const dashboardUrl = `${baseUrl}/dashboard`;
 
@@ -111,6 +115,9 @@ export async function sendApprovalNotificationEmail({
       console.error("Failed to send approval email via Resend:", error);
       return { success: false, message: error.message };
     }
+
+    console.log(`[EMAIL] Approval notification email sent to ${email} for ${businessName} (${status}), ID: ${data?.id}`);
+    return { success: true, message: "Approval notification email sent successfully" };
 
     console.log(`[EMAIL] Approval notification email sent to ${email} for ${businessName} (${status})`);
     return { success: true, message: "Approval notification email sent successfully" };
