@@ -11,29 +11,28 @@ interface AuthLayoutProps {
 export default function AuthLayout({
   children,
   showBackground = true,
-  backgroundImage = "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1800&auto=format&fit=crop",
+  backgroundImage = "/images/hero-himalayas.webp",
   overlay = true,
 }: AuthLayoutProps) {
   return (
     <main
-      className={`relative flex min-h-screen items-center justify-center overflow-hidden p-2 ${
-        showBackground ? "" : "bg-background"
-      }`}
+      className={`relative flex min-h-screen items-center justify-center overflow-hidden p-2 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950`}
     >
       {/* Background Image */}
       {showBackground && (
         <>
           <Image
             src={backgroundImage}
-            alt="Beautiful destination in Nepal"
+            alt="Beautiful Himalayas in Nepal"
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            unoptimized={backgroundImage.startsWith("http")}
+            className="object-cover opacity-90"
           />
 
           {overlay && (
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
           )}
         </>
       )}

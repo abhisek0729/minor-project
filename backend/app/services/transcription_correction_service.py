@@ -69,10 +69,18 @@ class TranscriptionCorrectionService:
         if not re.search(r"\w", cleaned_raw) or len(cleaned_raw) <= 1:
             return cleaned_raw, False
 
-        # Fast-path bypass for ultra-short simple greetings to minimize latency
-        if len(cleaned_raw.split()) <= 2 and cleaned_raw.lower() in [
+        import asyncio
+
+        # Fast-path bypass for ultra-short simple greetings and capability questions to minimize latency
+        lower_raw = cleaned_raw.lower()
+        if len(cleaned_raw.split()) <= 2 and lower_raw in [
             "hi", "hello", "hey", "namaste", "good morning", "good evening", "help", "thanks", "thank you"
         ]:
+            return cleaned_raw, False
+
+        if any(p in lower_raw for p in [
+            "what are your capabilities", "your capabilities", "what can you do", "who are you", "features"
+        ]):
             return cleaned_raw, False
 
         # Build prompt for LLM
@@ -82,7 +90,10 @@ class TranscriptionCorrectionService:
 Return only the corrected text:"""
 
         try:
-            corrected = await self.gemini.generate(prompt, system_instruction=CORRECTION_SYSTEM_PROMPT)
+            corrected = await asyncio.wait_for(
+                self.gemini.generate(prompt, system_instruction=CORRECTION_SYSTEM_PROMPT),
+                timeout=2.5
+            )
             if not corrected or not corrected.strip():
                 logger.info(f"[TranscriptionCorrection] Raw transcription: \"{cleaned_raw}\" (Preserved unchanged, empty LLM response)")
                 return cleaned_raw, False
@@ -111,7 +122,7 @@ Return only the corrected text:"""
             return corrected_text, is_modified
 
         except Exception as e:
-            logger.warning(f"[TranscriptionCorrection Error]: {e}. Falling back to raw transcription.")
+            logger.warning(f"[TranscriptionCorrection Error/Timeout]: {e}. Falling back to raw transcription.")
             return cleaned_raw, False
 
 # Global singleton

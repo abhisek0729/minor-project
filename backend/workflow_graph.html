@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelNepal LangGraph Multi-Agent Workflow</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #0b0f19;
+      color: #f8fafc;
+      margin: 0;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 26px;
+      color: #38bdf8;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 14px;
+      margin: 0 0 25px;
+    }
+    .badge {
+      display: inline-block;
+      background: #0369a1;
+      color: #e0f2fe;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .mermaid {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 20px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">LangGraph Hierarchical StateGraph</span>
+    <h1>TravelNepal AI Multi-Agent Workflow</h1>
+    <p>Live compiled architecture with Supervisor NLU, Guardrails, Domain Sub-Agents, and Response Synthesis.</p>
+
+    <div class="mermaid">
+graph TD;
+	__start__([🚀 START]):::first --> supervisor[🧠 supervisor]
+
+	supervisor -.-> destination_discovery_agent[🏔️ destination_discovery_agent]
+	supervisor -.-> dining_discovery_agent[🍽️ dining_discovery_agent]
+	supervisor -.-> emergency_sos_agent[🚨 emergency_sos_agent]
+	supervisor -.-> expense_tracking_agent[💰 expense_tracking_agent]
+	supervisor -.-> hotel_booking_agent[🏨 hotel_booking_agent]
+	supervisor -.-> itinerary_planning_agent[🗺️ itinerary_planning_agent]
+	supervisor -.-> partner_rbac_agent[🏢 partner_rbac_agent]
+	supervisor -.-> transit_route_agent[🚌 transit_route_agent]
+	supervisor -.-> __end__([🏁 END]):::last
+
+	destination_discovery_agent -.-> synthesis[✨ synthesis]
+	destination_discovery_agent -.-> __end__
+
+	dining_discovery_agent -.-> synthesis
+	dining_discovery_agent -.-> __end__
+
+	emergency_sos_agent -.-> synthesis
+	emergency_sos_agent -.-> __end__
+
+	expense_tracking_agent -.-> synthesis
+	expense_tracking_agent -.-> __end__
+
+	hotel_booking_agent -.-> synthesis
+	hotel_booking_agent -.-> __end__
+
+	itinerary_planning_agent -.-> synthesis
+	itinerary_planning_agent -.-> __end__
+
+	partner_rbac_agent -.-> synthesis
+	partner_rbac_agent -.-> __end__
+
+	transit_route_agent -.-> synthesis
+	transit_route_agent -.-> __end__
+
+	synthesis --> __end__
+
+	classDef default fill:#1e293b,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc
+	classDef first fill:#0284c7,stroke:#38bdf8,stroke-width:2px,color:#ffffff
+	classDef last fill:#059669,stroke:#34d399,stroke-width:2px,color:#ffffff
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      flowchart: { curve: 'linear' }
+    });
+  </script>
+</body>
+</html>

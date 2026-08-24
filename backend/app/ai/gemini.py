@@ -3,13 +3,14 @@ from google.genai import types
 from app.core.config import settings
 
 FALLBACK_MODELS = [
-    "gemini-flash-latest",
-    "gemini-3.5-flash",
     "gemini-flash-lite-latest",
-    "gemini-3.7-flash",
     "gemini-3.5-flash-lite",
+    "gemini-3.6-flash",
+    "gemini-3.7-flash",
     "gemma-4-26b-a4b-it",
 ]
+
+import asyncio
 
 class GeminiService:
     def __init__(self):
@@ -27,15 +28,22 @@ class GeminiService:
         # Try models in sequence
         for model_name in list(dict.fromkeys(FALLBACK_MODELS)):
             try:
-                response = await self.client.aio.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                    config=config,
+                response = await asyncio.wait_for(
+                    self.client.aio.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config=config,
+                    ),
+                    timeout=2.5
                 )
-                if response.text:
+                if response and response.text:
                     return response.text
             except Exception as e:
-                print(f"[GeminiService] Model '{model_name}' Notice:", e)
+                err_str = str(e)
+                print(f"[GeminiService] Model '{model_name}' Notice:", err_str[:120])
+                if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
+                    # If project quota is exhausted, stop immediate retry chain to keep response instantaneous
+                    break
                 continue
 
         return ""
@@ -46,19 +54,25 @@ class GeminiService:
         
         for model_name in list(dict.fromkeys(FALLBACK_MODELS)):
             try:
-                response = await self.client.aio.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        response_mime_type="application/json",
-                        response_json_schema=schema,
-                        temperature=0.2,
+                response = await asyncio.wait_for(
+                    self.client.aio.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            response_mime_type="application/json",
+                            response_json_schema=schema,
+                            temperature=0.2,
+                        ),
                     ),
+                    timeout=2.5
                 )
-                if response.text:
+                if response and response.text:
                     return response.text
             except Exception as e:
-                print(f"[GeminiService] JSON Model '{model_name}' Notice:", e)
+                err_str = str(e)
+                print(f"[GeminiService] JSON Model '{model_name}' Notice:", err_str[:120])
+                if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
+                    break
                 continue
 
         return "{}"

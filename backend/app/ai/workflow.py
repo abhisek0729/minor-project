@@ -221,8 +221,56 @@ How may I assist you with your travel plans in Nepal?""",
             "steps_taken": steps + ["🚨 Supervisor: Delegated to Emergency SOS Agent"],
         }
 
-    # 4. PURE CONVERSATIONAL GREETINGS
-    is_pure_greeting = any(re.search(rf"^{g}\b", msg_lower) for g in ["hi", "hello", "hey", "namaste", "what's up", "sup", "greetings"]) and len(msg_lower.split()) <= 4
+    # 4. CAPABILITIES & AGENT INTRODUCTION GUARDRAIL
+    is_capabilities_query = any(
+        phrase in msg_lower for phrase in [
+            "what are your capabilities", "your capabilities", "what can you do",
+            "what do you do", "who are you", "how can you help", "how does this work",
+            "what features", "features of", "tell me about yourself", "what are you",
+            "capabilities", "what is your role", "how to use", "what you can do"
+        ]
+    ) or (msg_lower in ["help", "info", "about", "capabilities", "features"])
+    if is_capabilities_query and not any(city in msg_lower for city in KNOWN_NEPALI_CITIES):
+        steps.append("ℹ️ Supervisor: Answered platform capabilities & travel specialist features")
+        cap_text = """Namaste! 🙏 I am your **TravelNepal AI Voice & Travel Specialist**.
+
+Here is what I can assist you with across Nepal:
+
+🌟 **Core Capabilities & Travel Features:**
+• 🗺️ **Personalized Trip & Itinerary Planner:** Custom multi-day day-by-day schedules (Pokhara, Kathmandu, Chitwan, Mustang, Everest, etc.) with local activities and NPR budget breakdowns.
+• 🏨 **Verified Hotel Search & Booking:** Real-time lookup of verified lodges, resorts, and hotels with live pricing and direct Khalti payment booking.
+• 🍽️ **Authentic Dining & Food Discovery:** Finding local Thakali, Newari, Momo, Sekuwa, and vegetarian/vegan dining spots with prices.
+• 🚌 **Intercity Transit & Highway Routes:** Bus schedules (Tourist AC, Micro HiAce, Deluxe), realistic travel times, fares, and 45% student discount cards.
+• 🧗 **Licensed Guide & Trek Matching:** Finding certified Himalayan trekking guides and porters for safe high-altitude adventures.
+• 💰 **Voice & Text Expense Ledger:** Logging your trip spending, tracking budgets, and categorizing expenses.
+• 🏢 **Partner Workspace Tools:** Hotel & restaurant owners can add rooms, upload menus, and manage listings via conversational commands.
+
+💡 **Try asking me:**
+• *"Plan a 2-day trip to Pokhara under NPR 15,000"*
+• *"Find verified hotels near Lakeside Pokhara"*
+• *"How to travel from Kathmandu to Chitwan by tourist bus?"*
+• *"Discover authentic Thakali restaurants in Kathmandu"*
+• *"Log an expense of NPR 1,200 for lunch"*"""
+        if lang == "ne":
+            cap_text = """नमस्ते! 🙏 म तपाईंको **TravelNepal AI यात्रा सहायक** हुँ।
+
+म नेपालभरिका निम्न सेवाहरूमा तपाईंलाई सहयोग गर्न सक्छु:
+• 🗺️ **यात्रा योजना र तालिका:** पोखरा, काठमाडौं, चितवन, मुस्ताङ आदिको लागि विस्तृत दिनगत योजना।
+• 🏨 **होटल खोजी र बुकिङ:** प्रमाणीकृत होटलहरू र कोठाहरूको प्रत्यक्ष खोजी।
+• 🍽️ **खाना र रेस्टुरेन्ट:** मौलिक थकाली, नेवारी, ममः र सेकुवाका उत्कृष्ट स्थानहरू।
+• 🚌 **बस रुट र भाडा:** पर्यटकीय बस, हाइस र भाडा विवरण (विद्यार्थी ४५% छुट सहित)।
+• 💰 **खर्च व्यवस्थापन:** यात्राको दैनिक खर्च रेकर्ड र ट्र्याकिङ।"""
+        return {
+            "intent": "capabilities",
+            "language": lang,
+            "is_terminal": True,
+            "final_answer": cap_text,
+            "steps_taken": steps,
+            "tools_used": tools + ["capabilities_agent"],
+        }
+
+    # 4.5 PURE CONVERSATIONAL GREETINGS
+    is_pure_greeting = any(re.search(rf"^{g}\b", msg_lower) for g in ["hi", "hello", "hey", "namaste", "what's up", "sup", "greetings", "good morning", "good evening"]) and len(msg_lower.split()) <= 4
     if is_pure_greeting and not any(city in msg_lower for city in KNOWN_NEPALI_CITIES):
         steps.append("👋 Supervisor: Handled conversational greeting")
         greeting_text = """Namaste! 🙏 I am your **TravelNepal AI Voice & Travel Specialist**.
@@ -299,15 +347,17 @@ Determine:
    - "partner_rbac_action": User wants to add, create, or mutate workspace items (hotel owner adding room/hotel, restaurant owner adding dish/menu, guide setting package/availability).
    - "hotel_booking": Traveler searching or booking hotel stays.
    - "dining_discovery": Traveler searching for food, restaurants, or cuisines.
-   - "transit_routing": Traveler asking how to travel between cities, bus routes, bus fares.
-   - "itinerary_planning": Multi-day custom trip schedule for a specific destination.
+   - "transit_routing": Traveler asking explicitly for transportation, bus routes, bus fares between cities.
+   - "itinerary_planning": Multi-day custom trip schedule or vacation plan for a specific destination.
    - "destination_discovery": Open-ended "where should I go in Nepal".
    - "expense_tracking": Logging a travel expense.
    - "out_of_domain": Non-travel questions.
 
 2. "origin": starting city if transit (e.g. Butwal, Kathmandu).
 3. "destination": target city in Nepal if mentioned or implied from conversation history (e.g. Kathmandu, Pokhara, Chitwan, Mustang, Dharan).
-4. "extracted_data": JSON with any parameters extracted (room_number, price_per_night, dish_name, dish_price, expense_amount).
+4. "days": number of days if mentioned (e.g. 2, 3, 5).
+5. "budget_npr": budget in NPR if mentioned.
+6. "extracted_data": JSON with any parameters extracted (room_number, price_per_night, dish_name, dish_price, expense_amount).
 
 Respond ONLY with valid JSON."""
 
@@ -390,6 +440,15 @@ Respond ONLY with valid JSON."""
                     origin = city.capitalize()
                 if c2 == city:
                     destination = city.capitalize()
+        else:
+            to_match = re.search(r"([a-zA-Z]+)\s+to\s+([a-zA-Z]+)", msg_lower)
+            if to_match:
+                c1, c2 = to_match.group(1), to_match.group(2)
+                for city in KNOWN_NEPALI_CITIES:
+                    if c1 == city:
+                        origin = city.capitalize()
+                    if c2 == city:
+                        destination = city.capitalize()
 
     if not destination:
         for city in KNOWN_NEPALI_CITIES:
@@ -454,8 +513,26 @@ Respond ONLY with valid JSON."""
             "steps_taken": steps + ["💰 Supervisor: Delegated to Expense Tracking & Ledger Agent"],
         }
 
-    # C. Transit & Intercity Routing
-    if nlu_intent == "transit_routing" or (origin and destination) or any(t in msg_lower for t in ["how to travel", "how to reach", "how to go", "how do i travel", "bus from", "flight to", "cheapest way to reach", "fastest way to reach", "travel time", "travel by bus", "bus route", "bus fare", "bus ticket"]):
+    # Identify whether this is a Trip Planning / Itinerary request
+    is_trip_plan_request = any(
+        w in msg_lower for w in [
+            "plan", "itinerary", "trip", "tour", "day", "days", "din",
+            "suggest", "visit", "schedule", "guide me for", "vacation", "holiday"
+        ]
+    )
+
+    # Transit-specific keywords (pure transportation / bus / flight)
+    is_transit_specific = any(
+        t in msg_lower for t in [
+            "how to travel", "how to reach", "how to go", "how do i travel",
+            "bus from", "flight to", "cheapest way to reach", "fastest way to reach",
+            "travel time", "travel by bus", "bus route", "bus fare", "bus ticket",
+            "transit route", "transportation from"
+        ]
+    )
+
+    # C. Transit & Intercity Routing (Only when asking for transport without an itinerary request)
+    if (nlu_intent == "transit_routing" or is_transit_specific) and not is_trip_plan_request:
         return {
             "intent": "transit_routing",
             "origin": origin,

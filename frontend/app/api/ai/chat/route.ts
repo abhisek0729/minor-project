@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
     for (const endpoint of endpoints) {
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 6000);
+        const timeoutId = setTimeout(() => controller.abort(), 18000);
 
         const backendResponse = await fetch(endpoint, {
           method: "POST",
@@ -173,24 +173,17 @@ export async function POST(request: NextRequest) {
         recommendations: [
           {
             entity_type: "destination",
-            name: "Bhedetar Hill Station & Namaste Jharana",
-            location: "Dharan, Koshi Province",
-            reason: "Panoramic cool viewpoint and refreshing 80m mountain waterfall.",
+            name: "Lakeside & Phewa Lake",
+            location: "Pokhara, Gandaki Province",
+            reason: "Iconic boating, lakeside promenade, and Annapurna mountain views.",
             url: "/destinations",
           },
           {
             entity_type: "hotel",
-            name: "Hotel Gajur Palace",
-            location: "Dharan, Nepal",
-            reason: "Popular top-rated hotel in central Dharan with mountain views.",
+            name: "Hotel Barahi Pokhara",
+            location: "Lakeside, Pokhara",
+            reason: "Popular top-rated lakeside stay with mountain views.",
             url: "/hotels",
-          },
-          {
-            entity_type: "restaurant",
-            name: "Dharan Sekuwa & Newari Khaja Corner",
-            location: "Bhanu Chowk, Dharan",
-            reason: "Authentic Eastern Nepal sekuwa and spicy aloo dum.",
-            url: "/restaurants",
           },
         ],
         steps_taken: [
@@ -201,31 +194,52 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // 3. Fallback Response if all APIs fail
+    // 3. Dynamic Contextual Offline Fallback (If all APIs fail)
+    const lowerMsg = userMessage.toLowerCase();
+    
+    // Check if query is about capabilities
+    if (/what (are|can) (you|your)|capabilities|features|who are you|help/i.test(lowerMsg)) {
+      return NextResponse.json({
+        answer: `Namaste! 🙏 I am your **TravelNepal AI Voice & Travel Specialist**.\n\n` +
+          `I can help you with:\n` +
+          `• 🗺️ **Custom Itineraries:** Multi-day plans for Pokhara, Kathmandu, Chitwan, Mustang, and more.\n` +
+          `• 🏨 **Verified Hotels:** Finding rooms and booking stays directly via Khalti.\n` +
+          `• 🍽️ **Dining & Menus:** Discovering authentic local Thakali, Newari, and Momo eateries.\n` +
+          `• 🚌 **Transit & Routes:** Bus schedules, tourist coach fares, and travel times.\n` +
+          `• 💰 **Expense Tracking:** Logging and tracking your Nepal travel expenses.`,
+        recommendations: [],
+        steps_taken: ["📋 TravelNepal Knowledge Base: Platform Capabilities"],
+        tools_used: ["knowledge_base"],
+      });
+    }
+
+    // Detect target city for dynamic travel guidance
+    const cityMatch = lowerMsg.match(/\b(pokhara|kathmandu|chitwan|mustang|dharan|lumbini|bhaktapur|patan|nagarkot|bandipur|ilam)\b/i)?.[0];
+    const targetCity = cityMatch ? (cityMatch.charAt(0).toUpperCase() + cityMatch.slice(1).toLowerCase()) : "Pokhara";
+
     return NextResponse.json({
-      answer: `Namaste! 🙏 Here is a quick 3-day travel plan from **Butwal to Dharan**:\n\n` +
-        `• **Route & Transport**: Take a flight from Gautam Buddha Int'l Airport (BWA) to Biratnagar (BIR) or take an AC Deluxe Tourist Bus via East-West Highway (~10 hrs, approx NPR 1,500 - 2,200).\n` +
-        `• **Day 1**: Arrive in Dharan, visit Bhanu Chowk and taste famous Dharane Sekuwa.\n` +
-        `• **Day 2**: Drive up to **Bhedetar Hill Station**, Charles Point, and hike down to **Namaste Waterfall**.\n` +
-        `• **Day 3**: Explore Budha Subba, Dantakali Temple, and Pindeshwor before return.\n\n` +
-        `💰 **Estimated 3-Day Budget**: Approx **NPR 12,000 – 18,000 per person** (including budget/mid-range hotels, local food, and transport).`,
+      answer: `Namaste! 🙏 Here is a curated travel guide for **${targetCity}**:\n\n` +
+        `• **Highlights & Sights**: Explore top scenic viewpoints, local cultural landmarks, and lakeside/heritage walks.\n` +
+        `• **Transport & Arrival**: Easily accessible via tourist deluxe buses or domestic flights.\n` +
+        `• **Suggested Duration**: 2 to 4 Days for a relaxed experience.\n\n` +
+        `💰 **Estimated Budget**: Approx **NPR 4,000 – 7,500 per day** (comfort stays, authentic local dining, and sightseeing).`,
       recommendations: [
         {
           entity_type: "destination",
-          name: "Bhedetar & Namaste Waterfall",
-          location: "Dharan, Koshi Province",
-          reason: "Top viewpoint and mountain waterfall near Dharan",
+          name: `${targetCity} Highlights`,
+          location: `${targetCity}, Nepal`,
+          reason: `Top scenic sights and attractions in ${targetCity}`,
           url: "/destinations",
         },
         {
           entity_type: "hotel",
-          name: "Hotel Gajur Palace / Bhedetar Resorts",
-          location: "Dharan",
-          reason: "Comfortable rooms from NPR 3,000 / night",
+          name: `Verified Stays in ${targetCity}`,
+          location: targetCity,
+          reason: "Comfortable verified rooms with amenities",
           url: "/hotels",
         },
       ],
-      steps_taken: ["📋 Generated itinerary from TravelNepal knowledge base"],
+      steps_taken: [`📋 Generated ${targetCity} guide from TravelNepal knowledge base`],
       tools_used: ["knowledge_base"],
     });
   } catch (err: unknown) {
